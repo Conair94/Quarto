@@ -8,52 +8,11 @@
 <title>Quarto Blog</title>
 <link>https://conair94.github.io/Quarto/</link>
 <atom:link href="https://conair94.github.io/Quarto/index.xml" rel="self" type="application/rss+xml"/>
-<description>Welcome to my blog! I am Connor Lockhart, and this is where I share my academic work, music reviews in a series called Synaptic Static, and other random thoughts.
+<description>Welcome to my blog! I am Connor Lockhart, and this is where I share my academic work, and other thoughts.
 Visit my main website at [conair94.github.io](https://conair94.github.io).
 </description>
 <generator>quarto-1.9.36</generator>
-<lastBuildDate>Wed, 01 Apr 2026 04:00:00 GMT</lastBuildDate>
-<item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://conair94.github.io/Quarto/posts/post-with-code/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is a post with executable code.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://conair94.github.io/Quarto/posts/post-with-code/</guid>
-  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
-  <media:content url="https://conair94.github.io/Quarto/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Initial Random Thoughts</title>
-  <dc:creator>Connor Lockhart</dc:creator>
-  <link>https://conair94.github.io/Quarto/posts/random-thoughts/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>A space for miscellaneous thoughts and reflections. Still deciding on a final name for this category!</p>
-
-
-
- ]]></description>
-  <category>Random Thoughts</category>
-  <guid>https://conair94.github.io/Quarto/posts/random-thoughts/</guid>
-  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
-</item>
+<lastBuildDate>Wed, 01 Apr 2026 00:00:00 GMT</lastBuildDate>
 <item>
   <title>My First Academic Post</title>
   <dc:creator>Connor Lockhart</dc:creator>
@@ -71,27 +30,26 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
  ]]></description>
   <category>Academic Work</category>
   <guid>https://conair94.github.io/Quarto/posts/academic-work/</guid>
-  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+  <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Synaptic Static: Introduction</title>
+  <title>Musings</title>
   <dc:creator>Connor Lockhart</dc:creator>
-  <link>https://conair94.github.io/Quarto/posts/synaptic-static/</link>
+  <link>https://conair94.github.io/Quarto/posts/musings/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>Welcome to Synaptic Static, my series for music reviews. Stay tuned for my first review!</p>
+<p>A space for miscellaneous thoughts and reflections.</p>
 
 
 
  ]]></description>
-  <category>Synaptic Static</category>
-  <category>Music Review</category>
-  <guid>https://conair94.github.io/Quarto/posts/synaptic-static/</guid>
-  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+  <category>Musings</category>
+  <guid>https://conair94.github.io/Quarto/posts/musings/</guid>
+  <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Welcome To My Blog</title>
@@ -112,7 +70,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
  ]]></description>
   <category>news</category>
   <guid>https://conair94.github.io/Quarto/posts/welcome/</guid>
-  <pubDate>Sun, 29 Mar 2026 04:00:00 GMT</pubDate>
+  <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

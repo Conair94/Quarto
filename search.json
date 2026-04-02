@@ -1,33 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Welcome to my personal and academic blog. Here you can find:\n\nAcademic Work: Insights and findings from my ongoing research and studies.\nSynaptic Static: A series of music reviews exploring different genres and styles.\nRandom Thoughts: A space for reflections on various topics.\n\nFor more information about my professional background and projects, please visit my main website at conair94.github.io."
-  },
-  {
-    "objectID": "posts/synaptic-static/index.html",
-    "href": "posts/synaptic-static/index.html",
-    "title": "Synaptic Static: Introduction",
-    "section": "",
-    "text": "Welcome to Synaptic Static, my series for music reviews. Stay tuned for my first review!"
-  },
-  {
-    "objectID": "posts/random-thoughts/index.html",
-    "href": "posts/random-thoughts/index.html",
-    "title": "Initial Random Thoughts",
-    "section": "",
-    "text": "A space for miscellaneous thoughts and reflections. Still deciding on a final name for this category!"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
@@ -44,8 +16,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Quarto Blog",
+    "title": "Synaptic Static",
     "section": "",
-    "text": "Post With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nInitial Random Thoughts\n\n\n\nRandom Thoughts\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nSynaptic Static: Introduction\n\n\n\nSynaptic Static\n\nMusic Review\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "My First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMusings\n\n\n\nMusings\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/musings/index.html",
+    "href": "posts/musings/index.html",
+    "title": "Musings",
+    "section": "",
+    "text": "A space for miscellaneous thoughts and reflections."
   }
 ]
