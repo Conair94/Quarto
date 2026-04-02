@@ -6,14 +6,13 @@ execute:
   freeze: auto
 
 website:
-  title: "Quarto Blog"
+  title: "Synaptic Static"
   description: "Personal and Academic Blog of Connor Lockhart"
   site-url: https://conair94.github.io/Quarto/ # Adjust if you want this as a subfolder
   navbar:
     right:
       - text: Main Website
         href: https://conair94.github.io
-      - about.qmd
       - icon: github
         href: https://github.com/conair94
 
