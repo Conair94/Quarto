@@ -14,15 +14,23 @@ Have you ever wondered if the quarter you just dropped into the laundry machine 
 
 To estimate this, we consider:
 - **$n$**: The total number of quarters you've handled over a period of time.
-- **$N$**: The total pool of quarters in circulation in your local area (e.g., your metro area).
+- **$N$**: The total pool of quarters in circulation in your local area.
 
-The probability $P$ that at least two quarters in your sample of $n$ are the same is given by:
+The true probability $P$ that at least two quarters in your sample of $n$ are the same is given by:
+
+$$P(n, N) = 1 - \prod_{i=0}^{n-1} \left(1 - \frac{i}{N}\right)$$
+
+For very large $N$, we can use the following approximation:
 
 $$P(n, N) \approx 1 - e^{-\frac{n(n-1)}{2N}}$$
 
-For small values of $n^2/2N$, we can use the Taylor series approximation:
+### Estimating the Local Pool ($N$)
 
-$$P(n, N) \approx \frac{n^2}{2N}$$
+Rather than guessing $N$, we can estimate it based on the population. If we know the total number of quarters in the US ($Q_{total}$) and the US population ($Pop_{total}$), we can estimate the local pool for a metro area with population $Pop_{metro}$:
+
+$$N = Q_{total} \times \frac{Pop_{metro}}{Pop_{total}} \times (1 - \text{Loss Rate})$$
+
+The "Loss Rate" accounts for quarters that are "dormant" (in jars or couch cushions) or have been lost to the general economy.
 
 ## Interactive Estimation
 
@@ -32,29 +40,47 @@ Adjust the sliders below to see how your habits and your city's size affect the 
 //| panel: sidebar
 viewof quartersPerWeek = Inputs.range([1, 100], {value: 20, step: 1, label: "Quarters spent/week"})
 viewof years = Inputs.range([0.1, 50], {value: 3, step: 0.1, label: "Years in area"})
-viewof metroPopulation = Inputs.number({value: 1000000, label: "Metro Population (Pool size $N$)"})
+viewof metroPopulation = Inputs.number({value: 1000000, label: "Metro Population"})
+viewof lossRate = Inputs.range([0, 0.99], {value: 0.5, step: 0.01, label: "Loss Rate (Dormant/Lost)"})
 ```
 
 ```{ojs}
 //| panel: fill
+// Constants for 2026
+totalUSQuarters = 65000000000
+totalUSPopulation = 349000000
+
+// Calculations
 n = quartersPerWeek * 52 * years
-prob = 1 - Math.exp(-(n * (n - 1)) / (2 * metroPopulation))
-taylorProb = (n * n) / (2 * metroPopulation)
+N = totalUSQuarters * (metroPopulation / totalUSPopulation) * (1 - lossRate)
+
+// True Probability using log-sum for stability
+function calculateTrueProb(n, N) {
+  if (n > N) return 1;
+  let logProbNot = 0;
+  for (let i = 0; i < n; i++) {
+    logProbNot += Math.log(1 - i / N);
+  }
+  return 1 - Math.exp(logProbNot);
+}
+
+probTrue = calculateTrueProb(n, N)
+probApprox = 1 - Math.exp(-(n * (n - 1)) / (2 * N))
 
 md`
 ### Results
 
+Based on a US total of **65 billion quarters** and a population of **349 million**, your local pool $N$ is estimated at **${d3.format(",")(Math.round(N))}** active quarters.
+
 Over **${years}** years spending **${quartersPerWeek}** quarters a week, you've handled approximately **${d3.format(",")(Math.round(n))}** quarters.
 
-In a pool of **${d3.format(",")(metroPopulation)}** quarters, the probability of having used the same quarter twice is:
+The probability of having used the same quarter twice is:
 
-## ${d3.format(".2%")(prob)}
+## ${d3.format(".4%")(probTrue)}
 
-*(Taylor Series Approximation: ${d3.format(".4%")(taylorProb)})*
+*(Approximation: ${d3.format(".4%")(probApprox)})*
 `
 ```
 
 ### Assumptions
-This model assumes a "perfectly mixed" pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially **increasing** the local probability even further!
-
-What do you think? Does this make you want to start marking your quarters?
+This model assumes a "perfectly mixed" pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially increasing the local probability even further!
