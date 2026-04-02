@@ -44,8 +44,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Quarto Blog",
+    "title": "Synaptic Static",
     "section": "",
-    "text": "Post With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nInitial Random Thoughts\n\n\n\nRandom Thoughts\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nSynaptic Static: Introduction\n\n\n\nSynaptic Static\n\nMusic Review\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "The Laundry Quarter Paradox: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/laundry-quarter-estimation/index.html",
+    "href": "posts/laundry-quarter-estimation/index.html",
+    "title": "The Laundry Quarter Paradox: A Birthday Problem Estimation",
+    "section": "",
+    "text": "Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. A solution can be derived from the same idea as the Generalized Birthday Problem, the odds might be higher than you’d expect."
+  },
+  {
+    "objectID": "posts/laundry-quarter-estimation/index.html#the-math",
+    "href": "posts/laundry-quarter-estimation/index.html#the-math",
+    "title": "The Laundry Quarter Paradox: A Birthday Problem Estimation",
+    "section": "The Math",
+    "text": "The Math\nTo estimate this, we consider: - \\(n\\): The total number of quarters you’ve handled over a period of time. - \\(N\\): The total pool of quarters in circulation in your local area.\nThe true probability \\(P\\) that at least two quarters in your sample of \\(n\\) are the same is given by:\n\\[P(n, N) = 1 - \\prod_{i=0}^{n-1} \\left(1 - \\frac{i}{N}\\right)\\]\nFor very large \\(N\\), we can use the following approximation:\n\\[P(n, N) \\approx 1 - e^{-\\frac{n(n-1)}{2N}}\\]\n\nEstimating the Local Pool (\\(N\\))\nRather than guessing \\(N\\), we can estimate it based on the population. If we know the total number of quarters in the US (\\(Q_{total}\\)) and the US population (\\(Pop_{total}\\)), we can estimate the local pool for a metro area with population \\(Pop_{metro}\\):\n\\[N = Q_{total} \\times \\frac{Pop_{metro}}{Pop_{total}} \\times (1 - \\text{Loss Rate})\\]\nThe “Loss Rate” accounts for quarters that are “dormant” (in jars or couch cushions) or have been lost to the general economy."
+  },
+  {
+    "objectID": "posts/laundry-quarter-estimation/index.html#interactive-estimation",
+    "href": "posts/laundry-quarter-estimation/index.html#interactive-estimation",
+    "title": "The Laundry Quarter Paradox: A Birthday Problem Estimation",
+    "section": "Interactive Estimation",
+    "text": "Interactive Estimation\nAdjust the sliders below to see how your habits and your city’s size affect the likelihood of a “quarter collision.”\n\n\n\nCode\nviewof quartersPerWeek = Inputs.range([1, 100], {value: 20, step: 1, label: \"Quarters spent/week\"})\nviewof years = Inputs.range([0.1, 50], {value: 3, step: 0.1, label: \"Years in area\"})\nviewof metroPopulation = Inputs.number({value: 1000000, label: \"Metro Population\"})\nviewof lossRate = Inputs.range([0, 0.99], {value: 0.5, step: 0.01, label: \"Loss Rate (Dormant/Lost)\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\ntotalUSQuarters = 65000000000\ntotalUSPopulation = 349000000\n\n// Calculations\nn = quartersPerWeek * 52 * years\nN = totalUSQuarters * (metroPopulation / totalUSPopulation) * (1 - lossRate)\n\n// True Probability using log-sum for stability\nfunction calculateTrueProb(n, N) {\n  if (n &gt; N) return 1;\n  let logProbNot = 0;\n  for (let i = 0; i &lt; n; i++) {\n    logProbNot += Math.log(1 - i / N);\n  }\n  return 1 - Math.exp(logProbNot);\n}\n\nprobTrue = calculateTrueProb(n, N)\nprobApprox = 1 - Math.exp(-(n * (n - 1)) / (2 * N))\n\nmd`\n### Results\n\nBased on a US total of **65 billion quarters** and a population of **349 million**, your local pool $N$ is estimated at **${d3.format(\",\")(Math.round(N))}** active quarters.\n\nOver **${years}** years spending **${quartersPerWeek}** quarters a week, you've handled approximately **${d3.format(\",\")(Math.round(n))}** quarters.\n\nThe probability of having used the same quarter twice is:\n\n## ${d3.format(\".4%\")(probTrue)}\n\n*(Approximation: ${d3.format(\".4%\")(probApprox)})*\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssumptions\nThis model assumes a “perfectly mixed” pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially increasing the local probability even further!"
   }
 ]

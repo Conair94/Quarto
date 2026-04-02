@@ -1,1 +1,88 @@
-/* css styles */
+/* Refined Dark Terracotta & Forest Green Theme */
+
+:root {
+  --terracotta: #B35A44;         /* Darker terracotta */
+  --burnt-orange: #8B3103;      /* Deeper burnt orange */
+  --clay: #5D2E24;              /* Deep clay for headers */
+  --sand: #F4EFE6;              /* Slightly more saturated sand background */
+  --deep-clay: #2C1A18;         /* Nearly black clay for text */
+  --forest-green: #2D4C3E;      /* Dark green highlight */
+  --vibrant-green: #3D6B58;     /* Lighter green for hover */
+  --muted-terracotta: #8E5A4E;
+}
+
+body {
+  background-color: var(--sand);
+  color: var(--deep-clay);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--clay);
+  border-bottom: 1px solid rgba(179, 90, 68, 0.1);
+  padding-bottom: 0.2rem;
+}
+
+/* Link and Highlight Colors - Using Green */
+a {
+  color: var(--forest-green);
+  text-decoration: underline decoration-transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--vibrant-green);
+  text-decoration-color: var(--vibrant-green);
+}
+
+/* Navbar Customization */
+.navbar {
+  background-color: var(--clay) !important;
+  border-bottom: 3px solid var(--forest-green);
+}
+
+.navbar-brand, .nav-link {
+  color: #FFFFFF !important;
+}
+
+.nav-link:hover {
+  color: var(--sand) !important;
+  background-color: rgba(45, 76, 62, 0.3);
+  border-radius: 4px;
+}
+
+/* Sidebar and Listings */
+.quarto-title-block .quarto-title-banner {
+  background-color: var(--terracotta) !important;
+  color: #FFFFFF !important;
+  border-bottom: 4px solid var(--forest-green);
+}
+
+.listing-categories .listing-category {
+  background-color: var(--forest-green) !important;
+  color: white !important;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.75rem;
+}
+
+/* Buttons and Inputs (for OJS) */
+button, .btn-primary {
+  background-color: var(--forest-green) !important;
+  border-color: var(--clay) !important;
+  color: white !important;
+}
+
+button:hover, .btn-primary:hover {
+  background-color: var(--vibrant-green) !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--forest-green);
+}
+
+/* Code Blocks */
+div.sourceCode {
+  border-left: 4px solid var(--forest-green);
+  background-color: rgba(244, 239, 230, 0.5);
+}

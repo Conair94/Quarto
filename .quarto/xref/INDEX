@@ -19,5 +19,8 @@
   },
   "about.qmd": {
     "about.html": "299dd06c"
+  },
+  "posts/laundry-quarter-estimation/index.qmd": {
+    "index.html": "e16174b8"
   }
 }
