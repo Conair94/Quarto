@@ -1,78 +1,88 @@
-/* Terracotta Theme for Quarto Blog */
+/* Refined Dark Terracotta & Forest Green Theme */
 
 :root {
-  --terracotta: #E2725B;
-  --burnt-orange: #C04000;
-  --clay: #8E402A;
-  --sand: #FAF7F2;
-  --deep-clay: #4A2C2A;
-  --muted-terracotta: #D38E7D;
+  --terracotta: #B35A44;         /* Darker terracotta */
+  --burnt-orange: #8B3103;      /* Deeper burnt orange */
+  --clay: #5D2E24;              /* Deep clay for headers */
+  --sand: #F4EFE6;              /* Slightly more saturated sand background */
+  --deep-clay: #2C1A18;         /* Nearly black clay for text */
+  --forest-green: #2D4C3E;      /* Dark green highlight */
+  --vibrant-green: #3D6B58;     /* Lighter green for hover */
+  --muted-terracotta: #8E5A4E;
 }
 
 body {
   background-color: var(--sand);
   color: var(--deep-clay);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--clay);
-  font-weight: 700;
+  border-bottom: 1px solid rgba(179, 90, 68, 0.1);
+  padding-bottom: 0.2rem;
 }
 
+/* Link and Highlight Colors - Using Green */
 a {
-  color: var(--burnt-orange);
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
+  color: var(--forest-green);
+  text-decoration: underline decoration-transparent;
+  transition: all 0.2s ease-in-out;
 }
 
 a:hover {
-  color: var(--terracotta);
-  text-decoration: underline;
+  color: var(--vibrant-green);
+  text-decoration-color: var(--vibrant-green);
 }
 
 /* Navbar Customization */
 .navbar {
   background-color: var(--clay) !important;
-  border-bottom: 2px solid var(--burnt-orange);
+  border-bottom: 3px solid var(--forest-green);
 }
 
 .navbar-brand, .nav-link {
-  color: white !important;
+  color: #FFFFFF !important;
 }
 
 .nav-link:hover {
-  color: var(--muted-terracotta) !important;
+  color: var(--sand) !important;
+  background-color: rgba(45, 76, 62, 0.3);
+  border-radius: 4px;
 }
 
 /* Sidebar and Listings */
 .quarto-title-block .quarto-title-banner {
   background-color: var(--terracotta) !important;
-  color: white !important;
+  color: #FFFFFF !important;
+  border-bottom: 4px solid var(--forest-green);
 }
 
 .listing-categories .listing-category {
-  background-color: var(--muted-terracotta) !important;
+  background-color: var(--forest-green) !important;
   color: white !important;
   border: none;
+  border-radius: 3px;
+  font-size: 0.75rem;
 }
 
 /* Buttons and Inputs (for OJS) */
 button, .btn-primary {
-  background-color: var(--terracotta) !important;
-  border-color: var(--burnt-orange) !important;
+  background-color: var(--forest-green) !important;
+  border-color: var(--clay) !important;
   color: white !important;
 }
 
 button:hover, .btn-primary:hover {
-  background-color: var(--burnt-orange) !important;
+  background-color: var(--vibrant-green) !important;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  background: var(--clay);
+  background: var(--forest-green);
 }
 
 /* Code Blocks */
 div.sourceCode {
-  border-left: 3px solid var(--terracotta);
+  border-left: 4px solid var(--forest-green);
+  background-color: rgba(244, 239, 230, 0.5);
 }
