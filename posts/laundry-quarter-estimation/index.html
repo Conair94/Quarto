@@ -223,11 +223,17 @@ window.Quarto = {
 <p>Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. It sounds like a needle-in-a-haystack scenario, but when we look at it through the lens of the <strong>Generalized Birthday Problem</strong>, the odds might be higher than you’d expect.</p>
 <section id="the-math" class="level2">
 <h2 class="anchored" data-anchor-id="the-math">The Math</h2>
-<p>To estimate this, we consider: - <strong><span class="math inline">\(n\)</span></strong>: The total number of quarters you’ve handled over a period of time. - <strong><span class="math inline">\(N\)</span></strong>: The total pool of quarters in circulation in your local area (e.g., your metro area).</p>
-<p>The probability <span class="math inline">\(P\)</span> that at least two quarters in your sample of <span class="math inline">\(n\)</span> are the same is given by:</p>
+<p>To estimate this, we consider: - <strong><span class="math inline">\(n\)</span></strong>: The total number of quarters you’ve handled over a period of time. - <strong><span class="math inline">\(N\)</span></strong>: The total pool of quarters in circulation in your local area.</p>
+<p>The true probability <span class="math inline">\(P\)</span> that at least two quarters in your sample of <span class="math inline">\(n\)</span> are the same is given by:</p>
+<p><span class="math display">\[P(n, N) = 1 - \prod_{i=0}^{n-1} \left(1 - \frac{i}{N}\right)\]</span></p>
+<p>For very large <span class="math inline">\(N\)</span>, we can use the following approximation:</p>
 <p><span class="math display">\[P(n, N) \approx 1 - e^{-\frac{n(n-1)}{2N}}\]</span></p>
-<p>For small values of <span class="math inline">\(n^2/2N\)</span>, we can use the Taylor series approximation:</p>
-<p><span class="math display">\[P(n, N) \approx \frac{n^2}{2N}\]</span></p>
+<section id="estimating-the-local-pool-n" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-local-pool-n">Estimating the Local Pool (<span class="math inline">\(N\)</span>)</h3>
+<p>Rather than guessing <span class="math inline">\(N\)</span>, we can estimate it based on the population. If we know the total number of quarters in the US (<span class="math inline">\(Q_{total}\)</span>) and the US population (<span class="math inline">\(Pop_{total}\)</span>), we can estimate the local pool for a metro area with population <span class="math inline">\(Pop_{metro}\)</span>:</p>
+<p><span class="math display">\[N = Q_{total} \times \frac{Pop_{metro}}{Pop_{total}} \times (1 - \text{Loss Rate})\]</span></p>
+<p>The “Loss Rate” accounts for quarters that are “dormant” (in jars or couch cushions) or have been lost to the general economy.</p>
+</section>
 </section>
 <section id="interactive-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
@@ -236,9 +242,10 @@ window.Quarto = {
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="33" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>viewof quartersPerWeek <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Quarters spent/week"</span>})</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>viewof years <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Years in area"</span>})</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>viewof metroPopulation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">value</span><span class="op">:</span> <span class="dv">1000000</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Metro Population (Pool size $N$)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="41" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 40;"><span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>viewof quartersPerWeek <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Quarters spent/week"</span>})</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>viewof years <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Years in area"</span>})</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>viewof metroPopulation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">value</span><span class="op">:</span> <span class="dv">1000000</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Metro Population"</span>})</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>viewof lossRate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.99</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Loss Rate (Dormant/Lost)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -261,27 +268,52 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
 </div>
 <div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
 <div class="g-col-24">
 <div class="cell panel-fill">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="40" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 39;"><span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> quartersPerWeek <span class="op">*</span> <span class="dv">52</span> <span class="op">*</span> years</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>(n <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> metroPopulation))</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>taylorProb <span class="op">=</span> (n <span class="op">*</span> n) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> metroPopulation)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="vs">### Results</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="vs">Over **</span><span class="sc">${</span>years<span class="sc">}</span><span class="vs">** years spending **</span><span class="sc">${</span>quartersPerWeek<span class="sc">}</span><span class="vs">** quarters a week, you've handled approximately **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(n))<span class="sc">}</span><span class="vs">** quarters.</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="vs">In a pool of **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(metroPopulation)<span class="sc">}</span><span class="vs">** quarters, the probability of having used the same quarter twice is:</span></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="vs">## </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2%"</span>)(prob)<span class="sc">}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="50" data-source-offset="-22"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 49;"><span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>totalUSQuarters <span class="op">=</span> <span class="dv">65000000000</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>totalUSPopulation <span class="op">=</span> <span class="dv">349000000</span></span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="vs">*(Taylor Series Approximation: </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".4%"</span>)(taylorProb)<span class="sc">}</span><span class="vs">)*</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="co">// Calculations</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> quartersPerWeek <span class="op">*</span> <span class="dv">52</span> <span class="op">*</span> years</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> totalUSQuarters <span class="op">*</span> (metroPopulation <span class="op">/</span> totalUSPopulation) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> lossRate)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">// True Probability using log-sum for stability</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculateTrueProb</span>(n<span class="op">,</span> N) {</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="op">&gt;</span> N) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> logProbNot <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    logProbNot <span class="op">+=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> i <span class="op">/</span> N)<span class="op">;</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(logProbNot)<span class="op">;</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>probTrue <span class="op">=</span> <span class="fu">calculateTrueProb</span>(n<span class="op">,</span> N)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>probApprox <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>(n <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> N))</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="vs">### Results</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="vs">Based on a US total of **65 billion quarters** and a population of **349 million**, your local pool $N$ is estimated at **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(N))<span class="sc">}</span><span class="vs">** active quarters.</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="vs">Over **</span><span class="sc">${</span>years<span class="sc">}</span><span class="vs">** years spending **</span><span class="sc">${</span>quartersPerWeek<span class="sc">}</span><span class="vs">** quarters a week, you've handled approximately **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(n))<span class="sc">}</span><span class="vs">** quarters.</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="vs">The probability of having used the same quarter twice is:</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="vs">## </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".4%"</span>)(probTrue)<span class="sc">}</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="vs">*(Approximation: </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".4%"</span>)(probApprox)<span class="sc">}</span><span class="vs">)*</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -306,7 +338,35 @@ window.Quarto = {
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-2-4" data-nodetype="expression">
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-8" data-nodetype="expression">
 
 </div>
 </div>
@@ -317,8 +377,7 @@ window.Quarto = {
 </div>
 <section id="assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
-<p>This model assumes a “perfectly mixed” pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially <strong>increasing</strong> the local probability even further!</p>
-<p>What do you think? Does this make you want to start marking your quarters?</p>
+<p>This model assumes a “perfectly mixed” pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially increasing the local probability even further!</p>
 
 
 </section>
@@ -326,7 +385,7 @@ window.Quarto = {
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBxdWFydGVyc1BlcldlZWsgPSBJbnB1dHMucmFuZ2UoWzEsIDEwMF0sIHt2YWx1ZTogMjAsIHN0ZXA6IDEsIGxhYmVsOiBcIlF1YXJ0ZXJzIHNwZW50L3dlZWtcIn0pXG52aWV3b2YgeWVhcnMgPSBJbnB1dHMucmFuZ2UoWzAuMSwgNTBdLCB7dmFsdWU6IDMsIHN0ZXA6IDAuMSwgbGFiZWw6IFwiWWVhcnMgaW4gYXJlYVwifSlcbnZpZXdvZiBtZXRyb1BvcHVsYXRpb24gPSBJbnB1dHMubnVtYmVyKHt2YWx1ZTogMTAwMDAwMCwgbGFiZWw6IFwiTWV0cm8gUG9wdWxhdGlvbiAoUG9vbCBzaXplICROJClcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJuID0gcXVhcnRlcnNQZXJXZWVrICogNTIgKiB5ZWFyc1xucHJvYiA9IDEgLSBNYXRoLmV4cCgtKG4gKiAobiAtIDEpKSAvICgyICogbWV0cm9Qb3B1bGF0aW9uKSlcbnRheWxvclByb2IgPSAobiAqIG4pIC8gKDIgKiBtZXRyb1BvcHVsYXRpb24pXG5cbm1kYFxuIyMjIFJlc3VsdHNcblxuT3ZlciAqKiR7eWVhcnN9KiogeWVhcnMgc3BlbmRpbmcgKioke3F1YXJ0ZXJzUGVyV2Vla30qKiBxdWFydGVycyBhIHdlZWssIHlvdSd2ZSBoYW5kbGVkIGFwcHJveGltYXRlbHkgKioke2QzLmZvcm1hdChcIixcIikoTWF0aC5yb3VuZChuKSl9KiogcXVhcnRlcnMuXG5cbkluIGEgcG9vbCBvZiAqKiR7ZDMuZm9ybWF0KFwiLFwiKShtZXRyb1BvcHVsYXRpb24pfSoqIHF1YXJ0ZXJzLCB0aGUgcHJvYmFiaWxpdHkgb2YgaGF2aW5nIHVzZWQgdGhlIHNhbWUgcXVhcnRlciB0d2ljZSBpczpcblxuIyMgJHtkMy5mb3JtYXQoXCIuMiVcIikocHJvYil9XG5cbiooVGF5bG9yIFNlcmllcyBBcHByb3hpbWF0aW9uOiAke2QzLmZvcm1hdChcIi40JVwiKSh0YXlsb3JQcm9iKX0pKlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdxdWFydGVyc1BlcldlZWsnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgneWVhcnMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWV0cm9Qb3B1bGF0aW9uJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBxdWFydGVyc1BlcldlZWsgPSBJbnB1dHMucmFuZ2UoWzEsIDEwMF0sIHt2YWx1ZTogMjAsIHN0ZXA6IDEsIGxhYmVsOiBcIlF1YXJ0ZXJzIHNwZW50L3dlZWtcIn0pXG52aWV3b2YgeWVhcnMgPSBJbnB1dHMucmFuZ2UoWzAuMSwgNTBdLCB7dmFsdWU6IDMsIHN0ZXA6IDAuMSwgbGFiZWw6IFwiWWVhcnMgaW4gYXJlYVwifSlcbnZpZXdvZiBtZXRyb1BvcHVsYXRpb24gPSBJbnB1dHMubnVtYmVyKHt2YWx1ZTogMTAwMDAwMCwgbGFiZWw6IFwiTWV0cm8gUG9wdWxhdGlvblwifSlcbnZpZXdvZiBsb3NzUmF0ZSA9IElucHV0cy5yYW5nZShbMCwgMC45OV0sIHt2YWx1ZTogMC41LCBzdGVwOiAwLjAxLCBsYWJlbDogXCJMb3NzIFJhdGUgKERvcm1hbnQvTG9zdClcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBDb25zdGFudHMgZm9yIDIwMjZcbnRvdGFsVVNRdWFydGVycyA9IDY1MDAwMDAwMDAwXG50b3RhbFVTUG9wdWxhdGlvbiA9IDM0OTAwMDAwMFxuXG4vLyBDYWxjdWxhdGlvbnNcbm4gPSBxdWFydGVyc1BlcldlZWsgKiA1MiAqIHllYXJzXG5OID0gdG90YWxVU1F1YXJ0ZXJzICogKG1ldHJvUG9wdWxhdGlvbiAvIHRvdGFsVVNQb3B1bGF0aW9uKSAqICgxIC0gbG9zc1JhdGUpXG5cbi8vIFRydWUgUHJvYmFiaWxpdHkgdXNpbmcgbG9nLXN1bSBmb3Igc3RhYmlsaXR5XG5mdW5jdGlvbiBjYWxjdWxhdGVUcnVlUHJvYihuLCBOKSB7XG4gIGlmIChuID4gTikgcmV0dXJuIDE7XG4gIGxldCBsb2dQcm9iTm90ID0gMDtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBuOyBpKyspIHtcbiAgICBsb2dQcm9iTm90ICs9IE1hdGgubG9nKDEgLSBpIC8gTik7XG4gIH1cbiAgcmV0dXJuIDEgLSBNYXRoLmV4cChsb2dQcm9iTm90KTtcbn1cblxucHJvYlRydWUgPSBjYWxjdWxhdGVUcnVlUHJvYihuLCBOKVxucHJvYkFwcHJveCA9IDEgLSBNYXRoLmV4cCgtKG4gKiAobiAtIDEpKSAvICgyICogTikpXG5cbm1kYFxuIyMjIFJlc3VsdHNcblxuQmFzZWQgb24gYSBVUyB0b3RhbCBvZiAqKjY1IGJpbGxpb24gcXVhcnRlcnMqKiBhbmQgYSBwb3B1bGF0aW9uIG9mICoqMzQ5IG1pbGxpb24qKiwgeW91ciBsb2NhbCBwb29sICROJCBpcyBlc3RpbWF0ZWQgYXQgKioke2QzLmZvcm1hdChcIixcIikoTWF0aC5yb3VuZChOKSl9KiogYWN0aXZlIHF1YXJ0ZXJzLlxuXG5PdmVyICoqJHt5ZWFyc30qKiB5ZWFycyBzcGVuZGluZyAqKiR7cXVhcnRlcnNQZXJXZWVrfSoqIHF1YXJ0ZXJzIGEgd2VlaywgeW91J3ZlIGhhbmRsZWQgYXBwcm94aW1hdGVseSAqKiR7ZDMuZm9ybWF0KFwiLFwiKShNYXRoLnJvdW5kKG4pKX0qKiBxdWFydGVycy5cblxuVGhlIHByb2JhYmlsaXR5IG9mIGhhdmluZyB1c2VkIHRoZSBzYW1lIHF1YXJ0ZXIgdHdpY2UgaXM6XG5cbiMjICR7ZDMuZm9ybWF0KFwiLjQlXCIpKHByb2JUcnVlKX1cblxuKihBcHByb3hpbWF0aW9uOiAke2QzLmZvcm1hdChcIi40JVwiKShwcm9iQXBwcm94KX0pKlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdxdWFydGVyc1BlcldlZWsnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgneWVhcnMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWV0cm9Qb3B1bGF0aW9uJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2xvc3NSYXRlJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
