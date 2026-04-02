@@ -4,7 +4,7 @@
     "href": "posts/laundry-quarter-estimation/index.html",
     "title": "The Laundry Quarter Paradox: A Birthday Problem Estimation",
     "section": "",
-    "text": "Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. It sounds like a needle-in-a-haystack scenario, but when we look at it through the lens of the Generalized Birthday Problem, the odds might be higher than you’d expect."
+    "text": "Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. A solution can be derived from the same idea as the Generalized Birthday Problem, the odds might be higher than you’d expect."
   },
   {
     "objectID": "posts/laundry-quarter-estimation/index.html#the-math",
