@@ -1,8 +1,0 @@
----
-title: "Synaptic Static: Introduction"
-author: "Connor Lockhart"
-date: "2026-04-01"
-categories: ["Synaptic Static", "Music Review"]
----
-
-Welcome to Synaptic Static, my series for music reviews. Stay tuned for my first review!

@@ -1,0 +1,8 @@
+---
+title: "Musings"
+author: "Connor Lockhart"
+date: "2026-04-01"
+categories: ["Musings"]
+---
+
+A space for miscellaneous thoughts and reflections.
