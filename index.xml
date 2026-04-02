@@ -33,22 +33,339 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
   <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Musings</title>
+  <title>The Laundry Quarter Paradox: A Birthday Problem Estimation</title>
   <dc:creator>Connor Lockhart</dc:creator>
-  <link>https://conair94.github.io/Quarto/posts/musings/</link>
+  <link>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>A space for miscellaneous thoughts and reflections.</p>
+<p>Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. It sounds like a needle-in-a-haystack scenario, but when we look at it through the lens of the <strong>Generalized Birthday Problem</strong>, the odds might be higher than you’d expect.</p>
+<section id="the-math" class="level2">
+<h2 class="anchored" data-anchor-id="the-math">The Math</h2>
+<p>To estimate this, we consider: - <strong><img src="https://latex.codecogs.com/png.latex?n"></strong>: The total number of quarters you’ve handled over a period of time. - <strong><img src="https://latex.codecogs.com/png.latex?N"></strong>: The total pool of quarters in circulation in your local area (e.g., your metro area).</p>
+<p>The probability <img src="https://latex.codecogs.com/png.latex?P"> that at least two quarters in your sample of <img src="https://latex.codecogs.com/png.latex?n"> are the same is given by:</p>
+<p><img src="https://latex.codecogs.com/png.latex?P(n,%20N)%20%5Capprox%201%20-%20e%5E%7B-%5Cfrac%7Bn(n-1)%7D%7B2N%7D%7D"></p>
+<p>For small values of <img src="https://latex.codecogs.com/png.latex?n%5E2/2N">, we can use the Taylor series approximation:</p>
+<p><img src="https://latex.codecogs.com/png.latex?P(n,%20N)%20%5Capprox%20%5Cfrac%7Bn%5E2%7D%7B2N%7D"></p>
+</section>
+<section id="interactive-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
+<p>Adjust the sliders below to see how your habits and your city’s size affect the likelihood of a “quarter collision.”</p>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="33" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33">viewof quartersPerWeek <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Quarters spent/week"</span>})</span>
+<span id="cb1-34">viewof years <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Years in area"</span>})</span>
+<span id="cb1-35">viewof metroPopulation <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">number</span>({<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000000</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Metro Population (Pool size $N$)"</span>})</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="40" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 39;"><span id="cb2-40">n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> quartersPerWeek <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">52</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> years</span>
+<span id="cb2-41">prob <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>(n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> metroPopulation))</span>
+<span id="cb2-42">taylorProb <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (n <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> n) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> metroPopulation)</span>
+<span id="cb2-43"></span>
+<span id="cb2-44"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span>
+<span id="cb2-45"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">### Results</span></span>
+<span id="cb2-46"></span>
+<span id="cb2-47"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">Over **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>years<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** years spending **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>quartersPerWeek<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** quarters a week, you've handled approximately **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">","</span>)(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">round</span>(n))<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** quarters.</span></span>
+<span id="cb2-48"></span>
+<span id="cb2-49"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">In a pool of **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">","</span>)(metroPopulation)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** quarters, the probability of having used the same quarter twice is:</span></span>
+<span id="cb2-50"></span>
+<span id="cb2-51"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">## </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".2%"</span>)(prob)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-52"></span>
+<span id="cb2-53"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">*(Taylor Series Approximation: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".4%"</span>)(taylorProb)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">)*</span></span>
+<span id="cb2-54"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<p>This model assumes a “perfectly mixed” pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially <strong>increasing</strong> the local probability even further!</p>
+<p>What do you think? Does this make you want to start marking your quarters?</p>
 
 
+</section>
+</section>
 
  ]]></description>
   <category>Musings</category>
-  <guid>https://conair94.github.io/Quarto/posts/musings/</guid>
+  <category>Estimations</category>
+  <guid>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/</guid>
   <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>

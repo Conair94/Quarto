@@ -9,7 +9,7 @@
 <meta name="author" content="Connor Lockhart">
 <meta name="dcterms.date" content="2026-04-01">
 
-<title>Musings – Quarto Blog</title>
+<title>The Laundry Quarter Paradox: A Birthday Problem Estimation – Quarto Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +107,38 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -119,9 +185,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Musings</h1>
+      <h1 class="title">The Laundry Quarter Paradox: A Birthday Problem Estimation</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Musings</div>
+                <div class="quarto-category">Estimations</div>
               </div>
                   </div>
   </div>
@@ -158,11 +225,122 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>A space for miscellaneous thoughts and reflections.</p>
+<p>Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. It sounds like a needle-in-a-haystack scenario, but when we look at it through the lens of the <strong>Generalized Birthday Problem</strong>, the odds might be higher than you’d expect.</p>
+<section id="the-math" class="level2">
+<h2 class="anchored" data-anchor-id="the-math">The Math</h2>
+<p>To estimate this, we consider: - <strong><span class="math inline">\(n\)</span></strong>: The total number of quarters you’ve handled over a period of time. - <strong><span class="math inline">\(N\)</span></strong>: The total pool of quarters in circulation in your local area (e.g., your metro area).</p>
+<p>The probability <span class="math inline">\(P\)</span> that at least two quarters in your sample of <span class="math inline">\(n\)</span> are the same is given by:</p>
+<p><span class="math display">\[P(n, N) \approx 1 - e^{-\frac{n(n-1)}{2N}}\]</span></p>
+<p>For small values of <span class="math inline">\(n^2/2N\)</span>, we can use the Taylor series approximation:</p>
+<p><span class="math display">\[P(n, N) \approx \frac{n^2}{2N}\]</span></p>
+</section>
+<section id="interactive-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
+<p>Adjust the sliders below to see how your habits and your city’s size affect the likelihood of a “quarter collision.”</p>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="33" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>viewof quartersPerWeek <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Quarters spent/week"</span>})</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>viewof years <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Years in area"</span>})</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>viewof metroPopulation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">value</span><span class="op">:</span> <span class="dv">1000000</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Metro Population (Pool size $N$)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="40" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 39;"><span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> quartersPerWeek <span class="op">*</span> <span class="dv">52</span> <span class="op">*</span> years</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>(n <span class="op">*</span> (n <span class="op">-</span> <span class="dv">1</span>)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> metroPopulation))</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>taylorProb <span class="op">=</span> (n <span class="op">*</span> n) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> metroPopulation)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="vs">### Results</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="vs">Over **</span><span class="sc">${</span>years<span class="sc">}</span><span class="vs">** years spending **</span><span class="sc">${</span>quartersPerWeek<span class="sc">}</span><span class="vs">** quarters a week, you've handled approximately **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(<span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(n))<span class="sc">}</span><span class="vs">** quarters.</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="vs">In a pool of **</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">","</span>)(metroPopulation)<span class="sc">}</span><span class="vs">** quarters, the probability of having used the same quarter twice is:</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="vs">## </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2%"</span>)(prob)<span class="sc">}</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="vs">*(Taylor Series Approximation: </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".4%"</span>)(taylorProb)<span class="sc">}</span><span class="vs">)*</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<p>This model assumes a “perfectly mixed” pool where every quarter in the metro area has an equal chance of landing in your pocket. In reality, quarters might cluster in local businesses or laundromats, potentially <strong>increasing</strong> the local probability even further!</p>
+<p>What do you think? Does this make you want to start marking your quarters?</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBxdWFydGVyc1BlcldlZWsgPSBJbnB1dHMucmFuZ2UoWzEsIDEwMF0sIHt2YWx1ZTogMjAsIHN0ZXA6IDEsIGxhYmVsOiBcIlF1YXJ0ZXJzIHNwZW50L3dlZWtcIn0pXG52aWV3b2YgeWVhcnMgPSBJbnB1dHMucmFuZ2UoWzAuMSwgNTBdLCB7dmFsdWU6IDMsIHN0ZXA6IDAuMSwgbGFiZWw6IFwiWWVhcnMgaW4gYXJlYVwifSlcbnZpZXdvZiBtZXRyb1BvcHVsYXRpb24gPSBJbnB1dHMubnVtYmVyKHt2YWx1ZTogMTAwMDAwMCwgbGFiZWw6IFwiTWV0cm8gUG9wdWxhdGlvbiAoUG9vbCBzaXplICROJClcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJuID0gcXVhcnRlcnNQZXJXZWVrICogNTIgKiB5ZWFyc1xucHJvYiA9IDEgLSBNYXRoLmV4cCgtKG4gKiAobiAtIDEpKSAvICgyICogbWV0cm9Qb3B1bGF0aW9uKSlcbnRheWxvclByb2IgPSAobiAqIG4pIC8gKDIgKiBtZXRyb1BvcHVsYXRpb24pXG5cbm1kYFxuIyMjIFJlc3VsdHNcblxuT3ZlciAqKiR7eWVhcnN9KiogeWVhcnMgc3BlbmRpbmcgKioke3F1YXJ0ZXJzUGVyV2Vla30qKiBxdWFydGVycyBhIHdlZWssIHlvdSd2ZSBoYW5kbGVkIGFwcHJveGltYXRlbHkgKioke2QzLmZvcm1hdChcIixcIikoTWF0aC5yb3VuZChuKSl9KiogcXVhcnRlcnMuXG5cbkluIGEgcG9vbCBvZiAqKiR7ZDMuZm9ybWF0KFwiLFwiKShtZXRyb1BvcHVsYXRpb24pfSoqIHF1YXJ0ZXJzLCB0aGUgcHJvYmFiaWxpdHkgb2YgaGF2aW5nIHVzZWQgdGhlIHNhbWUgcXVhcnRlciB0d2ljZSBpczpcblxuIyMgJHtkMy5mb3JtYXQoXCIuMiVcIikocHJvYil9XG5cbiooVGF5bG9yIFNlcmllcyBBcHByb3hpbWF0aW9uOiAke2QzLmZvcm1hdChcIi40JVwiKSh0YXlsb3JQcm9iKX0pKlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdxdWFydGVyc1BlcldlZWsnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgneWVhcnMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbWV0cm9Qb3B1bGF0aW9uJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts/laundry-quarter-estimation";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
