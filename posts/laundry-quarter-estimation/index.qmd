@@ -1,5 +1,5 @@
 ---
-title: "The Laundry Quarter Paradox: A Birthday Problem Estimation"
+title: "The Laundry Quarter Recurrence: A Birthday Problem Estimation"
 author: "Connor Lockhart"
 date: "2026-04-01"
 categories: ["Musings", "Estimations"]
