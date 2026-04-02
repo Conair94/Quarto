@@ -1,13 +1,13 @@
-/* Refined Dark Terracotta & Forest Green Theme */
+/* Refined Dark Terracotta & Deep Forest Green Theme */
 
 :root {
-  --terracotta: #B35A44;         /* Darker terracotta */
+  --terracotta: #B35A44;         /* Dark terracotta */
   --burnt-orange: #8B3103;      /* Deeper burnt orange */
-  --clay: #5D2E24;              /* Deep clay for headers */
-  --sand: #F4EFE6;              /* Slightly more saturated sand background */
-  --deep-clay: #2C1A18;         /* Nearly black clay for text */
-  --forest-green: #2D4C3E;      /* Dark green highlight */
-  --vibrant-green: #3D6B58;     /* Lighter green for hover */
+  --clay: #3D1F18;              /* Much deeper clay for headers */
+  --sand: #F4EFE6;              /* Sand background */
+  --deep-clay: #1A0F0E;         /* Almost black clay for main text */
+  --forest-green: #1B2E26;      /* Even darker forest green highlight */
+  --vibrant-green: #2D4C3E;     /* Slightly lighter green for hover */
   --muted-terracotta: #8E5A4E;
 }
 
@@ -19,15 +19,17 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--clay);
-  border-bottom: 1px solid rgba(179, 90, 68, 0.1);
-  padding-bottom: 0.2rem;
+  border-bottom: 2px solid rgba(61, 31, 24, 0.15);
+  padding-bottom: 0.3rem;
+  font-weight: 800;
 }
 
-/* Link and Highlight Colors - Using Green */
+/* Link and Highlight Colors - Using Deep Green */
 a {
   color: var(--forest-green);
   text-decoration: underline decoration-transparent;
   transition: all 0.2s ease-in-out;
+  font-weight: 500;
 }
 
 a:hover {
@@ -38,24 +40,24 @@ a:hover {
 /* Navbar Customization */
 .navbar {
   background-color: var(--clay) !important;
-  border-bottom: 3px solid var(--forest-green);
+  border-bottom: 4px solid var(--forest-green);
 }
 
 .navbar-brand, .nav-link {
-  color: #FFFFFF !important;
+  color: var(--sand) !important; /* Changed from pure white to sand for better harmony */
 }
 
 .nav-link:hover {
-  color: var(--sand) !important;
-  background-color: rgba(45, 76, 62, 0.3);
+  color: #FFFFFF !important;
+  background-color: rgba(27, 46, 38, 0.6);
   border-radius: 4px;
 }
 
 /* Sidebar and Listings */
 .quarto-title-block .quarto-title-banner {
   background-color: var(--terracotta) !important;
-  color: #FFFFFF !important;
-  border-bottom: 4px solid var(--forest-green);
+  color: var(--deep-clay) !important; /* Darker title text inside the banner */
+  border-bottom: 5px solid var(--forest-green);
 }
 
 .listing-categories .listing-category {
@@ -83,6 +85,6 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Code Blocks */
 div.sourceCode {
-  border-left: 4px solid var(--forest-green);
+  border-left: 5px solid var(--forest-green);
   background-color: rgba(244, 239, 230, 0.5);
 }
