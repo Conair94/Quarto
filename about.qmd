@@ -12,10 +12,7 @@ about:
       href: https://github.com/conair94
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
-    - icon: bluesky
-      text: Bluesky
-      href: https://bsky.app/
+      href: https://www.linkedin.com/in/connor-martinez-lockhart-45a835387/
 
 ---
 
