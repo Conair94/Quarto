@@ -94,7 +94,7 @@ probApprox = 1 - Math.exp(-(n * (n - 1)) / (2 * N))
 md`
 ### Results
 
-Based on a US total of **65 billion quarters** and a population of **349 million**, your local pool $N$ is estimated at **${d3.format(",")(Math.round(N))}** active quarters.
+Based on a US total of **65 billion quarters** and a population of **349 million**, your local pool **N** is estimated at **${d3.format(",")(Math.round(N))}** active quarters.
 
 Over **${years}** years spending **${quartersPerWeek}** quarters a week, you've handled approximately **${d3.format(",")(Math.round(n))}** quarters.
 
