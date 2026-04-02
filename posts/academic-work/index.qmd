@@ -1,0 +1,8 @@
+---
+title: "My First Academic Post"
+author: "Connor Lockhart"
+date: "2026-04-01"
+categories: ["Academic Work"]
+---
+
+This is a placeholder for my academic work. I'll be sharing research findings and insights here.

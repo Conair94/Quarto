@@ -1,0 +1,20 @@
+---
+title: "Quarto Blog"
+subtitle: "Connor Lockhart's Personal and Academic Blog"
+description: |
+  Welcome to my blog! I am Connor Lockhart, and this is where I share my academic work, music reviews in a series called Synaptic Static, and other random thoughts.
+  
+  Visit my main website at [conair94.github.io](https://conair94.github.io).
+listing:
+  contents: posts
+  feed: true
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+

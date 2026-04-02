@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Quarto Blog</title>
+<link>https://conair94.github.io/Quarto/</link>
+<atom:link href="https://conair94.github.io/Quarto/index.xml" rel="self" type="application/rss+xml"/>
+<description>Welcome to my blog! I am Connor Lockhart, and this is where I share my academic work, music reviews in a series called Synaptic Static, and other random thoughts.
+Visit my main website at [conair94.github.io](https://conair94.github.io).
+</description>
+<generator>quarto-1.9.36</generator>
+<lastBuildDate>Wed, 01 Apr 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Post With Code</title>
+  <dc:creator>Harlow Malloc</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/post-with-code/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is a post with executable code.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <category>code</category>
+  <category>analysis</category>
+  <guid>https://conair94.github.io/Quarto/posts/post-with-code/</guid>
+  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+  <media:content url="https://conair94.github.io/Quarto/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Initial Random Thoughts</title>
+  <dc:creator>Connor Lockhart</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/random-thoughts/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>A space for miscellaneous thoughts and reflections. Still deciding on a final name for this category!</p>
+
+
+
+ ]]></description>
+  <category>Random Thoughts</category>
+  <guid>https://conair94.github.io/Quarto/posts/random-thoughts/</guid>
+  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>My First Academic Post</title>
+  <dc:creator>Connor Lockhart</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/academic-work/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is a placeholder for my academic work. I’ll be sharing research findings and insights here.</p>
+
+
+
+ ]]></description>
+  <category>Academic Work</category>
+  <guid>https://conair94.github.io/Quarto/posts/academic-work/</guid>
+  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Synaptic Static: Introduction</title>
+  <dc:creator>Connor Lockhart</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/synaptic-static/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Welcome to Synaptic Static, my series for music reviews. Stay tuned for my first review!</p>
+
+
+
+ ]]></description>
+  <category>Synaptic Static</category>
+  <category>Music Review</category>
+  <guid>https://conair94.github.io/Quarto/posts/synaptic-static/</guid>
+  <pubDate>Wed, 01 Apr 2026 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Welcome To My Blog</title>
+  <dc:creator>Tristan O&#39;Malley</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is the first post in a Quarto blog. Welcome!</p>
+<p><img src="https://conair94.github.io/Quarto/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
+<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <guid>https://conair94.github.io/Quarto/posts/welcome/</guid>
+  <pubDate>Sun, 29 Mar 2026 04:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

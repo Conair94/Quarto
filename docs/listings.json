@@ -1,0 +1,12 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/post-with-code/index.html",
+      "/posts/random-thoughts/index.html",
+      "/posts/academic-work/index.html",
+      "/posts/synaptic-static/index.html",
+      "/posts/welcome/index.html"
+    ]
+  }
+]
