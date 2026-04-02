@@ -56,8 +56,19 @@ a:hover {
 /* Sidebar and Listings */
 .quarto-title-block .quarto-title-banner {
   background-color: var(--terracotta) !important;
-  color: var(--deep-clay) !important; /* Darker title text inside the banner */
+  color: var(--deep-clay) !important; 
   border-bottom: 5px solid var(--forest-green);
+}
+
+.quarto-title-block .quarto-title .title {
+  color: var(--deep-clay) !important;
+  font-weight: 900;
+  text-shadow: 0.5px 0.5px 0px rgba(244, 239, 230, 0.2); /* Very subtle lift */
+}
+
+.quarto-title-block .quarto-description p {
+  color: var(--deep-clay) !important;
+  font-weight: 500;
 }
 
 .listing-categories .listing-category {

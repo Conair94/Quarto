@@ -20,8 +20,32 @@ The true probability $P$ that at least two quarters in your sample of $n$ are th
 
 $$P(n, N) = 1 - \prod_{i=0}^{n-1} \left(1 - \frac{i}{N}\right)$$
 
-For very large $N$, we can use the following approximation:
+### Deriving the True Probability
 
+To find the probability of at least one collision, it is easier to calculate the probability of **no** collisions and subtract it from 1. 
+
+If we have a pool of $N$ quarters and we pick $n$ of them:
+1. The first quarter can be anything ($N/N$ chance of being "new").
+2. The second quarter must be different from the first ($(N-1)/N$ chance).
+3. The $i$-th quarter must be different from all previous $i-1$ quarters ($(N-(i-1))/N$ chance).
+
+The probability that all $n$ quarters are unique is the product of these individual probabilities:
+$$P(\text{unique}) = \frac{N}{N} \times \frac{N-1}{N} \times \frac{N-2}{N} \times \dots \times \frac{N-(n-1)}{N}$$
+$$P(\text{unique}) = \prod_{i=0}^{n-1} \left(\frac{N-i}{N}\right) = \prod_{i=0}^{n-1} \left(1 - \frac{i}{N}\right)$$
+
+Thus, the probability of at least one duplicate is $1 - P(\text{unique})$.
+
+### Deriving the Approximation
+
+For large $N$ and relatively small $n$, we can use the Taylor series expansion for the exponential function, $e^{-x} \approx 1 - x$ for small $x$. Conversely, $1 - \frac{i}{N} \approx e^{-i/N}$.
+
+Substituting this into our product:
+$$P(\text{unique}) \approx \prod_{i=0}^{n-1} e^{-i/N} = e^{-\sum_{i=0}^{n-1} \frac{i}{N}}$$
+
+The sum of the first $n-1$ integers is $\frac{n(n-1)}{2}$, so:
+$$P(\text{unique}) \approx e^{-\frac{n(n-1)}{2N}}$$
+
+This gives us the familiar approximation for the birthday problem:
 $$P(n, N) \approx 1 - e^{-\frac{n(n-1)}{2N}}$$
 
 ### Estimating the Local Pool ($N$)
