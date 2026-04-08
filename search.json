@@ -53,13 +53,34 @@
     "href": "index.html",
     "title": "Synaptic Static",
     "section": "",
-    "text": "The Parking Ticket Expected Value: A Poisson Process Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\nNo matching items"
+    "text": "The Parking Ticket Expected Value: A Poisson Process Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nDiscrete and Stochastic Structures in Hyperbolic Geometry\n\n\n\nAcademic Work\n\nMathematics\n\nHyperbolic Geometry\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/academic-work/index.html",
     "href": "posts/academic-work/index.html",
-    "title": "My First Academic Post",
+    "title": "Discrete and Stochastic Structures in Hyperbolic Geometry",
     "section": "",
-    "text": "This is a placeholder for my academic work. I’ll be sharing research findings and insights here."
+    "text": "My research focuses on the intersection of model theory, topology, and stochastic geometry, specifically through the lens of structures embedded in hyperbolic space. Two primary areas of my work involve the pseudofiniteness of the Farey graph and the properties of Ideal Poisson-Voronoi Tessellations (IPVT)."
+  },
+  {
+    "objectID": "posts/academic-work/index.html#pseudofiniteness-of-the-farey-graph",
+    "href": "posts/academic-work/index.html#pseudofiniteness-of-the-farey-graph",
+    "title": "Discrete and Stochastic Structures in Hyperbolic Geometry",
+    "section": "Pseudofiniteness of the Farey Graph",
+    "text": "Pseudofiniteness of the Farey Graph\nThe Farey graph \\(\\mathcal{F}\\) is a classic object in number theory and hyperbolic geometry. Its vertex set consists of the rational numbers \\(\\mathbb{Q} \\cup \\{\\infty\\}\\), and two vertices \\(p/q\\) and \\(r/s\\) are adjacent if \\(|ps - qr| = 1\\). Geometrically, this graph forms an infinite triangulation of the hyperbolic plane \\(\\mathbb{H}_2\\).\nIn recent work, I explored the pseudofiniteness of this structure. A structure is pseudofinite if every first order sentence satisfied by the structure can be satisfied by a finite structures. While the Farey graph is infinite and possesses a rigid combinatorial structure, I demonstrated that its theory is indeed pseudofinite.\nThe key to this proof lies in constructing a sequence of finite triangulations on surfaces of increasingly high genus. While no finite planar graph can satisfy the axioms of the Farey graph for sufficiently large substructures, triangulations densely embedded on orientable surfaces can “mimic” the local properties of the Farey graph, satisfying any finite subset of its first-order axiomatization."
+  },
+  {
+    "objectID": "posts/academic-work/index.html#spatial-stochastic-processes-and-random-tessellations",
+    "href": "posts/academic-work/index.html#spatial-stochastic-processes-and-random-tessellations",
+    "title": "Discrete and Stochastic Structures in Hyperbolic Geometry",
+    "section": "Spatial Stochastic Processes and Random Tessellations",
+    "text": "Spatial Stochastic Processes and Random Tessellations\nBeyond discrete, deterministic graphs, I also study stochastic structures in hyperbolic space. A particularly fascinating object is the Ideal Poisson-Voronoi Tessellation (IPVT), denoted \\(\\mathcal{V}_d\\).\n\nThe Emergence of the Ideal Limit\nIn Euclidean space, as the intensity \\(\\lambda\\) of a Poisson point process goes to zero, the resulting Voronoi tessellation degenerates—the cells simply grow to cover the entire space. However, in hyperbolic space \\(\\mathbb{H}_d\\), the exponential volume growth allows for a non-trivial limit to emerge as \\(\\lambda \\to 0\\).\nThis limit, the IPVT, is an isometry-invariant decomposition of \\(\\mathbb{H}_d\\) into countably many unbounded polytopes. Each cell in this tessellation has a unique “end” on the ideal boundary \\(\\partial \\mathbb{H}_d\\).\n\n\nGeometric Properties\nSome striking properties of these random tessellations include: - Unique Ends: Each tile is unbounded but converges to a single point on the ideal boundary.\n\nTree-like Structure: In the 2D case (\\(d=2\\)), the union of the boundaries of the tiles, \\(\\partial \\mathcal{V}_2\\), is a random embedding of a 3-regular tree with geodesic edges.\nInvariance: The law of \\(\\mathcal{V}_d\\) is invariant under every isometry of \\(\\mathbb{H}_d\\), making it a “natural” stochastic tiling of hyperbolic space."
+  },
+  {
+    "objectID": "posts/academic-work/index.html#connecting-the-discrete-and-the-stochastic",
+    "href": "posts/academic-work/index.html#connecting-the-discrete-and-the-stochastic",
+    "title": "Discrete and Stochastic Structures in Hyperbolic Geometry",
+    "section": "Connecting the Discrete and the Stochastic",
+    "text": "Connecting the Discrete and the Stochastic\nBoth the Farey graph and the Ideal Poisson-Voronoi Tessellation provide ways to partition hyperbolic space into meaningful units. The Farey graph gives us a deterministic, highly symmetric triangulation, while the IPVT gives us a stochastic, isometry-invariant tiling. My work aims to bridge these perspectives, using tools from model theory to understand the limits of discrete structures and stochastic geometry to describe the “typical” behavior of hyperbolic partitions.\nFor those interested in the technical details, the full proofs regarding the Farey graph’s pseudofiniteness and the coordinate descriptions of the IPVT (utilizing Poisson processes on the boundary \\(\\partial \\mathbb{H}_d\\)) can be found at arXiv:2603.23900."
   }
 ]

@@ -445,7 +445,7 @@ font-style: inherit;">`</span></span></code></pre></div></div>
   <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>My First Academic Post</title>
+  <title>Discrete and Stochastic Structures in Hyperbolic Geometry</title>
   <dc:creator>Connor Lockhart</dc:creator>
   <link>https://conair94.github.io/Quarto/posts/academic-work/</link>
   <description><![CDATA[ 
@@ -454,14 +454,44 @@ font-style: inherit;">`</span></span></code></pre></div></div>
 
 
 
-<p>This is a placeholder for my academic work. I’ll be sharing research findings and insights here.</p>
+<p>My research focuses on the intersection of model theory, topology, and stochastic geometry, specifically through the lens of structures embedded in hyperbolic space. Two primary areas of my work involve the <strong>pseudofiniteness of the Farey graph</strong> and the properties of <strong>Ideal Poisson-Voronoi Tessellations (IPVT)</strong>.</p>
+<section id="pseudofiniteness-of-the-farey-graph" class="level2">
+<h2 class="anchored" data-anchor-id="pseudofiniteness-of-the-farey-graph">Pseudofiniteness of the Farey Graph</h2>
+<p>The Farey graph <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%7BF%7D"> is a classic object in number theory and hyperbolic geometry. Its vertex set consists of the rational numbers <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BQ%7D%20%5Ccup%20%5C%7B%5Cinfty%5C%7D">, and two vertices <img src="https://latex.codecogs.com/png.latex?p/q"> and <img src="https://latex.codecogs.com/png.latex?r/s"> are adjacent if <img src="https://latex.codecogs.com/png.latex?%7Cps%20-%20qr%7C%20=%201">. Geometrically, this graph forms an infinite triangulation of the hyperbolic plane <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BH%7D_2">.</p>
+<p>In recent work, I explored the <strong>pseudofiniteness</strong> of this structure. A structure is pseudofinite if every first order sentence satisfied by the structure can be satisfied by a finite structures. While the Farey graph is infinite and possesses a rigid combinatorial structure, I demonstrated that its theory is indeed pseudofinite.</p>
+<p>The key to this proof lies in constructing a sequence of finite triangulations on surfaces of increasingly high genus. While no finite <em>planar</em> graph can satisfy the axioms of the Farey graph for sufficiently large substructures, triangulations densely embedded on orientable surfaces can “mimic” the local properties of the Farey graph, satisfying any finite subset of its first-order axiomatization.</p>
+</section>
+<section id="spatial-stochastic-processes-and-random-tessellations" class="level2">
+<h2 class="anchored" data-anchor-id="spatial-stochastic-processes-and-random-tessellations">Spatial Stochastic Processes and Random Tessellations</h2>
+<p>Beyond discrete, deterministic graphs, I also study stochastic structures in hyperbolic space. A particularly fascinating object is the <strong>Ideal Poisson-Voronoi Tessellation (IPVT)</strong>, denoted <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%7BV%7D_d">.</p>
+<section id="the-emergence-of-the-ideal-limit" class="level3">
+<h3 class="anchored" data-anchor-id="the-emergence-of-the-ideal-limit">The Emergence of the Ideal Limit</h3>
+<p>In Euclidean space, as the intensity <img src="https://latex.codecogs.com/png.latex?%5Clambda"> of a Poisson point process goes to zero, the resulting Voronoi tessellation degenerates—the cells simply grow to cover the entire space. However, in hyperbolic space <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BH%7D_d">, the exponential volume growth allows for a non-trivial limit to emerge as <img src="https://latex.codecogs.com/png.latex?%5Clambda%20%5Cto%200">.</p>
+<p>This limit, the IPVT, is an isometry-invariant decomposition of <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BH%7D_d"> into countably many unbounded polytopes. Each cell in this tessellation has a unique “end” on the ideal boundary <img src="https://latex.codecogs.com/png.latex?%5Cpartial%20%5Cmathbb%7BH%7D_d">.</p>
+</section>
+<section id="geometric-properties" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-properties">Geometric Properties</h3>
+<p>Some striking properties of these random tessellations include: - <strong>Unique Ends</strong>: Each tile is unbounded but converges to a single point on the ideal boundary.</p>
+<ul>
+<li><p><strong>Tree-like Structure</strong>: In the 2D case (<img src="https://latex.codecogs.com/png.latex?d=2">), the union of the boundaries of the tiles, <img src="https://latex.codecogs.com/png.latex?%5Cpartial%20%5Cmathcal%7BV%7D_2">, is a random embedding of a 3-regular tree with geodesic edges.</p></li>
+<li><p><strong>Invariance</strong>: The law of <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%7BV%7D_d"> is invariant under every isometry of <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BH%7D_d">, making it a “natural” stochastic tiling of hyperbolic space.</p></li>
+</ul>
+</section>
+</section>
+<section id="connecting-the-discrete-and-the-stochastic" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-the-discrete-and-the-stochastic">Connecting the Discrete and the Stochastic</h2>
+<p>Both the Farey graph and the Ideal Poisson-Voronoi Tessellation provide ways to partition hyperbolic space into meaningful units. The Farey graph gives us a deterministic, highly symmetric triangulation, while the IPVT gives us a stochastic, isometry-invariant tiling. My work aims to bridge these perspectives, using tools from model theory to understand the limits of discrete structures and stochastic geometry to describe the “typical” behavior of hyperbolic partitions.</p>
+<p>For those interested in the technical details, the full proofs regarding the Farey graph’s pseudofiniteness and the coordinate descriptions of the IPVT (utilizing Poisson processes on the boundary <img src="https://latex.codecogs.com/png.latex?%5Cpartial%20%5Cmathbb%7BH%7D_d">) can be found at <a href="https://arxiv.org/abs/2603.23900">arXiv:2603.23900</a>.</p>
 
 
+</section>
 
  ]]></description>
   <category>Academic Work</category>
+  <category>Mathematics</category>
+  <category>Hyperbolic Geometry</category>
   <guid>https://conair94.github.io/Quarto/posts/academic-work/</guid>
-  <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+  <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Laundry Quarter Recurrence: A Birthday Problem Estimation</title>
