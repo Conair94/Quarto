@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/index.html</loc>
-    <lastmod>2026-04-08T15:13:55.366Z</lastmod>
+    <loc>https://conair94.github.io/Quarto/index.html</loc>
+    <lastmod>2026-04-08T15:14:26.684Z</lastmod>
   </url>
   <url>
     <loc>https://conair94.github.io/Quarto/posts/academic-work/index.html</loc>
-    <lastmod>2026-04-08T15:13:55.366Z</lastmod>
-  </url>
-  <url>
-    <loc>https://conair94.github.io/Quarto/index.html</loc>
-    <lastmod>2026-04-08T15:13:55.365Z</lastmod>
-  </url>
-  <url>
-    <loc>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/index.html</loc>
-    <lastmod>2026-04-08T15:13:55.366Z</lastmod>
+    <lastmod>2026-04-08T15:14:26.685Z</lastmod>
   </url>
   <url>
     <loc>https://conair94.github.io/Quarto/posts/welcome/index.html</loc>
-    <lastmod>2026-04-08T15:13:55.366Z</lastmod>
+    <lastmod>2026-04-08T15:14:26.685Z</lastmod>
+  </url>
+  <url>
+    <loc>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/index.html</loc>
+    <lastmod>2026-04-08T15:14:26.685Z</lastmod>
+  </url>
+  <url>
+    <loc>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/index.html</loc>
+    <lastmod>2026-04-08T15:14:26.685Z</lastmod>
   </url>
 </urlset>
