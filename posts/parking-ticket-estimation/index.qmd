@@ -89,4 +89,4 @@ ${cParking < cTicket
 ```
 
 ### Caveats
-This model assumes the attendant's rounds are truly random (Poisson). In reality, attendants might follow a schedule, which would change the distribution. Additionally, most people are "risk-averse" and would pay even if the expected value is slightly in favor of not paying, to avoid the high-variance outcome of a \$60 fine!
+This model assumes the attendant's rounds are truly random (Poisson). In reality, attendants might follow a schedule, which would change the distribution. Additionally, most people are "risk-averse" and would pay even if the expected value is slightly in favor of not paying, to avoid the high-variance outcome of a \$60 fine! A second estimation could be done to determine how much money is profitable to invest in discovering the attendants checking schedule, which would allow one to not pay for parking with higher accuracy. 
