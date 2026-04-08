@@ -1011,26 +1011,5 @@ font-style: inherit;">`</span></span></code></pre></div></div>
   <guid>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/</guid>
   <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
 </item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://conair94.github.io/Quarto/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://conair94.github.io/Quarto/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://conair94.github.io/Quarto/posts/welcome/</guid>
-  <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
-</item>
 </channel>
 </rss>
