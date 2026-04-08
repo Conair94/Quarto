@@ -32,7 +32,35 @@
     "href": "index.html",
     "title": "Synaptic Static",
     "section": "",
-    "text": "My First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "The Parking Ticket Expected Value: A Poisson Process Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Academic Post\n\n\n\nAcademic Work\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nMar 29, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/parking-ticket-estimation/index.html",
+    "href": "posts/parking-ticket-estimation/index.html",
+    "title": "The Parking Ticket Expected Value: A Poisson Process Estimation",
+    "section": "",
+    "text": "I was parking my car today and while I was enroute to proctor an exam for my probability class, I had a curious idea. I was wondering what an expected value argument would say about whether or not to pay for parking. I get 1 hour of parking for free, but all day parking is $25. I know from an absent minded friend that the ticket for having an expired parking pass is $60.\nAssuming that the parking attendant checks the parking lot as a Poisson process with rate \\(\\alpha\\), what would \\(\\alpha\\) have to be for me to stay \\(t\\) hours past my free parking and have my highest expected value being to not pay for parking?"
+  },
+  {
+    "objectID": "posts/parking-ticket-estimation/index.html#the-poisson-process",
+    "href": "posts/parking-ticket-estimation/index.html#the-poisson-process",
+    "title": "The Parking Ticket Expected Value: A Poisson Process Estimation",
+    "section": "The Poisson Process",
+    "text": "The Poisson Process\nA Poisson process is a mathematical model for a series of discrete events where the average time between events is known, but the exact timing of events is random. Key properties include: - Independence: Events occur independently of each other. - Constant Rate: The average rate \\(\\alpha\\) (events per unit of time) is constant. - Memorylessness: The time until the next event does not depend on how much time has already passed.\nIn our case, \\(\\alpha\\) represents the number of times per hour the parking attendant checks the lot."
+  },
+  {
+    "objectID": "posts/parking-ticket-estimation/index.html#the-math",
+    "href": "posts/parking-ticket-estimation/index.html#the-math",
+    "title": "The Parking Ticket Expected Value: A Poisson Process Estimation",
+    "section": "The Math",
+    "text": "The Math\nIf you stay \\(t\\) hours past your free hour, the number of checks \\(N(t)\\) that occur in that interval follows a Poisson distribution with mean \\(\\lambda = \\alpha t\\):\n\\[P(N(t) = k) = \\frac{(\\alpha t)^k e^{-\\alpha t}}{k!}\\]\nYou will receive a ticket if the attendant checks the lot at least once during your stay (\\(N(t) \\ge 1\\)). The probability of being ticketed is:\n\\[P(\\text{ticketed}) = 1 - P(N(t) = 0) = 1 - e^{-\\alpha t}\\]\n\nExpected Cost\nThe expected cost of not paying for parking is the cost of the ticket (\\(C_{\\text{ticket}}\\)) multiplied by the probability of being ticketed:\n\\[E[\\text{not paying}] = C_{\\text{ticket}} \\cdot (1 - e^{-\\alpha t})\\]\nThe cost of paying for parking is a flat fee \\(C_{\\text{parking}}\\). You should (mathematically) choose to not pay if:\n\\[C_{\\text{ticket}} \\cdot (1 - e^{-\\alpha t}) &lt; C_{\\text{parking}}\\]\n\n\nSolving for the Critical Rate (\\(\\alpha\\))\nTo find the threshold rate \\(\\alpha\\) where it becomes worth it to pay, we set the costs equal:\n\\[1 - e^{-\\alpha t} = \\frac{C_{\\text{parking}}}{C_{\\text{ticket}}}\\] \\[e^{-\\alpha t} = 1 - \\frac{C_{\\text{parking}}}{C_{\\text{ticket}}}\\] \\[-\\alpha t = \\ln\\left(1 - \\frac{C_{\\text{parking}}}{C_{\\text{ticket}}}\\right)\\] \\[\\alpha_{\\text{critical}} = -\\frac{\\ln\\left(1 - \\frac{C_{\\text{parking}}}{C_{\\text{ticket}}}\\right)}{t}\\]\nIf the attendant checks the lot more frequently than \\(\\alpha_{\\text{critical}}\\), your expected cost of not paying exceeds the cost of the permit."
+  },
+  {
+    "objectID": "posts/parking-ticket-estimation/index.html#interactive-estimation",
+    "href": "posts/parking-ticket-estimation/index.html#interactive-estimation",
+    "title": "The Parking Ticket Expected Value: A Poisson Process Estimation",
+    "section": "Interactive Estimation",
+    "text": "Interactive Estimation\nUse the sliders below to adjust the parameters of your parking situation and see your “Expected Value” strategy.\n\n\n\nCode\nviewof t = Inputs.range([0.1, 12], {value: 3, step: 0.1, label: \"Hours past free parking (t)\"})\nviewof cTicket = Inputs.number({value: 60, label: \"Ticket Cost ($)\"})\nviewof cParking = Inputs.number({value: 25, label: \"All-day Parking Cost ($)\"})\nviewof alpha = Inputs.range([0.01, 2], {value: 0.1, step: 0.01, label: \"Checks per hour (α)\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nprobTicket = 1 - Math.exp(-alpha * t)\nexpectedCost = cTicket * probTicket\ncriticalAlpha = cParking &lt; cTicket ? -Math.log(1 - (cParking / cTicket)) / t : 0\n\nmd`\n### Results\n\nAt a check rate of **${alpha}** times per hour, your probability of getting ticketed over **${t}** hours is **${d3.format(\".1%\")(probTicket)}**.\n\n- **Expected cost of not paying:** \\$${d3.format(\".2f\")(expectedCost)}\n- **Cost of paying:** \\$${d3.format(\".2f\")(cParking)}\n\n${expectedCost &lt; cParking \n  ? \"### 🟢 Strategy: Don't Pay\" \n  : \"### 🔴 Strategy: Pay for Parking\"}\n\n${cParking &lt; cTicket \n  ? md`The **critical rate** for your stay is **${d3.format(\".3f\")(criticalAlpha)}** checks per hour. If you think the attendant rounds the lot more than once every **${d3.format(\".1f\")(1/criticalAlpha)}** hours, you should pay!`\n  : md`Since the parking permit costs as much as or more than the ticket itself, **you should never pay** for parking from a purely expected-value perspective!`}\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaveats\nThis model assumes the attendant’s rounds are truly random (Poisson). In reality, attendants might follow a schedule, which would change the distribution. Additionally, most people are “risk-averse” and would pay even if the expected value is slightly in favor of not paying, to avoid the high-variance outcome of a $60 fine!"
   },
   {
     "objectID": "posts/welcome/index.html",

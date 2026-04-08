@@ -12,7 +12,433 @@
 Visit my main website at [conair94.github.io](https://conair94.github.io).
 </description>
 <generator>quarto-1.9.36</generator>
-<lastBuildDate>Wed, 01 Apr 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 08 Apr 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>The Parking Ticket Expected Value: A Poisson Process Estimation</title>
+  <dc:creator>Connor Lockhart</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>I was parking my car today and while I was enroute to proctor an exam for my probability class, I had a curious idea. I was wondering what an expected value argument would say about whether or not to pay for parking. I get 1 hour of parking for free, but all day parking is $25. I know from an absent minded friend that the ticket for having an expired parking pass is $60.</p>
+<p>Assuming that the parking attendant checks the parking lot as a <strong>Poisson process</strong> with rate <img src="https://latex.codecogs.com/png.latex?%5Calpha">, what would <img src="https://latex.codecogs.com/png.latex?%5Calpha"> have to be for me to stay <img src="https://latex.codecogs.com/png.latex?t"> hours past my free parking and have my highest expected value being to <em>not</em> pay for parking?</p>
+<section id="the-poisson-process" class="level2">
+<h2 class="anchored" data-anchor-id="the-poisson-process">The Poisson Process</h2>
+<p>A Poisson process is a mathematical model for a series of discrete events where the average time between events is known, but the exact timing of events is random. Key properties include: - <strong>Independence</strong>: Events occur independently of each other. - <strong>Constant Rate</strong>: The average rate <img src="https://latex.codecogs.com/png.latex?%5Calpha"> (events per unit of time) is constant. - <strong>Memorylessness</strong>: The time until the next event does not depend on how much time has already passed.</p>
+<p>In our case, <img src="https://latex.codecogs.com/png.latex?%5Calpha"> represents the number of times per hour the parking attendant checks the lot.</p>
+</section>
+<section id="the-math" class="level2">
+<h2 class="anchored" data-anchor-id="the-math">The Math</h2>
+<p>If you stay <img src="https://latex.codecogs.com/png.latex?t"> hours past your free hour, the number of checks <img src="https://latex.codecogs.com/png.latex?N(t)"> that occur in that interval follows a Poisson distribution with mean <img src="https://latex.codecogs.com/png.latex?%5Clambda%20=%20%5Calpha%20t">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?P(N(t)%20=%20k)%20=%20%5Cfrac%7B(%5Calpha%20t)%5Ek%20e%5E%7B-%5Calpha%20t%7D%7D%7Bk!%7D"></p>
+<p>You will receive a ticket if the attendant checks the lot at least once during your stay (<img src="https://latex.codecogs.com/png.latex?N(t)%20%5Cge%201">). The probability of being ticketed is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?P(%5Ctext%7Bticketed%7D)%20=%201%20-%20P(N(t)%20=%200)%20=%201%20-%20e%5E%7B-%5Calpha%20t%7D"></p>
+<section id="expected-cost" class="level3">
+<h3 class="anchored" data-anchor-id="expected-cost">Expected Cost</h3>
+<p>The expected cost of not paying for parking is the cost of the ticket (<img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7Bticket%7D%7D">) multiplied by the probability of being ticketed:</p>
+<p><img src="https://latex.codecogs.com/png.latex?E%5B%5Ctext%7Bnot%20paying%7D%5D%20=%20C_%7B%5Ctext%7Bticket%7D%7D%20%5Ccdot%20(1%20-%20e%5E%7B-%5Calpha%20t%7D)"></p>
+<p>The cost of paying for parking is a flat fee <img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7Bparking%7D%7D">. You should (mathematically) choose to <em>not</em> pay if:</p>
+<p><img src="https://latex.codecogs.com/png.latex?C_%7B%5Ctext%7Bticket%7D%7D%20%5Ccdot%20(1%20-%20e%5E%7B-%5Calpha%20t%7D)%20%3C%20C_%7B%5Ctext%7Bparking%7D%7D"></p>
+</section>
+<section id="solving-for-the-critical-rate-alpha" class="level3">
+<h3 class="anchored" data-anchor-id="solving-for-the-critical-rate-alpha">Solving for the Critical Rate (<img src="https://latex.codecogs.com/png.latex?%5Calpha">)</h3>
+<p>To find the threshold rate <img src="https://latex.codecogs.com/png.latex?%5Calpha"> where it becomes worth it to pay, we set the costs equal:</p>
+<p><img src="https://latex.codecogs.com/png.latex?1%20-%20e%5E%7B-%5Calpha%20t%7D%20=%20%5Cfrac%7BC_%7B%5Ctext%7Bparking%7D%7D%7D%7BC_%7B%5Ctext%7Bticket%7D%7D%7D"> <img src="https://latex.codecogs.com/png.latex?e%5E%7B-%5Calpha%20t%7D%20=%201%20-%20%5Cfrac%7BC_%7B%5Ctext%7Bparking%7D%7D%7D%7BC_%7B%5Ctext%7Bticket%7D%7D%7D"> <img src="https://latex.codecogs.com/png.latex?-%5Calpha%20t%20=%20%5Cln%5Cleft(1%20-%20%5Cfrac%7BC_%7B%5Ctext%7Bparking%7D%7D%7D%7BC_%7B%5Ctext%7Bticket%7D%7D%7D%5Cright)"> <img src="https://latex.codecogs.com/png.latex?%5Calpha_%7B%5Ctext%7Bcritical%7D%7D%20=%20-%5Cfrac%7B%5Cln%5Cleft(1%20-%20%5Cfrac%7BC_%7B%5Ctext%7Bparking%7D%7D%7D%7BC_%7B%5Ctext%7Bticket%7D%7D%7D%5Cright)%7D%7Bt%7D"></p>
+<p>If the attendant checks the lot more frequently than <img src="https://latex.codecogs.com/png.latex?%5Calpha_%7B%5Ctext%7Bcritical%7D%7D">, your expected cost of not paying exceeds the cost of the permit.</p>
+</section>
+</section>
+<section id="interactive-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
+<p>Use the sliders below to adjust the parameters of your parking situation and see your “Expected Value” strategy.</p>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="61" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb1-61">viewof t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Hours past free parking (t)"</span>})</span>
+<span id="cb1-62">viewof cTicket <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">number</span>({<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Ticket Cost ($)"</span>})</span>
+<span id="cb1-63">viewof cParking <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">number</span>({<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">25</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"All-day Parking Cost ($)"</span>})</span>
+<span id="cb1-64">viewof alpha <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Checks per hour (α)"</span>})</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="69" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 68;"><span id="cb2-69">probTicket <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>alpha <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> t)</span>
+<span id="cb2-70">expectedCost <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cTicket <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> probTicket</span>
+<span id="cb2-71">criticalAlpha <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cParking <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> cTicket <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">?</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> (cParking <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> cTicket)) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span></span>
+<span id="cb2-72"></span>
+<span id="cb2-73"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span>
+<span id="cb2-74"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">### Results</span></span>
+<span id="cb2-75"></span>
+<span id="cb2-76"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">At a check rate of **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>alpha<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** times per hour, your probability of getting ticketed over **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>t<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** hours is **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".1%"</span>)(probTicket)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">**.</span></span>
+<span id="cb2-77"></span>
+<span id="cb2-78"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Expected cost of not paying:** </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">\$${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".2f"</span>)(expectedCost)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-79"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Cost of paying:** </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">\$${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".2f"</span>)(cParking)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-80"></span>
+<span id="cb2-81"><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>expectedCost <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> cParking </span>
+<span id="cb2-82">  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">?</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"### 🟢 Strategy: Don't Pay"</span> </span>
+<span id="cb2-83">  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"### 🔴 Strategy: Pay for Parking"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-84"></span>
+<span id="cb2-85"><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>cParking <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> cTicket </span>
+<span id="cb2-86">  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">?</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`The **critical rate** for your stay is **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".3f"</span>)(criticalAlpha)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** checks per hour. If you think the attendant rounds the lot more than once every **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".1f"</span>)(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>criticalAlpha)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** hours, you should pay!`</span></span>
+<span id="cb2-87">  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`Since the parking permit costs as much as or more than the ticket itself, **you should never pay** for parking from a purely expected-value perspective!`</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb2-88"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="caveats" class="level3">
+<h3 class="anchored" data-anchor-id="caveats">Caveats</h3>
+<p>This model assumes the attendant’s rounds are truly random (Poisson). In reality, attendants might follow a schedule, which would change the distribution. Additionally, most people are “risk-averse” and would pay even if the expected value is slightly in favor of not paying, to avoid the high-variance outcome of a $60 fine!</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Musings</category>
+  <category>Estimations</category>
+  <guid>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/</guid>
+  <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>My First Academic Post</title>
   <dc:creator>Connor Lockhart</dc:creator>
