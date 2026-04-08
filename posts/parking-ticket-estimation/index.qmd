@@ -15,6 +15,7 @@ Assuming that the parking attendant checks the parking lot as a **Poisson proces
 ## The Poisson Process
 
 A Poisson process is a mathematical model for a series of discrete events where the average time between events is known, but the exact timing of events is random. Key properties include:
+
 - **Independence**: Events occur independently of each other.
 
 - **Constant Rate**: The average rate $\alpha$ (events per unit of time) is constant.
