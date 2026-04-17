@@ -82,6 +82,7 @@ viewof cupSize = Inputs.select(new Map([
   ["X-Large (40 oz)", "xlarge"]
 ]), {label: "Cup Size"})
 viewof sipInterval = Inputs.radio([60, 30], {value: 60, label: "Sip Frequency (seconds)", format: d => d === 60 ? "Leisurely (1/min)" : "Fast (1/30s)"})
+viewof sipVolumeOz = Inputs.range([0.5, 4.0], {value: 2.0, step: 0.1, label: "Sip Volume (oz)"})
 viewof initialIceRatio = Inputs.range([0.4, 0.8], {value: 0.6, step: 0.05, label: "Initial Ice Ratio"})
 ```
 
@@ -94,43 +95,39 @@ h_coeff = 9.5 // W/m^2K
 rho_ice = 0.917 // g/cm^3
 rho_liq = 1.0 // g/cm^3
 
-// Cup Geometry (cm)
-cupData = {
-  const data = {
-    small: { h: 4.5 * inchToCm, r1: (2.25/2) * inchToCm, r2: (3.25/2) * inchToCm },
-    medium: { h: 6.0 * inchToCm, r1: (2.5/2) * inchToCm, r2: (3.75/2) * inchToCm },
-    large: { h: 7.0 * inchToCm, r1: (2.75/2) * inchToCm, r2: (4.25/2) * inchToCm },
-    xlarge: { h: 8.5 * inchToCm, r1: (3.0/2) * inchToCm, r2: (4.75/2) * inchToCm }
-  };
-  return data[cupSize];
-}
+// Cup Geometry Data
+cupSizes = ({
+  small: { h: 4.5 * inchToCm, r1: (2.25/2) * inchToCm, r2: (3.25/2) * inchToCm },
+  medium: { h: 6.0 * inchToCm, r1: (2.5/2) * inchToCm, r2: (3.75/2) * inchToCm },
+  large: { h: 7.0 * inchToCm, r1: (2.75/2) * inchToCm, r2: (4.25/2) * inchToCm },
+  xlarge: { h: 8.5 * inchToCm, r1: (3.0/2) * inchToCm, r2: (4.75/2) * inchToCm }
+})
 
-function simulate(temp, sizeKey, interval, initRatio) {
-  const d = {
-    small: { h: 4.5 * inchToCm, r1: (2.25/2) * inchToCm, r2: (3.25/2) * inchToCm },
-    medium: { h: 6.0 * inchToCm, r1: (2.5/2) * inchToCm, r2: (3.75/2) * inchToCm },
-    large: { h: 7.0 * inchToCm, r1: (2.75/2) * inchToCm, r2: (4.25/2) * inchToCm },
-    xlarge: { h: 8.5 * inchToCm, r1: (3.0/2) * inchToCm, r2: (4.75/2) * inchToCm }
-  }[sizeKey];
+function simulate(temp, sizeKey, interval, initRatio, sipVol) {
+  const d = cupSizes[sizeKey];
 
   let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initRatio * rho_ice;
   let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initRatio) * rho_liq;
   
   const history = [];
   let t = 0;
-  const v_sip = 2 * ozToMl;
+  const v_sip = sipVol * ozToMl;
 
   while (m_ice + m_liq > v_sip * 0.1 && history.length < 500) {
     let currentVol = (m_ice / rho_ice) + (m_liq / rho_liq);
     let iceRatio = m_ice / (m_ice + m_liq);
     
-    let heightFrac = currentVol / (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2));
+    let heightFrac = Math.max(0, currentVol / (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)));
     let y = d.h * heightFrac;
     let ry = d.r1 + (d.r2 - d.r1) * heightFrac;
     let Area = Math.PI * (d.r1 + ry) * Math.sqrt((ry - d.r1)**2 + y**2) + Math.PI * d.r1**2;
-    Area = Area / 10000;
+    Area = Area / 10000; // cm2 to m2
 
-    history.push({ time: t / 60, iceRatio: iceRatio * 100, vol: currentVol / ozToMl });
+    history.push({ 
+      time: t / 60, 
+      iceRatio: iceRatio * 100, 
+      vol: currentVol / ozToMl 
+    });
 
     let Q = h_coeff * Area * (temp - 0) * interval;
     let melted = Q / Lf;
@@ -145,8 +142,35 @@ function simulate(temp, sizeKey, interval, initRatio) {
   }
   return history;
 }
+```
 
-results = simulate(ambientTempC, cupSize, sipInterval, initialIceRatio)
+```{ojs}
+results = simulate(ambientTempC, cupSize, sipInterval, initialIceRatio, sipVolumeOz)
+
+Plot.plot({
+  title: "Current Scenario: Ice Ratio Over Time",
+  subtitle: "Goal: Keep the ratio below 90% to avoid 'The Dead Zone'",
+  y: { label: "Ice Ratio (%)", domain: [0, 100] },
+  x: { label: "Time (minutes)" },
+  marks: [
+    Plot.lineY(results, {x: "time", y: "iceRatio", stroke: "steelblue", strokeWidth: 3}),
+    Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"}),
+    Plot.text(["DEAD ZONE"], {x: 0, y: 92, frameAnchor: "left", fill: "red"})
+  ]
+})
+```
+
+```{ojs}
+md`
+### Analysis
+
+Final Ice Ratio: **${results[results.length-1].iceRatio.toFixed(1)}%**  
+Total Time: **${results[results.length-1].time.toFixed(1)} minutes**
+
+${results[results.length-1].iceRatio > 90 
+  ? "❌ **FAILED**: You were left with a block of dry ice! Increase the ambient temperature or drink slower." 
+  : "✅ **SUCCESS**: You finished the slushee with a drinkable ratio!"}
+`
 ```
 
 ### Consumption Comparison: Leisurely vs. Fast
@@ -154,25 +178,32 @@ results = simulate(ambientTempC, cupSize, sipInterval, initialIceRatio)
 How does speed affect the outcome? A fast drinker leaves less time for the ambient air to melt the ice, leading to a drier finish.
 
 ```{ojs}
-layout = html`<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1; min-width: 300px;">${Plot.plot({
-    title: "Leisurely (1 sip/min)",
-    y: { domain: [0, 100], label: "Ice Ratio (%)" },
-    marks: [
-      Plot.lineY(simulate(ambientTempC, cupSize, 60, initialIceRatio), {x: "time", y: "iceRatio", stroke: "green"}),
-      Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
-    ]
-  })}</div>
-  <div style="flex: 1; min-width: 300px;">${Plot.plot({
-    title: "Fast (1 sip/30s)",
-    y: { domain: [0, 100], label: "Ice Ratio (%)" },
-    marks: [
-      Plot.lineY(simulate(ambientTempC, cupSize, 30, initialIceRatio), {x: "time", y: "iceRatio", stroke: "orange"}),
-      Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
-    ]
-  })}</div>
+html`<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <div style="flex: 1; min-width: 300px;">
+    ${Plot.plot({
+      title: "Leisurely (1 sip/min)",
+      y: { domain: [0, 100], label: "Ice Ratio (%)" },
+      x: { label: "Time (minutes)" },
+      marks: [
+        Plot.lineY(simulate(ambientTempC, cupSize, 60, initialIceRatio, sipVolumeOz), {x: "time", y: "iceRatio", stroke: "green"}),
+        Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
+      ]
+    })}
+  </div>
+  <div style="flex: 1; min-width: 300px;">
+    ${Plot.plot({
+      title: "Fast (1 sip/30s)",
+      y: { domain: [0, 100], label: "Ice Ratio (%)" },
+      x: { label: "Time (minutes)" },
+      marks: [
+        Plot.lineY(simulate(ambientTempC, cupSize, 30, initialIceRatio, sipVolumeOz), {x: "time", y: "iceRatio", stroke: "orange"}),
+        Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
+      ]
+    })}
+  </div>
 </div>`
 ```
+
 
 ## 4. Final Summary: Optimal Temperatures
 
