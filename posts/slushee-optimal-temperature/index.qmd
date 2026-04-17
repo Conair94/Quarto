@@ -67,15 +67,15 @@ Where:
 - **$T_{amb}$ (Ambient Temperature):** The "thermal pressure" driving the phase change. The greater the delta between the air and the $0^\circ C$ slushee, the faster the ice crystals collapse.
 - **$L_f$ (Latent Heat of Fusion):** The energy required to break the molecular bonds of the ice crystals ($334\ J/g$). This is the "thermal buffer" that keeps your drink cold.
 - **$C$ (Consumption Rate):** Your volumetric drinking speed.
-- **$\beta$ (Ice-in-Straw Bias):** Perhaps the most critical variable. This constant accounts for the **buoyancy of ice**. Because ice crystals are less dense than the syrup, they float toward the top. Since the straw draws from the bottom of the cup, it captures a liquid-rich mixture. A $\beta = 0.5$ means the straw is "filtering" the drink, pulling only half as much ice as is actually present in the cup's total ratio.
+- **$\beta$ (Ice-in-Straw Bias):** This constant accounts for the **buoyancy of ice**. Because ice crystals are less dense than the syrup, they float toward the top. Since the straw draws from the bottom, it captures a liquid-rich mixture. In this model, we treat the bias as **dynamic**: as the liquid level drops, the ice crystals are forced closer to the straw, and the "filtering" effect decreases. We model this as a linear transition from your initial bias (e.g., 50%) at full volume to 0% (perfectly mixed) at the final drop.
 
 The **Final Expanded Solution** for the change in ice ratio $\frac{dR}{dt}$ is:
 
 $$\frac{dR}{dt} = \frac{1}{M} \left[ \dot{m}_i (1 - R) - R \dot{m}_l \right]$$
 
-Plugging everything in:
+Plugging everything in, including our dynamic $\beta(V)$:
 
-$$\frac{dR}{dt} = -\frac{h \cdot A(V) \cdot T_{amb}}{M \cdot L_f} - \frac{C}{M} \left[ \rho_i \beta R (1-R) - R \rho_l (1 - \beta R) \right]$$
+$$\frac{dR}{dt} = -\frac{h \cdot A(V) \cdot T_{amb}}{M \cdot L_f} - \frac{C}{M} \left[ \rho_i \beta(V) R (1-R) - R \rho_l (1 - \beta(V) R) \right]$$
 
 This equation reveals the "Critical Temperature": the point where the melting term (which decreases $R$) perfectly cancels out the drinking term (which increases $R$ due to liquid bias).
 
@@ -115,14 +115,17 @@ cupSizes = ({
 })
 
 // Simulation Function
-function runSimulation(temp, sizeKey, rate, initRatio, bias, trigger) {
-  // Use trigger to allow explicit refreshes if needed, though OJS is reactive
+function runSimulation(temp, sizeKey, rate, initRatio, initBias, trigger) {
   const d = cupSizes[sizeKey];
   const dt = 0.1; // minutes
   const C_ml = rate * ozToMl;
   
-  let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initRatio * rho_ice;
-  let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initRatio) * rho_liq;
+  const startingIce = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initRatio * rho_ice;
+  const startingLiq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initRatio) * rho_liq;
+  const startingVol = (startingIce / rho_ice) + (startingLiq / rho_liq);
+
+  let m_ice = startingIce;
+  let m_liq = startingLiq;
   
   const history = [];
   let t = 0;
@@ -130,6 +133,11 @@ function runSimulation(temp, sizeKey, rate, initRatio, bias, trigger) {
   while (m_ice + m_liq > 1 && history.length < 1000) {
     let currentVol = (m_ice / rho_ice) + (m_liq / rho_liq);
     let iceRatio = m_ice / (m_ice + m_liq);
+    let volFrac = Math.max(0, currentVol / startingVol);
+    
+    // Dynamic bias: At volFrac=1, bias is initBias. At volFrac=0, bias is 1.0 (no effect).
+    // The "Bias Error" (1 - initBias) scales to 0 as volume drops.
+    let currentBias = initBias + (1 - initBias) * (1 - volFrac);
     
     let heightFrac = Math.max(0, currentVol / (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)));
     let y = d.h * heightFrac;
@@ -146,7 +154,7 @@ function runSimulation(temp, sizeKey, rate, initRatio, bias, trigger) {
     m_liq += melted;
 
     let volOut = C_ml * dt;
-    let r_out = iceRatio * bias;
+    let r_out = iceRatio * currentBias;
     m_ice -= Math.min(m_ice, volOut * r_out * rho_ice);
     m_liq -= Math.min(m_liq, volOut * (1 - r_out) * rho_liq);
 
