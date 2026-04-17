@@ -483,7 +483,7 @@ font-style: inherit;">&lt;/div&gt;`</span></span></code></pre></div></div>
 <p>By combining the geometry of the frustum with the laws of thermodynamics, we can derive a single differential equation that governs the <strong>Ice Ratio (<img src="https://latex.codecogs.com/png.latex?R">)</strong> over time.</p>
 <p>Let <img src="https://latex.codecogs.com/png.latex?V(t)"> be the current volume of the slushee. The rate of change of the ice mass <img src="https://latex.codecogs.com/png.latex?m_i"> is driven by two competing forces: melting and drinking.</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm_i%7D%7Bdt%7D%20=%20-%5Cunderbrace%7B%5Cfrac%7Bh%20%5Ccdot%20A(V)%20%5Ccdot%20T_%7Bamb%7D%7D%7BL_f%7D%7D_%7B%5Ctext%7BMelting%7D%7D%20-%20%5Cunderbrace%7BC%20%5Ccdot%20%5Crho_i%20%5Ccdot%20(%5Cbeta%20R)%7D_%7B%5Ctext%7BDrinking%7D%7D"></p>
-<p>Where: - <img src="https://latex.codecogs.com/png.latex?A(V)"> is the surface area as a function of volume for a frustum. - <img src="https://latex.codecogs.com/png.latex?%5Cbeta"> is the liquid bias factor (the “Ice-in-Straw Bias”). - <img src="https://latex.codecogs.com/png.latex?C"> is the consumption rate.</p>
+<p>Where: - <strong><img src="https://latex.codecogs.com/png.latex?h"> (Heat Transfer Coefficient):</strong> Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher <img src="https://latex.codecogs.com/png.latex?h"> means a thinner or more conductive cup (like plastic vs.&nbsp;styrofoam). - <strong><img src="https://latex.codecogs.com/png.latex?A(V)"> (Surface Area):</strong> The active interface where heat exchange occurs. Because the cup is a frustum, the area decreases as you drink, slowing the melting rate over time. - <strong><img src="https://latex.codecogs.com/png.latex?T_%7Bamb%7D"> (Ambient Temperature):</strong> The “thermal pressure” driving the phase change. The greater the delta between the air and the <img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc%20C"> slushee, the faster the ice crystals collapse. - <strong><img src="https://latex.codecogs.com/png.latex?L_f"> (Latent Heat of Fusion):</strong> The energy required to break the molecular bonds of the ice crystals (<img src="https://latex.codecogs.com/png.latex?334%5C%20J/g">). This is the “thermal buffer” that keeps your drink cold. - <strong><img src="https://latex.codecogs.com/png.latex?C"> (Consumption Rate):</strong> Your volumetric drinking speed. - <strong><img src="https://latex.codecogs.com/png.latex?%5Cbeta"> (Ice-in-Straw Bias):</strong> Perhaps the most critical variable. This constant accounts for the <strong>buoyancy of ice</strong>. Because ice crystals are less dense than the syrup, they float toward the top. Since the straw draws from the bottom of the cup, it captures a liquid-rich mixture. A <img src="https://latex.codecogs.com/png.latex?%5Cbeta%20=%200.5"> means the straw is “filtering” the drink, pulling only half as much ice as is actually present in the cup’s total ratio.</p>
 <p>The <strong>Final Expanded Solution</strong> for the change in ice ratio <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7BdR%7D%7Bdt%7D"> is:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7BdR%7D%7Bdt%7D%20=%20%5Cfrac%7B1%7D%7BM%7D%20%5Cleft%5B%20%5Cdot%7Bm%7D_i%20(1%20-%20R)%20-%20R%20%5Cdot%7Bm%7D_l%20%5Cright%5D"></p>
 <p>Plugging everything in:</p>
@@ -497,7 +497,7 @@ font-style: inherit;">&lt;/div&gt;`</span></span></code></pre></div></div>
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="85" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 84;"><span id="cb2-85">viewof ambientTempC <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="88" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 87;"><span id="cb2-88">viewof ambientTempC <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -534,7 +534,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Ambient Temp (°C)"</span>})</span>
-<span id="cb2-86">viewof cupSize <span class="op" style="color: #5E5E5E;
+<span id="cb2-89">viewof cupSize <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -546,7 +546,7 @@ font-weight: bold;
 font-style: inherit;">new</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">Map</span>([</span>
-<span id="cb2-87">  [<span class="st" style="color: #20794D;
+<span id="cb2-90">  [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Small (12 oz)"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -555,7 +555,7 @@ background-color: null;
 font-style: inherit;">"small"</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-88">  [<span class="st" style="color: #20794D;
+<span id="cb2-91">  [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Medium (22 oz)"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -564,7 +564,7 @@ background-color: null;
 font-style: inherit;">"medium"</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-89">  [<span class="st" style="color: #20794D;
+<span id="cb2-92">  [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Large (30 oz)"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -573,14 +573,14 @@ background-color: null;
 font-style: inherit;">"large"</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-90">  [<span class="st" style="color: #20794D;
+<span id="cb2-93">  [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"X-Large (40 oz)"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"xlarge"</span>]</span>
-<span id="cb2-91">])<span class="op" style="color: #5E5E5E;
+<span id="cb2-94">])<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
 background-color: null;
@@ -589,7 +589,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Cup Size"</span>})</span>
-<span id="cb2-92">viewof consumptionRate <span class="op" style="color: #5E5E5E;
+<span id="cb2-95">viewof consumptionRate <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -626,7 +626,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Consumption (oz/min)"</span>})</span>
-<span id="cb2-93">viewof initialIceRatio <span class="op" style="color: #5E5E5E;
+<span id="cb2-96">viewof initialIceRatio <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -663,7 +663,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Initial Ice Ratio"</span>})</span>
-<span id="cb2-94">viewof liquidBias <span class="op" style="color: #5E5E5E;
+<span id="cb2-97">viewof liquidBias <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -700,7 +700,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Ice-in-Straw Bias"</span>})</span>
-<span id="cb2-95">viewof runTrigger <span class="op" style="color: #5E5E5E;
+<span id="cb2-98">viewof runTrigger <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -757,49 +757,49 @@ font-style: inherit;">"Run Simulation"</span>)</span></code></pre></div></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="100" data-source-offset="-22" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 99;"><span id="cb3-100">ozToMl <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="103" data-source-offset="-22" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 102;"><span id="cb3-103">ozToMl <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">29.57</span></span>
-<span id="cb3-101">inchToCm <span class="op" style="color: #5E5E5E;
+<span id="cb3-104">inchToCm <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2.54</span></span>
-<span id="cb3-102">Lf <span class="op" style="color: #5E5E5E;
+<span id="cb3-105">Lf <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">334</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// J/g</span></span>
-<span id="cb3-103">h_coeff <span class="op" style="color: #5E5E5E;
+<span id="cb3-106">h_coeff <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">9.5</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// W/m^2K</span></span>
-<span id="cb3-104">rho_ice <span class="op" style="color: #5E5E5E;
+<span id="cb3-107">rho_ice <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.917</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// g/cm^3</span></span>
-<span id="cb3-105">rho_liq <span class="op" style="color: #5E5E5E;
+<span id="cb3-108">rho_liq <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1.0</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// g/cm^3</span></span>
-<span id="cb3-106"></span>
-<span id="cb3-107">cupSizes <span class="op" style="color: #5E5E5E;
+<span id="cb3-109"></span>
+<span id="cb3-110">cupSizes <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ({</span>
-<span id="cb3-108">  <span class="dt" style="color: #AD0000;
+<span id="cb3-111">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">small</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -842,7 +842,7 @@ background-color: null;
 font-style: inherit;">*</span> inchToCm }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb3-109">  <span class="dt" style="color: #AD0000;
+<span id="cb3-112">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">medium</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -885,7 +885,7 @@ background-color: null;
 font-style: inherit;">*</span> inchToCm }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb3-110">  <span class="dt" style="color: #AD0000;
+<span id="cb3-113">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">large</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -928,7 +928,7 @@ background-color: null;
 font-style: inherit;">*</span> inchToCm }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb3-111">  <span class="dt" style="color: #AD0000;
+<span id="cb3-114">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">xlarge</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -969,12 +969,12 @@ background-color: null;
 font-style: inherit;">2</span>) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> inchToCm }</span>
-<span id="cb3-112">})</span>
-<span id="cb3-113"></span>
-<span id="cb3-114"><span class="co" style="color: #5E5E5E;
+<span id="cb3-115">})</span>
+<span id="cb3-116"></span>
+<span id="cb3-117"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Simulation Function</span></span>
-<span id="cb3-115"><span class="kw" style="color: #003B4F;
+<span id="cb3-118"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
@@ -990,10 +990,10 @@ background-color: null;
 font-style: inherit;">,</span> bias<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> trigger) {</span>
-<span id="cb3-116">  <span class="co" style="color: #5E5E5E;
+<span id="cb3-119">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Use trigger to allow explicit refreshes if needed, though OJS is reactive</span></span>
-<span id="cb3-117">  <span class="kw" style="color: #003B4F;
+<span id="cb3-120">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> d <span class="op" style="color: #5E5E5E;
@@ -1001,7 +1001,7 @@ background-color: null;
 font-style: inherit;">=</span> cupSizes[sizeKey]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-118">  <span class="kw" style="color: #003B4F;
+<span id="cb3-121">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dt <span class="op" style="color: #5E5E5E;
@@ -1013,7 +1013,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// minutes</span></span>
-<span id="cb3-119">  <span class="kw" style="color: #003B4F;
+<span id="cb3-122">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> C_ml <span class="op" style="color: #5E5E5E;
@@ -1023,8 +1023,8 @@ background-color: null;
 font-style: inherit;">*</span> ozToMl<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-120">  </span>
-<span id="cb3-121">  <span class="kw" style="color: #003B4F;
+<span id="cb3-123">  </span>
+<span id="cb3-124">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> m_ice <span class="op" style="color: #5E5E5E;
@@ -1084,7 +1084,7 @@ background-color: null;
 font-style: inherit;">*</span> rho_ice<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-122">  <span class="kw" style="color: #003B4F;
+<span id="cb3-125">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> m_liq <span class="op" style="color: #5E5E5E;
@@ -1148,8 +1148,8 @@ background-color: null;
 font-style: inherit;">*</span> rho_liq<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-123">  </span>
-<span id="cb3-124">  <span class="kw" style="color: #003B4F;
+<span id="cb3-126">  </span>
+<span id="cb3-127">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> history <span class="op" style="color: #5E5E5E;
@@ -1157,7 +1157,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-125">  <span class="kw" style="color: #003B4F;
+<span id="cb3-128">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> t <span class="op" style="color: #5E5E5E;
@@ -1167,8 +1167,8 @@ background-color: null;
 font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-126"></span>
-<span id="cb3-127">  <span class="cf" style="color: #003B4F;
+<span id="cb3-129"></span>
+<span id="cb3-130">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">while</span> (m_ice <span class="op" style="color: #5E5E5E;
@@ -1188,7 +1188,7 @@ background-color: null;
 font-style: inherit;">&lt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1000</span>) {</span>
-<span id="cb3-128">    <span class="kw" style="color: #003B4F;
+<span id="cb3-131">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> currentVol <span class="op" style="color: #5E5E5E;
@@ -1202,7 +1202,7 @@ background-color: null;
 font-style: inherit;">/</span> rho_liq)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-129">    <span class="kw" style="color: #003B4F;
+<span id="cb3-132">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> iceRatio <span class="op" style="color: #5E5E5E;
@@ -1214,8 +1214,8 @@ background-color: null;
 font-style: inherit;">+</span> m_liq)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-130">    </span>
-<span id="cb3-131">    <span class="kw" style="color: #003B4F;
+<span id="cb3-133">    </span>
+<span id="cb3-134">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> heightFrac <span class="op" style="color: #5E5E5E;
@@ -1283,7 +1283,7 @@ background-color: null;
 font-style: inherit;">2</span>)))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-132">    <span class="kw" style="color: #003B4F;
+<span id="cb3-135">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> y <span class="op" style="color: #5E5E5E;
@@ -1297,7 +1297,7 @@ background-color: null;
 font-style: inherit;">*</span> heightFrac<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-133">    <span class="kw" style="color: #003B4F;
+<span id="cb3-136">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> ry <span class="op" style="color: #5E5E5E;
@@ -1323,7 +1323,7 @@ background-color: null;
 font-style: inherit;">*</span> heightFrac<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-134">    <span class="kw" style="color: #003B4F;
+<span id="cb3-137">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> Area <span class="op" style="color: #5E5E5E;
@@ -1387,7 +1387,7 @@ background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-135">    Area <span class="op" style="color: #5E5E5E;
+<span id="cb3-138">    Area <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Area <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1396,8 +1396,8 @@ background-color: null;
 font-style: inherit;">10000</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-136"></span>
-<span id="cb3-137">    history<span class="op" style="color: #5E5E5E;
+<span id="cb3-139"></span>
+<span id="cb3-140">    history<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1426,8 +1426,8 @@ background-color: null;
 font-style: inherit;">/</span> ozToMl })<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-138"></span>
-<span id="cb3-139">    <span class="kw" style="color: #003B4F;
+<span id="cb3-141"></span>
+<span id="cb3-142">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> dQ <span class="op" style="color: #5E5E5E;
@@ -1449,7 +1449,7 @@ background-color: null;
 font-style: inherit;">60</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-140">    <span class="kw" style="color: #003B4F;
+<span id="cb3-143">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> melted <span class="op" style="color: #5E5E5E;
@@ -1459,7 +1459,7 @@ background-color: null;
 font-style: inherit;">/</span> Lf<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-141">    melted <span class="op" style="color: #5E5E5E;
+<span id="cb3-144">    melted <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -1472,18 +1472,18 @@ background-color: null;
 font-style: inherit;">,</span> m_ice)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-142">    m_ice <span class="op" style="color: #5E5E5E;
+<span id="cb3-145">    m_ice <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-=</span> melted<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-143">    m_liq <span class="op" style="color: #5E5E5E;
+<span id="cb3-146">    m_liq <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+=</span> melted<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-144"></span>
-<span id="cb3-145">    <span class="kw" style="color: #003B4F;
+<span id="cb3-147"></span>
+<span id="cb3-148">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> volOut <span class="op" style="color: #5E5E5E;
@@ -1493,7 +1493,7 @@ background-color: null;
 font-style: inherit;">*</span> dt<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-146">    <span class="kw" style="color: #003B4F;
+<span id="cb3-149">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> r_out <span class="op" style="color: #5E5E5E;
@@ -1503,7 +1503,7 @@ background-color: null;
 font-style: inherit;">*</span> bias<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-147">    m_ice <span class="op" style="color: #5E5E5E;
+<span id="cb3-150">    m_ice <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -1520,7 +1520,7 @@ background-color: null;
 font-style: inherit;">*</span> rho_ice)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-148">    m_liq <span class="op" style="color: #5E5E5E;
+<span id="cb3-151">    m_liq <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -1541,20 +1541,20 @@ background-color: null;
 font-style: inherit;">*</span> rho_liq)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-149"></span>
-<span id="cb3-150">    t <span class="op" style="color: #5E5E5E;
+<span id="cb3-152"></span>
+<span id="cb3-153">    t <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+=</span> dt<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-151">  }</span>
-<span id="cb3-152">  <span class="cf" style="color: #003B4F;
+<span id="cb3-154">  }</span>
+<span id="cb3-155">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> history<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb3-153">}</span></code></pre></div></div>
+<span id="cb3-156">}</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1616,7 +1616,7 @@ font-style: inherit;">;</span></span>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="158" data-source-offset="-19" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 157;"><span id="cb4-158">results <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="161" data-source-offset="-19" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 160;"><span id="cb4-161">results <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1631,16 +1631,16 @@ background-color: null;
 font-style: inherit;">,</span> liquidBias<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> runTrigger)</span>
-<span id="cb4-159"></span>
-<span id="cb4-160"><span class="co" style="color: #5E5E5E;
+<span id="cb4-162"></span>
+<span id="cb4-163"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Plot</span></span>
-<span id="cb4-161">Plot<span class="op" style="color: #5E5E5E;
+<span id="cb4-164">Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">plot</span>({</span>
-<span id="cb4-162">  <span class="dt" style="color: #AD0000;
+<span id="cb4-165">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">title</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1649,7 +1649,7 @@ background-color: null;
 font-style: inherit;">"Ice Ratio Projection"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-163">  <span class="dt" style="color: #AD0000;
+<span id="cb4-166">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">subtitle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1658,7 +1658,7 @@ background-color: null;
 font-style: inherit;">"Keep the ratio below 90% for a successful finish"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-164">  <span class="dt" style="color: #AD0000;
+<span id="cb4-167">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1683,7 +1683,7 @@ background-color: null;
 font-style: inherit;">100</span>] }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-165">  <span class="dt" style="color: #AD0000;
+<span id="cb4-168">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1696,12 +1696,12 @@ background-color: null;
 font-style: inherit;">"Time (minutes)"</span> }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-166">  <span class="dt" style="color: #AD0000;
+<span id="cb4-169">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">marks</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> [</span>
-<span id="cb4-167">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb4-170">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1740,7 +1740,7 @@ background-color: null;
 font-style: inherit;">3</span>})<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-168">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb4-171">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1765,7 +1765,7 @@ background-color: null;
 font-style: inherit;">"4,4"</span>})<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb4-169">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb4-172">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1804,8 +1804,8 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"red"</span>})</span>
-<span id="cb4-170">  ]</span>
-<span id="cb4-171">})</span></code></pre></div></div>
+<span id="cb4-173">  ]</span>
+<span id="cb4-174">})</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1825,16 +1825,16 @@ font-style: inherit;">"red"</span>})</span>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="174" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 173;"><span id="cb5-174"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="177" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 176;"><span id="cb5-177"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">md</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span>
-<span id="cb5-175"><span class="vs" style="color: #20794D;
+<span id="cb5-178"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">### Analysis</span></span>
-<span id="cb5-176"></span>
-<span id="cb5-177"><span class="vs" style="color: #20794D;
+<span id="cb5-179"></span>
+<span id="cb5-180"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Final Ice Ratio: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1861,7 +1861,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">%**  </span></span>
-<span id="cb5-178"><span class="vs" style="color: #20794D;
+<span id="cb5-181"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Total Time: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1888,8 +1888,8 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> minutes**</span></span>
-<span id="cb5-179"></span>
-<span id="cb5-180"><span class="sc" style="color: #5E5E5E;
+<span id="cb5-182"></span>
+<span id="cb5-183"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">${</span>results[results<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1908,19 +1908,19 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">90</span> </span>
-<span id="cb5-181">  <span class="op" style="color: #5E5E5E;
+<span id="cb5-184">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">?</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"❌ **FAILED**: You were left with a block of dry ice! Decrease your consumption rate or find a warmer spot."</span> </span>
-<span id="cb5-182">  <span class="op" style="color: #5E5E5E;
+<span id="cb5-185">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"✅ **SUCCESS**: A perfect balance of phase-change and consumption."</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span></span>
-<span id="cb5-183"><span class="vs" style="color: #20794D;
+<span id="cb5-186"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span></code></pre></div></div>
 </details>
