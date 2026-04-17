@@ -62,9 +62,12 @@ Let $V(t)$ be the current volume of the slushee. The rate of change of the ice m
 $$\frac{dm_i}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}$$
 
 Where:
-- $A(V)$ is the surface area as a function of volume for a frustum.
-- $\beta$ is the liquid bias factor (the "Ice-in-Straw Bias").
-- $C$ is the consumption rate.
+- **$h$ (Heat Transfer Coefficient):** Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher $h$ means a thinner or more conductive cup (like plastic vs. styrofoam).
+- **$A(V)$ (Surface Area):** The active interface where heat exchange occurs. Because the cup is a frustum, the area decreases as you drink, slowing the melting rate over time.
+- **$T_{amb}$ (Ambient Temperature):** The "thermal pressure" driving the phase change. The greater the delta between the air and the $0^\circ C$ slushee, the faster the ice crystals collapse.
+- **$L_f$ (Latent Heat of Fusion):** The energy required to break the molecular bonds of the ice crystals ($334\ J/g$). This is the "thermal buffer" that keeps your drink cold.
+- **$C$ (Consumption Rate):** Your volumetric drinking speed.
+- **$\beta$ (Ice-in-Straw Bias):** Perhaps the most critical variable. This constant accounts for the **buoyancy of ice**. Because ice crystals are less dense than the syrup, they float toward the top. Since the straw draws from the bottom of the cup, it captures a liquid-rich mixture. A $\beta = 0.5$ means the straw is "filtering" the drink, pulling only half as much ice as is actually present in the cup's total ratio.
 
 The **Final Expanded Solution** for the change in ice ratio $\frac{dR}{dt}$ is:
 
