@@ -471,18 +471,18 @@ font-style: inherit;">&lt;/div&gt;`</span></span></code></pre></div></div>
 <p>Instead of modeling discrete sips, we can model the slushee as a continuous system.</p>
 <section id="heat-transfer" class="level3">
 <h3 class="anchored" data-anchor-id="heat-transfer">Heat Transfer</h3>
-<p>Heat flows from the ambient air (<img src="https://latex.codecogs.com/png.latex?T_%7Bamb%7D">) through the cup walls: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7BdQ%7D%7Bdt%7D%20=%20h%20%5Ccdot%20A%20%5Ccdot%20(T_%7Bamb%7D%20-%200%5E%5Ccirc%20C)"> This heat melts the ice at a rate of <img src="https://latex.codecogs.com/png.latex?%5Cdot%7Bm%7D_%7Bmelt%7D%20=%20%5Cfrac%7B1%7D%7BL_f%7D%20%5Cfrac%7BdQ%7D%7Bdt%7D">.</p>
+<p>Heat flows from the ambient air (<img src="https://latex.codecogs.com/png.latex?T_%7Bamb%7D">) through the cup walls: <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7BdQ%7D%7Bdt%7D%20=%20h%20%5Ccdot%20A%20%5Ccdot%20(T_%7Bamb%7D%20-%200%5E%5Ccirc%20C)"> This heat melts the ice at a rate of <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm%7D%7Bt%7D_%7Bmelt%7D%20=%20%5Cfrac%7B1%7D%7BL_f%7D%20%5Cfrac%7BdQ%7D%7Bdt%7D">.</p>
 </section>
 <section id="consumption" class="level3">
 <h3 class="anchored" data-anchor-id="consumption">Consumption</h3>
-<p>We assume a constant volumetric consumption rate <img src="https://latex.codecogs.com/png.latex?C"> (oz/min). Because of the straw’s liquid bias, the rate of ice removal <img src="https://latex.codecogs.com/png.latex?%5Cdot%7Bm%7D_%7Bice%5C_out%7D"> is lower than the rate of liquid removal.</p>
+<p>We assume a constant volumetric consumption rate <img src="https://latex.codecogs.com/png.latex?C"> (oz/min). Because of the straw’s liquid bias, the rate of ice removal <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm%7D%7Bt%7D_%7Bice%5C_out%7D"> is lower than the rate of liquid removal.</p>
 </section>
 </section>
 <section id="the-master-differential-equation" class="level2">
 <h2 class="anchored" data-anchor-id="the-master-differential-equation">3. The Master Differential Equation</h2>
 <p>By combining the geometry of the frustum with the laws of thermodynamics, we can derive a single differential equation that governs the <strong>Ice Ratio (<img src="https://latex.codecogs.com/png.latex?R">)</strong> over time.</p>
 <p>Let <img src="https://latex.codecogs.com/png.latex?V(t)"> be the current volume of the slushee. The rate of change of the ice mass <img src="https://latex.codecogs.com/png.latex?m_i"> is driven by two competing forces: melting and drinking.</p>
-<p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm_i%7D%7Bdt%7D%20=%20-%5Cunderbrace%7B%5Cfrac%7Bh%20%5Ccdot%20A(V)%20%5Ccdot%20T_%7Bamb%7D%7D%7BL_f%7D%7D_%7B%5Ctext%7BMelting%7D%7D%20-%20%5Cunderbrace%7BC%20%5Ccdot%20%5Crho_i%20%5Ccdot%20(%5Cbeta%20R)%7D_%7B%5Ctext%7BDrinking%7D%7D"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm_%7Bice%7D%7D%7Bdt%7D%20=%20-%5Cunderbrace%7B%5Cfrac%7Bh%20%5Ccdot%20A(V)%20%5Ccdot%20T_%7Bamb%7D%7D%7BL_f%7D%7D_%7B%5Ctext%7BMelting%7D%7D%20-%20%5Cunderbrace%7BC%20%5Ccdot%20%5Crho_i%20%5Ccdot%20(%5Cbeta%20R)%7D_%7B%5Ctext%7BDrinking%7D%7D"></p>
 <p>Where: - <strong><img src="https://latex.codecogs.com/png.latex?h"> (Heat Transfer Coefficient):</strong> Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher <img src="https://latex.codecogs.com/png.latex?h"> means a thinner or more conductive cup (like plastic vs.&nbsp;styrofoam).</p>
 <ul>
 <li><p><strong><img src="https://latex.codecogs.com/png.latex?A(V)"> (Surface Area):</strong> The active interface where heat exchange occurs. Because the cup is a frustum, the area decreases as you drink, slowing the melting rate over time.</p></li>
@@ -2052,7 +2052,7 @@ font-style: inherit;">`</span></span></code></pre></div></div>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you’re going for the 40oz X-Large, you’d better be drinking it in the heat of mid-July, or prepare by adding additional liquid towards the end of your consumption.</p>
-<p>All this is to say, keep ICE out of all things, including the final moments of drinking a slushee! e final moments of drinking a slushee!</p>
+<p>All this is to say, keep ICE out of all things, including the final moments of drinking a slushee!</p>
 
 
 </section>

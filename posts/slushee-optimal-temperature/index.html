@@ -264,18 +264,18 @@ window.Quarto = {
 <p>Instead of modeling discrete sips, we can model the slushee as a continuous system.</p>
 <section id="heat-transfer" class="level3">
 <h3 class="anchored" data-anchor-id="heat-transfer">Heat Transfer</h3>
-<p>Heat flows from the ambient air (<span class="math inline">\(T_{amb}\)</span>) through the cup walls: <span class="math display">\[\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)\]</span> This heat melts the ice at a rate of <span class="math inline">\(\dot{m}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}\)</span>.</p>
+<p>Heat flows from the ambient air (<span class="math inline">\(T_{amb}\)</span>) through the cup walls: <span class="math display">\[\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)\]</span> This heat melts the ice at a rate of <span class="math inline">\(\frac{dm}{t}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}\)</span>.</p>
 </section>
 <section id="consumption" class="level3">
 <h3 class="anchored" data-anchor-id="consumption">Consumption</h3>
-<p>We assume a constant volumetric consumption rate <span class="math inline">\(C\)</span> (oz/min). Because of the straw’s liquid bias, the rate of ice removal <span class="math inline">\(\dot{m}_{ice\_out}\)</span> is lower than the rate of liquid removal.</p>
+<p>We assume a constant volumetric consumption rate <span class="math inline">\(C\)</span> (oz/min). Because of the straw’s liquid bias, the rate of ice removal <span class="math inline">\(\frac{dm}{t}_{ice\_out}\)</span> is lower than the rate of liquid removal.</p>
 </section>
 </section>
 <section id="the-master-differential-equation" class="level2">
 <h2 class="anchored" data-anchor-id="the-master-differential-equation">3. The Master Differential Equation</h2>
 <p>By combining the geometry of the frustum with the laws of thermodynamics, we can derive a single differential equation that governs the <strong>Ice Ratio (<span class="math inline">\(R\)</span>)</strong> over time.</p>
 <p>Let <span class="math inline">\(V(t)\)</span> be the current volume of the slushee. The rate of change of the ice mass <span class="math inline">\(m_i\)</span> is driven by two competing forces: melting and drinking.</p>
-<p><span class="math display">\[\frac{dm_i}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}\]</span></p>
+<p><span class="math display">\[\frac{dm_{ice}}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}\]</span></p>
 <p>Where: - <strong><span class="math inline">\(h\)</span> (Heat Transfer Coefficient):</strong> Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher <span class="math inline">\(h\)</span> means a thinner or more conductive cup (like plastic vs.&nbsp;styrofoam).</p>
 <ul>
 <li><p><strong><span class="math inline">\(A(V)\)</span> (Surface Area):</strong> The active interface where heat exchange occurs. Because the cup is a frustum, the area decreases as you drink, slowing the melting rate over time.</p></li>
@@ -569,7 +569,7 @@ window.Quarto = {
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you’re going for the 40oz X-Large, you’d better be drinking it in the heat of mid-July, or prepare by adding additional liquid towards the end of your consumption.</p>
-<p>All this is to say, keep ICE out of all things, including the final moments of drinking a slushee! e final moments of drinking a slushee!</p>
+<p>All this is to say, keep ICE out of all things, including the final moments of drinking a slushee!</p>
 
 
 </section>
