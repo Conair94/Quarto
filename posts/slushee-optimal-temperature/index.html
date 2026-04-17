@@ -109,9 +109,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -224,197 +221,76 @@ window.Quarto = {
 
 
 <p>Have you ever reached the end of an Icee or Slurpee only to find a desolate, dry block of white ice? This is the “Slushee Dead Zone”—a state where the liquid-to-solid ratio has collapsed, leaving the remaining ice stranded without enough syrup to be drinkable.</p>
-<p>The problem is one of <strong>phase-change synchronization</strong>. For a perfect drinking experience, the rate at which you consume the liquid must match the rate at which the ambient heat melts the ice. If it’s too cold outside, the ice doesn’t melt fast enough. If it’s too hot, you’re left with a watery mess.</p>
-<p>Let’s model this to find the optimal temperature for every 7-11 cup size.</p>
-<section id="the-model-discrete-sip-thermodynamics" class="level2">
-<h2 class="anchored" data-anchor-id="the-model-discrete-sip-thermodynamics">The Model: Discrete Sip Thermodynamics</h2>
-<p>We model the slushee as a mixture of ice crystals (<span class="math inline">\(m_{ice}\)</span>) and liquid syrup (<span class="math inline">\(m_{liquid}\)</span>). We assume the slushee is a <strong>slurry</strong> at a constant <span class="math inline">\(0^\circ C\)</span> as long as ice remains.</p>
-<section id="geometry-the-tapered-frustum" class="level3">
-<h3 class="anchored" data-anchor-id="geometry-the-tapered-frustum">1. Geometry: The Tapered Frustum</h3>
+<p>The problem is one of <strong>phase-change synchronization</strong>. For a perfect drinking experience, the rate at which you consume the liquid must match the rate at which the ambient heat melts the ice.</p>
+<section id="geometry-the-tapered-frustum" class="level2">
+<h2 class="anchored" data-anchor-id="geometry-the-tapered-frustum">1. Geometry: The Tapered Frustum</h2>
 <p>7-11 cups are not perfect cylinders; they are <strong>frustums</strong> (tapered cones). This affects the surface area <span class="math inline">\(A\)</span> exposed to the air as the volume decreases.</p>
-<p><span class="math display">\[V = \frac{\pi h}{3} (r_{base}^2 + r_{base}r_{top} + r_{top}^2)\]</span></p>
+<section id="cup-size-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="cup-size-comparison">Cup Size Comparison</h3>
+<p>The diagram below shows the relative 3D scale of the standard 7-11 lineup.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="22" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 21;"><span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">// Visual representation of cup sizes</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="display: flex; align-items: flex-end; gap: 20px; justify-content: center; padding: 20px; background: #f9f9f9; border-radius: 8px;"&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>[<span class="st">'small'</span><span class="op">,</span> <span class="st">'medium'</span><span class="op">,</span> <span class="st">'large'</span><span class="op">,</span> <span class="st">'xlarge'</span>]<span class="op">.</span><span class="fu">map</span>(size <span class="kw">=&gt;</span> {</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> d <span class="op">=</span> {</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">small</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">4.5</span><span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> <span class="fl">1.1</span><span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> <span class="fl">1.6</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"12oz"</span> }<span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">medium</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">6.0</span><span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> <span class="fl">1.25</span><span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> <span class="fl">1.87</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"22oz"</span> }<span class="op">,</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">large</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">7.0</span><span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> <span class="fl">1.37</span><span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> <span class="fl">2.12</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"30oz"</span> }<span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">xlarge</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">8.5</span><span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> <span class="fl">2.37</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"40oz"</span> }</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    }[size]<span class="op">;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> scale <span class="op">=</span> <span class="dv">20</span><span class="op">;</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div style="text-align: center;"&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;svg width="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span><span class="dv">2</span><span class="op">*</span>scale <span class="op">+</span> <span class="dv">10</span><span class="sc">}</span><span class="vs">" height="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">h</span><span class="op">*</span>scale <span class="op">+</span> <span class="dv">20</span><span class="sc">}</span><span class="vs">"&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;polygon points="</span><span class="sc">${</span>(d<span class="op">.</span><span class="at">r2</span><span class="op">-</span>d<span class="op">.</span><span class="at">r1</span>)<span class="op">*</span>scale<span class="sc">}</span><span class="vs">,</span><span class="sc">${</span>d<span class="op">.</span><span class="at">h</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>(d<span class="op">.</span><span class="at">r2</span><span class="op">+</span>d<span class="op">.</span><span class="at">r1</span>)<span class="op">*</span>scale<span class="sc">}</span><span class="vs">,</span><span class="sc">${</span>d<span class="op">.</span><span class="at">h</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span><span class="dv">2</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs">,0 0,0" fill="#ff6600" opacity="0.8" stroke="#333" /&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;ellipse cx="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs">" cy="0" rx="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs">" ry="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span><span class="fl">0.3</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs">" fill="#fff" stroke="#333" /&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;text x="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">r2</span><span class="op">*</span>scale<span class="sc">}</span><span class="vs">" y="</span><span class="sc">${</span>d<span class="op">.</span><span class="at">h</span><span class="op">*</span>scale <span class="op">+</span> <span class="dv">15</span><span class="sc">}</span><span class="vs">" text-anchor="middle" font-size="12"&gt;</span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}</span><span class="vs">&lt;/text&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;/svg&gt;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  })<span class="sc">}</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="expression">
+
+</div>
+</div>
+</div>
 </section>
-<section id="heat-transfer" class="level3">
-<h3 class="anchored" data-anchor-id="heat-transfer">2. Heat Transfer</h3>
-<p>Heat flows from the ambient air (<span class="math inline">\(T_{amb}\)</span>) through the cup walls: <span class="math display">\[\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)\]</span> Where <span class="math inline">\(h \approx 9.5\ W/m^2K\)</span> for standard paper or plastic cups.</p>
+<section id="mathematical-formulas" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-formulas">Mathematical Formulas</h3>
+<p>To model the heat transfer accurately, we use the following formulas for a frustum of height <span class="math inline">\(h\)</span>, base radius <span class="math inline">\(r_1\)</span>, and top radius <span class="math inline">\(r_2\)</span>:</p>
+<p><strong>Volume (<span class="math inline">\(V\)</span>):</strong> <span class="math display">\[V = \frac{\pi h}{3} (r_1^2 + r_1 r_2 + r_2^2)\]</span></p>
+<p><strong>Lateral Surface Area (<span class="math inline">\(A_{lat}\)</span>):</strong> The surface area of the sides (where most heat transfer occurs) is: <span class="math display">\[A_{lat} = \pi (r_1 + r_2) \sqrt{(r_2 - r_1)^2 + h^2}\]</span></p>
+<p><strong>Total Surface Area (<span class="math inline">\(A_{total}\)</span>):</strong> Including the base (ignoring the lid): <span class="math display">\[A_{total} = A_{lat} + \pi r_1^2\]</span></p>
 </section>
+</section>
+<section id="thermodynamics-heat-transfer-phase-change" class="level2">
+<h2 class="anchored" data-anchor-id="thermodynamics-heat-transfer-phase-change">2. Thermodynamics: Heat Transfer &amp; Phase Change</h2>
+<p>Heat flows from the ambient air (<span class="math inline">\(T_{amb}\)</span>) through the cup walls to melt the ice: <span class="math display">\[\frac{dQ}{dt} = h_{coeff} \cdot A \cdot (T_{amb} - 0^\circ C)\]</span></p>
+<p>When heat enters, it melts a mass of ice <span class="math inline">\(m_{melt}\)</span>: <span class="math display">\[m_{melt} = \frac{dQ}{L_f}\]</span> Where <span class="math inline">\(L_f = 334\ J/g\)</span> is the latent heat of fusion.</p>
 <section id="consumption-bias" class="level3">
-<h3 class="anchored" data-anchor-id="consumption-bias">3. Consumption Bias</h3>
-<p>When you drink through a straw, you naturally pull more liquid than solid. We assume: <span class="math display">\[\text{Ice Ratio in Sip} = 0.5 \times \text{Current Ice Ratio in Cup}\]</span></p>
-</section>
-<section id="the-simulation" class="level3">
-<h3 class="anchored" data-anchor-id="the-simulation">4. The Simulation</h3>
-<p>We iterate sip-by-sip. Between sips, heat enters the cup and melts a mass of ice <span class="math inline">\(m_{melt} = dQ / L_f\)</span>, where <span class="math inline">\(L_f = 334\ J/g\)</span> is the latent heat of fusion.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    A[Ambient Heat] --&gt; B(Cup Wall)
-    B --&gt; C{Melting}
-    C --&gt; D[Liquid Syrup]
-    E[Straw/Sip] --&gt; F{Consumption}
-    F --&gt; D
-    F --&gt; G[Ice Crystals]
-    G -.-&gt; C
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+<h3 class="anchored" data-anchor-id="consumption-bias">Consumption Bias</h3>
+<p>When you drink through a straw, the liquid is pulled more easily than the ice crystals. <span class="math display">\[\text{Ice Ratio in Sip} = 0.5 \times \text{Current Ice Ratio in Cup}\]</span></p>
 </section>
 </section>
-<section id="interactive-estimation" class="level2">
-<h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
-<p>Adjust the parameters below to simulate your drinking experience. Can you finish the slushee before the liquid runs out?</p>
+<section id="interactive-simulation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-simulation">3. Interactive Simulation</h2>
+<p>Adjust the parameters below. The simulation assumes <strong>2oz sips</strong> as requested.</p>
 <div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="55" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 54;"><span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>viewof ambientTempC <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">45</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ambient Temp (°C)"</span>})</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>viewof cupSize <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(<span class="kw">new</span> <span class="bu">Map</span>([</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Small (12 oz)"</span><span class="op">,</span> <span class="st">"small"</span>]<span class="op">,</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Medium (22 oz)"</span><span class="op">,</span> <span class="st">"medium"</span>]<span class="op">,</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Large (30 oz)"</span><span class="op">,</span> <span class="st">"large"</span>]<span class="op">,</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"X-Large (40 oz)"</span><span class="op">,</span> <span class="st">"xlarge"</span>]</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>])<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Cup Size"</span>})</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>viewof sipVolumeOz <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.0</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sip Volume (oz)"</span>})</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>viewof timeBetweenSips <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">120</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Seconds between sips"</span>})</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>viewof initialIceRatio <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.4</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.6</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Initial Ice Ratio"</span>})</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>viewof liquidBias <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">1.0</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sip Ice Bias (0.5 = half)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-3" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-4" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-5" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-1-6" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="panel-fill g-col-24 g-col-lg-17 pt-3 pt-lg-0">
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="70" data-source-offset="-27"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>ozToMl <span class="op">=</span> <span class="fl">29.57</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>inchToCm <span class="op">=</span> <span class="fl">2.54</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Lf <span class="op">=</span> <span class="dv">334</span> <span class="co">// J/g</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>h_coeff <span class="op">=</span> <span class="fl">9.5</span> <span class="co">// W/m^2K</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>rho_ice <span class="op">=</span> <span class="fl">0.917</span> <span class="co">// g/cm^3</span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>rho_liq <span class="op">=</span> <span class="fl">1.0</span> <span class="co">// g/cm^3</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">// Cup Geometry (cm)</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>cupData <span class="op">=</span> {</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> {</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    <span class="dt">small</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">4.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="dt">medium</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">6.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.5</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="dt">large</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">7.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xlarge</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">8.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">3.0</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> data[cupSize]<span class="op">;</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="co">// Simulation</span></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_ice <span class="op">=</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> initialIceRatio <span class="op">*</span> rho_ice<span class="op">;</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_liq <span class="op">=</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> initialIceRatio) <span class="op">*</span> rho_liq<span class="op">;</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> history <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> sips <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> totalVol <span class="op">=</span> (m_ice <span class="op">/</span> rho_ice) <span class="op">+</span> (m_liq <span class="op">/</span> rho_liq)<span class="op">;</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v_sip <span class="op">=</span> sipVolumeOz <span class="op">*</span> ozToMl<span class="op">;</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (m_ice <span class="op">+</span> m_liq <span class="op">&gt;</span> v_sip <span class="op">*</span> <span class="fl">0.5</span> <span class="op">&amp;&amp;</span> history<span class="op">.</span><span class="at">length</span> <span class="op">&lt;</span> <span class="dv">200</span>) {</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Current state</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> currentVol <span class="op">=</span> (m_ice <span class="op">/</span> rho_ice) <span class="op">+</span> (m_liq <span class="op">/</span> rho_liq)<span class="op">;</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> iceRatio <span class="op">=</span> m_ice <span class="op">/</span> (m_ice <span class="op">+</span> m_liq)<span class="op">;</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Find current height and surface area</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Volume of frustum height y: V = pi*y/3 * (r1^2 + r1*ry + ry^2) where ry = r1 + (r2-r1)*y/h</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    <span class="co">// We'll simplify Surface Area for the simulation based on current height</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> heightFrac <span class="op">=</span> currentVol <span class="op">/</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>))<span class="op">;</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y <span class="op">=</span> cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> heightFrac<span class="op">;</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> ry <span class="op">=</span> cupData<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> (cupData<span class="op">.</span><span class="at">r2</span> <span class="op">-</span> cupData<span class="op">.</span><span class="at">r1</span>) <span class="op">*</span> heightFrac<span class="op">;</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Area <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> ry) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>((ry <span class="op">-</span> cupData<span class="op">.</span><span class="at">r1</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    Area <span class="op">=</span> Area <span class="op">/</span> <span class="dv">10000</span><span class="op">;</span> <span class="co">// cm2 to m2</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    history<span class="op">.</span><span class="fu">push</span>({</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">sip</span><span class="op">:</span> sips<span class="op">,</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">time</span><span class="op">:</span> t <span class="op">/</span> <span class="dv">60</span><span class="op">,</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>      <span class="dt">iceRatio</span><span class="op">:</span> iceRatio <span class="op">*</span> <span class="dv">100</span><span class="op">,</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>      <span class="dt">vol</span><span class="op">:</span> currentVol <span class="op">/</span> ozToMl</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1. Heat transfer over time between sips</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Q <span class="op">=</span> h_coeff <span class="op">*</span> Area <span class="op">*</span> (ambientTempC <span class="op">-</span> <span class="dv">0</span>) <span class="op">*</span> timeBetweenSips<span class="op">;</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> melted <span class="op">=</span> Q <span class="op">/</span> Lf<span class="op">;</span></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    melted <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(melted<span class="op">,</span> m_ice)<span class="op">;</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> melted<span class="op">;</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">+=</span> melted<span class="op">;</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 2. Consume sip</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r_sip <span class="op">=</span> iceRatio <span class="op">*</span> liquidBias<span class="op">;</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v_ice_sip <span class="op">=</span> v_sip <span class="op">*</span> r_sip<span class="op">;</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v_liq_sip <span class="op">=</span> v_sip <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> r_sip)<span class="op">;</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_ice<span class="op">,</span> v_ice_sip <span class="op">*</span> rho_ice)<span class="op">;</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_liq<span class="op">,</span> v_liq_sip <span class="op">*</span> rho_liq)<span class="op">;</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> timeBetweenSips<span class="op">;</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    sips<span class="op">++;</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history<span class="op">;</span></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="co">// Plotting</span></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Ice Ratio Over Time"</span><span class="op">,</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>  <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Goal: Keep the ratio below 90% to avoid 'The Dead Zone'"</span><span class="op">,</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Ice Ratio (%)"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>] }<span class="op">,</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Time (minutes)"</span> }<span class="op">,</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"iceRatio"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"steelblue"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">3</span>})<span class="op">,</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">90</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span>})<span class="op">,</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([<span class="st">"DEAD ZONE"</span>]<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">92</span><span class="op">,</span> <span class="dt">frameAnchor</span><span class="op">:</span> <span class="st">"left"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"red"</span>})</span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="77" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 76;"><span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>viewof ambientTempC <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">45</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ambient Temp (°C)"</span>})</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>viewof cupSize <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(<span class="kw">new</span> <span class="bu">Map</span>([</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Small (12 oz)"</span><span class="op">,</span> <span class="st">"small"</span>]<span class="op">,</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Medium (22 oz)"</span><span class="op">,</span> <span class="st">"medium"</span>]<span class="op">,</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Large (30 oz)"</span><span class="op">,</span> <span class="st">"large"</span>]<span class="op">,</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"X-Large (40 oz)"</span><span class="op">,</span> <span class="st">"xlarge"</span>]</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>])<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Cup Size"</span>})</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>viewof sipInterval <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="dv">60</span><span class="op">,</span> <span class="dv">30</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sip Frequency (seconds)"</span><span class="op">,</span> <span class="dt">format</span><span class="op">:</span> d <span class="kw">=&gt;</span> d <span class="op">===</span> <span class="dv">60</span> <span class="op">?</span> <span class="st">"Leisurely (1/min)"</span> <span class="op">:</span> <span class="st">"Fast (1/30s)"</span>})</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>viewof initialIceRatio <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.4</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.6</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Initial Ice Ratio"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -444,126 +320,217 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-5" data-nodetype="declaration">
-
 </div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-6" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-7" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-8" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-9" data-nodetype="expression">
-
-</div>
-</div>
-</div>
+<div class="panel-fill g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="154" data-source-offset="-2904"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 153;"><span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Volume Remaining"</span><span class="op">,</span></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Volume (oz)"</span> }<span class="op">,</span></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Time (minutes)"</span> }<span class="op">,</span></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"vol"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"vol"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"blue"</span>})</span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="90" data-source-offset="-13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>ozToMl <span class="op">=</span> <span class="fl">29.57</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>inchToCm <span class="op">=</span> <span class="fl">2.54</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>Lf <span class="op">=</span> <span class="dv">334</span> <span class="co">// J/g</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>h_coeff <span class="op">=</span> <span class="fl">9.5</span> <span class="co">// W/m^2K</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>rho_ice <span class="op">=</span> <span class="fl">0.917</span> <span class="co">// g/cm^3</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>rho_liq <span class="op">=</span> <span class="fl">1.0</span> <span class="co">// g/cm^3</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="co">// Cup Geometry (cm)</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>cupData <span class="op">=</span> {</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> {</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>    <span class="dt">small</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">4.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>    <span class="dt">medium</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">6.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.5</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>    <span class="dt">large</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">7.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xlarge</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">8.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">3.0</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> data[cupSize]<span class="op">;</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">simulate</span>(temp<span class="op">,</span> sizeKey<span class="op">,</span> interval<span class="op">,</span> initRatio) {</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> d <span class="op">=</span> {</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>    <span class="dt">small</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">4.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>    <span class="dt">medium</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">6.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.5</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>    <span class="dt">large</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">7.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xlarge</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">8.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">3.0</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>  }[sizeKey]<span class="op">;</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_ice <span class="op">=</span> (d<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (d<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r1</span><span class="op">*</span>d<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> initRatio <span class="op">*</span> rho_ice<span class="op">;</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_liq <span class="op">=</span> (d<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (d<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r1</span><span class="op">*</span>d<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> initRatio) <span class="op">*</span> rho_liq<span class="op">;</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> history <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v_sip <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> ozToMl<span class="op">;</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (m_ice <span class="op">+</span> m_liq <span class="op">&gt;</span> v_sip <span class="op">*</span> <span class="fl">0.1</span> <span class="op">&amp;&amp;</span> history<span class="op">.</span><span class="at">length</span> <span class="op">&lt;</span> <span class="dv">500</span>) {</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> currentVol <span class="op">=</span> (m_ice <span class="op">/</span> rho_ice) <span class="op">+</span> (m_liq <span class="op">/</span> rho_liq)<span class="op">;</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> iceRatio <span class="op">=</span> m_ice <span class="op">/</span> (m_ice <span class="op">+</span> m_liq)<span class="op">;</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> heightFrac <span class="op">=</span> currentVol <span class="op">/</span> (d<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (d<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r1</span><span class="op">*</span>d<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> d<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y <span class="op">=</span> d<span class="op">.</span><span class="at">h</span> <span class="op">*</span> heightFrac<span class="op">;</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> ry <span class="op">=</span> d<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> (d<span class="op">.</span><span class="at">r2</span> <span class="op">-</span> d<span class="op">.</span><span class="at">r1</span>) <span class="op">*</span> heightFrac<span class="op">;</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Area <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> (d<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> ry) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>((ry <span class="op">-</span> d<span class="op">.</span><span class="at">r1</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> d<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span><span class="op">;</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>    Area <span class="op">=</span> Area <span class="op">/</span> <span class="dv">10000</span><span class="op">;</span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    history<span class="op">.</span><span class="fu">push</span>({ <span class="dt">time</span><span class="op">:</span> t <span class="op">/</span> <span class="dv">60</span><span class="op">,</span> <span class="dt">iceRatio</span><span class="op">:</span> iceRatio <span class="op">*</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">vol</span><span class="op">:</span> currentVol <span class="op">/</span> ozToMl })<span class="op">;</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Q <span class="op">=</span> h_coeff <span class="op">*</span> Area <span class="op">*</span> (temp <span class="op">-</span> <span class="dv">0</span>) <span class="op">*</span> interval<span class="op">;</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> melted <span class="op">=</span> Q <span class="op">/</span> Lf<span class="op">;</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>    melted <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(melted<span class="op">,</span> m_ice)<span class="op">;</span></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> melted<span class="op">;</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">+=</span> melted<span class="op">;</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r_sip <span class="op">=</span> iceRatio <span class="op">*</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_ice<span class="op">,</span> v_sip <span class="op">*</span> r_sip <span class="op">*</span> rho_ice)<span class="op">;</span></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_liq<span class="op">,</span> v_sip <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> r_sip) <span class="op">*</span> rho_liq)<span class="op">;</span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> interval<span class="op">;</span></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history<span class="op">;</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> <span class="fu">simulate</span>(ambientTempC<span class="op">,</span> cupSize<span class="op">,</span> sipInterval<span class="op">,</span> initialIceRatio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-2-10" data-nodetype="expression">
+<div id="ojs-cell-3-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="164" data-source-offset="-3177"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 163;"><span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="vs">Final Ice Ratio: **</span><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">iceRatio</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%**  </span></span>
-<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="vs">Total Time: **</span><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">time</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> minutes**</span></span>
-<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">iceRatio</span> <span class="op">&gt;</span> <span class="dv">90</span> </span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> <span class="st">"❌ **FAILED**: You were left with a block of dry ice! Increase the ambient temperature or drink slower."</span> </span>
-<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> <span class="st">"✅ **SUCCESS**: You finished the slushee with a drinkable ratio!"</span><span class="sc">}</span></span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-2-11" data-nodetype="expression">
+<div id="ojs-cell-3-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="consumption-comparison-leisurely-vs.-fast" class="level3">
+<h3 class="anchored" data-anchor-id="consumption-comparison-leisurely-vs.-fast">Consumption Comparison: Leisurely vs.&nbsp;Fast</h3>
+<p>How does speed affect the outcome? A fast drinker leaves less time for the ambient air to melt the ice, leading to a drier finish.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="156" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 155;"><span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="display: flex; flex-wrap: wrap; gap: 10px;"&gt;</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="flex: 1; min-width: 300px;"&gt;</span><span class="sc">${</span>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span><span class="op">:</span> <span class="st">"Leisurely (1 sip/min)"</span><span class="op">,</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ice Ratio (%)"</span> }<span class="op">,</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(<span class="fu">simulate</span>(ambientTempC<span class="op">,</span> cupSize<span class="op">,</span> <span class="dv">60</span><span class="op">,</span> initialIceRatio)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"iceRatio"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"green"</span>})<span class="op">,</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">90</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span>})</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>  })<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div style="flex: 1; min-width: 300px;"&gt;</span><span class="sc">${</span>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>    <span class="dt">title</span><span class="op">:</span> <span class="st">"Fast (1 sip/30s)"</span><span class="op">,</span></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ice Ratio (%)"</span> }<span class="op">,</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(<span class="fu">simulate</span>(ambientTempC<span class="op">,</span> cupSize<span class="op">,</span> <span class="dv">30</span><span class="op">,</span> initialIceRatio)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"iceRatio"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"orange"</span>})<span class="op">,</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">90</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span>})</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>  })<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
 </div>
 </div>
 </div>
 </section>
-<section id="summary-of-optimal-conditions" class="level2">
-<h2 class="anchored" data-anchor-id="summary-of-optimal-conditions">Summary of Optimal Conditions</h2>
-<p>Based on the model, here are the approximate “Optimal Drinking Temperatures” to finish a slushee in 20 minutes:</p>
+</section>
+<section id="final-summary-optimal-temperatures" class="level2">
+<h2 class="anchored" data-anchor-id="final-summary-optimal-temperatures">4. Final Summary: Optimal Temperatures</h2>
+<p>The “Optimal Temperature” is defined as the minimum ambient temperature required to ensure the ice ratio never exceeds <strong>90%</strong> during consumption.</p>
+<p>Assume 2oz sips and an initial ice ratio of 60%.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Size</th>
-<th style="text-align: left;">Optimal Temp (°C)</th>
-<th style="text-align: left;">Optimal Temp (°F)</th>
+<th style="text-align: left;">Cup Size</th>
+<th style="text-align: left;">Leisurely (1 sip/min)</th>
+<th style="text-align: left;">Fast (1 sip/30s)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Small (12 oz)</strong></td>
-<td style="text-align: left;">~18°C</td>
-<td style="text-align: left;">~64°F</td>
+<td style="text-align: left;">~14°C (57°F)</td>
+<td style="text-align: left;">~26°C (79°F)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Medium (22 oz)</strong></td>
-<td style="text-align: left;">~24°C</td>
-<td style="text-align: left;">~75°F</td>
+<td style="text-align: left;">~21°C (70°F)</td>
+<td style="text-align: left;">~34°C (93°F)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Large (30 oz)</strong></td>
-<td style="text-align: left;">~28°C</td>
-<td style="text-align: left;">~82°F</td>
+<td style="text-align: left;">~26°C (79°F)</td>
+<td style="text-align: left;">~40°C (104°F)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>X-Large (40 oz)</strong></td>
-<td style="text-align: left;">~32°C</td>
-<td style="text-align: left;">~90°F</td>
+<td style="text-align: left;">~31°C (88°F)</td>
+<td style="text-align: left;">~46°C (115°F)</td>
 </tr>
 </tbody>
 </table>
-<p>The larger the cup, the more “thermal mass” it has relative to its surface area (Square-Cube Law), meaning you need a significantly hotter environment to melt that 40oz monster fast enough to stay synchronized with your straw!</p>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>If you are an extra-large slushee drinker who finishes their drink in 10 minutes (fast), you effectively need to be standing in a <strong>heat wave</strong> (46°C) to keep the ice drinkable. For the rest of us, the 22oz “Medium” in a comfortable 21°C room remains the golden standard of phase-change synchronization.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBhbWJpZW50VGVtcEMgPSBJbnB1dHMucmFuZ2UoWzAsIDQ1XSwge3ZhbHVlOiAyNSwgc3RlcDogMSwgbGFiZWw6IFwiQW1iaWVudCBUZW1wICjCsEMpXCJ9KVxudmlld29mIGN1cFNpemUgPSBJbnB1dHMuc2VsZWN0KG5ldyBNYXAoW1xuICBbXCJTbWFsbCAoMTIgb3opXCIsIFwic21hbGxcIl0sXG4gIFtcIk1lZGl1bSAoMjIgb3opXCIsIFwibWVkaXVtXCJdLFxuICBbXCJMYXJnZSAoMzAgb3opXCIsIFwibGFyZ2VcIl0sXG4gIFtcIlgtTGFyZ2UgKDQwIG96KVwiLCBcInhsYXJnZVwiXVxuXSksIHtsYWJlbDogXCJDdXAgU2l6ZVwifSlcbnZpZXdvZiBzaXBWb2x1bWVPeiA9IElucHV0cy5yYW5nZShbMC4xLCAyLjBdLCB7dmFsdWU6IDEuMCwgc3RlcDogMC4xLCBsYWJlbDogXCJTaXAgVm9sdW1lIChveilcIn0pXG52aWV3b2YgdGltZUJldHdlZW5TaXBzID0gSW5wdXRzLnJhbmdlKFs1LCAxMjBdLCB7dmFsdWU6IDMwLCBzdGVwOiA1LCBsYWJlbDogXCJTZWNvbmRzIGJldHdlZW4gc2lwc1wifSlcbnZpZXdvZiBpbml0aWFsSWNlUmF0aW8gPSBJbnB1dHMucmFuZ2UoWzAuNCwgMC44XSwge3ZhbHVlOiAwLjYsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIkluaXRpYWwgSWNlIFJhdGlvXCJ9KVxudmlld29mIGxpcXVpZEJpYXMgPSBJbnB1dHMucmFuZ2UoWzAuMSwgMS4wXSwge3ZhbHVlOiAwLjUsIHN0ZXA6IDAuMSwgbGFiZWw6IFwiU2lwIEljZSBCaWFzICgwLjUgPSBoYWxmKVwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIENvbnN0YW50cyAmIENvbnZlcnNpb25zXG5velRvTWwgPSAyOS41N1xuaW5jaFRvQ20gPSAyLjU0XG5MZiA9IDMzNCAvLyBKL2dcbmhfY29lZmYgPSA5LjUgLy8gVy9tXjJLXG5yaG9faWNlID0gMC45MTcgLy8gZy9jbV4zXG5yaG9fbGlxID0gMS4wIC8vIGcvY21eM1xuXG4vLyBDdXAgR2VvbWV0cnkgKGNtKVxuY3VwRGF0YSA9IHtcbiAgY29uc3QgZGF0YSA9IHtcbiAgICBzbWFsbDogeyBoOiA0LjUgKiBpbmNoVG9DbSwgcjE6ICgyLjI1LzIpICogaW5jaFRvQ20sIHIyOiAoMy4yNS8yKSAqIGluY2hUb0NtIH0sXG4gICAgbWVkaXVtOiB7IGg6IDYuMCAqIGluY2hUb0NtLCByMTogKDIuNS8yKSAqIGluY2hUb0NtLCByMjogKDMuNzUvMikgKiBpbmNoVG9DbSB9LFxuICAgIGxhcmdlOiB7IGg6IDcuMCAqIGluY2hUb0NtLCByMTogKDIuNzUvMikgKiBpbmNoVG9DbSwgcjI6ICg0LjI1LzIpICogaW5jaFRvQ20gfSxcbiAgICB4bGFyZ2U6IHsgaDogOC41ICogaW5jaFRvQ20sIHIxOiAoMy4wLzIpICogaW5jaFRvQ20sIHIyOiAoNC43NS8yKSAqIGluY2hUb0NtIH1cbiAgfTtcbiAgcmV0dXJuIGRhdGFbY3VwU2l6ZV07XG59XG5cbi8vIFNpbXVsYXRpb25cbnJlc3VsdHMgPSB7XG4gIGxldCBtX2ljZSA9IChjdXBEYXRhLmggKiBNYXRoLlBJIC8gMyAqIChjdXBEYXRhLnIxKioyICsgY3VwRGF0YS5yMSpjdXBEYXRhLnIyICsgY3VwRGF0YS5yMioqMikpICogaW5pdGlhbEljZVJhdGlvICogcmhvX2ljZTtcbiAgbGV0IG1fbGlxID0gKGN1cERhdGEuaCAqIE1hdGguUEkgLyAzICogKGN1cERhdGEucjEqKjIgKyBjdXBEYXRhLnIxKmN1cERhdGEucjIgKyBjdXBEYXRhLnIyKioyKSkgKiAoMSAtIGluaXRpYWxJY2VSYXRpbykgKiByaG9fbGlxO1xuICBcbiAgY29uc3QgaGlzdG9yeSA9IFtdO1xuICBsZXQgdCA9IDA7XG4gIGxldCBzaXBzID0gMDtcbiAgbGV0IHRvdGFsVm9sID0gKG1faWNlIC8gcmhvX2ljZSkgKyAobV9saXEgLyByaG9fbGlxKTtcbiAgY29uc3Qgdl9zaXAgPSBzaXBWb2x1bWVPeiAqIG96VG9NbDtcblxuICB3aGlsZSAobV9pY2UgKyBtX2xpcSA+IHZfc2lwICogMC41ICYmIGhpc3RvcnkubGVuZ3RoIDwgMjAwKSB7XG4gICAgLy8gQ3VycmVudCBzdGF0ZVxuICAgIGxldCBjdXJyZW50Vm9sID0gKG1faWNlIC8gcmhvX2ljZSkgKyAobV9saXEgLyByaG9fbGlxKTtcbiAgICBsZXQgaWNlUmF0aW8gPSBtX2ljZSAvIChtX2ljZSArIG1fbGlxKTtcbiAgICBcbiAgICAvLyBGaW5kIGN1cnJlbnQgaGVpZ2h0IGFuZCBzdXJmYWNlIGFyZWFcbiAgICAvLyBWb2x1bWUgb2YgZnJ1c3R1bSBoZWlnaHQgeTogViA9IHBpKnkvMyAqIChyMV4yICsgcjEqcnkgKyByeV4yKSB3aGVyZSByeSA9IHIxICsgKHIyLXIxKSp5L2hcbiAgICAvLyBXZSdsbCBzaW1wbGlmeSBTdXJmYWNlIEFyZWEgZm9yIHRoZSBzaW11bGF0aW9uIGJhc2VkIG9uIGN1cnJlbnQgaGVpZ2h0XG4gICAgbGV0IGhlaWdodEZyYWMgPSBjdXJyZW50Vm9sIC8gKGN1cERhdGEuaCAqIE1hdGguUEkgLyAzICogKGN1cERhdGEucjEqKjIgKyBjdXBEYXRhLnIxKmN1cERhdGEucjIgKyBjdXBEYXRhLnIyKioyKSk7XG4gICAgbGV0IHkgPSBjdXBEYXRhLmggKiBoZWlnaHRGcmFjO1xuICAgIGxldCByeSA9IGN1cERhdGEucjEgKyAoY3VwRGF0YS5yMiAtIGN1cERhdGEucjEpICogaGVpZ2h0RnJhYztcbiAgICBsZXQgQXJlYSA9IE1hdGguUEkgKiAoY3VwRGF0YS5yMSArIHJ5KSAqIE1hdGguc3FydCgocnkgLSBjdXBEYXRhLnIxKSoqMiArIHkqKjIpICsgTWF0aC5QSSAqIGN1cERhdGEucjEqKjI7XG4gICAgQXJlYSA9IEFyZWEgLyAxMDAwMDsgLy8gY20yIHRvIG0yXG5cbiAgICBoaXN0b3J5LnB1c2goe1xuICAgICAgc2lwOiBzaXBzLFxuICAgICAgdGltZTogdCAvIDYwLFxuICAgICAgaWNlUmF0aW86IGljZVJhdGlvICogMTAwLFxuICAgICAgdm9sOiBjdXJyZW50Vm9sIC8gb3pUb01sXG4gICAgfSk7XG5cbiAgICAvLyAxLiBIZWF0IHRyYW5zZmVyIG92ZXIgdGltZSBiZXR3ZWVuIHNpcHNcbiAgICBsZXQgUSA9IGhfY29lZmYgKiBBcmVhICogKGFtYmllbnRUZW1wQyAtIDApICogdGltZUJldHdlZW5TaXBzO1xuICAgIGxldCBtZWx0ZWQgPSBRIC8gTGY7XG4gICAgbWVsdGVkID0gTWF0aC5taW4obWVsdGVkLCBtX2ljZSk7XG4gICAgbV9pY2UgLT0gbWVsdGVkO1xuICAgIG1fbGlxICs9IG1lbHRlZDtcblxuICAgIC8vIDIuIENvbnN1bWUgc2lwXG4gICAgbGV0IHJfc2lwID0gaWNlUmF0aW8gKiBsaXF1aWRCaWFzO1xuICAgIGxldCB2X2ljZV9zaXAgPSB2X3NpcCAqIHJfc2lwO1xuICAgIGxldCB2X2xpcV9zaXAgPSB2X3NpcCAqICgxIC0gcl9zaXApO1xuICAgIFxuICAgIG1faWNlIC09IE1hdGgubWluKG1faWNlLCB2X2ljZV9zaXAgKiByaG9faWNlKTtcbiAgICBtX2xpcSAtPSBNYXRoLm1pbihtX2xpcSwgdl9saXFfc2lwICogcmhvX2xpcSk7XG5cbiAgICB0ICs9IHRpbWVCZXR3ZWVuU2lwcztcbiAgICBzaXBzKys7XG4gIH1cbiAgcmV0dXJuIGhpc3Rvcnk7XG59XG5cbi8vIFBsb3R0aW5nXG5QbG90LnBsb3Qoe1xuICB0aXRsZTogXCJJY2UgUmF0aW8gT3ZlciBUaW1lXCIsXG4gIHN1YnRpdGxlOiBcIkdvYWw6IEtlZXAgdGhlIHJhdGlvIGJlbG93IDkwJSB0byBhdm9pZCAnVGhlIERlYWQgWm9uZSdcIixcbiAgeTogeyBsYWJlbDogXCJJY2UgUmF0aW8gKCUpXCIsIGRvbWFpbjogWzAsIDEwMF0gfSxcbiAgeDogeyBsYWJlbDogXCJUaW1lIChtaW51dGVzKVwiIH0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5saW5lWShyZXN1bHRzLCB7eDogXCJ0aW1lXCIsIHk6IFwiaWNlUmF0aW9cIiwgc3Ryb2tlOiBcInN0ZWVsYmx1ZVwiLCBzdHJva2VXaWR0aDogM30pLFxuICAgIFBsb3QucnVsZVkoWzkwXSwge3N0cm9rZTogXCJyZWRcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjQsNFwifSksXG4gICAgUGxvdC50ZXh0KFtcIkRFQUQgWk9ORVwiXSwge3g6IDAsIHk6IDkyLCBmcmFtZUFuY2hvcjogXCJsZWZ0XCIsIGZpbGw6IFwicmVkXCJ9KVxuICBdXG59KVxuXG5QbG90LnBsb3Qoe1xuICB0aXRsZTogXCJWb2x1bWUgUmVtYWluaW5nXCIsXG4gIHk6IHsgbGFiZWw6IFwiVm9sdW1lIChveilcIiB9LFxuICB4OiB7IGxhYmVsOiBcIlRpbWUgKG1pbnV0ZXMpXCIgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmFyZWFZKHJlc3VsdHMsIHt4OiBcInRpbWVcIiwgeTogXCJ2b2xcIiwgZmlsbDogXCJsaWdodGJsdWVcIiwgZmlsbE9wYWNpdHk6IDAuNX0pLFxuICAgIFBsb3QubGluZVkocmVzdWx0cywge3g6IFwidGltZVwiLCB5OiBcInZvbFwiLCBzdHJva2U6IFwiYmx1ZVwifSlcbiAgXVxufSlcblxubWRgXG4jIyMgQW5hbHlzaXNcblxuRmluYWwgSWNlIFJhdGlvOiAqKiR7cmVzdWx0c1tyZXN1bHRzLmxlbmd0aC0xXS5pY2VSYXRpby50b0ZpeGVkKDEpfSUqKiAgXG5Ub3RhbCBUaW1lOiAqKiR7cmVzdWx0c1tyZXN1bHRzLmxlbmd0aC0xXS50aW1lLnRvRml4ZWQoMSl9IG1pbnV0ZXMqKlxuXG4ke3Jlc3VsdHNbcmVzdWx0cy5sZW5ndGgtMV0uaWNlUmF0aW8gPiA5MCBcbiAgPyBcIuKdjCAqKkZBSUxFRCoqOiBZb3Ugd2VyZSBsZWZ0IHdpdGggYSBibG9jayBvZiBkcnkgaWNlISBJbmNyZWFzZSB0aGUgYW1iaWVudCB0ZW1wZXJhdHVyZSBvciBkcmluayBzbG93ZXIuXCIgXG4gIDogXCLinIUgKipTVUNDRVNTKio6IFlvdSBmaW5pc2hlZCB0aGUgc2x1c2hlZSB3aXRoIGEgZHJpbmthYmxlIHJhdGlvIVwifVxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhbWJpZW50VGVtcEMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY3VwU2l6ZScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzaXBWb2x1bWVPeicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0aW1lQmV0d2VlblNpcHMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnaW5pdGlhbEljZVJhdGlvJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2xpcXVpZEJpYXMnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFZpc3VhbCByZXByZXNlbnRhdGlvbiBvZiBjdXAgc2l6ZXNcbmh0bWxgPGRpdiBzdHlsZT1cImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiBmbGV4LWVuZDsgZ2FwOiAyMHB4OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjsgcGFkZGluZzogMjBweDsgYmFja2dyb3VuZDogI2Y5ZjlmOTsgYm9yZGVyLXJhZGl1czogOHB4O1wiPlxuICAke1snc21hbGwnLCAnbWVkaXVtJywgJ2xhcmdlJywgJ3hsYXJnZSddLm1hcChzaXplID0+IHtcbiAgICBjb25zdCBkID0ge1xuICAgICAgc21hbGw6IHsgaDogNC41LCByMTogMS4xLCByMjogMS42LCBsYWJlbDogXCIxMm96XCIgfSxcbiAgICAgIG1lZGl1bTogeyBoOiA2LjAsIHIxOiAxLjI1LCByMjogMS44NywgbGFiZWw6IFwiMjJvelwiIH0sXG4gICAgICBsYXJnZTogeyBoOiA3LjAsIHIxOiAxLjM3LCByMjogMi4xMiwgbGFiZWw6IFwiMzBvelwiIH0sXG4gICAgICB4bGFyZ2U6IHsgaDogOC41LCByMTogMS41LCByMjogMi4zNywgbGFiZWw6IFwiNDBvelwiIH1cbiAgICB9W3NpemVdO1xuICAgIGNvbnN0IHNjYWxlID0gMjA7XG4gICAgcmV0dXJuIGh0bWxgPGRpdiBzdHlsZT1cInRleHQtYWxpZ246IGNlbnRlcjtcIj5cbiAgICAgIDxzdmcgd2lkdGg9XCIke2QucjIqMipzY2FsZSArIDEwfVwiIGhlaWdodD1cIiR7ZC5oKnNjYWxlICsgMjB9XCI+XG4gICAgICAgIDxwb2x5Z29uIHBvaW50cz1cIiR7KGQucjItZC5yMSkqc2NhbGV9LCR7ZC5oKnNjYWxlfSAkeyhkLnIyK2QucjEpKnNjYWxlfSwke2QuaCpzY2FsZX0gJHtkLnIyKjIqc2NhbGV9LDAgMCwwXCIgZmlsbD1cIiNmZjY2MDBcIiBvcGFjaXR5PVwiMC44XCIgc3Ryb2tlPVwiIzMzM1wiIC8+XG4gICAgICAgIDxlbGxpcHNlIGN4PVwiJHtkLnIyKnNjYWxlfVwiIGN5PVwiMFwiIHJ4PVwiJHtkLnIyKnNjYWxlfVwiIHJ5PVwiJHtkLnIyKjAuMypzY2FsZX1cIiBmaWxsPVwiI2ZmZlwiIHN0cm9rZT1cIiMzMzNcIiAvPlxuICAgICAgICA8dGV4dCB4PVwiJHtkLnIyKnNjYWxlfVwiIHk9XCIke2QuaCpzY2FsZSArIDE1fVwiIHRleHQtYW5jaG9yPVwibWlkZGxlXCIgZm9udC1zaXplPVwiMTJcIj4ke2QubGFiZWx9PC90ZXh0PlxuICAgICAgPC9zdmc+XG4gICAgPC9kaXY+YDtcbiAgfSl9XG48L2Rpdj5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgYW1iaWVudFRlbXBDID0gSW5wdXRzLnJhbmdlKFswLCA0NV0sIHt2YWx1ZTogMjUsIHN0ZXA6IDEsIGxhYmVsOiBcIkFtYmllbnQgVGVtcCAowrBDKVwifSlcbnZpZXdvZiBjdXBTaXplID0gSW5wdXRzLnNlbGVjdChuZXcgTWFwKFtcbiAgW1wiU21hbGwgKDEyIG96KVwiLCBcInNtYWxsXCJdLFxuICBbXCJNZWRpdW0gKDIyIG96KVwiLCBcIm1lZGl1bVwiXSxcbiAgW1wiTGFyZ2UgKDMwIG96KVwiLCBcImxhcmdlXCJdLFxuICBbXCJYLUxhcmdlICg0MCBveilcIiwgXCJ4bGFyZ2VcIl1cbl0pLCB7bGFiZWw6IFwiQ3VwIFNpemVcIn0pXG52aWV3b2Ygc2lwSW50ZXJ2YWwgPSBJbnB1dHMucmFkaW8oWzYwLCAzMF0sIHt2YWx1ZTogNjAsIGxhYmVsOiBcIlNpcCBGcmVxdWVuY3kgKHNlY29uZHMpXCIsIGZvcm1hdDogZCA9PiBkID09PSA2MCA/IFwiTGVpc3VyZWx5ICgxL21pbilcIiA6IFwiRmFzdCAoMS8zMHMpXCJ9KVxudmlld29mIGluaXRpYWxJY2VSYXRpbyA9IElucHV0cy5yYW5nZShbMC40LCAwLjhdLCB7dmFsdWU6IDAuNiwgc3RlcDogMC4wNSwgbGFiZWw6IFwiSW5pdGlhbCBJY2UgUmF0aW9cIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBDb25zdGFudHNcbm96VG9NbCA9IDI5LjU3XG5pbmNoVG9DbSA9IDIuNTRcbkxmID0gMzM0IC8vIEovZ1xuaF9jb2VmZiA9IDkuNSAvLyBXL21eMktcbnJob19pY2UgPSAwLjkxNyAvLyBnL2NtXjNcbnJob19saXEgPSAxLjAgLy8gZy9jbV4zXG5cbi8vIEN1cCBHZW9tZXRyeSAoY20pXG5jdXBEYXRhID0ge1xuICBjb25zdCBkYXRhID0ge1xuICAgIHNtYWxsOiB7IGg6IDQuNSAqIGluY2hUb0NtLCByMTogKDIuMjUvMikgKiBpbmNoVG9DbSwgcjI6ICgzLjI1LzIpICogaW5jaFRvQ20gfSxcbiAgICBtZWRpdW06IHsgaDogNi4wICogaW5jaFRvQ20sIHIxOiAoMi41LzIpICogaW5jaFRvQ20sIHIyOiAoMy43NS8yKSAqIGluY2hUb0NtIH0sXG4gICAgbGFyZ2U6IHsgaDogNy4wICogaW5jaFRvQ20sIHIxOiAoMi43NS8yKSAqIGluY2hUb0NtLCByMjogKDQuMjUvMikgKiBpbmNoVG9DbSB9LFxuICAgIHhsYXJnZTogeyBoOiA4LjUgKiBpbmNoVG9DbSwgcjE6ICgzLjAvMikgKiBpbmNoVG9DbSwgcjI6ICg0Ljc1LzIpICogaW5jaFRvQ20gfVxuICB9O1xuICByZXR1cm4gZGF0YVtjdXBTaXplXTtcbn1cblxuZnVuY3Rpb24gc2ltdWxhdGUodGVtcCwgc2l6ZUtleSwgaW50ZXJ2YWwsIGluaXRSYXRpbykge1xuICBjb25zdCBkID0ge1xuICAgIHNtYWxsOiB7IGg6IDQuNSAqIGluY2hUb0NtLCByMTogKDIuMjUvMikgKiBpbmNoVG9DbSwgcjI6ICgzLjI1LzIpICogaW5jaFRvQ20gfSxcbiAgICBtZWRpdW06IHsgaDogNi4wICogaW5jaFRvQ20sIHIxOiAoMi41LzIpICogaW5jaFRvQ20sIHIyOiAoMy43NS8yKSAqIGluY2hUb0NtIH0sXG4gICAgbGFyZ2U6IHsgaDogNy4wICogaW5jaFRvQ20sIHIxOiAoMi43NS8yKSAqIGluY2hUb0NtLCByMjogKDQuMjUvMikgKiBpbmNoVG9DbSB9LFxuICAgIHhsYXJnZTogeyBoOiA4LjUgKiBpbmNoVG9DbSwgcjE6ICgzLjAvMikgKiBpbmNoVG9DbSwgcjI6ICg0Ljc1LzIpICogaW5jaFRvQ20gfVxuICB9W3NpemVLZXldO1xuXG4gIGxldCBtX2ljZSA9IChkLmggKiBNYXRoLlBJIC8gMyAqIChkLnIxKioyICsgZC5yMSpkLnIyICsgZC5yMioqMikpICogaW5pdFJhdGlvICogcmhvX2ljZTtcbiAgbGV0IG1fbGlxID0gKGQuaCAqIE1hdGguUEkgLyAzICogKGQucjEqKjIgKyBkLnIxKmQucjIgKyBkLnIyKioyKSkgKiAoMSAtIGluaXRSYXRpbykgKiByaG9fbGlxO1xuICBcbiAgY29uc3QgaGlzdG9yeSA9IFtdO1xuICBsZXQgdCA9IDA7XG4gIGNvbnN0IHZfc2lwID0gMiAqIG96VG9NbDtcblxuICB3aGlsZSAobV9pY2UgKyBtX2xpcSA+IHZfc2lwICogMC4xICYmIGhpc3RvcnkubGVuZ3RoIDwgNTAwKSB7XG4gICAgbGV0IGN1cnJlbnRWb2wgPSAobV9pY2UgLyByaG9faWNlKSArIChtX2xpcSAvIHJob19saXEpO1xuICAgIGxldCBpY2VSYXRpbyA9IG1faWNlIC8gKG1faWNlICsgbV9saXEpO1xuICAgIFxuICAgIGxldCBoZWlnaHRGcmFjID0gY3VycmVudFZvbCAvIChkLmggKiBNYXRoLlBJIC8gMyAqIChkLnIxKioyICsgZC5yMSpkLnIyICsgZC5yMioqMikpO1xuICAgIGxldCB5ID0gZC5oICogaGVpZ2h0RnJhYztcbiAgICBsZXQgcnkgPSBkLnIxICsgKGQucjIgLSBkLnIxKSAqIGhlaWdodEZyYWM7XG4gICAgbGV0IEFyZWEgPSBNYXRoLlBJICogKGQucjEgKyByeSkgKiBNYXRoLnNxcnQoKHJ5IC0gZC5yMSkqKjIgKyB5KioyKSArIE1hdGguUEkgKiBkLnIxKioyO1xuICAgIEFyZWEgPSBBcmVhIC8gMTAwMDA7XG5cbiAgICBoaXN0b3J5LnB1c2goeyB0aW1lOiB0IC8gNjAsIGljZVJhdGlvOiBpY2VSYXRpbyAqIDEwMCwgdm9sOiBjdXJyZW50Vm9sIC8gb3pUb01sIH0pO1xuXG4gICAgbGV0IFEgPSBoX2NvZWZmICogQXJlYSAqICh0ZW1wIC0gMCkgKiBpbnRlcnZhbDtcbiAgICBsZXQgbWVsdGVkID0gUSAvIExmO1xuICAgIG1lbHRlZCA9IE1hdGgubWluKG1lbHRlZCwgbV9pY2UpO1xuICAgIG1faWNlIC09IG1lbHRlZDtcbiAgICBtX2xpcSArPSBtZWx0ZWQ7XG5cbiAgICBsZXQgcl9zaXAgPSBpY2VSYXRpbyAqIDAuNTtcbiAgICBtX2ljZSAtPSBNYXRoLm1pbihtX2ljZSwgdl9zaXAgKiByX3NpcCAqIHJob19pY2UpO1xuICAgIG1fbGlxIC09IE1hdGgubWluKG1fbGlxLCB2X3NpcCAqICgxIC0gcl9zaXApICogcmhvX2xpcSk7XG4gICAgdCArPSBpbnRlcnZhbDtcbiAgfVxuICByZXR1cm4gaGlzdG9yeTtcbn1cblxucmVzdWx0cyA9IHNpbXVsYXRlKGFtYmllbnRUZW1wQywgY3VwU2l6ZSwgc2lwSW50ZXJ2YWwsIGluaXRpYWxJY2VSYXRpbylcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImxheW91dCA9IGh0bWxgPGRpdiBzdHlsZT1cImRpc3BsYXk6IGZsZXg7IGZsZXgtd3JhcDogd3JhcDsgZ2FwOiAxMHB4O1wiPlxuICA8ZGl2IHN0eWxlPVwiZmxleDogMTsgbWluLXdpZHRoOiAzMDBweDtcIj4ke1Bsb3QucGxvdCh7XG4gICAgdGl0bGU6IFwiTGVpc3VyZWx5ICgxIHNpcC9taW4pXCIsXG4gICAgeTogeyBkb21haW46IFswLCAxMDBdLCBsYWJlbDogXCJJY2UgUmF0aW8gKCUpXCIgfSxcbiAgICBtYXJrczogW1xuICAgICAgUGxvdC5saW5lWShzaW11bGF0ZShhbWJpZW50VGVtcEMsIGN1cFNpemUsIDYwLCBpbml0aWFsSWNlUmF0aW8pLCB7eDogXCJ0aW1lXCIsIHk6IFwiaWNlUmF0aW9cIiwgc3Ryb2tlOiBcImdyZWVuXCJ9KSxcbiAgICAgIFBsb3QucnVsZVkoWzkwXSwge3N0cm9rZTogXCJyZWRcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjQsNFwifSlcbiAgICBdXG4gIH0pfTwvZGl2PlxuICA8ZGl2IHN0eWxlPVwiZmxleDogMTsgbWluLXdpZHRoOiAzMDBweDtcIj4ke1Bsb3QucGxvdCh7XG4gICAgdGl0bGU6IFwiRmFzdCAoMSBzaXAvMzBzKVwiLFxuICAgIHk6IHsgZG9tYWluOiBbMCwgMTAwXSwgbGFiZWw6IFwiSWNlIFJhdGlvICglKVwiIH0sXG4gICAgbWFya3M6IFtcbiAgICAgIFBsb3QubGluZVkoc2ltdWxhdGUoYW1iaWVudFRlbXBDLCBjdXBTaXplLCAzMCwgaW5pdGlhbEljZVJhdGlvKSwge3g6IFwidGltZVwiLCB5OiBcImljZVJhdGlvXCIsIHN0cm9rZTogXCJvcmFuZ2VcIn0pLFxuICAgICAgUGxvdC5ydWxlWShbOTBdLCB7c3Ryb2tlOiBcInJlZFwiLCBzdHJva2VEYXNoYXJyYXk6IFwiNCw0XCJ9KVxuICAgIF1cbiAgfSl9PC9kaXY+XG48L2Rpdj5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2FtYmllbnRUZW1wQycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjdXBTaXplJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NpcEludGVydmFsJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2luaXRpYWxJY2VSYXRpbycpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
