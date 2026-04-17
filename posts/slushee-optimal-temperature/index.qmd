@@ -70,7 +70,7 @@ $$\text{Ice Ratio in Sip} = 0.5 \times \text{Current Ice Ratio in Cup}$$
 
 ## 3. Interactive Simulation
 
-Adjust the parameters below. The simulation assumes **2oz sips** as requested.
+Adjust the parameters below. The simulation assumes **2oz sips**.
 
 ```{ojs}
 //| panel: sidebar
