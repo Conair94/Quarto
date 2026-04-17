@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/index.html</loc>
-    <lastmod>2026-04-08T15:24:25.897Z</lastmod>
-  </url>
-  <url>
-    <loc>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/index.html</loc>
-    <lastmod>2026-04-08T15:24:25.897Z</lastmod>
-  </url>
-  <url>
     <loc>https://conair94.github.io/Quarto/index.html</loc>
-    <lastmod>2026-04-08T15:24:25.896Z</lastmod>
+    <lastmod>2026-04-17T20:00:41.467Z</lastmod>
   </url>
   <url>
     <loc>https://conair94.github.io/Quarto/posts/academic-work/index.html</loc>
-    <lastmod>2026-04-08T15:24:25.897Z</lastmod>
+    <lastmod>2026-04-17T20:00:41.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://conair94.github.io/Quarto/posts/parking-ticket-estimation/index.html</loc>
+    <lastmod>2026-04-17T20:00:41.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://conair94.github.io/Quarto/posts/slushee-optimal-temperature/index.html</loc>
+    <lastmod>2026-04-17T20:00:41.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://conair94.github.io/Quarto/posts/laundry-quarter-estimation/index.html</loc>
+    <lastmod>2026-04-17T20:00:41.468Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Connor Lockhart">
+<meta name="dcterms.date" content="2026-04-17">
+
+<title>The Slushee Phase-Change Optimization – Synaptic Static</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Synaptic Static</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://conair94.github.io"> 
+<span class="menu-text">Main Website</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/conair94"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">The Slushee Phase-Change Optimization</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Estimations</div>
+                <div class="quarto-category">Thermodynamics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Connor Lockhart </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 17, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Have you ever reached the end of an Icee or Slurpee only to find a desolate, dry block of white ice? This is the “Slushee Dead Zone”—a state where the liquid-to-solid ratio has collapsed, leaving the remaining ice stranded without enough syrup to be drinkable.</p>
+<p>The problem is one of <strong>phase-change synchronization</strong>. For a perfect drinking experience, the rate at which you consume the liquid must match the rate at which the ambient heat melts the ice. If it’s too cold outside, the ice doesn’t melt fast enough. If it’s too hot, you’re left with a watery mess.</p>
+<p>Let’s model this to find the optimal temperature for every 7-11 cup size.</p>
+<section id="the-model-discrete-sip-thermodynamics" class="level2">
+<h2 class="anchored" data-anchor-id="the-model-discrete-sip-thermodynamics">The Model: Discrete Sip Thermodynamics</h2>
+<p>We model the slushee as a mixture of ice crystals (<span class="math inline">\(m_{ice}\)</span>) and liquid syrup (<span class="math inline">\(m_{liquid}\)</span>). We assume the slushee is a <strong>slurry</strong> at a constant <span class="math inline">\(0^\circ C\)</span> as long as ice remains.</p>
+<section id="geometry-the-tapered-frustum" class="level3">
+<h3 class="anchored" data-anchor-id="geometry-the-tapered-frustum">1. Geometry: The Tapered Frustum</h3>
+<p>7-11 cups are not perfect cylinders; they are <strong>frustums</strong> (tapered cones). This affects the surface area <span class="math inline">\(A\)</span> exposed to the air as the volume decreases.</p>
+<p><span class="math display">\[V = \frac{\pi h}{3} (r_{base}^2 + r_{base}r_{top} + r_{top}^2)\]</span></p>
+</section>
+<section id="heat-transfer" class="level3">
+<h3 class="anchored" data-anchor-id="heat-transfer">2. Heat Transfer</h3>
+<p>Heat flows from the ambient air (<span class="math inline">\(T_{amb}\)</span>) through the cup walls: <span class="math display">\[\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)\]</span> Where <span class="math inline">\(h \approx 9.5\ W/m^2K\)</span> for standard paper or plastic cups.</p>
+</section>
+<section id="consumption-bias" class="level3">
+<h3 class="anchored" data-anchor-id="consumption-bias">3. Consumption Bias</h3>
+<p>When you drink through a straw, you naturally pull more liquid than solid. We assume: <span class="math display">\[\text{Ice Ratio in Sip} = 0.5 \times \text{Current Ice Ratio in Cup}\]</span></p>
+</section>
+<section id="the-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="the-simulation">4. The Simulation</h3>
+<p>We iterate sip-by-sip. Between sips, heat enters the cup and melts a mass of ice <span class="math inline">\(m_{melt} = dQ / L_f\)</span>, where <span class="math inline">\(L_f = 334\ J/g\)</span> is the latent heat of fusion.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Ambient Heat] --&gt; B(Cup Wall)
+    B --&gt; C{Melting}
+    C --&gt; D[Liquid Syrup]
+    E[Straw/Sip] --&gt; F{Consumption}
+    F --&gt; D
+    F --&gt; G[Ice Crystals]
+    G -.-&gt; C
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="interactive-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-estimation">Interactive Estimation</h2>
+<p>Adjust the parameters below to simulate your drinking experience. Can you finish the slushee before the liquid runs out?</p>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="55" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 54;"><span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>viewof ambientTempC <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">45</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">25</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ambient Temp (°C)"</span>})</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>viewof cupSize <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(<span class="kw">new</span> <span class="bu">Map</span>([</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Small (12 oz)"</span><span class="op">,</span> <span class="st">"small"</span>]<span class="op">,</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Medium (22 oz)"</span><span class="op">,</span> <span class="st">"medium"</span>]<span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"Large (30 oz)"</span><span class="op">,</span> <span class="st">"large"</span>]<span class="op">,</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"X-Large (40 oz)"</span><span class="op">,</span> <span class="st">"xlarge"</span>]</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>])<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Cup Size"</span>})</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>viewof sipVolumeOz <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">2.0</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">1.0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sip Volume (oz)"</span>})</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>viewof timeBetweenSips <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">5</span><span class="op">,</span> <span class="dv">120</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Seconds between sips"</span>})</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>viewof initialIceRatio <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.4</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.6</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Initial Ice Ratio"</span>})</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>viewof liquidBias <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.1</span><span class="op">,</span> <span class="fl">1.0</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Sip Ice Bias (0.5 = half)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="70" data-source-offset="-27"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>ozToMl <span class="op">=</span> <span class="fl">29.57</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>inchToCm <span class="op">=</span> <span class="fl">2.54</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Lf <span class="op">=</span> <span class="dv">334</span> <span class="co">// J/g</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>h_coeff <span class="op">=</span> <span class="fl">9.5</span> <span class="co">// W/m^2K</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>rho_ice <span class="op">=</span> <span class="fl">0.917</span> <span class="co">// g/cm^3</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>rho_liq <span class="op">=</span> <span class="fl">1.0</span> <span class="co">// g/cm^3</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">// Cup Geometry (cm)</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>cupData <span class="op">=</span> {</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data <span class="op">=</span> {</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    <span class="dt">small</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">4.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="dt">medium</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">6.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.5</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">3.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="dt">large</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">7.0</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">2.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.25</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }<span class="op">,</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    <span class="dt">xlarge</span><span class="op">:</span> { <span class="dt">h</span><span class="op">:</span> <span class="fl">8.5</span> <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r1</span><span class="op">:</span> (<span class="fl">3.0</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm<span class="op">,</span> <span class="dt">r2</span><span class="op">:</span> (<span class="fl">4.75</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span> inchToCm }</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> data[cupSize]<span class="op">;</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="co">// Simulation</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_ice <span class="op">=</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> initialIceRatio <span class="op">*</span> rho_ice<span class="op">;</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> m_liq <span class="op">=</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> initialIceRatio) <span class="op">*</span> rho_liq<span class="op">;</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> history <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> sips <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> totalVol <span class="op">=</span> (m_ice <span class="op">/</span> rho_ice) <span class="op">+</span> (m_liq <span class="op">/</span> rho_liq)<span class="op">;</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v_sip <span class="op">=</span> sipVolumeOz <span class="op">*</span> ozToMl<span class="op">;</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (m_ice <span class="op">+</span> m_liq <span class="op">&gt;</span> v_sip <span class="op">*</span> <span class="fl">0.5</span> <span class="op">&amp;&amp;</span> history<span class="op">.</span><span class="at">length</span> <span class="op">&lt;</span> <span class="dv">200</span>) {</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Current state</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> currentVol <span class="op">=</span> (m_ice <span class="op">/</span> rho_ice) <span class="op">+</span> (m_liq <span class="op">/</span> rho_liq)<span class="op">;</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> iceRatio <span class="op">=</span> m_ice <span class="op">/</span> (m_ice <span class="op">+</span> m_liq)<span class="op">;</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Find current height and surface area</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Volume of frustum height y: V = pi*y/3 * (r1^2 + r1*ry + ry^2) where ry = r1 + (r2-r1)*y/h</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    <span class="co">// We'll simplify Surface Area for the simulation based on current height</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> heightFrac <span class="op">=</span> currentVol <span class="op">/</span> (cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">3</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">*</span>cupData<span class="op">.</span><span class="at">r2</span> <span class="op">+</span> cupData<span class="op">.</span><span class="at">r2</span><span class="op">**</span><span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y <span class="op">=</span> cupData<span class="op">.</span><span class="at">h</span> <span class="op">*</span> heightFrac<span class="op">;</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> ry <span class="op">=</span> cupData<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> (cupData<span class="op">.</span><span class="at">r2</span> <span class="op">-</span> cupData<span class="op">.</span><span class="at">r1</span>) <span class="op">*</span> heightFrac<span class="op">;</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Area <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> (cupData<span class="op">.</span><span class="at">r1</span> <span class="op">+</span> ry) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>((ry <span class="op">-</span> cupData<span class="op">.</span><span class="at">r1</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> cupData<span class="op">.</span><span class="at">r1</span><span class="op">**</span><span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>    Area <span class="op">=</span> Area <span class="op">/</span> <span class="dv">10000</span><span class="op">;</span> <span class="co">// cm2 to m2</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    history<span class="op">.</span><span class="fu">push</span>({</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">sip</span><span class="op">:</span> sips<span class="op">,</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">time</span><span class="op">:</span> t <span class="op">/</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>      <span class="dt">iceRatio</span><span class="op">:</span> iceRatio <span class="op">*</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>      <span class="dt">vol</span><span class="op">:</span> currentVol <span class="op">/</span> ozToMl</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1. Heat transfer over time between sips</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> Q <span class="op">=</span> h_coeff <span class="op">*</span> Area <span class="op">*</span> (ambientTempC <span class="op">-</span> <span class="dv">0</span>) <span class="op">*</span> timeBetweenSips<span class="op">;</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> melted <span class="op">=</span> Q <span class="op">/</span> Lf<span class="op">;</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    melted <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(melted<span class="op">,</span> m_ice)<span class="op">;</span></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> melted<span class="op">;</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">+=</span> melted<span class="op">;</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 2. Consume sip</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r_sip <span class="op">=</span> iceRatio <span class="op">*</span> liquidBias<span class="op">;</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v_ice_sip <span class="op">=</span> v_sip <span class="op">*</span> r_sip<span class="op">;</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> v_liq_sip <span class="op">=</span> v_sip <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> r_sip)<span class="op">;</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    m_ice <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_ice<span class="op">,</span> v_ice_sip <span class="op">*</span> rho_ice)<span class="op">;</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>    m_liq <span class="op">-=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(m_liq<span class="op">,</span> v_liq_sip <span class="op">*</span> rho_liq)<span class="op">;</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> timeBetweenSips<span class="op">;</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    sips<span class="op">++;</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history<span class="op">;</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="co">// Plotting</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Ice Ratio Over Time"</span><span class="op">,</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>  <span class="dt">subtitle</span><span class="op">:</span> <span class="st">"Goal: Keep the ratio below 90% to avoid 'The Dead Zone'"</span><span class="op">,</span></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Ice Ratio (%)"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>] }<span class="op">,</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Time (minutes)"</span> }<span class="op">,</span></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"iceRatio"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"steelblue"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">3</span>})<span class="op">,</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">90</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span>})<span class="op">,</span></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>([<span class="st">"DEAD ZONE"</span>]<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">92</span><span class="op">,</span> <span class="dt">frameAnchor</span><span class="op">:</span> <span class="st">"left"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"red"</span>})</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="154" data-source-offset="-2904"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 153;"><span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Volume Remaining"</span><span class="op">,</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Volume (oz)"</span> }<span class="op">,</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Time (minutes)"</span> }<span class="op">,</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"vol"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.5</span>})<span class="op">,</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(results<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"time"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"vol"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"blue"</span>})</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-10" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="164" data-source-offset="-3177"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 163;"><span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="vs">Final Ice Ratio: **</span><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">iceRatio</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">%**  </span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="vs">Total Time: **</span><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">time</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> minutes**</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span>results[results<span class="op">.</span><span class="at">length</span><span class="op">-</span><span class="dv">1</span>]<span class="op">.</span><span class="at">iceRatio</span> <span class="op">&gt;</span> <span class="dv">90</span> </span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> <span class="st">"❌ **FAILED**: You were left with a block of dry ice! Increase the ambient temperature or drink slower."</span> </span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> <span class="st">"✅ **SUCCESS**: You finished the slushee with a drinkable ratio!"</span><span class="sc">}</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-11" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-of-optimal-conditions" class="level2">
+<h2 class="anchored" data-anchor-id="summary-of-optimal-conditions">Summary of Optimal Conditions</h2>
+<p>Based on the model, here are the approximate “Optimal Drinking Temperatures” to finish a slushee in 20 minutes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Size</th>
+<th style="text-align: left;">Optimal Temp (°C)</th>
+<th style="text-align: left;">Optimal Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Small (12 oz)</strong></td>
+<td style="text-align: left;">~18°C</td>
+<td style="text-align: left;">~64°F</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Medium (22 oz)</strong></td>
+<td style="text-align: left;">~24°C</td>
+<td style="text-align: left;">~75°F</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Large (30 oz)</strong></td>
+<td style="text-align: left;">~28°C</td>
+<td style="text-align: left;">~82°F</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>X-Large (40 oz)</strong></td>
+<td style="text-align: left;">~32°C</td>
+<td style="text-align: left;">~90°F</td>
+</tr>
+</tbody>
+</table>
+<p>The larger the cup, the more “thermal mass” it has relative to its surface area (Square-Cube Law), meaning you need a significantly hotter environment to melt that 40oz monster fast enough to stay synchronized with your straw!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBhbWJpZW50VGVtcEMgPSBJbnB1dHMucmFuZ2UoWzAsIDQ1XSwge3ZhbHVlOiAyNSwgc3RlcDogMSwgbGFiZWw6IFwiQW1iaWVudCBUZW1wICjCsEMpXCJ9KVxudmlld29mIGN1cFNpemUgPSBJbnB1dHMuc2VsZWN0KG5ldyBNYXAoW1xuICBbXCJTbWFsbCAoMTIgb3opXCIsIFwic21hbGxcIl0sXG4gIFtcIk1lZGl1bSAoMjIgb3opXCIsIFwibWVkaXVtXCJdLFxuICBbXCJMYXJnZSAoMzAgb3opXCIsIFwibGFyZ2VcIl0sXG4gIFtcIlgtTGFyZ2UgKDQwIG96KVwiLCBcInhsYXJnZVwiXVxuXSksIHtsYWJlbDogXCJDdXAgU2l6ZVwifSlcbnZpZXdvZiBzaXBWb2x1bWVPeiA9IElucHV0cy5yYW5nZShbMC4xLCAyLjBdLCB7dmFsdWU6IDEuMCwgc3RlcDogMC4xLCBsYWJlbDogXCJTaXAgVm9sdW1lIChveilcIn0pXG52aWV3b2YgdGltZUJldHdlZW5TaXBzID0gSW5wdXRzLnJhbmdlKFs1LCAxMjBdLCB7dmFsdWU6IDMwLCBzdGVwOiA1LCBsYWJlbDogXCJTZWNvbmRzIGJldHdlZW4gc2lwc1wifSlcbnZpZXdvZiBpbml0aWFsSWNlUmF0aW8gPSBJbnB1dHMucmFuZ2UoWzAuNCwgMC44XSwge3ZhbHVlOiAwLjYsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIkluaXRpYWwgSWNlIFJhdGlvXCJ9KVxudmlld29mIGxpcXVpZEJpYXMgPSBJbnB1dHMucmFuZ2UoWzAuMSwgMS4wXSwge3ZhbHVlOiAwLjUsIHN0ZXA6IDAuMSwgbGFiZWw6IFwiU2lwIEljZSBCaWFzICgwLjUgPSBoYWxmKVwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIENvbnN0YW50cyAmIENvbnZlcnNpb25zXG5velRvTWwgPSAyOS41N1xuaW5jaFRvQ20gPSAyLjU0XG5MZiA9IDMzNCAvLyBKL2dcbmhfY29lZmYgPSA5LjUgLy8gVy9tXjJLXG5yaG9faWNlID0gMC45MTcgLy8gZy9jbV4zXG5yaG9fbGlxID0gMS4wIC8vIGcvY21eM1xuXG4vLyBDdXAgR2VvbWV0cnkgKGNtKVxuY3VwRGF0YSA9IHtcbiAgY29uc3QgZGF0YSA9IHtcbiAgICBzbWFsbDogeyBoOiA0LjUgKiBpbmNoVG9DbSwgcjE6ICgyLjI1LzIpICogaW5jaFRvQ20sIHIyOiAoMy4yNS8yKSAqIGluY2hUb0NtIH0sXG4gICAgbWVkaXVtOiB7IGg6IDYuMCAqIGluY2hUb0NtLCByMTogKDIuNS8yKSAqIGluY2hUb0NtLCByMjogKDMuNzUvMikgKiBpbmNoVG9DbSB9LFxuICAgIGxhcmdlOiB7IGg6IDcuMCAqIGluY2hUb0NtLCByMTogKDIuNzUvMikgKiBpbmNoVG9DbSwgcjI6ICg0LjI1LzIpICogaW5jaFRvQ20gfSxcbiAgICB4bGFyZ2U6IHsgaDogOC41ICogaW5jaFRvQ20sIHIxOiAoMy4wLzIpICogaW5jaFRvQ20sIHIyOiAoNC43NS8yKSAqIGluY2hUb0NtIH1cbiAgfTtcbiAgcmV0dXJuIGRhdGFbY3VwU2l6ZV07XG59XG5cbi8vIFNpbXVsYXRpb25cbnJlc3VsdHMgPSB7XG4gIGxldCBtX2ljZSA9IChjdXBEYXRhLmggKiBNYXRoLlBJIC8gMyAqIChjdXBEYXRhLnIxKioyICsgY3VwRGF0YS5yMSpjdXBEYXRhLnIyICsgY3VwRGF0YS5yMioqMikpICogaW5pdGlhbEljZVJhdGlvICogcmhvX2ljZTtcbiAgbGV0IG1fbGlxID0gKGN1cERhdGEuaCAqIE1hdGguUEkgLyAzICogKGN1cERhdGEucjEqKjIgKyBjdXBEYXRhLnIxKmN1cERhdGEucjIgKyBjdXBEYXRhLnIyKioyKSkgKiAoMSAtIGluaXRpYWxJY2VSYXRpbykgKiByaG9fbGlxO1xuICBcbiAgY29uc3QgaGlzdG9yeSA9IFtdO1xuICBsZXQgdCA9IDA7XG4gIGxldCBzaXBzID0gMDtcbiAgbGV0IHRvdGFsVm9sID0gKG1faWNlIC8gcmhvX2ljZSkgKyAobV9saXEgLyByaG9fbGlxKTtcbiAgY29uc3Qgdl9zaXAgPSBzaXBWb2x1bWVPeiAqIG96VG9NbDtcblxuICB3aGlsZSAobV9pY2UgKyBtX2xpcSA+IHZfc2lwICogMC41ICYmIGhpc3RvcnkubGVuZ3RoIDwgMjAwKSB7XG4gICAgLy8gQ3VycmVudCBzdGF0ZVxuICAgIGxldCBjdXJyZW50Vm9sID0gKG1faWNlIC8gcmhvX2ljZSkgKyAobV9saXEgLyByaG9fbGlxKTtcbiAgICBsZXQgaWNlUmF0aW8gPSBtX2ljZSAvIChtX2ljZSArIG1fbGlxKTtcbiAgICBcbiAgICAvLyBGaW5kIGN1cnJlbnQgaGVpZ2h0IGFuZCBzdXJmYWNlIGFyZWFcbiAgICAvLyBWb2x1bWUgb2YgZnJ1c3R1bSBoZWlnaHQgeTogViA9IHBpKnkvMyAqIChyMV4yICsgcjEqcnkgKyByeV4yKSB3aGVyZSByeSA9IHIxICsgKHIyLXIxKSp5L2hcbiAgICAvLyBXZSdsbCBzaW1wbGlmeSBTdXJmYWNlIEFyZWEgZm9yIHRoZSBzaW11bGF0aW9uIGJhc2VkIG9uIGN1cnJlbnQgaGVpZ2h0XG4gICAgbGV0IGhlaWdodEZyYWMgPSBjdXJyZW50Vm9sIC8gKGN1cERhdGEuaCAqIE1hdGguUEkgLyAzICogKGN1cERhdGEucjEqKjIgKyBjdXBEYXRhLnIxKmN1cERhdGEucjIgKyBjdXBEYXRhLnIyKioyKSk7XG4gICAgbGV0IHkgPSBjdXBEYXRhLmggKiBoZWlnaHRGcmFjO1xuICAgIGxldCByeSA9IGN1cERhdGEucjEgKyAoY3VwRGF0YS5yMiAtIGN1cERhdGEucjEpICogaGVpZ2h0RnJhYztcbiAgICBsZXQgQXJlYSA9IE1hdGguUEkgKiAoY3VwRGF0YS5yMSArIHJ5KSAqIE1hdGguc3FydCgocnkgLSBjdXBEYXRhLnIxKSoqMiArIHkqKjIpICsgTWF0aC5QSSAqIGN1cERhdGEucjEqKjI7XG4gICAgQXJlYSA9IEFyZWEgLyAxMDAwMDsgLy8gY20yIHRvIG0yXG5cbiAgICBoaXN0b3J5LnB1c2goe1xuICAgICAgc2lwOiBzaXBzLFxuICAgICAgdGltZTogdCAvIDYwLFxuICAgICAgaWNlUmF0aW86IGljZVJhdGlvICogMTAwLFxuICAgICAgdm9sOiBjdXJyZW50Vm9sIC8gb3pUb01sXG4gICAgfSk7XG5cbiAgICAvLyAxLiBIZWF0IHRyYW5zZmVyIG92ZXIgdGltZSBiZXR3ZWVuIHNpcHNcbiAgICBsZXQgUSA9IGhfY29lZmYgKiBBcmVhICogKGFtYmllbnRUZW1wQyAtIDApICogdGltZUJldHdlZW5TaXBzO1xuICAgIGxldCBtZWx0ZWQgPSBRIC8gTGY7XG4gICAgbWVsdGVkID0gTWF0aC5taW4obWVsdGVkLCBtX2ljZSk7XG4gICAgbV9pY2UgLT0gbWVsdGVkO1xuICAgIG1fbGlxICs9IG1lbHRlZDtcblxuICAgIC8vIDIuIENvbnN1bWUgc2lwXG4gICAgbGV0IHJfc2lwID0gaWNlUmF0aW8gKiBsaXF1aWRCaWFzO1xuICAgIGxldCB2X2ljZV9zaXAgPSB2X3NpcCAqIHJfc2lwO1xuICAgIGxldCB2X2xpcV9zaXAgPSB2X3NpcCAqICgxIC0gcl9zaXApO1xuICAgIFxuICAgIG1faWNlIC09IE1hdGgubWluKG1faWNlLCB2X2ljZV9zaXAgKiByaG9faWNlKTtcbiAgICBtX2xpcSAtPSBNYXRoLm1pbihtX2xpcSwgdl9saXFfc2lwICogcmhvX2xpcSk7XG5cbiAgICB0ICs9IHRpbWVCZXR3ZWVuU2lwcztcbiAgICBzaXBzKys7XG4gIH1cbiAgcmV0dXJuIGhpc3Rvcnk7XG59XG5cbi8vIFBsb3R0aW5nXG5QbG90LnBsb3Qoe1xuICB0aXRsZTogXCJJY2UgUmF0aW8gT3ZlciBUaW1lXCIsXG4gIHN1YnRpdGxlOiBcIkdvYWw6IEtlZXAgdGhlIHJhdGlvIGJlbG93IDkwJSB0byBhdm9pZCAnVGhlIERlYWQgWm9uZSdcIixcbiAgeTogeyBsYWJlbDogXCJJY2UgUmF0aW8gKCUpXCIsIGRvbWFpbjogWzAsIDEwMF0gfSxcbiAgeDogeyBsYWJlbDogXCJUaW1lIChtaW51dGVzKVwiIH0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5saW5lWShyZXN1bHRzLCB7eDogXCJ0aW1lXCIsIHk6IFwiaWNlUmF0aW9cIiwgc3Ryb2tlOiBcInN0ZWVsYmx1ZVwiLCBzdHJva2VXaWR0aDogM30pLFxuICAgIFBsb3QucnVsZVkoWzkwXSwge3N0cm9rZTogXCJyZWRcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjQsNFwifSksXG4gICAgUGxvdC50ZXh0KFtcIkRFQUQgWk9ORVwiXSwge3g6IDAsIHk6IDkyLCBmcmFtZUFuY2hvcjogXCJsZWZ0XCIsIGZpbGw6IFwicmVkXCJ9KVxuICBdXG59KVxuXG5QbG90LnBsb3Qoe1xuICB0aXRsZTogXCJWb2x1bWUgUmVtYWluaW5nXCIsXG4gIHk6IHsgbGFiZWw6IFwiVm9sdW1lIChveilcIiB9LFxuICB4OiB7IGxhYmVsOiBcIlRpbWUgKG1pbnV0ZXMpXCIgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmFyZWFZKHJlc3VsdHMsIHt4OiBcInRpbWVcIiwgeTogXCJ2b2xcIiwgZmlsbDogXCJsaWdodGJsdWVcIiwgZmlsbE9wYWNpdHk6IDAuNX0pLFxuICAgIFBsb3QubGluZVkocmVzdWx0cywge3g6IFwidGltZVwiLCB5OiBcInZvbFwiLCBzdHJva2U6IFwiYmx1ZVwifSlcbiAgXVxufSlcblxubWRgXG4jIyMgQW5hbHlzaXNcblxuRmluYWwgSWNlIFJhdGlvOiAqKiR7cmVzdWx0c1tyZXN1bHRzLmxlbmd0aC0xXS5pY2VSYXRpby50b0ZpeGVkKDEpfSUqKiAgXG5Ub3RhbCBUaW1lOiAqKiR7cmVzdWx0c1tyZXN1bHRzLmxlbmd0aC0xXS50aW1lLnRvRml4ZWQoMSl9IG1pbnV0ZXMqKlxuXG4ke3Jlc3VsdHNbcmVzdWx0cy5sZW5ndGgtMV0uaWNlUmF0aW8gPiA5MCBcbiAgPyBcIuKdjCAqKkZBSUxFRCoqOiBZb3Ugd2VyZSBsZWZ0IHdpdGggYSBibG9jayBvZiBkcnkgaWNlISBJbmNyZWFzZSB0aGUgYW1iaWVudCB0ZW1wZXJhdHVyZSBvciBkcmluayBzbG93ZXIuXCIgXG4gIDogXCLinIUgKipTVUNDRVNTKio6IFlvdSBmaW5pc2hlZCB0aGUgc2x1c2hlZSB3aXRoIGEgZHJpbmthYmxlIHJhdGlvIVwifVxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhbWJpZW50VGVtcEMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY3VwU2l6ZScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzaXBWb2x1bWVPeicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0aW1lQmV0d2VlblNpcHMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnaW5pdGlhbEljZVJhdGlvJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2xpcXVpZEJpYXMnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts/slushee-optimal-temperature";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/conair94\.github\.io\/Quarto\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
