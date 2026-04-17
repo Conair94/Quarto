@@ -67,13 +67,13 @@ Where:
 - **$T_{amb}$ (Ambient Temperature):** The "thermal pressure" driving the phase change. The greater the delta between the air and the $0^\circ C$ slushee, the faster the ice crystals collapse.
 - **$L_f$ (Latent Heat of Fusion):** The energy required to break the molecular bonds of the ice crystals ($334\ J/g$). This is the "thermal buffer" that keeps your drink cold.
 - **$C$ (Consumption Rate):** Your volumetric drinking speed.
-- **$\beta$ (Ice-in-Straw Bias):** This constant accounts for the **buoyancy of ice**. Because ice crystals are less dense than the syrup, they float toward the top. Since the straw draws from the bottom, it captures a liquid-rich mixture. In this model, we treat the bias as **dynamic**: as the liquid level drops, the ice crystals are forced closer to the straw, and the "filtering" effect decreases. We model this as a linear transition from your initial bias (e.g., 50%) at full volume to 0% (perfectly mixed) at the final drop.
+- **$\beta$ (Ice Extraction Efficiency):** This variable accounts for the **buoyancy of ice**. Because ice crystals float, the straw at the bottom of the cup captures a liquid-rich mixture. We model this as a **dynamic factor**: when the cup is full, $\beta$ is at its minimum (e.g., 0.5), meaning you extract ice at only half its concentration. As the volume drops, the ice is forced into the straw, and $\beta$ **increases linearly to 1.0** (perfectly mixed) at the final drop.
 
 The **Final Expanded Solution** for the change in ice ratio $\frac{dR}{dt}$ is:
 
 $$\frac{dR}{dt} = \frac{1}{M} \left[ \dot{m}_i (1 - R) - R \dot{m}_l \right]$$
 
-Plugging everything in, including our dynamic $\beta(V)$:
+Plugging everything in, including our dynamic $\beta(V)$ which approaches 1.0 as $V \to 0$:
 
 $$\frac{dR}{dt} = -\frac{h \cdot A(V) \cdot T_{amb}}{M \cdot L_f} - \frac{C}{M} \left[ \rho_i \beta(V) R (1-R) - R \rho_l (1 - \beta(V) R) \right]$$
 
@@ -210,3 +210,4 @@ The following table shows the minimum ambient temperature required to finish a 7
 The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you're going for the 40oz X-Large, you'd better be drinking it in the heat of mid-July, or prepare by adding additional liquid towards the end of your consumption.
 
 All this is to say, keep ICE out of all things, including the final moments of drinking a slushee!
+e final moments of drinking a slushee!
