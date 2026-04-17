@@ -92,10 +92,11 @@ viewof cupSize = Inputs.select(new Map([
 viewof consumptionRate = Inputs.range([0.1, 5.0], {value: 2.0, step: 0.1, label: "Consumption (oz/min)"})
 viewof initialIceRatio = Inputs.range([0.4, 0.8], {value: 0.6, step: 0.05, label: "Initial Ice Ratio"})
 viewof liquidBias = Inputs.range([0.1, 1.0], {value: 0.5, step: 0.1, label: "Ice-in-Straw Bias"})
+viewof runTrigger = Inputs.button("Run Simulation")
 ```
 
 ```{ojs}
-// Constants
+// Constants and Data
 ozToMl = 29.57
 inchToCm = 2.54
 Lf = 334 // J/g
@@ -110,13 +111,15 @@ cupSizes = ({
   xlarge: { h: 8.5 * inchToCm, r1: (3.0/2) * inchToCm, r2: (4.75/2) * inchToCm }
 })
 
-results = {
-  const d = cupSizes[cupSize];
+// Simulation Function
+function runSimulation(temp, sizeKey, rate, initRatio, bias, trigger) {
+  // Use trigger to allow explicit refreshes if needed, though OJS is reactive
+  const d = cupSizes[sizeKey];
   const dt = 0.1; // minutes
-  const C_ml = consumptionRate * ozToMl;
+  const C_ml = rate * ozToMl;
   
-  let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initialIceRatio * rho_ice;
-  let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initialIceRatio) * rho_liq;
+  let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initRatio * rho_ice;
+  let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initRatio) * rho_liq;
   
   const history = [];
   let t = 0;
@@ -125,7 +128,6 @@ results = {
     let currentVol = (m_ice / rho_ice) + (m_liq / rho_liq);
     let iceRatio = m_ice / (m_ice + m_liq);
     
-    // Geometry
     let heightFrac = Math.max(0, currentVol / (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)));
     let y = d.h * heightFrac;
     let ry = d.r1 + (d.r2 - d.r1) * heightFrac;
@@ -134,16 +136,14 @@ results = {
 
     history.push({ time: t, iceRatio: iceRatio * 100, vol: currentVol / ozToMl });
 
-    // Thermodynamics (Heat in)
-    let dQ = h_coeff * Area * (ambientTempC - 0) * (dt * 60);
+    let dQ = h_coeff * Area * (temp - 0) * (dt * 60);
     let melted = dQ / Lf;
     melted = Math.min(melted, m_ice);
     m_ice -= melted;
     m_liq += melted;
 
-    // Consumption (Mass out)
     let volOut = C_ml * dt;
-    let r_out = iceRatio * liquidBias;
+    let r_out = iceRatio * bias;
     m_ice -= Math.min(m_ice, volOut * r_out * rho_ice);
     m_liq -= Math.min(m_liq, volOut * (1 - r_out) * rho_liq);
 
@@ -151,7 +151,13 @@ results = {
   }
   return history;
 }
+```
 
+```{ojs}
+// Reactive result
+results = runSimulation(ambientTempC, cupSize, consumptionRate, initialIceRatio, liquidBias, runTrigger)
+
+// Plot
 Plot.plot({
   title: "Ice Ratio Projection",
   subtitle: "Keep the ratio below 90% for a successful finish",
@@ -180,14 +186,16 @@ ${results[results.length-1].iceRatio > 90
 
 ## Summary of Optimal Temperatures
 
-The following table shows the minimum ambient temperature required to finish a 7-11 slushee at a steady consumption rate of **2 oz/min** without hitting the Dead Zone.
+The following table shows the minimum ambient temperature required to finish a 7-11 slushee at two different steady consumption rates without hitting the Dead Zone (assuming an initial ice ratio of 60%).
 
-| Cup Size | Min Ambient Temp |
-| :--- | :--- |
-| **Small (12 oz)** | ~14°C (57°F) |
-| **Medium (22 oz)** | ~21°C (70°F) |
-| **Large (30 oz)** | ~26°C (79°F) |
-| **X-Large (40 oz)** | ~32°C (90°F) |
+| Cup Size | 2 oz/min (Standard) | 3 oz/min (Fast) |
+| :--- | :--- | :--- |
+| **Small (12 oz)** | ~14°C (57°F) | ~20°C (68°F) |
+| **Medium (22 oz)** | ~21°C (70°F) | ~27°C (81°F) |
+| **Large (30 oz)** | ~26°C (79°F) | ~33°C (91°F) |
+| **X-Large (40 oz)** | ~32°C (90°F) | ~39°C (102°F) |
 
 ### Conclusion
-The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you're going for the 40oz X-Large, you'd better be drinking it in the heat of mid-July, or prepare for a very icy ending.
+The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you're going for the 40oz X-Large, you'd better be drinking it in the heat of mid-July, or prepare by adding additional liquid towards the end of your consumption.
+
+All this is to say, keep ICE out of all things, including the final moments of drinking a slushee!
