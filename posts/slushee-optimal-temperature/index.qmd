@@ -48,10 +48,10 @@ Instead of modeling discrete sips, we can model the slushee as a continuous syst
 ### Heat Transfer
 Heat flows from the ambient air ($T_{amb}$) through the cup walls:
 $$\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)$$
-This heat melts the ice at a rate of $\dot{m}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}$.
+This heat melts the ice at a rate of $\frac{dm}{t}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}$.
 
 ### Consumption
-We assume a constant volumetric consumption rate $C$ (oz/min). Because of the straw's liquid bias, the rate of ice removal $\dot{m}_{ice\_out}$ is lower than the rate of liquid removal.
+We assume a constant volumetric consumption rate $C$ (oz/min). Because of the straw's liquid bias, the rate of ice removal $\frac{dm}{t}_{ice\_out}$ is lower than the rate of liquid removal.
 
 ## 3. The Master Differential Equation
 
@@ -59,7 +59,7 @@ By combining the geometry of the frustum with the laws of thermodynamics, we can
 
 Let $V(t)$ be the current volume of the slushee. The rate of change of the ice mass $m_i$ is driven by two competing forces: melting and drinking.
 
-$$\frac{dm_i}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}$$
+$$\frac{dm_{ice}}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}$$
 
 Where:
 - **$h$ (Heat Transfer Coefficient):** Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher $h$ means a thinner or more conductive cup (like plastic vs. styrofoam).
@@ -215,4 +215,3 @@ The following table shows the minimum ambient temperature required to finish a 7
 The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you're going for the 40oz X-Large, you'd better be drinking it in the heat of mid-July, or prepare by adding additional liquid towards the end of your consumption.
 
 All this is to say, keep ICE out of all things, including the final moments of drinking a slushee!
-e final moments of drinking a slushee!
