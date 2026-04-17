@@ -14,7 +14,7 @@ The problem is one of **phase-change synchronization**. For a perfect drinking e
 
 ## 1. Geometry: The Tapered Frustum
 
-7-11 cups are not perfect cylinders; they are **frustums** (tapered cones). This affects the surface area $A$ exposed to the air as the volume decreases.
+7-11 cups are not perfect cylinders; they are **frustums** (tapered cones). 
 
 ### Cup Size Comparison
 The diagram below shows the relative 3D scale of the standard 7-11 lineup.
@@ -41,36 +41,44 @@ html`<div style="display: flex; align-items: flex-end; gap: 20px; justify-conten
 </div>`
 ```
 
-### Mathematical Formulas
-To model the heat transfer accurately, we use the following formulas for a frustum of height $h$, base radius $r_1$, and top radius $r_2$:
+## 2. Thermodynamics: Continuous Phase Change
 
-**Volume ($V$):**
-$$V = \frac{\pi h}{3} (r_1^2 + r_1 r_2 + r_2^2)$$
+Instead of modeling discrete sips, we can model the slushee as a continuous system. 
 
-**Lateral Surface Area ($A_{lat}$):**
-The surface area of the sides (where most heat transfer occurs) is:
-$$A_{lat} = \pi (r_1 + r_2) \sqrt{(r_2 - r_1)^2 + h^2}$$
+### Heat Transfer
+Heat flows from the ambient air ($T_{amb}$) through the cup walls:
+$$\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)$$
+This heat melts the ice at a rate of $\dot{m}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}$.
 
-**Total Surface Area ($A_{total}$):**
-Including the base (ignoring the lid):
-$$A_{total} = A_{lat} + \pi r_1^2$$
+### Consumption
+We assume a constant volumetric consumption rate $C$ (oz/min). Because of the straw's liquid bias, the rate of ice removal $\dot{m}_{ice\_out}$ is lower than the rate of liquid removal.
 
-## 2. Thermodynamics: Heat Transfer & Phase Change
+## 3. The Master Differential Equation
 
-Heat flows from the ambient air ($T_{amb}$) through the cup walls to melt the ice:
-$$\frac{dQ}{dt} = h_{coeff} \cdot A \cdot (T_{amb} - 0^\circ C)$$
+By combining the geometry of the frustum with the laws of thermodynamics, we can derive a single differential equation that governs the **Ice Ratio ($R$)** over time. 
 
-When heat enters, it melts a mass of ice $m_{melt}$:
-$$m_{melt} = \frac{dQ}{L_f}$$
-Where $L_f = 334\ J/g$ is the latent heat of fusion.
+Let $V(t)$ be the current volume of the slushee. The rate of change of the ice mass $m_i$ is driven by two competing forces: melting and drinking.
 
-### Consumption Bias
-When you drink through a straw, the liquid is pulled more easily than the ice crystals.
-$$\text{Ice Ratio in Sip} = 0.5 \times \text{Current Ice Ratio in Cup}$$
+$$\frac{dm_i}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}$$
 
-## 3. Interactive Simulation
+Where:
+- $A(V)$ is the surface area as a function of volume for a frustum.
+- $\beta$ is the liquid bias factor (the "Ice-in-Straw Bias").
+- $C$ is the consumption rate.
 
-Adjust the parameters below. The simulation assumes **2oz sips**.
+The **Final Expanded Solution** for the change in ice ratio $\frac{dR}{dt}$ is:
+
+$$\frac{dR}{dt} = \frac{1}{M} \left[ \dot{m}_i (1 - R) - R \dot{m}_l \right]$$
+
+Plugging everything in:
+
+$$\frac{dR}{dt} = -\frac{h \cdot A(V) \cdot T_{amb}}{M \cdot L_f} - \frac{C}{M} \left[ \rho_i \beta R (1-R) - R \rho_l (1 - \beta R) \right]$$
+
+This equation reveals the "Critical Temperature": the point where the melting term (which decreases $R$) perfectly cancels out the drinking term (which increases $R$ due to liquid bias).
+
+## 4. Interactive Optimization
+
+Adjust the parameters below to see if your drinking habits are sustainable.
 
 ```{ojs}
 //| panel: sidebar
@@ -81,9 +89,9 @@ viewof cupSize = Inputs.select(new Map([
   ["Large (30 oz)", "large"],
   ["X-Large (40 oz)", "xlarge"]
 ]), {label: "Cup Size"})
-viewof sipInterval = Inputs.radio([60, 30], {value: 60, label: "Sip Frequency (seconds)", format: d => d === 60 ? "Leisurely (1/min)" : "Fast (1/30s)"})
-viewof sipVolumeOz = Inputs.range([0.5, 4.0], {value: 2.0, step: 0.1, label: "Sip Volume (oz)"})
+viewof consumptionRate = Inputs.range([0.1, 5.0], {value: 2.0, step: 0.1, label: "Consumption (oz/min)"})
 viewof initialIceRatio = Inputs.range([0.4, 0.8], {value: 0.6, step: 0.05, label: "Initial Ice Ratio"})
+viewof liquidBias = Inputs.range([0.1, 1.0], {value: 0.5, step: 0.1, label: "Ice-in-Straw Bias"})
 ```
 
 ```{ojs}
@@ -95,7 +103,6 @@ h_coeff = 9.5 // W/m^2K
 rho_ice = 0.917 // g/cm^3
 rho_liq = 1.0 // g/cm^3
 
-// Cup Geometry Data
 cupSizes = ({
   small: { h: 4.5 * inchToCm, r1: (2.25/2) * inchToCm, r2: (3.25/2) * inchToCm },
   medium: { h: 6.0 * inchToCm, r1: (2.5/2) * inchToCm, r2: (3.75/2) * inchToCm },
@@ -103,53 +110,51 @@ cupSizes = ({
   xlarge: { h: 8.5 * inchToCm, r1: (3.0/2) * inchToCm, r2: (4.75/2) * inchToCm }
 })
 
-function simulate(temp, sizeKey, interval, initRatio, sipVol) {
-  const d = cupSizes[sizeKey];
-
-  let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initRatio * rho_ice;
-  let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initRatio) * rho_liq;
+results = {
+  const d = cupSizes[cupSize];
+  const dt = 0.1; // minutes
+  const C_ml = consumptionRate * ozToMl;
+  
+  let m_ice = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * initialIceRatio * rho_ice;
+  let m_liq = (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)) * (1 - initialIceRatio) * rho_liq;
   
   const history = [];
   let t = 0;
-  const v_sip = sipVol * ozToMl;
 
-  while (m_ice + m_liq > v_sip * 0.1 && history.length < 500) {
+  while (m_ice + m_liq > 1 && history.length < 1000) {
     let currentVol = (m_ice / rho_ice) + (m_liq / rho_liq);
     let iceRatio = m_ice / (m_ice + m_liq);
     
+    // Geometry
     let heightFrac = Math.max(0, currentVol / (d.h * Math.PI / 3 * (d.r1**2 + d.r1*d.r2 + d.r2**2)));
     let y = d.h * heightFrac;
     let ry = d.r1 + (d.r2 - d.r1) * heightFrac;
     let Area = Math.PI * (d.r1 + ry) * Math.sqrt((ry - d.r1)**2 + y**2) + Math.PI * d.r1**2;
-    Area = Area / 10000; // cm2 to m2
+    Area = Area / 10000;
 
-    history.push({ 
-      time: t / 60, 
-      iceRatio: iceRatio * 100, 
-      vol: currentVol / ozToMl 
-    });
+    history.push({ time: t, iceRatio: iceRatio * 100, vol: currentVol / ozToMl });
 
-    let Q = h_coeff * Area * (temp - 0) * interval;
-    let melted = Q / Lf;
+    // Thermodynamics (Heat in)
+    let dQ = h_coeff * Area * (ambientTempC - 0) * (dt * 60);
+    let melted = dQ / Lf;
     melted = Math.min(melted, m_ice);
     m_ice -= melted;
     m_liq += melted;
 
-    let r_sip = iceRatio * 0.5;
-    m_ice -= Math.min(m_ice, v_sip * r_sip * rho_ice);
-    m_liq -= Math.min(m_liq, v_sip * (1 - r_sip) * rho_liq);
-    t += interval;
+    // Consumption (Mass out)
+    let volOut = C_ml * dt;
+    let r_out = iceRatio * liquidBias;
+    m_ice -= Math.min(m_ice, volOut * r_out * rho_ice);
+    m_liq -= Math.min(m_liq, volOut * (1 - r_out) * rho_liq);
+
+    t += dt;
   }
   return history;
 }
-```
-
-```{ojs}
-results = simulate(ambientTempC, cupSize, sipInterval, initialIceRatio, sipVolumeOz)
 
 Plot.plot({
-  title: "Current Scenario: Ice Ratio Over Time",
-  subtitle: "Goal: Keep the ratio below 90% to avoid 'The Dead Zone'",
+  title: "Ice Ratio Projection",
+  subtitle: "Keep the ratio below 90% for a successful finish",
   y: { label: "Ice Ratio (%)", domain: [0, 100] },
   x: { label: "Time (minutes)" },
   marks: [
@@ -168,55 +173,21 @@ Final Ice Ratio: **${results[results.length-1].iceRatio.toFixed(1)}%**
 Total Time: **${results[results.length-1].time.toFixed(1)} minutes**
 
 ${results[results.length-1].iceRatio > 90 
-  ? "❌ **FAILED**: You were left with a block of dry ice! Increase the ambient temperature or drink slower." 
-  : "✅ **SUCCESS**: You finished the slushee with a drinkable ratio!"}
+  ? "❌ **FAILED**: You were left with a block of dry ice! Decrease your consumption rate or find a warmer spot." 
+  : "✅ **SUCCESS**: A perfect balance of phase-change and consumption."}
 `
 ```
 
-### Consumption Comparison: Leisurely vs. Fast
+## Summary of Optimal Temperatures
 
-How does speed affect the outcome? A fast drinker leaves less time for the ambient air to melt the ice, leading to a drier finish.
+The following table shows the minimum ambient temperature required to finish a 7-11 slushee at a steady consumption rate of **2 oz/min** without hitting the Dead Zone.
 
-```{ojs}
-html`<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1; min-width: 300px;">
-    ${Plot.plot({
-      title: "Leisurely (1 sip/min)",
-      y: { domain: [0, 100], label: "Ice Ratio (%)" },
-      x: { label: "Time (minutes)" },
-      marks: [
-        Plot.lineY(simulate(ambientTempC, cupSize, 60, initialIceRatio, sipVolumeOz), {x: "time", y: "iceRatio", stroke: "green"}),
-        Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
-      ]
-    })}
-  </div>
-  <div style="flex: 1; min-width: 300px;">
-    ${Plot.plot({
-      title: "Fast (1 sip/30s)",
-      y: { domain: [0, 100], label: "Ice Ratio (%)" },
-      x: { label: "Time (minutes)" },
-      marks: [
-        Plot.lineY(simulate(ambientTempC, cupSize, 30, initialIceRatio, sipVolumeOz), {x: "time", y: "iceRatio", stroke: "orange"}),
-        Plot.ruleY([90], {stroke: "red", strokeDasharray: "4,4"})
-      ]
-    })}
-  </div>
-</div>`
-```
-
-
-## 4. Final Summary: Optimal Temperatures
-
-The "Optimal Temperature" is defined as the minimum ambient temperature required to ensure the ice ratio never exceeds **90%** during consumption. 
-
-Assume 2oz sips and an initial ice ratio of 60%.
-
-| Cup Size | Leisurely (1 sip/min) | Fast (1 sip/30s) |
-| :--- | :--- | :--- |
-| **Small (12 oz)** | ~14°C (57°F) | ~26°C (79°F) |
-| **Medium (22 oz)** | ~21°C (70°F) | ~34°C (93°F) |
-| **Large (30 oz)** | ~26°C (79°F) | ~40°C (104°F) |
-| **X-Large (40 oz)** | ~31°C (88°F) | ~46°C (115°F) |
+| Cup Size | Min Ambient Temp |
+| :--- | :--- |
+| **Small (12 oz)** | ~14°C (57°F) |
+| **Medium (22 oz)** | ~21°C (70°F) |
+| **Large (30 oz)** | ~26°C (79°F) |
+| **X-Large (40 oz)** | ~32°C (90°F) |
 
 ### Conclusion
-If you are an extra-large slushee drinker who finishes their drink in 10 minutes (fast), you effectively need to be standing in a **heat wave** (46°C) to keep the ice drinkable. For the rest of us, the 22oz "Medium" in a comfortable 21°C room remains the golden standard of phase-change synchronization.
+The larger the cup, the lower the surface-area-to-volume ratio, and thus the slower the relative melting rate. If you're going for the 40oz X-Large, you'd better be drinking it in the heat of mid-July, or prepare for a very icy ending.
