@@ -32,7 +32,7 @@ While copper is the "standard" for conductivity, different metals offer differen
 | **Copper** | 401 W/m·K | 1085°C | ~1000°C | The industry standard for high-flux boilers. |
 | **Gold** | 315 W/m·K | 1064°C | ~1000°C | Chemically inert; great for corrosive alchemical steam. |
 | **Steel** | 15–50 W/m·K | ~1500°C | ~1300°C | Poor conductivity but allows for "White Hot" temperatures. |
-| **Platinum**| 71 W/m·K | 1768°C | ~1600°C | For 9th-level casts; can sustain incredible temperatures. |
+| **Tungsten**| 173 W/m·K | 3422°C | ~3000°C | For 9th-level casts; can sustain incredible temperatures. |
 
 *Selection: For our baseline, we stick with **Copper** for its balance of cost-efficiency and high flux.*
 
@@ -43,7 +43,7 @@ While copper is the "standard" for conductivity, different metals offer differen
 - **2nd Level (2d8):** 800°C (Dull Red)
 - **4th Level (4d8):** 900°C (Bright Red)
 - **6th Level (6d8):** 1000°C (Orange) - *Approaching Copper's limit.*
-- **9th Level (9d8):** 1150°C (Yellow-White) - *Requires Steel or Platinum.*
+- **9th Level (9d8):** 1150°C (Yellow-White) - *Safe for Tungsten or Steel.*
 
 ## The Spellcaster's Endurance: Total Energy
 
@@ -63,19 +63,24 @@ A Level 20 Druid is a walking nuclear reactor. By cycling through their spell sl
 
 *A single high-level Druid can dump over **half a Gigajoule** of energy into a grid in under 20 minutes.*
 
-## Estimating Heat Flux ($q''$)
+## Estimating Heat Flux ($q''$) and Bromley's Correlation
 
-"Red hot" corresponds to a temperature of approximately **800°C (1073 K)**. When water is pushed through a pipe at this temperature, it immediately enters **film boiling** (the Leidenfrost effect), where a thin layer of steam insulates the liquid.
+When our copper pipe is maintained at "Red Hot" temperatures ($T_s \approx 800^\circ\text{C}$), water in contact with it enters **film boiling**. In this regime, the heat transfer is governed by **Bromley's Correlation** for a horizontal cylinder:
 
-Using Bromley's correlation for film boiling and accounting for radiative heat transfer ($\epsilon \approx 0.8$ for oxidized copper), we can estimate a conservative heat flux $q''$:
+$$h_{conv} = 0.62 \left[ \frac{k_g^3 \rho_g (\rho_l - \rho_g) g (h_{fg} + 0.4 c_{pg} \Delta T)}{D \mu_g \Delta T} \right]^{1/4}$$
 
-- **Convective $h$:** $\approx 135\text{ W/(m}^2\text{·K)}$
+Where:
+- $k_g, \rho_g, \mu_g, c_{pg}$ are the thermal conductivity, density, viscosity, and specific heat of the steam (vapor).
+- $\rho_l$ is the density of the liquid water.
+- $h_{fg}$ is the latent heat of vaporization.
+- $D$ is the outside diameter of the pipe.
+- $\Delta T = T_s - T_{sat}$ is the temperature difference.
 
-- **Radiative $h$:** $\approx 85\text{ W/(m}^2\text{·K)}$
+Total heat flux $q''$ also includes radiation, which becomes dominant at these temperatures:
+$$h_{total} = h_{conv} + \frac{3}{4} h_{rad}$$
+$$h_{rad} = \frac{\epsilon \sigma (T_s^4 - T_{sat}^4)}{T_s - T_{sat}}$$
 
-- **Total $q''$:** $\approx 150,000\text{ W/m}^2$
-
-$$P_{raw} = A_s \times q'' = 2.74\text{ m}^2 \times 150\text{ kW/m}^2 \approx 411\text{ kW}$$
+For our baseline 2.74 m$^2$ boiler, this results in a raw power output of approximately **411 kW**.
 
 ## Power Generation: The Rankine Cycle
 
@@ -105,11 +110,9 @@ epsilon = 0.8
 areaPerCaster = 2.74 // m^2
 waterTemp = 100 // °C
 
-// Map slot level to temperature
-tempMap = {
-  2: 800, 3: 850, 4: 900, 5: 950, 6: 1000, 7: 1050, 8: 1100, 9: 1150
-}
-tempCelsius = tempMap[slotLevel]
+// Map slot level to temperature - Using Map for OJS safety
+tempMap = new Map([[2, 800], [3, 850], [4, 900], [5, 950], [6, 1000], [7, 1050], [8, 1100], [9, 1150]])
+tempCelsius = tempMap.get(slotLevel)
 
 // Simplified efficiency scaling
 efficiency = 0.10 + 0.05 * Math.log10(pressureBar)
