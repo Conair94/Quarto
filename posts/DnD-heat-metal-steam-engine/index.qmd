@@ -68,8 +68,11 @@ A Level 20 Druid is a walking nuclear reactor. By cycling through their spell sl
 "Red hot" corresponds to a temperature of approximately **800°C (1073 K)**. When water is pushed through a pipe at this temperature, it immediately enters **film boiling** (the Leidenfrost effect), where a thin layer of steam insulates the liquid.
 
 Using Bromley's correlation for film boiling and accounting for radiative heat transfer ($\epsilon \approx 0.8$ for oxidized copper), we can estimate a conservative heat flux $q''$:
+
 - **Convective $h$:** $\approx 135\text{ W/(m}^2\text{·K)}$
+
 - **Radiative $h$:** $\approx 85\text{ W/(m}^2\text{·K)}$
+
 - **Total $q''$:** $\approx 150,000\text{ W/m}^2$
 
 $$P_{raw} = A_s \times q'' = 2.74\text{ m}^2 \times 150\text{ kW/m}^2 \approx 411\text{ kW}$$
