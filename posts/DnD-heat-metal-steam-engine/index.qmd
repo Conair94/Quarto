@@ -93,12 +93,17 @@ $$\lambda_{max} = \frac{b}{T}$$
 
 Where:
 - $\lambda_{max}$ is the peak wavelength of light.
+
 - $b \approx 2.897 \times 10^{-3}\text{ m}\cdot\text{K}$ is Wien's displacement constant.
+
 - $T$ is the absolute temperature in Kelvin.
 
 As $T$ increases, $\lambda_{max}$ shifts left toward the visible spectrum:
+
 - **Red Hot ($800^\circ\text{C} \approx 1073\text{ K}$):** $\lambda_{max} \approx 2.7\text{ }\mu\text{m}$. The peak is in the infrared, but the "tail" of the Planck distribution bleeds into the visible red spectrum (~700 nm).
+
 - **Orange/Yellow ($1300^\circ\text{C} \approx 1573\text{ K}$):** The distribution shifts further, covering more of the visible spectrum.
+
 - **White Hot ($2000^\circ\text{C} \approx 2273\text{ K}$):** The peak wavelength $\lambda_{max} \approx 1.27\text{ }\mu\text{m}$. The distribution covers the entire visible spectrum, emitting all colors nearly equally. To the eye, the object appears as a brilliant white.
 
 This is why our choice of metal changes the *melting point* and *conductivity*, but a Copper pipe and a Tungsten pipe at $900^\circ\text{C}$ will both emit the exact same "Bright Red" hue.
