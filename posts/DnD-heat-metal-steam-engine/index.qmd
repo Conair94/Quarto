@@ -61,33 +61,35 @@ By utilizing a multi-tube heat exchanger (similar to a fire-tube or water-tube b
 
 ## The Spellcaster's Endurance: Total Energy
 
-A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. For 3rd-level slots and above, we swap the copper core for **Tungsten**. Note how the power output explodes due to the $5.5\text{ m}^2$ area and $T^4$ radiation scaling.
+A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. We assume a **30% turbine efficiency** for our baseline generation.
 
-| Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
+| Slot Level | Duration | Temp (°C) | Metal | Raw Thermal | Generated (@30%) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 148.5 MJ |
-| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 237.6 MJ |
-| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 347.4 MJ |
-| **5th (x3)** | 3 min | 1300 | Tungsten | 2,650 kW | 477.0 MJ |
-| **6th (x2)** | 2 min | 1500 | Tungsten | 3,840 kW | 460.8 MJ |
-| **7th (x2)** | 2 min | 1650 | Tungsten | 4,940 kW | 592.8 MJ |
-| **8th (x1)** | 1 min | 1850 | Tungsten | 6,710 kW | 402.6 MJ |
-| **9th (x1)** | 1 min | 2000 | Tungsten | 8,280 kW | 496.8 MJ |
-| **TOTAL** | **18 min** | **AVG 1350** | **-** | **~2,930 kW** | **3,163.5 MJ** |
+| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 247.5 kW |
+| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 396.0 kW |
+| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 579.0 kW |
+| **5th (x3)** | 3 min | 1300 | Tungsten | 2,650 kW | 795.0 kW |
+| **6th (x2)** | 2 min | 1500 | Tungsten | 3,840 kW | 1,152.0 kW |
+| **7th (x2)** | 2 min | 1650 | Tungsten | 4,940 kW | 1,482.0 kW |
+| **8th (x1)** | 1 min | 1850 | Tungsten | 6,710 kW | 2,013.0 kW |
+| **9th (x1)** | 1 min | 2000 | Tungsten | 8,280 kW | 2,484.0 kW |
+| **TOTAL** | **18 min** | **AVG 1350** | **-** | **~2,930 kW** | **~880 kW (1,180 HP)** |
+
+*A Level 20 caster can provide an average of **1,180 Horsepower** for 18 minutes, dumping nearly **one Gigajoule of usable electrical energy** into the grid.*
 
 ### Mid-Level Industrialist: The 10th-Level Cleric
 
 A 10th-level Forge Domain cleric is still a formidable power source for local industry.
 
-| Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
+| Slot Level | Duration | Temp (°C) | Metal | Raw Thermal | Generated (@30%) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 148.5 MJ |
-| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 237.6 MJ |
-| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 347.4 MJ |
-| **5th (x2)** | 2 min | 1300 | Tungsten | 2,650 kW | 318.0 MJ |
-| **TOTAL** | **11 min** | **AVG 1060** | **-** | **~1,590 kW** | **1,051.5 MJ** |
+| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 247.5 kW |
+| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 396.0 kW |
+| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 579.0 kW |
+| **5th (x2)** | 2 min | 1300 | Tungsten | 2,650 kW | 795.0 kW |
+| **TOTAL** | **11 min** | **AVG 1060** | **-** | **~1,590 kW** | **~475 kW (640 HP)** |
 
-*Even at level 10, a single cleric can dump over **one Gigajoule** of energy—enough to run a fleet of heavy locomotives.*
+*Even at level 10, a single cleric can generate over **300 MJ of usable energy**—enough to run a fleet of heavy locomotives for a short-haul route.*
 
 ## Estimating Heat Flux ($q''$) and Bromley's Correlation
 
@@ -136,7 +138,7 @@ This is why our choice of metal changes the *melting point* and *conductivity*, 
 
 Increasing the boiler pressure ($P_{boiler}$) improves thermal efficiency by allowing a higher temperature drop across the turbine.
 
-1.  **Efficiency Gains:** A pressurized boiler (e.g., 20 bar) can push efficiency toward 15-20%.
+1.  **Efficiency Gains:** A pressurized boiler (e.g., 20 bar) can push efficiency toward **20-40%**, depending on the sophistication of the condenser and turbine design.
 2.  **The Pump Tax:** For our ~8 MW boiler, we'd need to pump roughly 3 L/s. At 20 bar, this consumes about **6 kW**—still negligible.
 
 ## Interactive Power Grid
@@ -147,7 +149,7 @@ Adjust the parameters below to see what your adventuring party can power.
 //| panel: sidebar
 viewof numCasters = Inputs.range([1, 20], {value: 1, step: 1, label: "Number of Casters"})
 viewof slotLevel = Inputs.select([2, 3, 4, 5, 6, 7, 8, 9], {value: 2, label: "Spell Slot Level"})
-viewof pressureBar = Inputs.range([1, 50], {value: 10, step: 1, label: "Boiler Pressure (Bar)"})
+viewof pressureBar = Inputs.range([1, 100], {value: 20, step: 1, label: "Boiler Pressure (Bar)"})
 ```
 
 ```{ojs}
@@ -173,8 +175,8 @@ currentProp = materialProps.get(slotLevel)
 tempCelsius = currentProp.temp
 epsilon = currentProp.eps
 
-// Simplified efficiency scaling
-efficiency = 0.10 + 0.05 * Math.log10(pressureBar)
+// Simplified efficiency scaling: 20% at 1 bar, scaling to ~40% at 100 bar
+efficiency = 0.20 + 0.10 * Math.log10(pressureBar)
 
 // Flux calculation
 Ts = tempCelsius + 273.15
@@ -208,9 +210,9 @@ Using **Level ${slotLevel}** slots with a **${currentProp.name}** core at **${pr
 - **Energy per Minute (Total):** ${d3.format(".2f")(totalRawPower * 60 / 1e6)} MJ
 
 **What can this power?**
-- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~150 carriages!*
-- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 7-8 locomotives.*
-- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires a single caster using 9th-level slots.*
+- **Motorized Carriage:** Needs ~15 HP. *One 9th-level heat metal can power ~200 carriages!*
+- **Steam Locomotive:** Needs ~500 HP. *A 9th-level heat metal can power 6 locomotives or M4 Sherman tank.*
+- **Heavy Industrial Airship:** Needs ~1500 HP. *a 9th level caster can power a heavy airship for 2 minutes with one 9th-level slot.*
 `
 ```
 
