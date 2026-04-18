@@ -45,7 +45,20 @@ html`<div style="display: flex; align-items: flex-end; gap: 20px; justify-conten
 
 ## 2. Thermodynamics: Continuous Phase Change
 
-We can model the slushee as a continuous system. 
+### Units of Measurement
+To model this system, we utilize a mix of SI units for physical accuracy and US Customary units for user-facing context:
+
+- **Temperature ($^\circ C$):** Celsius is the standard for thermodynamics involving water phase changes, where $0^\circ C$ is the critical transition point.
+
+- **Mass ($g$):** Grams are used for all mass calculations to maintain a direct relationship with milliliters for density ($1\ g/ml$ for water). We neglect the potential altered density from flavoring. 
+
+- **Energy ($J$):** Joules allow us to use the standard Latent Heat of Fusion constant of water ($334\ J/g$) to determine exactly how much heat energy is required to melt the ice.
+
+- **Volume ($oz$ and $ml$):** We accept input in **fluid ounces** (the commercial standard for 7-11) but convert internally to **milliliters** ($1\ ml = 1\ cm^3$) for all physical and geometric calculations.
+
+- **Time ($min$):** Minutes are used as the temporal scale for consumption to provide an intuitive ``drinking time''' result.
+
+We model the slushee as a continuous system. 
 
 ### Heat Transfer
 Heat flows from the ambient air ($T_{amb}$) through the cup walls:
