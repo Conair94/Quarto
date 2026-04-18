@@ -24,7 +24,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 
 
 <p>In Dungeons &amp; Dragons 5e, the spell <em>Heat Metal</em> is a low-level staple for cooking enemies in their own armor. The spell description states: <em>“you cause a metal object to glow red hot.”</em> If we assume the magic maintains this “red hot” state regardless of external cooling (a necessity if it’s to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD.</p>
-<p>By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let’s estimate exactly how much power a single 3rd-level can contribute to the fantasy industrial revolution.</p>
+<p>By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let’s estimate exactly how much power a single caster can contribute to the fantasy industrial revolution.</p>
 <section id="the-physical-constraints" class="level2">
 <h2 class="anchored" data-anchor-id="the-physical-constraints">The Physical Constraints</h2>
 <p>To find the upper bound of our heating element, we look to the heaviest common metal object a caster can target: <strong>Plate Armor</strong>.</p>
@@ -94,6 +94,12 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 </table>
 <p><em>Selection: For our baseline, we stick with <strong>Copper</strong> for 2nd-level slots, but transition to <strong>Tungsten</strong> for anything higher.</em></p>
 </section>
+<section id="engineering-the-boiler-maximizing-surface-area" class="level2">
+<h2 class="anchored" data-anchor-id="engineering-the-boiler-maximizing-surface-area">Engineering the Boiler: Maximizing Surface Area</h2>
+<p>Using a density of <img src="https://latex.codecogs.com/png.latex?8,960%5Ctext%7B%20kg/m%7D%5E3">, our 33.55 kg copper mass occupies a volume of approximately <strong>3.74 Liters</strong>. To maximize heat transfer, we must draw this metal into the largest possible surface area <img src="https://latex.codecogs.com/png.latex?A_s"> while maintaining structural integrity for a high-pressure boiler.</p>
+<p>If we draw the metal into a high-density bundle of <strong>1/4-inch nominal Type M copper tubing</strong> (OD 9.5 mm, wall 0.6 mm): - <strong>Cross-sectional area of metal per tube:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%2017.6%5Ctext%7B%20mm%7D%5E2"> - <strong>Total length of tubing possible:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%20212%5Ctext%7B%20meters%7D"> - <strong>Internal Surface Area (<img src="https://latex.codecogs.com/png.latex?A_s">):</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%205.5%5Ctext%7B%20m%7D%5E2"></p>
+<p>By utilizing a multi-tube heat exchanger (similar to a fire-tube or water-tube boiler), we can achieve a surface area of <strong>5.5 m<img src="https://latex.codecogs.com/png.latex?%5E2"> per caster</strong>. This optimization significantly increases the raw wattage captured compared to a simple pipe.</p>
+</section>
 <section id="scaling-up-upcasting-and-temperature" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-up-upcasting-and-temperature">Scaling Up: Upcasting and Temperature</h2>
 <p><em>Heat Metal</em> deals an extra 1d8 damage for every slot above 2nd. We can model this increased “potency” as an exponential increase in maintained temperature. While 2d8 corresponds to a “Red Hot” 800°C, a 9th-level cast represents a truly sun-like energy density:</p>
@@ -106,7 +112,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 </section>
 <section id="the-spellcasters-endurance-total-energy" class="level2">
 <h2 class="anchored" data-anchor-id="the-spellcasters-endurance-total-energy">The Spellcaster’s Endurance: Total Energy</h2>
-<p>A Level 20 cleric is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. Note that for 3rd-level slots and above, our fantasy engineers swap the copper core for <strong>Tungsten</strong> to prevent melting. This slightly lowers the emissivity (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.7"> for oxidized tungsten vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.8"> for copper), but the massive temperature gains more than compensate.</p>
+<p>A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. For 3rd-level slots and above, we swap the copper core for <strong>Tungsten</strong>. Note how the power output explodes due to the <img src="https://latex.codecogs.com/png.latex?5.5%5Ctext%7B%20m%7D%5E2"> area and <img src="https://latex.codecogs.com/png.latex?T%5E4"> radiation scaling.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
@@ -132,78 +138,78 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">800</td>
 <td style="text-align: left;">Copper</td>
-<td style="text-align: left;">411 kW</td>
-<td style="text-align: left;">74.0 MJ</td>
+<td style="text-align: left;">825 kW</td>
+<td style="text-align: left;">148.5 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>3rd (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1000</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">660 kW</td>
-<td style="text-align: left;">118.8 MJ</td>
+<td style="text-align: left;">1,320 kW</td>
+<td style="text-align: left;">237.6 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>4th (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1150</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">960 kW</td>
-<td style="text-align: left;">172.8 MJ</td>
+<td style="text-align: left;">1,930 kW</td>
+<td style="text-align: left;">347.4 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>5th (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1300</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">1,320 kW</td>
-<td style="text-align: left;">237.6 MJ</td>
+<td style="text-align: left;">2,650 kW</td>
+<td style="text-align: left;">477.0 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>6th (x2)</strong></td>
 <td style="text-align: left;">2 min</td>
 <td style="text-align: left;">1500</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">1,910 kW</td>
-<td style="text-align: left;">229.2 MJ</td>
+<td style="text-align: left;">3,840 kW</td>
+<td style="text-align: left;">460.8 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>7th (x2)</strong></td>
 <td style="text-align: left;">2 min</td>
 <td style="text-align: left;">1650</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">2,460 kW</td>
-<td style="text-align: left;">295.2 MJ</td>
+<td style="text-align: left;">4,940 kW</td>
+<td style="text-align: left;">592.8 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>8th (x1)</strong></td>
 <td style="text-align: left;">1 min</td>
 <td style="text-align: left;">1850</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">3,340 kW</td>
-<td style="text-align: left;">200.4 MJ</td>
+<td style="text-align: left;">6,710 kW</td>
+<td style="text-align: left;">402.6 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>9th (x1)</strong></td>
 <td style="text-align: left;">1 min</td>
 <td style="text-align: left;">2000</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">4,120 kW</td>
-<td style="text-align: left;">247.2 MJ</td>
+<td style="text-align: left;">8,280 kW</td>
+<td style="text-align: left;">496.8 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>TOTAL</strong></td>
 <td style="text-align: left;"><strong>18 min</strong></td>
 <td style="text-align: left;"><strong>AVG 1350</strong></td>
 <td style="text-align: left;"><strong>-</strong></td>
-<td style="text-align: left;"><strong>~1,450 kW</strong></td>
-<td style="text-align: left;"><strong>1,575.2 MJ</strong></td>
+<td style="text-align: left;"><strong>~2,930 kW</strong></td>
+<td style="text-align: left;"><strong>3,163.5 MJ</strong></td>
 </tr>
 </tbody>
 </table>
 <section id="mid-level-industrialist-the-10th-level-cleric" class="level3">
 <h3 class="anchored" data-anchor-id="mid-level-industrialist-the-10th-level-cleric">Mid-Level Industrialist: The 10th-Level Cleric</h3>
-<p>A 10th-level Forge Domain cleric might not have the god-like endurance of a 20th-level master, but they are still a formidable power source for local industry.</p>
+<p>A 10th-level Forge Domain cleric is still a formidable power source for local industry.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
@@ -229,44 +235,44 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">800</td>
 <td style="text-align: left;">Copper</td>
-<td style="text-align: left;">411 kW</td>
-<td style="text-align: left;">74.0 MJ</td>
+<td style="text-align: left;">825 kW</td>
+<td style="text-align: left;">148.5 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>3rd (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1000</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">660 kW</td>
-<td style="text-align: left;">118.8 MJ</td>
+<td style="text-align: left;">1,320 kW</td>
+<td style="text-align: left;">237.6 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>4th (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1150</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">960 kW</td>
-<td style="text-align: left;">172.8 MJ</td>
+<td style="text-align: left;">1,930 kW</td>
+<td style="text-align: left;">347.4 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>5th (x2)</strong></td>
 <td style="text-align: left;">2 min</td>
 <td style="text-align: left;">1300</td>
 <td style="text-align: left;">Tungsten</td>
-<td style="text-align: left;">1,320 kW</td>
-<td style="text-align: left;">158.4 MJ</td>
+<td style="text-align: left;">2,650 kW</td>
+<td style="text-align: left;">318.0 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>TOTAL</strong></td>
 <td style="text-align: left;"><strong>11 min</strong></td>
 <td style="text-align: left;"><strong>AVG 1060</strong></td>
 <td style="text-align: left;"><strong>-</strong></td>
-<td style="text-align: left;"><strong>~790 kW</strong></td>
-<td style="text-align: left;"><strong>524.0 MJ</strong></td>
+<td style="text-align: left;"><strong>~1,590 kW</strong></td>
+<td style="text-align: left;"><strong>1,051.5 MJ</strong></td>
 </tr>
 </tbody>
 </table>
-<p><em>A single high-level cleric can dump over <strong>1.5 Gigajoules</strong> of energy into a grid in under 20 minutes.</em></p>
+<p><em>Even at level 10, a single cleric can dump over <strong>one Gigajoule</strong> of energy—enough to run a fleet of heavy locomotives.</em></p>
 </section>
 </section>
 <section id="estimating-heat-flux-q-and-bromleys-correlation" class="level2">
@@ -285,24 +291,11 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 </section>
 <section id="the-universal-glow-black-body-radiation" class="level2">
 <h2 class="anchored" data-anchor-id="the-universal-glow-black-body-radiation">The Universal Glow: Black Body Radiation</h2>
-<p>A common misconception in fantasy engineering is that different metals might “glow” differently at the same temperature. However, the “red hot” or “white hot” state described in the spell is governed by the principles of <strong>Black Body Radiation</strong>.</p>
-<p>According to <strong>Planck’s Law</strong>, the spectral radiance of an object is a function of its temperature <img src="https://latex.codecogs.com/png.latex?T">, not its chemical composition. While the <em>intensity</em> of the light can be modified by the material’s emissivity (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon">), the <em>peak wavelength</em> (color) is determined solely by the temperature.</p>
+<p>The color of the “red hot” or “white hot” state is governed by <strong>Black Body Radiation</strong>. According to <strong>Planck’s Law</strong>, the spectral radiance of an object is a function of its temperature <img src="https://latex.codecogs.com/png.latex?T">, determined solely by the temperature, not the material.</p>
 <section id="wiens-displacement-law" class="level3">
 <h3 class="anchored" data-anchor-id="wiens-displacement-law">Wien’s Displacement Law</h3>
-<p>The mathematical justification for mapping specific colors to temperatures comes from <strong>Wien’s Displacement Law</strong>:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20=%20%5Cfrac%7Bb%7D%7BT%7D"></p>
-<p>Where: - <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D"> is the peak wavelength of light.</p>
-<ul>
-<li><p><img src="https://latex.codecogs.com/png.latex?b%20%5Capprox%202.897%20%5Ctimes%2010%5E%7B-3%7D%5Ctext%7B%20m%7D%5Ccdot%5Ctext%7BK%7D"> is Wien’s displacement constant.</p></li>
-<li><p><img src="https://latex.codecogs.com/png.latex?T"> is the absolute temperature in Kelvin.</p></li>
-</ul>
-<p>As <img src="https://latex.codecogs.com/png.latex?T"> increases, <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D"> shifts left toward the visible spectrum:</p>
-<ul>
-<li><p><strong>Red Hot (<img src="https://latex.codecogs.com/png.latex?800%5E%5Ccirc%5Ctext%7BC%7D%20%5Capprox%201073%5Ctext%7B%20K%7D">):</strong> <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%202.7%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The peak is in the infrared, but the “tail” of the Planck distribution bleeds into the visible red spectrum (~700 nm).</p></li>
-<li><p><strong>Orange/Yellow (<img src="https://latex.codecogs.com/png.latex?1300%5E%5Ccirc%5Ctext%7BC%7D%20%5Capprox%201573%5Ctext%7B%20K%7D">):</strong> The distribution shifts further, covering more of the visible spectrum.</p></li>
-<li><p><strong>White Hot (<img src="https://latex.codecogs.com/png.latex?2000%5E%5Ccirc%5Ctext%7BC%7D%20%5Capprox%202273%5Ctext%7B%20K%7D">):</strong> The peak wavelength <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%201.27%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The distribution covers the entire visible spectrum, emitting all colors nearly equally. To the eye, the object appears as a brilliant white.</p></li>
-</ul>
-<p>This is why our choice of metal changes the <em>melting point</em> and <em>conductivity</em>, but a Copper pipe and a Tungsten pipe at <img src="https://latex.codecogs.com/png.latex?900%5E%5Ccirc%5Ctext%7BC%7D"> will both emit the exact same “Bright Red” hue.</p>
+<p>As <img src="https://latex.codecogs.com/png.latex?T"> increases, <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D"> shifts left toward the visible spectrum: - <strong>Red Hot (<img src="https://latex.codecogs.com/png.latex?800%5E%5Ccirc%5Ctext%7BC%7D%20%5Capprox%201073%5Ctext%7B%20K%7D">):</strong> <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%202.7%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The peak is in infrared, but the “tail” bleeds into visible red. - <strong>White Hot (<img src="https://latex.codecogs.com/png.latex?2000%5E%5Ccirc%5Ctext%7BC%7D%20%5Capprox%202273%5Ctext%7B%20K%7D">):</strong> <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%201.27%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The distribution covers the entire visible spectrum equally, appearing as brilliant white.</p>
 </section>
 </section>
 <section id="power-generation-the-rankine-cycle" class="level2">
@@ -310,7 +303,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <p>Increasing the boiler pressure (<img src="https://latex.codecogs.com/png.latex?P_%7Bboiler%7D">) improves thermal efficiency by allowing a higher temperature drop across the turbine.</p>
 <ol type="1">
 <li><strong>Efficiency Gains:</strong> A pressurized boiler (e.g., 20 bar) can push efficiency toward 15-20%.</li>
-<li><strong>The Pump Tax:</strong> For our ~4 MW boiler, we’d need to pump roughly 1.5 L/s. At 20 bar, this consumes about <strong>3 kW</strong>—negligible compared to the massive power output.</li>
+<li><strong>The Pump Tax:</strong> For our ~8 MW boiler, we’d need to pump roughly 3 L/s. At 20 bar, this consumes about <strong>6 kW</strong>—still negligible.</li>
 </ol>
 </section>
 <section id="interactive-power-grid" class="level2">
@@ -320,7 +313,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="136" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 135;"><span id="cb1-136">viewof numCasters <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="130" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 129;"><span id="cb1-130">viewof numCasters <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -357,7 +350,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Number of Casters"</span>})</span>
-<span id="cb1-137">viewof slotLevel <span class="op" style="color: #5E5E5E;
+<span id="cb1-131">viewof slotLevel <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -410,7 +403,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Spell Slot Level"</span>})</span>
-<span id="cb1-138">viewof pressureBar <span class="op" style="color: #5E5E5E;
+<span id="cb1-132">viewof pressureBar <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -475,33 +468,30 @@ font-style: inherit;">"Boiler Pressure (Bar)"</span>})</span></code></pre></div>
 <div class="cell panel-fill">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="144" data-source-offset="-13" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 143;"><span id="cb2-144">sigma <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="138" data-source-offset="-13" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 137;"><span id="cb2-138">sigma <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5.67e-8</span></span>
-<span id="cb2-145">areaPerCaster <span class="op" style="color: #5E5E5E;
+<span id="cb2-139">areaPerCaster <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2.74</span> <span class="co" style="color: #5E5E5E;
+font-style: inherit;">5.5</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// m^2</span></span>
-<span id="cb2-146">waterTemp <span class="op" style="color: #5E5E5E;
+font-style: inherit;">// Optimized area in m^2</span></span>
+<span id="cb2-140">waterTemp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// °C</span></span>
-<span id="cb2-147"></span>
-<span id="cb2-148"><span class="co" style="color: #5E5E5E;
+<span id="cb2-141"></span>
+<span id="cb2-142"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Dynamic Emissivity and Temperature mapping</span></span>
-<span id="cb2-149"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// 2nd level uses Copper (0.8), 3rd+ use Tungsten (0.7)</span></span>
-<span id="cb2-150">materialProps <span class="op" style="color: #5E5E5E;
+<span id="cb2-143">materialProps <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -509,7 +499,7 @@ font-weight: bold;
 font-style: inherit;">new</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">Map</span>([</span>
-<span id="cb2-151">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-144">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -538,7 +528,7 @@ background-color: null;
 font-style: inherit;">"Copper"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-152">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-145">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -567,7 +557,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-153">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-146">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -596,7 +586,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-154">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-147">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -625,7 +615,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-155">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-148">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -654,7 +644,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-156">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-149">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">7</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -683,7 +673,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-157">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-150">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -712,7 +702,7 @@ background-color: null;
 font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb2-158">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-151">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -739,34 +729,34 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Tungsten"</span> }]</span>
-<span id="cb2-159">])</span>
-<span id="cb2-160"></span>
-<span id="cb2-161">currentProp <span class="op" style="color: #5E5E5E;
+<span id="cb2-152">])</span>
+<span id="cb2-153"></span>
+<span id="cb2-154">currentProp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> materialProps<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">get</span>(slotLevel)</span>
-<span id="cb2-162">tempCelsius <span class="op" style="color: #5E5E5E;
+<span id="cb2-155">tempCelsius <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> currentProp<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">temp</span></span>
-<span id="cb2-163">epsilon <span class="op" style="color: #5E5E5E;
+<span id="cb2-156">epsilon <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> currentProp<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">eps</span></span>
-<span id="cb2-164"></span>
-<span id="cb2-165"><span class="co" style="color: #5E5E5E;
+<span id="cb2-157"></span>
+<span id="cb2-158"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Simplified efficiency scaling</span></span>
-<span id="cb2-166">efficiency <span class="op" style="color: #5E5E5E;
+<span id="cb2-159">efficiency <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
@@ -783,35 +773,35 @@ background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">log10</span>(pressureBar)</span>
-<span id="cb2-167"></span>
-<span id="cb2-168"><span class="co" style="color: #5E5E5E;
+<span id="cb2-160"></span>
+<span id="cb2-161"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Flux calculation</span></span>
-<span id="cb2-169">Ts <span class="op" style="color: #5E5E5E;
+<span id="cb2-162">Ts <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> tempCelsius <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">273.15</span></span>
-<span id="cb2-170">Tw <span class="op" style="color: #5E5E5E;
+<span id="cb2-163">Tw <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> waterTemp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">273.15</span></span>
-<span id="cb2-171">deltaT <span class="op" style="color: #5E5E5E;
+<span id="cb2-164">deltaT <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Ts <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> Tw</span>
-<span id="cb2-172">h_conv <span class="op" style="color: #5E5E5E;
+<span id="cb2-165">h_conv <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">135</span></span>
-<span id="cb2-173">h_rad <span class="op" style="color: #5E5E5E;
+<span id="cb2-166">h_rad <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> epsilon <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -842,7 +832,7 @@ background-color: null;
 font-style: inherit;">4</span>)) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> deltaT</span>
-<span id="cb2-174">q_prime <span class="op" style="color: #5E5E5E;
+<span id="cb2-167">q_prime <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (h_conv <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -853,8 +843,8 @@ background-color: null;
 font-style: inherit;">*</span> h_rad) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> deltaT</span>
-<span id="cb2-175"></span>
-<span id="cb2-176">totalRawPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-168"></span>
+<span id="cb2-169">totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> numCasters <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -863,8 +853,8 @@ background-color: null;
 font-style: inherit;">*</span> q_prime <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-177"></span>
-<span id="cb2-178">massFlow <span class="op" style="color: #5E5E5E;
+<span id="cb2-170"></span>
+<span id="cb2-171">massFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -873,7 +863,7 @@ background-color: null;
 font-style: inherit;">2257000</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// kg/s</span></span>
-<span id="cb2-179">volFlow <span class="op" style="color: #5E5E5E;
+<span id="cb2-172">volFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> massFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -882,7 +872,7 @@ background-color: null;
 font-style: inherit;">1000</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// m^3/s</span></span>
-<span id="cb2-180">pumpPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-173">pumpPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> volFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -893,8 +883,8 @@ background-color: null;
 font-style: inherit;">100000</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-181"></span>
-<span id="cb2-182">totalGeneratedPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-174"></span>
+<span id="cb2-175">totalGeneratedPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -903,24 +893,24 @@ background-color: null;
 font-style: inherit;">-</span> pumpPower <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-183">hp <span class="op" style="color: #5E5E5E;
+<span id="cb2-176">hp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> totalGeneratedPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">745.7</span></span>
-<span id="cb2-184"></span>
-<span id="cb2-185"><span class="fu" style="color: #4758AB;
+<span id="cb2-177"></span>
+<span id="cb2-178"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">md</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span>
-<span id="cb2-186"><span class="vs" style="color: #20794D;
+<span id="cb2-179"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">### Analysis</span></span>
-<span id="cb2-187"></span>
-<span id="cb2-188"><span class="vs" style="color: #20794D;
+<span id="cb2-180"></span>
+<span id="cb2-181"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Using **Level </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -945,8 +935,8 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> Bar**:</span></span>
-<span id="cb2-189"></span>
-<span id="cb2-190"><span class="vs" style="color: #20794D;
+<span id="cb2-182"></span>
+<span id="cb2-183"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"># </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -977,11 +967,11 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> HP)</span></span>
-<span id="cb2-191"></span>
-<span id="cb2-192"><span class="vs" style="color: #20794D;
+<span id="cb2-184"></span>
+<span id="cb2-185"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">**System Performance:**</span></span>
-<span id="cb2-193"><span class="vs" style="color: #20794D;
+<span id="cb2-186"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Boiler Temperature:** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -990,7 +980,24 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">°C</span></span>
-<span id="cb2-194"><span class="vs" style="color: #20794D;
+<span id="cb2-187"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Surface Area:** </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".1f"</span>)(numCasters <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> areaPerCaster)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> m²</span></span>
+<span id="cb2-188"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Core Material:** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1009,7 +1016,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span id="cb2-195"><span class="vs" style="color: #20794D;
+<span id="cb2-189"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Estimated Efficiency:** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1022,7 +1029,7 @@ background-color: null;
 font-style: inherit;">".1%"</span>)(efficiency)<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span></span>
-<span id="cb2-196"><span class="vs" style="color: #20794D;
+<span id="cb2-190"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Energy per Minute (Total):** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -1045,20 +1052,20 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> MJ</span></span>
-<span id="cb2-197"></span>
-<span id="cb2-198"><span class="vs" style="color: #20794D;
+<span id="cb2-191"></span>
+<span id="cb2-192"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">**What can this power?**</span></span>
-<span id="cb2-199"><span class="vs" style="color: #20794D;
+<span id="cb2-193"><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~75 carriages!*</span></span>
-<span id="cb2-200"><span class="vs" style="color: #20794D;
+font-style: inherit;">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~150 carriages!*</span></span>
+<span id="cb2-194"><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 4 locomotives.*</span></span>
-<span id="cb2-201"><span class="vs" style="color: #20794D;
+font-style: inherit;">- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 7-8 locomotives.*</span></span>
+<span id="cb2-195"><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires ~2 casters using 9th-level slots.*</span></span>
-<span id="cb2-202"><span class="vs" style="color: #20794D;
+font-style: inherit;">- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires a single caster using 9th-level slots.*</span></span>
+<span id="cb2-196"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span></code></pre></div></div>
 </details>
@@ -1217,8 +1224,8 @@ font-style: inherit;">`</span></span></code></pre></div></div>
 <h3 class="anchored" data-anchor-id="assumptions-limitations">Assumptions &amp; Limitations</h3>
 <ul>
 <li><strong>Magic as an Infinite Sink:</strong> This assumes the spell provides the energy required to maintain the temperature regardless of the power being siphoned off.</li>
-<li><strong>Material Stress:</strong> Copper at 800°C is significantly weakened. Engineers would likely need magical reinforcement (<em>Mending</em> or <em>Permanency</em>) to prevent bursting.</li>
-<li><strong>Concentration:</strong> This is the ultimate “work from home” job. A cleric must concentrate for the full duration (1 minute), but a group of clerics working in shifts could keep the lights on 24/7.</li>
+<li><strong>Material Stress:</strong> Copper and Tungsten at these temperatures are significantly weakened. Engineers would likely need magical reinforcement (<em>Mending</em> or <em>Permanency</em>) to prevent bursting under the high pressures of a Rankine cycle.</li>
+<li><strong>Concentration:</strong> This is the ultimate “work from home” job. A caster must concentrate for the full duration (1 minute), but a group working in shifts could keep the lights on 24/7.</li>
 </ul>
 
 
