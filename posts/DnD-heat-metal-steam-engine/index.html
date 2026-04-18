@@ -315,7 +315,7 @@ window.Quarto = {
 </section>
 <section id="the-spellcasters-endurance-total-energy" class="level2">
 <h2 class="anchored" data-anchor-id="the-spellcasters-endurance-total-energy">The Spellcaster’s Endurance: Total Energy</h2>
-<p>A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. For 3rd-level slots and above, we swap the copper core for <strong>Tungsten</strong>. Note how the power output explodes due to the <span class="math inline">\(5.5\text{ m}^2\)</span> area and <span class="math inline">\(T^4\)</span> radiation scaling.</p>
+<p>A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. We assume a <strong>30% turbine efficiency</strong> for our baseline generation.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
@@ -330,9 +330,9 @@ window.Quarto = {
 <th style="text-align: left;">Slot Level</th>
 <th style="text-align: left;">Duration</th>
 <th style="text-align: left;">Temp (°C)</th>
-<th style="text-align: left;">Core Metal</th>
-<th style="text-align: left;">Raw Power</th>
-<th style="text-align: left;">Energy (MJ)</th>
+<th style="text-align: left;">Metal</th>
+<th style="text-align: left;">Raw Thermal</th>
+<th style="text-align: left;">Generated (<span class="citation" data-cites="30">@30</span>%)</th>
 </tr>
 </thead>
 <tbody>
@@ -342,7 +342,7 @@ window.Quarto = {
 <td style="text-align: left;">800</td>
 <td style="text-align: left;">Copper</td>
 <td style="text-align: left;">825 kW</td>
-<td style="text-align: left;">148.5 MJ</td>
+<td style="text-align: left;">247.5 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>3rd (x3)</strong></td>
@@ -350,7 +350,7 @@ window.Quarto = {
 <td style="text-align: left;">1000</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">1,320 kW</td>
-<td style="text-align: left;">237.6 MJ</td>
+<td style="text-align: left;">396.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>4th (x3)</strong></td>
@@ -358,7 +358,7 @@ window.Quarto = {
 <td style="text-align: left;">1150</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">1,930 kW</td>
-<td style="text-align: left;">347.4 MJ</td>
+<td style="text-align: left;">579.0 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>5th (x3)</strong></td>
@@ -366,7 +366,7 @@ window.Quarto = {
 <td style="text-align: left;">1300</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">2,650 kW</td>
-<td style="text-align: left;">477.0 MJ</td>
+<td style="text-align: left;">795.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>6th (x2)</strong></td>
@@ -374,7 +374,7 @@ window.Quarto = {
 <td style="text-align: left;">1500</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">3,840 kW</td>
-<td style="text-align: left;">460.8 MJ</td>
+<td style="text-align: left;">1,152.0 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>7th (x2)</strong></td>
@@ -382,7 +382,7 @@ window.Quarto = {
 <td style="text-align: left;">1650</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">4,940 kW</td>
-<td style="text-align: left;">592.8 MJ</td>
+<td style="text-align: left;">1,482.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>8th (x1)</strong></td>
@@ -390,7 +390,7 @@ window.Quarto = {
 <td style="text-align: left;">1850</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">6,710 kW</td>
-<td style="text-align: left;">402.6 MJ</td>
+<td style="text-align: left;">2,013.0 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>9th (x1)</strong></td>
@@ -398,7 +398,7 @@ window.Quarto = {
 <td style="text-align: left;">2000</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">8,280 kW</td>
-<td style="text-align: left;">496.8 MJ</td>
+<td style="text-align: left;">2,484.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>TOTAL</strong></td>
@@ -406,10 +406,11 @@ window.Quarto = {
 <td style="text-align: left;"><strong>AVG 1350</strong></td>
 <td style="text-align: left;"><strong>-</strong></td>
 <td style="text-align: left;"><strong>~2,930 kW</strong></td>
-<td style="text-align: left;"><strong>3,163.5 MJ</strong></td>
+<td style="text-align: left;"><strong>~880 kW (1,180 HP)</strong></td>
 </tr>
 </tbody>
 </table>
+<p><em>A Level 20 caster can provide an average of <strong>1,180 Horsepower</strong> for 18 minutes, dumping nearly <strong>one Gigajoule of usable electrical energy</strong> into the grid.</em></p>
 <section id="mid-level-industrialist-the-10th-level-cleric" class="level3">
 <h3 class="anchored" data-anchor-id="mid-level-industrialist-the-10th-level-cleric">Mid-Level Industrialist: The 10th-Level Cleric</h3>
 <p>A 10th-level Forge Domain cleric is still a formidable power source for local industry.</p>
@@ -427,9 +428,9 @@ window.Quarto = {
 <th style="text-align: left;">Slot Level</th>
 <th style="text-align: left;">Duration</th>
 <th style="text-align: left;">Temp (°C)</th>
-<th style="text-align: left;">Core Metal</th>
-<th style="text-align: left;">Raw Power</th>
-<th style="text-align: left;">Energy (MJ)</th>
+<th style="text-align: left;">Metal</th>
+<th style="text-align: left;">Raw Thermal</th>
+<th style="text-align: left;">Generated (<span class="citation" data-cites="30">@30</span>%)</th>
 </tr>
 </thead>
 <tbody>
@@ -439,7 +440,7 @@ window.Quarto = {
 <td style="text-align: left;">800</td>
 <td style="text-align: left;">Copper</td>
 <td style="text-align: left;">825 kW</td>
-<td style="text-align: left;">148.5 MJ</td>
+<td style="text-align: left;">247.5 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>3rd (x3)</strong></td>
@@ -447,7 +448,7 @@ window.Quarto = {
 <td style="text-align: left;">1000</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">1,320 kW</td>
-<td style="text-align: left;">237.6 MJ</td>
+<td style="text-align: left;">396.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>4th (x3)</strong></td>
@@ -455,7 +456,7 @@ window.Quarto = {
 <td style="text-align: left;">1150</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">1,930 kW</td>
-<td style="text-align: left;">347.4 MJ</td>
+<td style="text-align: left;">579.0 kW</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>5th (x2)</strong></td>
@@ -463,7 +464,7 @@ window.Quarto = {
 <td style="text-align: left;">1300</td>
 <td style="text-align: left;">Tungsten</td>
 <td style="text-align: left;">2,650 kW</td>
-<td style="text-align: left;">318.0 MJ</td>
+<td style="text-align: left;">795.0 kW</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>TOTAL</strong></td>
@@ -471,11 +472,11 @@ window.Quarto = {
 <td style="text-align: left;"><strong>AVG 1060</strong></td>
 <td style="text-align: left;"><strong>-</strong></td>
 <td style="text-align: left;"><strong>~1,590 kW</strong></td>
-<td style="text-align: left;"><strong>1,051.5 MJ</strong></td>
+<td style="text-align: left;"><strong>~475 kW (640 HP)</strong></td>
 </tr>
 </tbody>
 </table>
-<p><em>Even at level 10, a single cleric can dump over <strong>one Gigajoule</strong> of energy—enough to run a fleet of heavy locomotives.</em></p>
+<p><em>Even at level 10, a single cleric can generate over <strong>300 MJ of usable energy</strong>—enough to run a fleet of heavy locomotives for a short-haul route.</em></p>
 </section>
 </section>
 <section id="estimating-heat-flux-q-and-bromleys-correlation" class="level2">
@@ -514,7 +515,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="power-generation-the-rankine-cycle">Power Generation: The Rankine Cycle</h2>
 <p>Increasing the boiler pressure (<span class="math inline">\(P_{boiler}\)</span>) improves thermal efficiency by allowing a higher temperature drop across the turbine.</p>
 <ol type="1">
-<li><strong>Efficiency Gains:</strong> A pressurized boiler (e.g., 20 bar) can push efficiency toward 15-20%.</li>
+<li><strong>Efficiency Gains:</strong> A pressurized boiler (e.g., 20 bar) can push efficiency toward <strong>20-40%</strong>, depending on the sophistication of the condenser and turbine design.</li>
 <li><strong>The Pump Tax:</strong> For our ~8 MW boiler, we’d need to pump roughly 3 L/s. At 20 bar, this consumes about <strong>6 kW</strong>—still negligible.</li>
 </ol>
 </section>
@@ -525,9 +526,9 @@ window.Quarto = {
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="148" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 147;"><span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>viewof numCasters <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Casters"</span>})</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>viewof slotLevel <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>([<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">9</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Spell Slot Level"</span>})</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>viewof pressureBar <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Boiler Pressure (Bar)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="150" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 149;"><span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>viewof numCasters <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Casters"</span>})</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>viewof slotLevel <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>([<span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">9</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Spell Slot Level"</span>})</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>viewof pressureBar <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Boiler Pressure (Bar)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -556,65 +557,65 @@ window.Quarto = {
 <div class="cell panel-fill">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="156" data-source-offset="-13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 155;"><span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">5.67e-8</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>areaPerCaster <span class="op">=</span> <span class="fl">5.5</span> <span class="co">// Optimized area in m^2</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>waterTemp <span class="op">=</span> <span class="dv">100</span> <span class="co">// °C</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="co">// Dynamic Emissivity and Temperature mapping</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>materialProps <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>([</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Copper"</span> }]<span class="op">,</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">3</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">4</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1150</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">5</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1300</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">6</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1500</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">7</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1650</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">8</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1850</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">9</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>currentProp <span class="op">=</span> materialProps<span class="op">.</span><span class="fu">get</span>(slotLevel)</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>tempCelsius <span class="op">=</span> currentProp<span class="op">.</span><span class="at">temp</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> currentProp<span class="op">.</span><span class="at">eps</span></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="co">// Simplified efficiency scaling</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>efficiency <span class="op">=</span> <span class="fl">0.10</span> <span class="op">+</span> <span class="fl">0.05</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log10</span>(pressureBar)</span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="co">// Flux calculation</span></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> tempCelsius <span class="op">+</span> <span class="fl">273.15</span></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>Tw <span class="op">=</span> waterTemp <span class="op">+</span> <span class="fl">273.15</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>deltaT <span class="op">=</span> Ts <span class="op">-</span> Tw</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>h_conv <span class="op">=</span> <span class="dv">135</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>h_rad <span class="op">=</span> epsilon <span class="op">*</span> sigma <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Ts<span class="op">,</span> <span class="dv">4</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Tw<span class="op">,</span> <span class="dv">4</span>)) <span class="op">/</span> deltaT</span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>q_prime <span class="op">=</span> (h_conv <span class="op">+</span> <span class="fl">0.75</span> <span class="op">*</span> h_rad) <span class="op">*</span> deltaT</span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>totalRawPower <span class="op">=</span> numCasters <span class="op">*</span> areaPerCaster <span class="op">*</span> q_prime <span class="co">// Watts</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="158" data-source-offset="-13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 157;"><span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">5.67e-8</span></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>areaPerCaster <span class="op">=</span> <span class="fl">5.5</span> <span class="co">// Optimized area in m^2</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>waterTemp <span class="op">=</span> <span class="dv">100</span> <span class="co">// °C</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="co">// Dynamic Emissivity and Temperature mapping</span></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>materialProps <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>([</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">2</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Copper"</span> }]<span class="op">,</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">3</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">4</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1150</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">5</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1300</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">6</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1500</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">7</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1650</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">8</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">1850</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]<span class="op">,</span></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">9</span><span class="op">,</span> { <span class="dt">temp</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span> <span class="dt">eps</span><span class="op">:</span> <span class="fl">0.7</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="st">"Tungsten"</span> }]</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>currentProp <span class="op">=</span> materialProps<span class="op">.</span><span class="fu">get</span>(slotLevel)</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>tempCelsius <span class="op">=</span> currentProp<span class="op">.</span><span class="at">temp</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> currentProp<span class="op">.</span><span class="at">eps</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a><span class="co">// Simplified efficiency scaling: 20% at 1 bar, scaling to ~40% at 100 bar</span></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>efficiency <span class="op">=</span> <span class="fl">0.20</span> <span class="op">+</span> <span class="fl">0.10</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log10</span>(pressureBar)</span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="co">// Flux calculation</span></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> tempCelsius <span class="op">+</span> <span class="fl">273.15</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>Tw <span class="op">=</span> waterTemp <span class="op">+</span> <span class="fl">273.15</span></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>deltaT <span class="op">=</span> Ts <span class="op">-</span> Tw</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>h_conv <span class="op">=</span> <span class="dv">135</span></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>h_rad <span class="op">=</span> epsilon <span class="op">*</span> sigma <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Ts<span class="op">,</span> <span class="dv">4</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Tw<span class="op">,</span> <span class="dv">4</span>)) <span class="op">/</span> deltaT</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>q_prime <span class="op">=</span> (h_conv <span class="op">+</span> <span class="fl">0.75</span> <span class="op">*</span> h_rad) <span class="op">*</span> deltaT</span>
 <span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>massFlow <span class="op">=</span> totalRawPower <span class="op">/</span> <span class="dv">2257000</span> <span class="co">// kg/s</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>volFlow <span class="op">=</span> massFlow <span class="op">/</span> <span class="dv">1000</span> <span class="co">// m^3/s</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>pumpPower <span class="op">=</span> volFlow <span class="op">*</span> (pressureBar <span class="op">*</span> <span class="dv">100000</span>) <span class="co">// Watts</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>totalGeneratedPower <span class="op">=</span> (totalRawPower <span class="op">*</span> efficiency) <span class="op">-</span> pumpPower <span class="co">// Watts</span></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>hp <span class="op">=</span> totalGeneratedPower <span class="op">/</span> <span class="fl">745.7</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a><span class="vs">Using **Level </span><span class="sc">${</span>slotLevel<span class="sc">}</span><span class="vs">** slots with a **</span><span class="sc">${</span>currentProp<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">** core at **</span><span class="sc">${</span>pressureBar<span class="sc">}</span><span class="vs"> Bar**:</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>totalRawPower <span class="op">=</span> numCasters <span class="op">*</span> areaPerCaster <span class="op">*</span> q_prime <span class="co">// Watts</span></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>massFlow <span class="op">=</span> totalRawPower <span class="op">/</span> <span class="dv">2257000</span> <span class="co">// kg/s</span></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>volFlow <span class="op">=</span> massFlow <span class="op">/</span> <span class="dv">1000</span> <span class="co">// m^3/s</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>pumpPower <span class="op">=</span> volFlow <span class="op">*</span> (pressureBar <span class="op">*</span> <span class="dv">100000</span>) <span class="co">// Watts</span></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>totalGeneratedPower <span class="op">=</span> (totalRawPower <span class="op">*</span> efficiency) <span class="op">-</span> pumpPower <span class="co">// Watts</span></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>hp <span class="op">=</span> totalGeneratedPower <span class="op">/</span> <span class="fl">745.7</span></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
 <span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="vs"># </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalGeneratedPower <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> kW (</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(hp)<span class="sc">}</span><span class="vs"> HP)</span></span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="vs">Using **Level </span><span class="sc">${</span>slotLevel<span class="sc">}</span><span class="vs">** slots with a **</span><span class="sc">${</span>currentProp<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">** core at **</span><span class="sc">${</span>pressureBar<span class="sc">}</span><span class="vs"> Bar**:</span></span>
 <span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="vs">**System Performance:**</span></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Boiler Temperature:** </span><span class="sc">${</span>tempCelsius<span class="sc">}</span><span class="vs">°C</span></span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Surface Area:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(numCasters <span class="op">*</span> areaPerCaster)<span class="sc">}</span><span class="vs"> m²</span></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Core Material:** </span><span class="sc">${</span>currentProp<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs"> (ε = </span><span class="sc">${</span>epsilon<span class="sc">}</span><span class="vs">)</span></span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Estimated Efficiency:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1%"</span>)(efficiency)<span class="sc">}</span></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Energy per Minute (Total):** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalRawPower <span class="op">*</span> <span class="dv">60</span> <span class="op">/</span> <span class="fl">1e6</span>)<span class="sc">}</span><span class="vs"> MJ</span></span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="vs">**What can this power?**</span></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~150 carriages!*</span></span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 7-8 locomotives.*</span></span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires a single caster using 9th-level slots.*</span></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="vs"># </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalGeneratedPower <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> kW (</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(hp)<span class="sc">}</span><span class="vs"> HP)</span></span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a><span class="vs">**System Performance:**</span></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Boiler Temperature:** </span><span class="sc">${</span>tempCelsius<span class="sc">}</span><span class="vs">°C</span></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Surface Area:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(numCasters <span class="op">*</span> areaPerCaster)<span class="sc">}</span><span class="vs"> m²</span></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Core Material:** </span><span class="sc">${</span>currentProp<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs"> (ε = </span><span class="sc">${</span>epsilon<span class="sc">}</span><span class="vs">)</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Estimated Efficiency:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1%"</span>)(efficiency)<span class="sc">}</span></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Energy per Minute (Total):** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalRawPower <span class="op">*</span> <span class="dv">60</span> <span class="op">/</span> <span class="fl">1e6</span>)<span class="sc">}</span><span class="vs"> MJ</span></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a><span class="vs">**What can this power?**</span></span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level heat metal can power ~200 carriages!*</span></span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Steam Locomotive:** Needs ~500 HP. *A 9th-level heat metal can power 6 locomotives or M4 Sherman tank.*</span></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Heavy Industrial Airship:** Needs ~1500 HP. *a 9th level caster can power a heavy airship for 2 minutes with one 9th-level slot.*</span></span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -781,7 +782,7 @@ window.Quarto = {
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1DYXN0ZXJzID0gSW5wdXRzLnJhbmdlKFsxLCAyMF0sIHt2YWx1ZTogMSwgc3RlcDogMSwgbGFiZWw6IFwiTnVtYmVyIG9mIENhc3RlcnNcIn0pXG52aWV3b2Ygc2xvdExldmVsID0gSW5wdXRzLnNlbGVjdChbMiwgMywgNCwgNSwgNiwgNywgOCwgOV0sIHt2YWx1ZTogMiwgbGFiZWw6IFwiU3BlbGwgU2xvdCBMZXZlbFwifSlcbnZpZXdvZiBwcmVzc3VyZUJhciA9IElucHV0cy5yYW5nZShbMSwgNTBdLCB7dmFsdWU6IDEwLCBzdGVwOiAxLCBsYWJlbDogXCJCb2lsZXIgUHJlc3N1cmUgKEJhcilcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBDb25zdGFudHNcbnNpZ21hID0gNS42N2UtOFxuYXJlYVBlckNhc3RlciA9IDUuNSAvLyBPcHRpbWl6ZWQgYXJlYSBpbiBtXjJcbndhdGVyVGVtcCA9IDEwMCAvLyDCsENcblxuLy8gRHluYW1pYyBFbWlzc2l2aXR5IGFuZCBUZW1wZXJhdHVyZSBtYXBwaW5nXG5tYXRlcmlhbFByb3BzID0gbmV3IE1hcChbXG4gIFsyLCB7IHRlbXA6IDgwMCwgZXBzOiAwLjgsIG5hbWU6IFwiQ29wcGVyXCIgfV0sXG4gIFszLCB7IHRlbXA6IDEwMDAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs0LCB7IHRlbXA6IDExNTAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs1LCB7IHRlbXA6IDEzMDAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs2LCB7IHRlbXA6IDE1MDAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs3LCB7IHRlbXA6IDE2NTAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs4LCB7IHRlbXA6IDE4NTAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV0sXG4gIFs5LCB7IHRlbXA6IDIwMDAsIGVwczogMC43LCBuYW1lOiBcIlR1bmdzdGVuXCIgfV1cbl0pXG5cbmN1cnJlbnRQcm9wID0gbWF0ZXJpYWxQcm9wcy5nZXQoc2xvdExldmVsKVxudGVtcENlbHNpdXMgPSBjdXJyZW50UHJvcC50ZW1wXG5lcHNpbG9uID0gY3VycmVudFByb3AuZXBzXG5cbi8vIFNpbXBsaWZpZWQgZWZmaWNpZW5jeSBzY2FsaW5nXG5lZmZpY2llbmN5ID0gMC4xMCArIDAuMDUgKiBNYXRoLmxvZzEwKHByZXNzdXJlQmFyKVxuXG4vLyBGbHV4IGNhbGN1bGF0aW9uXG5UcyA9IHRlbXBDZWxzaXVzICsgMjczLjE1XG5UdyA9IHdhdGVyVGVtcCArIDI3My4xNVxuZGVsdGFUID0gVHMgLSBUd1xuaF9jb252ID0gMTM1XG5oX3JhZCA9IGVwc2lsb24gKiBzaWdtYSAqIChNYXRoLnBvdyhUcywgNCkgLSBNYXRoLnBvdyhUdywgNCkpIC8gZGVsdGFUXG5xX3ByaW1lID0gKGhfY29udiArIDAuNzUgKiBoX3JhZCkgKiBkZWx0YVRcblxudG90YWxSYXdQb3dlciA9IG51bUNhc3RlcnMgKiBhcmVhUGVyQ2FzdGVyICogcV9wcmltZSAvLyBXYXR0c1xuXG5tYXNzRmxvdyA9IHRvdGFsUmF3UG93ZXIgLyAyMjU3MDAwIC8vIGtnL3NcbnZvbEZsb3cgPSBtYXNzRmxvdyAvIDEwMDAgLy8gbV4zL3NcbnB1bXBQb3dlciA9IHZvbEZsb3cgKiAocHJlc3N1cmVCYXIgKiAxMDAwMDApIC8vIFdhdHRzXG5cbnRvdGFsR2VuZXJhdGVkUG93ZXIgPSAodG90YWxSYXdQb3dlciAqIGVmZmljaWVuY3kpIC0gcHVtcFBvd2VyIC8vIFdhdHRzXG5ocCA9IHRvdGFsR2VuZXJhdGVkUG93ZXIgLyA3NDUuN1xuXG5tZGBcbiMjIyBBbmFseXNpc1xuXG5Vc2luZyAqKkxldmVsICR7c2xvdExldmVsfSoqIHNsb3RzIHdpdGggYSAqKiR7Y3VycmVudFByb3AubmFtZX0qKiBjb3JlIGF0ICoqJHtwcmVzc3VyZUJhcn0gQmFyKio6XG5cbiMgJHtkMy5mb3JtYXQoXCIuMmZcIikodG90YWxHZW5lcmF0ZWRQb3dlciAvIDEwMDApfSBrVyAoJHtkMy5mb3JtYXQoXCIuMWZcIikoaHApfSBIUClcblxuKipTeXN0ZW0gUGVyZm9ybWFuY2U6Kipcbi0gKipCb2lsZXIgVGVtcGVyYXR1cmU6KiogJHt0ZW1wQ2Vsc2l1c33CsENcbi0gKipTdXJmYWNlIEFyZWE6KiogJHtkMy5mb3JtYXQoXCIuMWZcIikobnVtQ2FzdGVycyAqIGFyZWFQZXJDYXN0ZXIpfSBtwrJcbi0gKipDb3JlIE1hdGVyaWFsOioqICR7Y3VycmVudFByb3AubmFtZX0gKM61ID0gJHtlcHNpbG9ufSlcbi0gKipFc3RpbWF0ZWQgRWZmaWNpZW5jeToqKiAke2QzLmZvcm1hdChcIi4xJVwiKShlZmZpY2llbmN5KX1cbi0gKipFbmVyZ3kgcGVyIE1pbnV0ZSAoVG90YWwpOioqICR7ZDMuZm9ybWF0KFwiLjJmXCIpKHRvdGFsUmF3UG93ZXIgKiA2MCAvIDFlNil9IE1KXG5cbioqV2hhdCBjYW4gdGhpcyBwb3dlcj8qKlxuLSAqKk1vdG9yaXplZCBDYXJyaWFnZToqKiBOZWVkcyB+MTUgSFAuICpPbmUgOXRoLWxldmVsIGNhc3RlciBjYW4gcG93ZXIgfjE1MCBjYXJyaWFnZXMhKlxuLSAqKlN0ZWFtIExvY29tb3RpdmU6KiogTmVlZHMgfjMwMCBIUC4gKkEgc2luZ2xlIDl0aC1sZXZlbCBjYXN0ZXIgY2FuIHBvd2VyIDctOCBsb2NvbW90aXZlcy4qXG4tICoqSGVhdnkgSW5kdXN0cmlhbCBBaXJzaGlwOioqIE5lZWRzIH4yMDAwIEhQLiAqUmVxdWlyZXMgYSBzaW5nbGUgY2FzdGVyIHVzaW5nIDl0aC1sZXZlbCBzbG90cy4qXG5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ251bUNhc3RlcnMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2xvdExldmVsJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3ByZXNzdXJlQmFyJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1DYXN0ZXJzID0gSW5wdXRzLnJhbmdlKFsxLCAyMF0sIHt2YWx1ZTogMSwgc3RlcDogMSwgbGFiZWw6IFwiTnVtYmVyIG9mIENhc3RlcnNcIn0pXG52aWV3b2Ygc2xvdExldmVsID0gSW5wdXRzLnNlbGVjdChbMiwgMywgNCwgNSwgNiwgNywgOCwgOV0sIHt2YWx1ZTogMiwgbGFiZWw6IFwiU3BlbGwgU2xvdCBMZXZlbFwifSlcbnZpZXdvZiBwcmVzc3VyZUJhciA9IElucHV0cy5yYW5nZShbMSwgMTAwXSwge3ZhbHVlOiAyMCwgc3RlcDogMSwgbGFiZWw6IFwiQm9pbGVyIFByZXNzdXJlIChCYXIpXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gQ29uc3RhbnRzXG5zaWdtYSA9IDUuNjdlLThcbmFyZWFQZXJDYXN0ZXIgPSA1LjUgLy8gT3B0aW1pemVkIGFyZWEgaW4gbV4yXG53YXRlclRlbXAgPSAxMDAgLy8gwrBDXG5cbi8vIER5bmFtaWMgRW1pc3Npdml0eSBhbmQgVGVtcGVyYXR1cmUgbWFwcGluZ1xubWF0ZXJpYWxQcm9wcyA9IG5ldyBNYXAoW1xuICBbMiwgeyB0ZW1wOiA4MDAsIGVwczogMC44LCBuYW1lOiBcIkNvcHBlclwiIH1dLFxuICBbMywgeyB0ZW1wOiAxMDAwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbNCwgeyB0ZW1wOiAxMTUwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbNSwgeyB0ZW1wOiAxMzAwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbNiwgeyB0ZW1wOiAxNTAwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbNywgeyB0ZW1wOiAxNjUwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbOCwgeyB0ZW1wOiAxODUwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dLFxuICBbOSwgeyB0ZW1wOiAyMDAwLCBlcHM6IDAuNywgbmFtZTogXCJUdW5nc3RlblwiIH1dXG5dKVxuXG5jdXJyZW50UHJvcCA9IG1hdGVyaWFsUHJvcHMuZ2V0KHNsb3RMZXZlbClcbnRlbXBDZWxzaXVzID0gY3VycmVudFByb3AudGVtcFxuZXBzaWxvbiA9IGN1cnJlbnRQcm9wLmVwc1xuXG4vLyBTaW1wbGlmaWVkIGVmZmljaWVuY3kgc2NhbGluZzogMjAlIGF0IDEgYmFyLCBzY2FsaW5nIHRvIH40MCUgYXQgMTAwIGJhclxuZWZmaWNpZW5jeSA9IDAuMjAgKyAwLjEwICogTWF0aC5sb2cxMChwcmVzc3VyZUJhcilcblxuLy8gRmx1eCBjYWxjdWxhdGlvblxuVHMgPSB0ZW1wQ2Vsc2l1cyArIDI3My4xNVxuVHcgPSB3YXRlclRlbXAgKyAyNzMuMTVcbmRlbHRhVCA9IFRzIC0gVHdcbmhfY29udiA9IDEzNVxuaF9yYWQgPSBlcHNpbG9uICogc2lnbWEgKiAoTWF0aC5wb3coVHMsIDQpIC0gTWF0aC5wb3coVHcsIDQpKSAvIGRlbHRhVFxucV9wcmltZSA9IChoX2NvbnYgKyAwLjc1ICogaF9yYWQpICogZGVsdGFUXG5cbnRvdGFsUmF3UG93ZXIgPSBudW1DYXN0ZXJzICogYXJlYVBlckNhc3RlciAqIHFfcHJpbWUgLy8gV2F0dHNcblxubWFzc0Zsb3cgPSB0b3RhbFJhd1Bvd2VyIC8gMjI1NzAwMCAvLyBrZy9zXG52b2xGbG93ID0gbWFzc0Zsb3cgLyAxMDAwIC8vIG1eMy9zXG5wdW1wUG93ZXIgPSB2b2xGbG93ICogKHByZXNzdXJlQmFyICogMTAwMDAwKSAvLyBXYXR0c1xuXG50b3RhbEdlbmVyYXRlZFBvd2VyID0gKHRvdGFsUmF3UG93ZXIgKiBlZmZpY2llbmN5KSAtIHB1bXBQb3dlciAvLyBXYXR0c1xuaHAgPSB0b3RhbEdlbmVyYXRlZFBvd2VyIC8gNzQ1LjdcblxubWRgXG4jIyMgQW5hbHlzaXNcblxuVXNpbmcgKipMZXZlbCAke3Nsb3RMZXZlbH0qKiBzbG90cyB3aXRoIGEgKioke2N1cnJlbnRQcm9wLm5hbWV9KiogY29yZSBhdCAqKiR7cHJlc3N1cmVCYXJ9IEJhcioqOlxuXG4jICR7ZDMuZm9ybWF0KFwiLjJmXCIpKHRvdGFsR2VuZXJhdGVkUG93ZXIgLyAxMDAwKX0ga1cgKCR7ZDMuZm9ybWF0KFwiLjFmXCIpKGhwKX0gSFApXG5cbioqU3lzdGVtIFBlcmZvcm1hbmNlOioqXG4tICoqQm9pbGVyIFRlbXBlcmF0dXJlOioqICR7dGVtcENlbHNpdXN9wrBDXG4tICoqU3VyZmFjZSBBcmVhOioqICR7ZDMuZm9ybWF0KFwiLjFmXCIpKG51bUNhc3RlcnMgKiBhcmVhUGVyQ2FzdGVyKX0gbcKyXG4tICoqQ29yZSBNYXRlcmlhbDoqKiAke2N1cnJlbnRQcm9wLm5hbWV9ICjOtSA9ICR7ZXBzaWxvbn0pXG4tICoqRXN0aW1hdGVkIEVmZmljaWVuY3k6KiogJHtkMy5mb3JtYXQoXCIuMSVcIikoZWZmaWNpZW5jeSl9XG4tICoqRW5lcmd5IHBlciBNaW51dGUgKFRvdGFsKToqKiAke2QzLmZvcm1hdChcIi4yZlwiKSh0b3RhbFJhd1Bvd2VyICogNjAgLyAxZTYpfSBNSlxuXG4qKldoYXQgY2FuIHRoaXMgcG93ZXI/Kipcbi0gKipNb3Rvcml6ZWQgQ2FycmlhZ2U6KiogTmVlZHMgfjE1IEhQLiAqT25lIDl0aC1sZXZlbCBoZWF0IG1ldGFsIGNhbiBwb3dlciB+MjAwIGNhcnJpYWdlcyEqXG4tICoqU3RlYW0gTG9jb21vdGl2ZToqKiBOZWVkcyB+NTAwIEhQLiAqQSA5dGgtbGV2ZWwgaGVhdCBtZXRhbCBjYW4gcG93ZXIgNiBsb2NvbW90aXZlcyBvciBNNCBTaGVybWFuIHRhbmsuKlxuLSAqKkhlYXZ5IEluZHVzdHJpYWwgQWlyc2hpcDoqKiBOZWVkcyB+MTUwMCBIUC4gKmEgOXRoIGxldmVsIGNhc3RlciBjYW4gcG93ZXIgYSBoZWF2eSBhaXJzaGlwIGZvciAyIG1pbnV0ZXMgd2l0aCBvbmUgOXRoLWxldmVsIHNsb3QuKlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdudW1DYXN0ZXJzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3Nsb3RMZXZlbCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwcmVzc3VyZUJhcicpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
