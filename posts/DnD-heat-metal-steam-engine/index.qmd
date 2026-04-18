@@ -48,6 +48,15 @@ Typical steam engine efficiency in a fantasy setting might be low, but even a mo
 
 $$P_{gen} = 411\text{ kW} \times 0.10 \approx 41.1\text{ kW} \approx 55\text{ HP}$$
 
+## The Pressure Factor: The Rankine Cycle
+
+Real-world power plants don't just boil water at atmospheric pressure; they use high-pressure boilers. Increasing the pressure ($P_{boiler}$) has two primary effects on our arcane engine:
+
+1.  **Efficiency Gains:** According to the Rankine cycle, increasing the boiler pressure allows for a higher temperature drop across the turbine, which significantly improves thermal efficiency. While a 1-atm "tea kettle" engine might struggle at 5-8%, a pressurized boiler (e.g., 20 bar) can easily push efficiency toward 15-20%.
+2.  **The Pump Tax:** Pressurizing the liquid water requires work ($W_{pump}$). Since liquid water is nearly incompressible, the work required is roughly:
+    $$W_{pump} = \dot{V} \times (P_{boiler} - P_{condenser})$$
+    Where $\dot{V}$ is the volume flow rate. For our ~400 kW boiler, we'd need to pump roughly 0.15 Liters of water per second. At 20 bar (290 psi), this consumes about **0.3 kW**—a negligible "tax" for a massive gain in turbine efficiency.
+
 ## Interactive Power Grid
 
 Adjust the parameters below to see what your adventuring party can power.
@@ -55,7 +64,7 @@ Adjust the parameters below to see what your adventuring party can power.
 ```{ojs}
 //| panel: sidebar
 viewof numCasters = Inputs.range([1, 20], {value: 1, step: 1, label: "Number of Casters"})
-viewof efficiency = Inputs.range([0.01, 0.40], {value: 0.10, step: 0.01, label: "Turbine Efficiency"})
+viewof pressureBar = Inputs.range([1, 50], {value: 10, step: 1, label: "Boiler Pressure (Bar)"})
 viewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: "Metal Temperature (°C)"})
 ```
 
@@ -65,7 +74,11 @@ viewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: "Me
 sigma = 5.67e-8
 epsilon = 0.8
 areaPerCaster = 2.74 // m^2
-waterTemp = 100 // °C
+waterTemp = 100 // °C (Standard boiling, though it increases with pressure)
+
+// Simplified efficiency scaling based on Rankine cycle approximations
+// Base 10% at 1 bar, scaling logarithmically with pressure
+efficiency = 0.10 + 0.05 * Math.log10(pressureBar)
 
 // Flux calculation (simplified film boiling model)
 Ts = tempCelsius + 273.15
@@ -76,21 +89,32 @@ h_rad = epsilon * sigma * (Math.pow(Ts, 4) - Math.pow(Tw, 4)) / deltaT
 q_prime = (h_conv + 0.75 * h_rad) * deltaT
 
 totalRawPower = numCasters * areaPerCaster * q_prime // Watts
-totalGeneratedPower = totalRawPower * efficiency // Watts
+
+// Pump work estimation (P * deltaV)
+// Mass flow approx: Q_raw / Heat of Vaporization (2257 kJ/kg)
+massFlow = totalRawPower / 2257000 // kg/s
+volFlow = massFlow / 1000 // m^3/s
+pumpPower = volFlow * (pressureBar * 100000) // Watts
+
+totalGeneratedPower = (totalRawPower * efficiency) - pumpPower // Watts
 hp = totalGeneratedPower / 745.7
 
 md`
 ### Analysis
 
-A group of **${numCasters}** casters maintaining *Heat Metal* on this boiler system generates:
+At **${pressureBar} Bar** of pressure, your group of **${numCasters}** casters generates:
 
 # ${d3.format(".2f")(totalGeneratedPower / 1000)} kW (${d3.format(".1f")(hp)} HP)
 
+**System Performance:**
+- **Estimated Efficiency:** ${d3.format(".1%")(efficiency)}
+- **Pump Consumption:** ${d3.format(".2f")(pumpPower)} W (negligible)
+- **Status:** *Optimized for Industrial Use*
+
 **What can this power?**
-- **Motorized Carriage:** Needs ~15 HP. *One caster can power 3 carriages.*
-- **Steam Locomotive:** Needs ~150-300 HP. *Requires 3-6 casters.*
-- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~10 casters.*
-- **Village Power Grid:** 40 kW is enough to provide basic electric lighting for about 100 modest fantasy homes.
+- **Motorized Carriage:** Needs ~15 HP. *One caster can power ~4-5 carriages at high pressure.*
+- **Steam Locomotive:** Needs ~150-300 HP. *Requires 2-4 casters.*
+- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~7 casters.*
 `
 ```
 
