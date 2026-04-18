@@ -732,8 +732,8 @@ font-style: inherit;">&lt;/div&gt;`</span></span></code></pre></div></div>
 <p>We assume a constant volumetric consumption rate <img src="https://latex.codecogs.com/png.latex?C"> (oz/min). Because of the straw’s liquid bias, the rate of ice removal <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7Bdm%7D%7Bt%7D_%7Bice%5C_out%7D"> is lower than the rate of liquid removal.</p>
 </section>
 </section>
-<section id="the-master-differential-equation" class="level2">
-<h2 class="anchored" data-anchor-id="the-master-differential-equation">3. The Master Differential Equation</h2>
+<section id="governing-differential-equation" class="level2">
+<h2 class="anchored" data-anchor-id="governing-differential-equation">3. Governing Differential Equation</h2>
 <p>To justify our simulation results, we derive the governing equation for the <strong>Volume Ice Ratio (<img src="https://latex.codecogs.com/png.latex?R">)</strong>, defined as <img src="https://latex.codecogs.com/png.latex?R%20=%20V_i%20/%20V">, where <img src="https://latex.codecogs.com/png.latex?V_i"> is the volume of ice and <img src="https://latex.codecogs.com/png.latex?V"> is the total volume (<img src="https://latex.codecogs.com/png.latex?V_i%20+%20V_l">).</p>
 <section id="conservation-of-volume" class="level3">
 <h3 class="anchored" data-anchor-id="conservation-of-volume">Conservation of Volume</h3>
@@ -2169,8 +2169,11 @@ font-style: inherit;">`</span></span>
 <span id="cb5-232"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">### Analysis</span></span>
-<span id="cb5-233"></span>
-<span id="cb5-234"><span class="vs" style="color: #20794D;
+<span id="cb5-233"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"># Under the assumption you would not like ice with no liquid:</span></span>
+<span id="cb5-234"></span>
+<span id="cb5-235"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Final Ice Ratio: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -2197,7 +2200,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">%**  </span></span>
-<span id="cb5-235"><span class="vs" style="color: #20794D;
+<span id="cb5-236"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Total Time: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -2224,8 +2227,8 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> minutes**</span></span>
-<span id="cb5-236"></span>
-<span id="cb5-237"><span class="sc" style="color: #5E5E5E;
+<span id="cb5-237"></span>
+<span id="cb5-238"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">${</span>results[results<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2244,19 +2247,19 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">90</span> </span>
-<span id="cb5-238">  <span class="op" style="color: #5E5E5E;
+<span id="cb5-239">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">?</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"❌ **FAILED**: You were left with a block of dry ice! Decrease your consumption rate or find a warmer spot."</span> </span>
-<span id="cb5-239">  <span class="op" style="color: #5E5E5E;
+<span id="cb5-240">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"✅ **SUCCESS**: A perfect balance of phase-change and consumption."</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span></span>
-<span id="cb5-240"><span class="vs" style="color: #20794D;
+<span id="cb5-241"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span></code></pre></div></div>
 </details>
