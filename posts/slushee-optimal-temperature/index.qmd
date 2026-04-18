@@ -70,34 +70,31 @@ We assume a constant volumetric consumption rate $C$ (oz/min). Because of the st
 
 ## 3. The Master Differential Equation
 
-By combining the geometry of the frustum with the laws of thermodynamics, we can derive a single differential equation that governs the **Ice Ratio ($R$)** over time. 
+To justify our simulation results, we derive the governing equation for the **Volume Ice Ratio ($R$)**, defined as $R = V_i / V$, where $V_i$ is the volume of ice and $V$ is the total volume ($V_i + V_l$).
 
-Let $V(t)$ be the current volume of the slushee. The rate of change of the ice mass $m_i$ is driven by two competing forces: melting and drinking.
+### Conservation of Volume
+The total volume of the system changes due to consumption ($C$) and the volume contraction associated with melting:
+$$\frac{dV}{dt} = -C + \dot{m}_{melt} \left( \frac{1}{\rho_l} - \frac{1}{\rho_i} \right)$$
+Where $\dot{m}_{melt} = \frac{h A(V) T_{amb}}{L_f}$. Since $\rho_i < \rho_l$, the second term is negative, representing the "shrinkage" of the slushee as it turns to liquid.
 
-$$\frac{dm_{ice}}{dt} = -\underbrace{\frac{h \cdot A(V) \cdot T_{amb}}{L_f}}_{\text{Melting}} - \underbrace{C \cdot \rho_i \cdot (\beta R)}_{\text{Drinking}}$$
+### Rate of Change of Ice
+The ice volume decreases through both melting and drinking:
+$$\frac{dV_i}{dt} = -\frac{\dot{m}_{melt}}{\rho_i} - C \beta(V) R$$
+Here, $\beta(V)$ is our **Ice Extraction Efficiency**, which we define as a linear function of the volume fraction $\phi = V/V_0$:
+$$\beta(\phi) = \beta_0 + (1 - \beta_0)(1 - \phi)$$
+This ensures that $\beta = \beta_0$ at full volume and $\beta = 1.0$ when the cup is empty.
 
-Where:
-- **$h$ (Heat Transfer Coefficient):** Represents the thermal resistance of the cup wall and the stagnant air layer surrounding it. A higher $h$ means a thinner or more conductive cup (like plastic vs. styrofoam).
+### Deriving $dR/dt$
+Using the quotient rule on $R = V_i/V$:
+$$\frac{dR}{dt} = \frac{1}{V} \left( \frac{dV_i}{dt} - R \frac{dV}{dt} \right)$$
 
-- **$A(V)$ (Surface Area):** The active interface where heat exchange occurs. Because the cup is a frustum, the area decreases as you drink, slowing the melting rate over time.
+Substituting our expressions for $\dot{V}_i$ and $\dot{V}$:
+$$\frac{dR}{dt} = \frac{1}{V} \left[ \left( -\frac{\dot{m}_{melt}}{\rho_i} - C \beta R \right) - R \left( -C + \dot{m}_{melt} \left( \frac{1}{\rho_l} - \frac{1}{\rho_i} \right) \right) \right]$$
 
-- **$T_{amb}$ (Ambient Temperature):** The "thermal pressure" driving the phase change. The greater the delta between the air and the $0^\circ C$ slushee, the faster the ice crystals collapse.
+Expanding and simplifying:
+$$\frac{dR}{dt} = \underbrace{\frac{\dot{m}_{melt}}{V} \left[ \frac{R-1}{\rho_i} - \frac{R}{\rho_l} \right]}_{\text{Thermodynamic Decay}} + \underbrace{\frac{C R (1 - \beta)}{V}}_{\text{Consumption Bias Enrichment}}$$
 
-- **$L_f$ (Latent Heat of Fusion):** The energy required to break the molecular bonds of the ice crystals ($334\ J/g$). This is the "thermal buffer" that keeps your drink cold.
-
-- **$C$ (Consumption Rate):** Your volumetric drinking speed.
-
-- **$\beta$ (Ice Extraction Efficiency):** This variable accounts for the **buoyancy of ice**. Because ice crystals float, the straw at the bottom of the cup captures a liquid-rich mixture. We model this as a **dynamic factor**: when the cup is full, $\beta$ is at its minimum (e.g., 0.5), meaning you extract ice at only half its concentration. As the volume drops, the ice is forced into the straw, and $\beta$ **increases linearly to 1.0** (perfectly mixed) at the final drop.
-
-The **Final Expanded Solution** for the change in ice ratio $\frac{dR}{dt}$ is:
-
-$$\frac{dR}{dt} = \frac{1}{M} \left[ \dot{m}_i (1 - R) - R \dot{m}_l \right]$$
-
-Plugging everything in, including our dynamic $\beta(V)$ which approaches 1.0 as $V \to 0$:
-
-$$\frac{dR}{dt} = -\frac{h \cdot A(V) \cdot T_{amb}}{M \cdot L_f} - \frac{C}{M} \left[ \rho_i \beta(V) R (1-R) - R \rho_l (1 - \beta(V) R) \right]$$
-
-This equation reveals the "Critical Temperature": the point where the melting term (which decreases $R$) perfectly cancels out the drinking term (which increases $R$ due to liquid bias).
+This reveals the fundamental tension: **Melting** always decreases the ice ratio, while **Drinking** (with a liquid bias $\beta < 1$) increases it. The "Slushee Dead Zone" occurs when the ice enrichment term dominates the ice decay term for a sustained period.
 
 ## 4. Interactive Optimization
 
