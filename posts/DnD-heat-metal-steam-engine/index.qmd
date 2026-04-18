@@ -8,7 +8,7 @@ format:
     code-fold: true
 ---
 
-In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD .
+In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD.
 
 By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level Druid can contribute to the fantasy industrial revolution.
 
@@ -22,14 +22,46 @@ To find the upper bound of our heating element, we look to the heaviest common m
 3.  **Copper Conversion:** For maximum efficiency, our fantasy engineers would use copper for its superior thermal conductivity. We'll assume the spell targets an equivalent molar amount of copper ($M_{Cu} \approx 63.55$ g/mol):
     $$m_{Cu} = 527.9\text{ mol} \times 63.55\text{ g/mol} \approx 33,550\text{ g} \approx 33.55\text{ kg}$$
 
-## Engineering the Boiler
+## Engineering the Boiler: Metal Selection
 
-Using a density of $8,960\text{ kg/m}^3$, our copper mass occupies a volume of approximately **3.74 Liters**. We can draw this out into a standard copper pipe (Type M, 1-inch nominal) to maximize the surface area $A_s$ for heat transfer.
+While copper is the "standard" for conductivity, different metals offer different limits. In a boiler, the "red hot" temperature is capped by the metal's melting point.
 
-- **Pipe ID:** 26.0 mm
-- **Pipe OD:** 28.6 mm
-- **Calculated Length:** $\approx 33.6\text{ meters}$
-- **Internal Surface Area ($A_s$):** $\approx 2.74\text{ m}^2$
+| Metal | Thermal Conductivity ($k$) | Melting Point | Max Safe Temp | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **Silver** | 429 W/m·K | 961°C | ~900°C | Best conductivity, but "soft" at high heat. |
+| **Copper** | 401 W/m·K | 1085°C | ~1000°C | The industry standard for high-flux boilers. |
+| **Gold** | 315 W/m·K | 1064°C | ~1000°C | Chemically inert; great for corrosive alchemical steam. |
+| **Steel** | 15–50 W/m·K | ~1500°C | ~1300°C | Poor conductivity but allows for "White Hot" temperatures. |
+| **Platinum**| 71 W/m·K | 1768°C | ~1600°C | For 9th-level casts; can sustain incredible temperatures. |
+
+*Selection: For our baseline, we stick with **Copper** for its balance of cost-efficiency and high flux.*
+
+## Scaling Up: Upcasting and Temperature
+
+*Heat Metal* deals an extra 1d8 damage for every slot above 2nd. We can model this increased "potency" as a higher maintained temperature. If 2d8 corresponds to a "Red Hot" 800°C, we can estimate higher temperatures for upcast slots:
+
+- **2nd Level (2d8):** 800°C (Dull Red)
+- **4th Level (4d8):** 900°C (Bright Red)
+- **6th Level (6d8):** 1000°C (Orange) - *Approaching Copper's limit.*
+- **9th Level (9d8):** 1150°C (Yellow-White) - *Requires Steel or Platinum.*
+
+## The Spellcaster's Endurance: Total Energy
+
+A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots (assuming 1-minute concentration per slot), they can provide sustained power for a significant duration.
+
+| Slot Level | Duration | Temp (°C) | Raw Power | Energy (MJ) |
+| :--- | :--- | :--- | :--- | :--- |
+| **2nd (x3)** | 3 min | 800 | 411 kW | 74.0 MJ |
+| **3rd (x3)** | 3 min | 850 | 450 kW | 81.0 MJ |
+| **4th (x3)** | 3 min | 900 | 495 kW | 89.1 MJ |
+| **5th (x3)** | 3 min | 950 | 540 kW | 97.2 MJ |
+| **6th (x2)** | 2 min | 1000 | 590 kW | 70.8 MJ |
+| **7th (x2)** | 2 min | 1050 | 645 kW | 77.4 MJ |
+| **8th (x1)** | 1 min | 1100 | 705 kW | 42.3 MJ |
+| **9th (x1)** | 1 min | 1150 | 770 kW | 46.2 MJ |
+| **TOTAL** | **18 min** | **AVG 950** | **~540 kW** | **578.0 MJ** |
+
+*A single high-level Druid can dump over **half a Gigajoule** of energy into a grid in under 20 minutes.*
 
 ## Estimating Heat Flux ($q''$)
 
@@ -42,13 +74,7 @@ Using Bromley's correlation for film boiling and accounting for radiative heat t
 
 $$P_{raw} = A_s \times q'' = 2.74\text{ m}^2 \times 150\text{ kW/m}^2 \approx 411\text{ kW}$$
 
-## Power Generation
-
-Typical steam engine efficiency in a fantasy setting might be low, but even a modest **10% efficiency** yields significant results:
-
-$$P_{gen} = 411\text{ kW} \times 0.10 \approx 41.1\text{ kW} \approx 55\text{ HP}$$
-
-## The Pressure Factor: The Rankine Cycle
+## Power Generation: The Rankine Cycle
 
 Real-world power plants don't just boil water at atmospheric pressure; they use high-pressure boilers. Increasing the pressure ($P_{boiler}$) has two primary effects on our arcane engine:
 
@@ -64,8 +90,8 @@ Adjust the parameters below to see what your adventuring party can power.
 ```{ojs}
 //| panel: sidebar
 viewof numCasters = Inputs.range([1, 20], {value: 1, step: 1, label: "Number of Casters"})
+viewof slotLevel = Inputs.select([2, 3, 4, 5, 6, 7, 8, 9], {value: 2, label: "Spell Slot Level"})
 viewof pressureBar = Inputs.range([1, 50], {value: 10, step: 1, label: "Boiler Pressure (Bar)"})
-viewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: "Metal Temperature (°C)"})
 ```
 
 ```{ojs}
@@ -74,24 +100,27 @@ viewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: "Me
 sigma = 5.67e-8
 epsilon = 0.8
 areaPerCaster = 2.74 // m^2
-waterTemp = 100 // °C (Standard boiling, though it increases with pressure)
+waterTemp = 100 // °C
 
-// Simplified efficiency scaling based on Rankine cycle approximations
-// Base 10% at 1 bar, scaling logarithmically with pressure
+// Map slot level to temperature
+tempMap = {
+  2: 800, 3: 850, 4: 900, 5: 950, 6: 1000, 7: 1050, 8: 1100, 9: 1150
+}
+tempCelsius = tempMap[slotLevel]
+
+// Simplified efficiency scaling
 efficiency = 0.10 + 0.05 * Math.log10(pressureBar)
 
-// Flux calculation (simplified film boiling model)
+// Flux calculation
 Ts = tempCelsius + 273.15
 Tw = waterTemp + 273.15
 deltaT = Ts - Tw
-h_conv = 135 // conservative W/m^2K
+h_conv = 135
 h_rad = epsilon * sigma * (Math.pow(Ts, 4) - Math.pow(Tw, 4)) / deltaT
 q_prime = (h_conv + 0.75 * h_rad) * deltaT
 
 totalRawPower = numCasters * areaPerCaster * q_prime // Watts
 
-// Pump work estimation (P * deltaV)
-// Mass flow approx: Q_raw / Heat of Vaporization (2257 kJ/kg)
 massFlow = totalRawPower / 2257000 // kg/s
 volFlow = massFlow / 1000 // m^3/s
 pumpPower = volFlow * (pressureBar * 100000) // Watts
@@ -102,19 +131,19 @@ hp = totalGeneratedPower / 745.7
 md`
 ### Analysis
 
-At **${pressureBar} Bar** of pressure, your group of **${numCasters}** casters generates:
+Using **Level ${slotLevel}** slots at **${pressureBar} Bar**, your group of **${numCasters}** casters generates:
 
 # ${d3.format(".2f")(totalGeneratedPower / 1000)} kW (${d3.format(".1f")(hp)} HP)
 
 **System Performance:**
+- **Boiler Temperature:** ${tempCelsius}°C
 - **Estimated Efficiency:** ${d3.format(".1%")(efficiency)}
-- **Pump Consumption:** ${d3.format(".2f")(pumpPower)} W (negligible)
-- **Status:** *Optimized for Industrial Use*
+- **Energy per Minute (Total):** ${d3.format(".2f")(totalRawPower * 60 / 1e6)} MJ
 
 **What can this power?**
-- **Motorized Carriage:** Needs ~15 HP. *One caster can power ~4-5 carriages at high pressure.*
-- **Steam Locomotive:** Needs ~150-300 HP. *Requires 2-4 casters.*
-- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~7 casters.*
+- **Motorized Carriage:** Needs ~15 HP. *One caster can power ~5 carriages.*
+- **Steam Locomotive:** Needs ~300 HP. *Requires 2-3 casters.*
+- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~5 casters at high slot levels.*
 `
 ```
 
