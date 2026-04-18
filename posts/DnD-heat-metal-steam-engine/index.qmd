@@ -41,8 +41,11 @@ While copper is the "standard" for conductivity, different metals offer differen
 Using a density of $8,960\text{ kg/m}^3$, our 33.55 kg copper mass occupies a volume of approximately **3.74 Liters**. To maximize heat transfer, we must draw this metal into the largest possible surface area $A_s$ while maintaining structural integrity for a high-pressure boiler.
 
 If we draw the metal into a high-density bundle of **1/4-inch nominal Type M copper tubing** (OD 9.5 mm, wall 0.6 mm):
+
 - **Cross-sectional area of metal per tube:** $\approx 17.6\text{ mm}^2$
+
 - **Total length of tubing possible:** $\approx 212\text{ meters}$
+
 - **Internal Surface Area ($A_s$):** $\approx 5.5\text{ m}^2$
 
 By utilizing a multi-tube heat exchanger (similar to a fire-tube or water-tube boiler), we can achieve a surface area of **5.5 m$^2$ per caster**. This optimization significantly increases the raw wattage captured compared to a simple pipe.
