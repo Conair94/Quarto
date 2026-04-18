@@ -80,7 +80,7 @@ Total heat flux $q''$ also includes radiation, which becomes dominant at these t
 $$h_{total} = h_{conv} + \frac{3}{4} h_{rad}$$
 $$h_{rad} = \frac{\epsilon \sigma (T_s^4 - T_{sat}^4)}{T_s - T_{sat}}$$
 
-### The $T^4$ Shift: Convection vs. Radiation
+### The $T^4$ Factor: Convection vs. Radiation
 
 It is critical to note that $h_{conv}$ and $h_{rad}$ scale very differently. While convective film boiling ($h_{conv}$) stays relatively stable as temperature rises, radiative heat transfer ($h_{rad}$) is governed by the **Stefan-Boltzmann Law**, scaling with the **fourth power** of absolute temperature ($T^4$). This creates a massive non-linear spike in power at higher spell levels.
 
