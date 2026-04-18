@@ -97,7 +97,7 @@ This heat melts the ice at a rate of $\frac{dm_{melt}}{t} = \frac{1}{L_f} \frac{
 ### Consumption
 We assume a constant volumetric consumption rate $C$ (oz/min). Because of the straw's liquid bias, the rate of ice removal $\frac{dm}{t}_{ice\_out}$ is lower than the rate of liquid removal.
 
-## 3. The Master Differential Equation
+## 3. Governing Differential Equation
 
 To justify our simulation results, we derive the governing equation for the **Volume Ice Ratio ($R$)**, defined as $R = V_i / V$, where $V_i$ is the volume of ice and $V$ is the total volume ($V_i + V_l$).
 
@@ -231,6 +231,7 @@ Plot.plot({
 ```{ojs}
 md`
 ### Analysis
+# Under the assumption you would not like ice with no liquid:
 
 Final Ice Ratio: **${results[results.length-1].iceRatio.toFixed(1)}%**  
 Total Time: **${results[results.length-1].time.toFixed(1)} minutes**
