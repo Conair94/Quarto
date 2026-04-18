@@ -253,6 +253,14 @@ window.Quarto = {
 <p>Typical steam engine efficiency in a fantasy setting might be low, but even a modest <strong>10% efficiency</strong> yields significant results:</p>
 <p><span class="math display">\[P_{gen} = 411\text{ kW} \times 0.10 \approx 41.1\text{ kW} \approx 55\text{ HP}\]</span></p>
 </section>
+<section id="the-pressure-factor-the-rankine-cycle" class="level2">
+<h2 class="anchored" data-anchor-id="the-pressure-factor-the-rankine-cycle">The Pressure Factor: The Rankine Cycle</h2>
+<p>Real-world power plants don’t just boil water at atmospheric pressure; they use high-pressure boilers. Increasing the pressure (<span class="math inline">\(P_{boiler}\)</span>) has two primary effects on our arcane engine:</p>
+<ol type="1">
+<li><strong>Efficiency Gains:</strong> According to the Rankine cycle, increasing the boiler pressure allows for a higher temperature drop across the turbine, which significantly improves thermal efficiency. While a 1-atm “tea kettle” engine might struggle at 5-8%, a pressurized boiler (e.g., 20 bar) can easily push efficiency toward 15-20%.</li>
+<li><strong>The Pump Tax:</strong> Pressurizing the liquid water requires work (<span class="math inline">\(W_{pump}\)</span>). Since liquid water is nearly incompressible, the work required is roughly: <span class="math display">\[W_{pump} = \dot{V} \times (P_{boiler} - P_{condenser})\]</span> Where <span class="math inline">\(\dot{V}\)</span> is the volume flow rate. For our ~400 kW boiler, we’d need to pump roughly 0.15 Liters of water per second. At 20 bar (290 psi), this consumes about <strong>0.3 kW</strong>—a negligible “tax” for a massive gain in turbine efficiency.</li>
+</ol>
+</section>
 <section id="interactive-power-grid" class="level2">
 <h2 class="anchored" data-anchor-id="interactive-power-grid">Interactive Power Grid</h2>
 <p>Adjust the parameters below to see what your adventuring party can power.</p>
@@ -260,9 +268,9 @@ window.Quarto = {
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="57" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 56;"><span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>viewof numCasters <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Casters"</span>})</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>viewof efficiency <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.40</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Turbine Efficiency"</span>})</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>viewof tempCelsius <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">500</span><span class="op">,</span> <span class="dv">1000</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Metal Temperature (°C)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="66" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 65;"><span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>viewof numCasters <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Casters"</span>})</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>viewof pressureBar <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Boiler Pressure (Bar)"</span>})</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>viewof tempCelsius <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">500</span><span class="op">,</span> <span class="dv">1000</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Metal Temperature (°C)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -291,36 +299,51 @@ window.Quarto = {
 <div class="cell panel-fill">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="65" data-source-offset="-13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 64;"><span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">5.67e-8</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.8</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>areaPerCaster <span class="op">=</span> <span class="fl">2.74</span> <span class="co">// m^2</span></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>waterTemp <span class="op">=</span> <span class="dv">100</span> <span class="co">// °C</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="co">// Flux calculation (simplified film boiling model)</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> tempCelsius <span class="op">+</span> <span class="fl">273.15</span></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>Tw <span class="op">=</span> waterTemp <span class="op">+</span> <span class="fl">273.15</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>deltaT <span class="op">=</span> Ts <span class="op">-</span> Tw</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>h_conv <span class="op">=</span> <span class="dv">135</span> <span class="co">// conservative W/m^2K</span></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>h_rad <span class="op">=</span> epsilon <span class="op">*</span> sigma <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Ts<span class="op">,</span> <span class="dv">4</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Tw<span class="op">,</span> <span class="dv">4</span>)) <span class="op">/</span> deltaT</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>q_prime <span class="op">=</span> (h_conv <span class="op">+</span> <span class="fl">0.75</span> <span class="op">*</span> h_rad) <span class="op">*</span> deltaT</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>totalRawPower <span class="op">=</span> numCasters <span class="op">*</span> areaPerCaster <span class="op">*</span> q_prime <span class="co">// Watts</span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>totalGeneratedPower <span class="op">=</span> totalRawPower <span class="op">*</span> efficiency <span class="co">// Watts</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>hp <span class="op">=</span> totalGeneratedPower <span class="op">/</span> <span class="fl">745.7</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="vs">A group of **</span><span class="sc">${</span>numCasters<span class="sc">}</span><span class="vs">** casters maintaining *Heat Metal* on this boiler system generates:</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="vs"># </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalGeneratedPower <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> kW (</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(hp)<span class="sc">}</span><span class="vs"> HP)</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="vs">**What can this power?**</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Motorized Carriage:** Needs ~15 HP. *One caster can power 3 carriages.*</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Steam Locomotive:** Needs ~150-300 HP. *Requires 3-6 casters.*</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~10 casters.*</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Village Power Grid:** 40 kW is enough to provide basic electric lighting for about 100 modest fantasy homes.</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="74" data-source-offset="-13"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 73;"><span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">5.67e-8</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>areaPerCaster <span class="op">=</span> <span class="fl">2.74</span> <span class="co">// m^2</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>waterTemp <span class="op">=</span> <span class="dv">100</span> <span class="co">// °C (Standard boiling, though it increases with pressure)</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co">// Simplified efficiency scaling based on Rankine cycle approximations</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co">// Base 10% at 1 bar, scaling logarithmically with pressure</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>efficiency <span class="op">=</span> <span class="fl">0.10</span> <span class="op">+</span> <span class="fl">0.05</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log10</span>(pressureBar)</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co">// Flux calculation (simplified film boiling model)</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> tempCelsius <span class="op">+</span> <span class="fl">273.15</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>Tw <span class="op">=</span> waterTemp <span class="op">+</span> <span class="fl">273.15</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>deltaT <span class="op">=</span> Ts <span class="op">-</span> Tw</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>h_conv <span class="op">=</span> <span class="dv">135</span> <span class="co">// conservative W/m^2K</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>h_rad <span class="op">=</span> epsilon <span class="op">*</span> sigma <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Ts<span class="op">,</span> <span class="dv">4</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(Tw<span class="op">,</span> <span class="dv">4</span>)) <span class="op">/</span> deltaT</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>q_prime <span class="op">=</span> (h_conv <span class="op">+</span> <span class="fl">0.75</span> <span class="op">*</span> h_rad) <span class="op">*</span> deltaT</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>totalRawPower <span class="op">=</span> numCasters <span class="op">*</span> areaPerCaster <span class="op">*</span> q_prime <span class="co">// Watts</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="co">// Pump work estimation (P * deltaV)</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="co">// Mass flow approx: Q_raw / Heat of Vaporization (2257 kJ/kg)</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>massFlow <span class="op">=</span> totalRawPower <span class="op">/</span> <span class="dv">2257000</span> <span class="co">// kg/s</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>volFlow <span class="op">=</span> massFlow <span class="op">/</span> <span class="dv">1000</span> <span class="co">// m^3/s</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>pumpPower <span class="op">=</span> volFlow <span class="op">*</span> (pressureBar <span class="op">*</span> <span class="dv">100000</span>) <span class="co">// Watts</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>totalGeneratedPower <span class="op">=</span> (totalRawPower <span class="op">*</span> efficiency) <span class="op">-</span> pumpPower <span class="co">// Watts</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>hp <span class="op">=</span> totalGeneratedPower <span class="op">/</span> <span class="fl">745.7</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="vs">### Analysis</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="vs">At **</span><span class="sc">${</span>pressureBar<span class="sc">}</span><span class="vs"> Bar** of pressure, your group of **</span><span class="sc">${</span>numCasters<span class="sc">}</span><span class="vs">** casters generates:</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="vs"># </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(totalGeneratedPower <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> kW (</span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1f"</span>)(hp)<span class="sc">}</span><span class="vs"> HP)</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="vs">**System Performance:**</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Estimated Efficiency:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".1%"</span>)(efficiency)<span class="sc">}</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Pump Consumption:** </span><span class="sc">${</span>d3<span class="op">.</span><span class="fu">format</span>(<span class="st">".2f"</span>)(pumpPower)<span class="sc">}</span><span class="vs"> W (negligible)</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Status:** *Optimized for Industrial Use*</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="vs">**What can this power?**</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Motorized Carriage:** Needs ~15 HP. *One caster can power ~4-5 carriages at high pressure.*</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Steam Locomotive:** Needs ~150-300 HP. *Requires 2-4 casters.*</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="vs">- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~7 casters.*</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -415,7 +438,35 @@ window.Quarto = {
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-2-14" data-nodetype="expression">
+<div id="ojs-cell-2-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-17" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-18" data-nodetype="expression">
 
 </div>
 </div>
@@ -438,7 +489,7 @@ window.Quarto = {
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1DYXN0ZXJzID0gSW5wdXRzLnJhbmdlKFsxLCAyMF0sIHt2YWx1ZTogMSwgc3RlcDogMSwgbGFiZWw6IFwiTnVtYmVyIG9mIENhc3RlcnNcIn0pXG52aWV3b2YgZWZmaWNpZW5jeSA9IElucHV0cy5yYW5nZShbMC4wMSwgMC40MF0sIHt2YWx1ZTogMC4xMCwgc3RlcDogMC4wMSwgbGFiZWw6IFwiVHVyYmluZSBFZmZpY2llbmN5XCJ9KVxudmlld29mIHRlbXBDZWxzaXVzID0gSW5wdXRzLnJhbmdlKFs1MDAsIDEwMDBdLCB7dmFsdWU6IDgwMCwgc3RlcDogNTAsIGxhYmVsOiBcIk1ldGFsIFRlbXBlcmF0dXJlICjCsEMpXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gQ29uc3RhbnRzXG5zaWdtYSA9IDUuNjdlLThcbmVwc2lsb24gPSAwLjhcbmFyZWFQZXJDYXN0ZXIgPSAyLjc0IC8vIG1eMlxud2F0ZXJUZW1wID0gMTAwIC8vIMKwQ1xuXG4vLyBGbHV4IGNhbGN1bGF0aW9uIChzaW1wbGlmaWVkIGZpbG0gYm9pbGluZyBtb2RlbClcblRzID0gdGVtcENlbHNpdXMgKyAyNzMuMTVcblR3ID0gd2F0ZXJUZW1wICsgMjczLjE1XG5kZWx0YVQgPSBUcyAtIFR3XG5oX2NvbnYgPSAxMzUgLy8gY29uc2VydmF0aXZlIFcvbV4yS1xuaF9yYWQgPSBlcHNpbG9uICogc2lnbWEgKiAoTWF0aC5wb3coVHMsIDQpIC0gTWF0aC5wb3coVHcsIDQpKSAvIGRlbHRhVFxucV9wcmltZSA9IChoX2NvbnYgKyAwLjc1ICogaF9yYWQpICogZGVsdGFUXG5cbnRvdGFsUmF3UG93ZXIgPSBudW1DYXN0ZXJzICogYXJlYVBlckNhc3RlciAqIHFfcHJpbWUgLy8gV2F0dHNcbnRvdGFsR2VuZXJhdGVkUG93ZXIgPSB0b3RhbFJhd1Bvd2VyICogZWZmaWNpZW5jeSAvLyBXYXR0c1xuaHAgPSB0b3RhbEdlbmVyYXRlZFBvd2VyIC8gNzQ1LjdcblxubWRgXG4jIyMgQW5hbHlzaXNcblxuQSBncm91cCBvZiAqKiR7bnVtQ2FzdGVyc30qKiBjYXN0ZXJzIG1haW50YWluaW5nICpIZWF0IE1ldGFsKiBvbiB0aGlzIGJvaWxlciBzeXN0ZW0gZ2VuZXJhdGVzOlxuXG4jICR7ZDMuZm9ybWF0KFwiLjJmXCIpKHRvdGFsR2VuZXJhdGVkUG93ZXIgLyAxMDAwKX0ga1cgKCR7ZDMuZm9ybWF0KFwiLjFmXCIpKGhwKX0gSFApXG5cbioqV2hhdCBjYW4gdGhpcyBwb3dlcj8qKlxuLSAqKk1vdG9yaXplZCBDYXJyaWFnZToqKiBOZWVkcyB+MTUgSFAuICpPbmUgY2FzdGVyIGNhbiBwb3dlciAzIGNhcnJpYWdlcy4qXG4tICoqU3RlYW0gTG9jb21vdGl2ZToqKiBOZWVkcyB+MTUwLTMwMCBIUC4gKlJlcXVpcmVzIDMtNiBjYXN0ZXJzLipcbi0gKipTbWFsbCBGYW50YXN5IEFpcnNoaXA6KiogTmVlZHMgfjUwMCBIUC4gKlJlcXVpcmVzIH4xMCBjYXN0ZXJzLipcbi0gKipWaWxsYWdlIFBvd2VyIEdyaWQ6KiogNDAga1cgaXMgZW5vdWdoIHRvIHByb3ZpZGUgYmFzaWMgZWxlY3RyaWMgbGlnaHRpbmcgZm9yIGFib3V0IDEwMCBtb2Rlc3QgZmFudGFzeSBob21lcy5cbmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnbnVtQ2FzdGVycycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdlZmZpY2llbmN5JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RlbXBDZWxzaXVzJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBudW1DYXN0ZXJzID0gSW5wdXRzLnJhbmdlKFsxLCAyMF0sIHt2YWx1ZTogMSwgc3RlcDogMSwgbGFiZWw6IFwiTnVtYmVyIG9mIENhc3RlcnNcIn0pXG52aWV3b2YgcHJlc3N1cmVCYXIgPSBJbnB1dHMucmFuZ2UoWzEsIDUwXSwge3ZhbHVlOiAxMCwgc3RlcDogMSwgbGFiZWw6IFwiQm9pbGVyIFByZXNzdXJlIChCYXIpXCJ9KVxudmlld29mIHRlbXBDZWxzaXVzID0gSW5wdXRzLnJhbmdlKFs1MDAsIDEwMDBdLCB7dmFsdWU6IDgwMCwgc3RlcDogNTAsIGxhYmVsOiBcIk1ldGFsIFRlbXBlcmF0dXJlICjCsEMpXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gQ29uc3RhbnRzXG5zaWdtYSA9IDUuNjdlLThcbmVwc2lsb24gPSAwLjhcbmFyZWFQZXJDYXN0ZXIgPSAyLjc0IC8vIG1eMlxud2F0ZXJUZW1wID0gMTAwIC8vIMKwQyAoU3RhbmRhcmQgYm9pbGluZywgdGhvdWdoIGl0IGluY3JlYXNlcyB3aXRoIHByZXNzdXJlKVxuXG4vLyBTaW1wbGlmaWVkIGVmZmljaWVuY3kgc2NhbGluZyBiYXNlZCBvbiBSYW5raW5lIGN5Y2xlIGFwcHJveGltYXRpb25zXG4vLyBCYXNlIDEwJSBhdCAxIGJhciwgc2NhbGluZyBsb2dhcml0aG1pY2FsbHkgd2l0aCBwcmVzc3VyZVxuZWZmaWNpZW5jeSA9IDAuMTAgKyAwLjA1ICogTWF0aC5sb2cxMChwcmVzc3VyZUJhcilcblxuLy8gRmx1eCBjYWxjdWxhdGlvbiAoc2ltcGxpZmllZCBmaWxtIGJvaWxpbmcgbW9kZWwpXG5UcyA9IHRlbXBDZWxzaXVzICsgMjczLjE1XG5UdyA9IHdhdGVyVGVtcCArIDI3My4xNVxuZGVsdGFUID0gVHMgLSBUd1xuaF9jb252ID0gMTM1IC8vIGNvbnNlcnZhdGl2ZSBXL21eMktcbmhfcmFkID0gZXBzaWxvbiAqIHNpZ21hICogKE1hdGgucG93KFRzLCA0KSAtIE1hdGgucG93KFR3LCA0KSkgLyBkZWx0YVRcbnFfcHJpbWUgPSAoaF9jb252ICsgMC43NSAqIGhfcmFkKSAqIGRlbHRhVFxuXG50b3RhbFJhd1Bvd2VyID0gbnVtQ2FzdGVycyAqIGFyZWFQZXJDYXN0ZXIgKiBxX3ByaW1lIC8vIFdhdHRzXG5cbi8vIFB1bXAgd29yayBlc3RpbWF0aW9uIChQICogZGVsdGFWKVxuLy8gTWFzcyBmbG93IGFwcHJveDogUV9yYXcgLyBIZWF0IG9mIFZhcG9yaXphdGlvbiAoMjI1NyBrSi9rZylcbm1hc3NGbG93ID0gdG90YWxSYXdQb3dlciAvIDIyNTcwMDAgLy8ga2cvc1xudm9sRmxvdyA9IG1hc3NGbG93IC8gMTAwMCAvLyBtXjMvc1xucHVtcFBvd2VyID0gdm9sRmxvdyAqIChwcmVzc3VyZUJhciAqIDEwMDAwMCkgLy8gV2F0dHNcblxudG90YWxHZW5lcmF0ZWRQb3dlciA9ICh0b3RhbFJhd1Bvd2VyICogZWZmaWNpZW5jeSkgLSBwdW1wUG93ZXIgLy8gV2F0dHNcbmhwID0gdG90YWxHZW5lcmF0ZWRQb3dlciAvIDc0NS43XG5cbm1kYFxuIyMjIEFuYWx5c2lzXG5cbkF0ICoqJHtwcmVzc3VyZUJhcn0gQmFyKiogb2YgcHJlc3N1cmUsIHlvdXIgZ3JvdXAgb2YgKioke251bUNhc3RlcnN9KiogY2FzdGVycyBnZW5lcmF0ZXM6XG5cbiMgJHtkMy5mb3JtYXQoXCIuMmZcIikodG90YWxHZW5lcmF0ZWRQb3dlciAvIDEwMDApfSBrVyAoJHtkMy5mb3JtYXQoXCIuMWZcIikoaHApfSBIUClcblxuKipTeXN0ZW0gUGVyZm9ybWFuY2U6Kipcbi0gKipFc3RpbWF0ZWQgRWZmaWNpZW5jeToqKiAke2QzLmZvcm1hdChcIi4xJVwiKShlZmZpY2llbmN5KX1cbi0gKipQdW1wIENvbnN1bXB0aW9uOioqICR7ZDMuZm9ybWF0KFwiLjJmXCIpKHB1bXBQb3dlcil9IFcgKG5lZ2xpZ2libGUpXG4tICoqU3RhdHVzOioqICpPcHRpbWl6ZWQgZm9yIEluZHVzdHJpYWwgVXNlKlxuXG4qKldoYXQgY2FuIHRoaXMgcG93ZXI/Kipcbi0gKipNb3Rvcml6ZWQgQ2FycmlhZ2U6KiogTmVlZHMgfjE1IEhQLiAqT25lIGNhc3RlciBjYW4gcG93ZXIgfjQtNSBjYXJyaWFnZXMgYXQgaGlnaCBwcmVzc3VyZS4qXG4tICoqU3RlYW0gTG9jb21vdGl2ZToqKiBOZWVkcyB+MTUwLTMwMCBIUC4gKlJlcXVpcmVzIDItNCBjYXN0ZXJzLipcbi0gKipTbWFsbCBGYW50YXN5IEFpcnNoaXA6KiogTmVlZHMgfjUwMCBIUC4gKlJlcXVpcmVzIH43IGNhc3RlcnMuKlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdudW1DYXN0ZXJzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3ByZXNzdXJlQmFyJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RlbXBDZWxzaXVzJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
