@@ -217,4 +217,4 @@ Using **Level ${slotLevel}** slots with a **${currentProp.name}** core at **${pr
 ### Assumptions & Limitations
 - **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the power being siphoned off.
 - **Material Stress:** Copper and Tungsten at these temperatures are significantly weakened. Engineers would likely need magical reinforcement (*Mending* or *Permanency*) to prevent bursting under the high pressures of a Rankine cycle.
-- **Concentration:** This is the ultimate "work from home" job. A caster must concentrate for the full duration (1 minute), but a group working in shifts could keep the lights on 24/7.
+- **Concentration:** Collectivized labor is a must. A caster must concentrate for the full duration (1 minute), but a group of only 200 low to mid level casters working in shifts could keep the lights on 24/7 at more than a constant megawatt of power.
