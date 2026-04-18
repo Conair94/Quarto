@@ -211,7 +211,7 @@ Using **Level ${slotLevel}** slots with a **${currentProp.name}** core at **${pr
 
 **What can this power?**
 - **Motorized Carriage:** Needs ~15 HP. *One 9th-level heat metal can power ~200 carriages!*
-- **Steam Locomotive:** Needs ~500 HP. *A 9th-level heat metal can power 6 locomotives or M4 Sherman tank.*
+- **Steam Locomotive:** Needs ~500 HP. *A 9th-level heat metal can power 6 locomotives or 6 M4 Sherman tanks.*
 - **Heavy Industrial Airship:** Needs ~1500 HP. *a 9th level caster can power a heavy airship for 2 minutes with one 9th-level slot.*
 `
 ```
