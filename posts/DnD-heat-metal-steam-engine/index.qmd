@@ -10,7 +10,7 @@ format:
 
 In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD.
 
-By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level cleric can contribute to the fantasy industrial revolution.
+By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level can contribute to the fantasy industrial revolution.
 
 ## The Physical Constraints
 
@@ -60,6 +60,18 @@ A Level 20 cleric is a walking nuclear reactor. By cycling through their spell s
 | **8th (x1)** | 1 min | 1850 | Tungsten | 3,340 kW | 200.4 MJ |
 | **9th (x1)** | 1 min | 2000 | Tungsten | 4,120 kW | 247.2 MJ |
 | **TOTAL** | **18 min** | **AVG 1350** | **-** | **~1,450 kW** | **1,575.2 MJ** |
+
+### Mid-Level Industrialist: The 10th-Level Cleric
+
+A 10th-level Forge Domain cleric might not have the god-like endurance of a 20th-level master, but they are still a formidable power source for local industry.
+
+| Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **2nd (x3)** | 3 min | 800 | Copper | 411 kW | 74.0 MJ |
+| **3rd (x3)** | 3 min | 1000 | Tungsten | 660 kW | 118.8 MJ |
+| **4th (x3)** | 3 min | 1150 | Tungsten | 960 kW | 172.8 MJ |
+| **5th (x2)** | 2 min | 1300 | Tungsten | 1,320 kW | 158.4 MJ |
+| **TOTAL** | **11 min** | **AVG 1060** | **-** | **~790 kW** | **524.0 MJ** |
 
 *A single high-level cleric can dump over **1.5 Gigajoules** of energy into a grid in under 20 minutes.*
 
