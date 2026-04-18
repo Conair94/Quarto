@@ -8,13 +8,15 @@ format:
     code-fold: true
 ---
 
-Have you ever reached the end of an Icee or Slurpee only to find a desolate, dry block of white ice? This is the "Slushee Dead Zone"—a state where the liquid-to-solid ratio has collapsed, leaving the remaining ice stranded without enough syrup to be drinkable.
+Have you ever reached the end of an Icee or Slurpee only to find a desolate, dry block of white ice? This is the "Slushee Dead Zone"—a state where the liquid-to-solid ratio has collapsed, leaving the remaining ice stranded without enough liquid to be drinkable.
 
-The problem is one of **phase-change synchronization**. For a perfect drinking experience, the rate at which you consume the liquid must match the rate at which the ambient heat melts the ice. 
+The problem is one of **phase-change synchronization**. For a perfect drinking experience, the rate at which you consume the liquid must match the rate at which the ambient heat melts the ice. We will use the 7-11 Slurpee as our standard-bearer for frozen liquid ice beverages and attempt to calculate what temperature is required for a given drink consumption rate to avoid having a dry chunk of ice at the before you've finished the entire beverage. 
 
 ## 1. Geometry: The Tapered Frustum
 
-7-11 cups are not perfect cylinders; they are **frustums** (tapered cones). 
+
+The local geometry of the object determines how rapidly heat transfers since it changes local convection rates for heat transfer. We will model this heat transfer as uniform per unit surface area of the slushee container. 
+While 7-11 cups are not perfect cylinders; they are **frustums** (tapered cones). 
 
 ### Cup Size Comparison
 The diagram below shows the relative 3D scale of the standard 7-11 lineup.
@@ -43,7 +45,7 @@ html`<div style="display: flex; align-items: flex-end; gap: 20px; justify-conten
 
 ## 2. Thermodynamics: Continuous Phase Change
 
-Instead of modeling discrete sips, we can model the slushee as a continuous system. 
+We can model the slushee as a continuous system. 
 
 ### Heat Transfer
 Heat flows from the ambient air ($T_{amb}$) through the cup walls:
