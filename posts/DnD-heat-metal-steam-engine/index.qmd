@@ -10,7 +10,7 @@ format:
 
 In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD.
 
-By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level can contribute to the fantasy industrial revolution.
+By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single caster can contribute to the fantasy industrial revolution.
 
 ## The Physical Constraints
 
@@ -36,6 +36,17 @@ While copper is the "standard" for conductivity, different metals offer differen
 
 *Selection: For our baseline, we stick with **Copper** for 2nd-level slots, but transition to **Tungsten** for anything higher.*
 
+## Engineering the Boiler: Maximizing Surface Area
+
+Using a density of $8,960\text{ kg/m}^3$, our 33.55 kg copper mass occupies a volume of approximately **3.74 Liters**. To maximize heat transfer, we must draw this metal into the largest possible surface area $A_s$ while maintaining structural integrity for a high-pressure boiler.
+
+If we draw the metal into a high-density bundle of **1/4-inch nominal Type M copper tubing** (OD 9.5 mm, wall 0.6 mm):
+- **Cross-sectional area of metal per tube:** $\approx 17.6\text{ mm}^2$
+- **Total length of tubing possible:** $\approx 212\text{ meters}$
+- **Internal Surface Area ($A_s$):** $\approx 5.5\text{ m}^2$
+
+By utilizing a multi-tube heat exchanger (similar to a fire-tube or water-tube boiler), we can achieve a surface area of **5.5 m$^2$ per caster**. This optimization significantly increases the raw wattage captured compared to a simple pipe.
+
 ## Scaling Up: Upcasting and Temperature
 
 *Heat Metal* deals an extra 1d8 damage for every slot above 2nd. We can model this increased "potency" as an exponential increase in maintained temperature. While 2d8 corresponds to a "Red Hot" 800°C, a 9th-level cast represents a truly sun-like energy density:
@@ -47,33 +58,33 @@ While copper is the "standard" for conductivity, different metals offer differen
 
 ## The Spellcaster's Endurance: Total Energy
 
-A Level 20 cleric is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. Note that for 3rd-level slots and above, our fantasy engineers swap the copper core for **Tungsten** to prevent melting. This slightly lowers the emissivity ($\epsilon \approx 0.7$ for oxidized tungsten vs. $\epsilon \approx 0.8$ for copper), but the massive temperature gains more than compensate.
+A Level 20 caster is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. For 3rd-level slots and above, we swap the copper core for **Tungsten**. Note how the power output explodes due to the $5.5\text{ m}^2$ area and $T^4$ radiation scaling.
 
 | Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **2nd (x3)** | 3 min | 800 | Copper | 411 kW | 74.0 MJ |
-| **3rd (x3)** | 3 min | 1000 | Tungsten | 660 kW | 118.8 MJ |
-| **4th (x3)** | 3 min | 1150 | Tungsten | 960 kW | 172.8 MJ |
-| **5th (x3)** | 3 min | 1300 | Tungsten | 1,320 kW | 237.6 MJ |
-| **6th (x2)** | 2 min | 1500 | Tungsten | 1,910 kW | 229.2 MJ |
-| **7th (x2)** | 2 min | 1650 | Tungsten | 2,460 kW | 295.2 MJ |
-| **8th (x1)** | 1 min | 1850 | Tungsten | 3,340 kW | 200.4 MJ |
-| **9th (x1)** | 1 min | 2000 | Tungsten | 4,120 kW | 247.2 MJ |
-| **TOTAL** | **18 min** | **AVG 1350** | **-** | **~1,450 kW** | **1,575.2 MJ** |
+| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 148.5 MJ |
+| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 237.6 MJ |
+| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 347.4 MJ |
+| **5th (x3)** | 3 min | 1300 | Tungsten | 2,650 kW | 477.0 MJ |
+| **6th (x2)** | 2 min | 1500 | Tungsten | 3,840 kW | 460.8 MJ |
+| **7th (x2)** | 2 min | 1650 | Tungsten | 4,940 kW | 592.8 MJ |
+| **8th (x1)** | 1 min | 1850 | Tungsten | 6,710 kW | 402.6 MJ |
+| **9th (x1)** | 1 min | 2000 | Tungsten | 8,280 kW | 496.8 MJ |
+| **TOTAL** | **18 min** | **AVG 1350** | **-** | **~2,930 kW** | **3,163.5 MJ** |
 
 ### Mid-Level Industrialist: The 10th-Level Cleric
 
-A 10th-level Forge Domain cleric might not have the god-like endurance of a 20th-level master, but they are still a formidable power source for local industry.
+A 10th-level Forge Domain cleric is still a formidable power source for local industry.
 
 | Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **2nd (x3)** | 3 min | 800 | Copper | 411 kW | 74.0 MJ |
-| **3rd (x3)** | 3 min | 1000 | Tungsten | 660 kW | 118.8 MJ |
-| **4th (x3)** | 3 min | 1150 | Tungsten | 960 kW | 172.8 MJ |
-| **5th (x2)** | 2 min | 1300 | Tungsten | 1,320 kW | 158.4 MJ |
-| **TOTAL** | **11 min** | **AVG 1060** | **-** | **~790 kW** | **524.0 MJ** |
+| **2nd (x3)** | 3 min | 800 | Copper | 825 kW | 148.5 MJ |
+| **3rd (x3)** | 3 min | 1000 | Tungsten | 1,320 kW | 237.6 MJ |
+| **4th (x3)** | 3 min | 1150 | Tungsten | 1,930 kW | 347.4 MJ |
+| **5th (x2)** | 2 min | 1300 | Tungsten | 2,650 kW | 318.0 MJ |
+| **TOTAL** | **11 min** | **AVG 1060** | **-** | **~1,590 kW** | **1,051.5 MJ** |
 
-*A single high-level cleric can dump over **1.5 Gigajoules** of energy into a grid in under 20 minutes.*
+*Even at level 10, a single cleric can dump over **one Gigajoule** of energy—enough to run a fleet of heavy locomotives.*
 
 ## Estimating Heat Flux ($q''$) and Bromley's Correlation
 
@@ -94,38 +105,21 @@ It is critical to note that $h_{conv}$ and $h_{rad}$ scale very differently. Whi
 
 ## The Universal Glow: Black Body Radiation
 
-A common misconception in fantasy engineering is that different metals might "glow" differently at the same temperature. However, the "red hot" or "white hot" state described in the spell is governed by the principles of **Black Body Radiation**.
-
-According to **Planck's Law**, the spectral radiance of an object is a function of its temperature $T$, not its chemical composition. While the *intensity* of the light can be modified by the material's emissivity ($\epsilon$), the *peak wavelength* (color) is determined solely by the temperature.
+The color of the "red hot" or "white hot" state is governed by **Black Body Radiation**. According to **Planck's Law**, the spectral radiance of an object is a function of its temperature $T$, determined solely by the temperature, not the material.
 
 ### Wien's Displacement Law
-The mathematical justification for mapping specific colors to temperatures comes from **Wien's Displacement Law**:
-
 $$\lambda_{max} = \frac{b}{T}$$
 
-Where:
-- $\lambda_{max}$ is the peak wavelength of light.
-
-- $b \approx 2.897 \times 10^{-3}\text{ m}\cdot\text{K}$ is Wien's displacement constant.
-
-- $T$ is the absolute temperature in Kelvin.
-
 As $T$ increases, $\lambda_{max}$ shifts left toward the visible spectrum:
-
-- **Red Hot ($800^\circ\text{C} \approx 1073\text{ K}$):** $\lambda_{max} \approx 2.7\text{ }\mu\text{m}$. The peak is in the infrared, but the "tail" of the Planck distribution bleeds into the visible red spectrum (~700 nm).
-
-- **Orange/Yellow ($1300^\circ\text{C} \approx 1573\text{ K}$):** The distribution shifts further, covering more of the visible spectrum.
-
-- **White Hot ($2000^\circ\text{C} \approx 2273\text{ K}$):** The peak wavelength $\lambda_{max} \approx 1.27\text{ }\mu\text{m}$. The distribution covers the entire visible spectrum, emitting all colors nearly equally. To the eye, the object appears as a brilliant white.
-
-This is why our choice of metal changes the *melting point* and *conductivity*, but a Copper pipe and a Tungsten pipe at $900^\circ\text{C}$ will both emit the exact same "Bright Red" hue.
+- **Red Hot ($800^\circ\text{C} \approx 1073\text{ K}$):** $\lambda_{max} \approx 2.7\text{ }\mu\text{m}$. The peak is in infrared, but the "tail" bleeds into visible red.
+- **White Hot ($2000^\circ\text{C} \approx 2273\text{ K}$):** $\lambda_{max} \approx 1.27\text{ }\mu\text{m}$. The distribution covers the entire visible spectrum equally, appearing as brilliant white.
 
 ## Power Generation: The Rankine Cycle
 
 Increasing the boiler pressure ($P_{boiler}$) improves thermal efficiency by allowing a higher temperature drop across the turbine.
 
 1.  **Efficiency Gains:** A pressurized boiler (e.g., 20 bar) can push efficiency toward 15-20%.
-2.  **The Pump Tax:** For our ~4 MW boiler, we'd need to pump roughly 1.5 L/s. At 20 bar, this consumes about **3 kW**—negligible compared to the massive power output.
+2.  **The Pump Tax:** For our ~8 MW boiler, we'd need to pump roughly 3 L/s. At 20 bar, this consumes about **6 kW**—still negligible.
 
 ## Interactive Power Grid
 
@@ -142,11 +136,10 @@ viewof pressureBar = Inputs.range([1, 50], {value: 10, step: 1, label: "Boiler P
 //| panel: fill
 // Constants
 sigma = 5.67e-8
-areaPerCaster = 2.74 // m^2
+areaPerCaster = 5.5 // Optimized area in m^2
 waterTemp = 100 // °C
 
 // Dynamic Emissivity and Temperature mapping
-// 2nd level uses Copper (0.8), 3rd+ use Tungsten (0.7)
 materialProps = new Map([
   [2, { temp: 800, eps: 0.8, name: "Copper" }],
   [3, { temp: 1000, eps: 0.7, name: "Tungsten" }],
@@ -191,18 +184,19 @@ Using **Level ${slotLevel}** slots with a **${currentProp.name}** core at **${pr
 
 **System Performance:**
 - **Boiler Temperature:** ${tempCelsius}°C
+- **Surface Area:** ${d3.format(".1f")(numCasters * areaPerCaster)} m²
 - **Core Material:** ${currentProp.name} (ε = ${epsilon})
 - **Estimated Efficiency:** ${d3.format(".1%")(efficiency)}
 - **Energy per Minute (Total):** ${d3.format(".2f")(totalRawPower * 60 / 1e6)} MJ
 
 **What can this power?**
-- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~75 carriages!*
-- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 4 locomotives.*
-- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires ~2 casters using 9th-level slots.*
+- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~150 carriages!*
+- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 7-8 locomotives.*
+- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires a single caster using 9th-level slots.*
 `
 ```
 
 ### Assumptions & Limitations
 - **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the power being siphoned off.
-- **Material Stress:** Copper at 800°C is significantly weakened. Engineers would likely need magical reinforcement (*Mending* or *Permanency*) to prevent bursting.
-- **Concentration:** This is the ultimate "work from home" job. A cleric must concentrate for the full duration (1 minute), but a group of clerics working in shifts could keep the lights on 24/7.
+- **Material Stress:** Copper and Tungsten at these temperatures are significantly weakened. Engineers would likely need magical reinforcement (*Mending* or *Permanency*) to prevent bursting under the high pressures of a Rankine cycle.
+- **Concentration:** This is the ultimate "work from home" job. A caster must concentrate for the full duration (1 minute), but a group working in shifts could keep the lights on 24/7.
