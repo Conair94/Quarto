@@ -12,7 +12,507 @@
 Visit my main website at [conair94.github.io](https://conair94.github.io).
 </description>
 <generator>quarto-1.9.37</generator>
-<lastBuildDate>Fri, 17 Apr 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 18 Apr 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>The Arcane Boiler: Powering Industrialization with ‘Heat Metal’</title>
+  <dc:creator>Connor Lockhart</dc:creator>
+  <link>https://conair94.github.io/Quarto/posts/DnD-heat-metal-steam-engine/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>In Dungeons &amp; Dragons 5e, the spell <em>Heat Metal</em> is a low-level staple for cooking enemies in their own armor. The spell description states: <em>“you cause a metal object to glow red hot.”</em> If we assume the magic maintains this “red hot” state regardless of external cooling (a necessity if it’s to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD .</p>
+<p>By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let’s estimate exactly how much power a single 3rd-level Druid can contribute to the fantasy industrial revolution.</p>
+<section id="the-physical-constraints" class="level2">
+<h2 class="anchored" data-anchor-id="the-physical-constraints">The Physical Constraints</h2>
+<p>To find the upper bound of our heating element, we look to the heaviest common metal object a caster can target: <strong>Plate Armor</strong>.</p>
+<ol type="1">
+<li><strong>Mass of the Heating Element:</strong> According to the <em>Player’s Handbook</em>, a suit of plate armor weighs <strong>65 lbs</strong> (29.48 kg).</li>
+<li><strong>Molar Equivalence:</strong> Plate is typically steel (mostly iron). Using the atomic mass of iron (<img src="https://latex.codecogs.com/png.latex?M_%7BFe%7D%20%5Capprox%2055.85"> g/mol): <img src="https://latex.codecogs.com/png.latex?n_%7BFe%7D%20=%20%5Cfrac%7B29,480%5Ctext%7B%20g%7D%7D%7B55.85%5Ctext%7B%20g/mol%7D%7D%20%5Capprox%20527.9%5Ctext%7B%20moles%7D"></li>
+<li><strong>Copper Conversion:</strong> For maximum efficiency, our fantasy engineers would use copper for its superior thermal conductivity. We’ll assume the spell targets an equivalent molar amount of copper (<img src="https://latex.codecogs.com/png.latex?M_%7BCu%7D%20%5Capprox%2063.55"> g/mol): <img src="https://latex.codecogs.com/png.latex?m_%7BCu%7D%20=%20527.9%5Ctext%7B%20mol%7D%20%5Ctimes%2063.55%5Ctext%7B%20g/mol%7D%20%5Capprox%2033,550%5Ctext%7B%20g%7D%20%5Capprox%2033.55%5Ctext%7B%20kg%7D"></li>
+</ol>
+</section>
+<section id="engineering-the-boiler" class="level2">
+<h2 class="anchored" data-anchor-id="engineering-the-boiler">Engineering the Boiler</h2>
+<p>Using a density of <img src="https://latex.codecogs.com/png.latex?8,960%5Ctext%7B%20kg/m%7D%5E3">, our copper mass occupies a volume of approximately <strong>3.74 Liters</strong>. We can draw this out into a standard copper pipe (Type M, 1-inch nominal) to maximize the surface area <img src="https://latex.codecogs.com/png.latex?A_s"> for heat transfer.</p>
+<ul>
+<li><strong>Pipe ID:</strong> 26.0 mm</li>
+<li><strong>Pipe OD:</strong> 28.6 mm</li>
+<li><strong>Calculated Length:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%2033.6%5Ctext%7B%20meters%7D"></li>
+<li><strong>Internal Surface Area (<img src="https://latex.codecogs.com/png.latex?A_s">):</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%202.74%5Ctext%7B%20m%7D%5E2"></li>
+</ul>
+</section>
+<section id="estimating-heat-flux-q" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-heat-flux-q">Estimating Heat Flux (<img src="https://latex.codecogs.com/png.latex?q''">)</h2>
+<p>“Red hot” corresponds to a temperature of approximately <strong>800°C (1073 K)</strong>. When water is pushed through a pipe at this temperature, it immediately enters <strong>film boiling</strong> (the Leidenfrost effect), where a thin layer of steam insulates the liquid.</p>
+<p>Using Bromley’s correlation for film boiling and accounting for radiative heat transfer (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.8"> for oxidized copper), we can estimate a conservative heat flux <img src="https://latex.codecogs.com/png.latex?q''">: - <strong>Convective <img src="https://latex.codecogs.com/png.latex?h">:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%20135%5Ctext%7B%20W/(m%7D%5E2%5Ctext%7B%C2%B7K)%7D"> - <strong>Radiative <img src="https://latex.codecogs.com/png.latex?h">:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%2085%5Ctext%7B%20W/(m%7D%5E2%5Ctext%7B%C2%B7K)%7D"> - <strong>Total <img src="https://latex.codecogs.com/png.latex?q''">:</strong> <img src="https://latex.codecogs.com/png.latex?%5Capprox%20150,000%5Ctext%7B%20W/m%7D%5E2"></p>
+<p><img src="https://latex.codecogs.com/png.latex?P_%7Braw%7D%20=%20A_s%20%5Ctimes%20q''%20=%202.74%5Ctext%7B%20m%7D%5E2%20%5Ctimes%20150%5Ctext%7B%20kW/m%7D%5E2%20%5Capprox%20411%5Ctext%7B%20kW%7D"></p>
+</section>
+<section id="power-generation" class="level2">
+<h2 class="anchored" data-anchor-id="power-generation">Power Generation</h2>
+<p>Typical steam engine efficiency in a fantasy setting might be low, but even a modest <strong>10% efficiency</strong> yields significant results:</p>
+<p><img src="https://latex.codecogs.com/png.latex?P_%7Bgen%7D%20=%20411%5Ctext%7B%20kW%7D%20%5Ctimes%200.10%20%5Capprox%2041.1%5Ctext%7B%20kW%7D%20%5Capprox%2055%5Ctext%7B%20HP%7D"></p>
+</section>
+<section id="interactive-power-grid" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-power-grid">Interactive Power Grid</h2>
+<p>Adjust the parameters below to see what your adventuring party can power.</p>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="57" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 56;"><span id="cb1-57">viewof numCasters <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Number of Casters"</span>})</span>
+<span id="cb1-58">viewof efficiency <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.40</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.10</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Turbine Efficiency"</span>})</span>
+<span id="cb1-59">viewof tempCelsius <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">800</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Metal Temperature (°C)"</span>})</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="65" data-source-offset="-13" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 64;"><span id="cb2-65">sigma <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.67e-8</span></span>
+<span id="cb2-66">epsilon <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span></span>
+<span id="cb2-67">areaPerCaster <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.74</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// m^2</span></span>
+<span id="cb2-68">waterTemp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// °C</span></span>
+<span id="cb2-69"></span>
+<span id="cb2-70"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Flux calculation (simplified film boiling model)</span></span>
+<span id="cb2-71">Ts <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> tempCelsius <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">273.15</span></span>
+<span id="cb2-72">Tw <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> waterTemp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">273.15</span></span>
+<span id="cb2-73">deltaT <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Ts <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> Tw</span>
+<span id="cb2-74">h_conv <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">135</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// conservative W/m^2K</span></span>
+<span id="cb2-75">h_rad <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> epsilon <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> sigma <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> (<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pow</span>(Ts<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pow</span>(Tw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> deltaT</span>
+<span id="cb2-76">q_prime <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (h_conv <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.75</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> h_rad) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> deltaT</span>
+<span id="cb2-77"></span>
+<span id="cb2-78">totalRawPower <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> numCasters <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> areaPerCaster <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> q_prime <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Watts</span></span>
+<span id="cb2-79">totalGeneratedPower <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> totalRawPower <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> efficiency <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Watts</span></span>
+<span id="cb2-80">hp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> totalGeneratedPower <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">745.7</span></span>
+<span id="cb2-81"></span>
+<span id="cb2-82"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span>
+<span id="cb2-83"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">### Analysis</span></span>
+<span id="cb2-84"></span>
+<span id="cb2-85"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">A group of **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>numCasters<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** casters maintaining *Heat Metal* on this boiler system generates:</span></span>
+<span id="cb2-86"></span>
+<span id="cb2-87"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"># </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".2f"</span>)(totalGeneratedPower <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> kW (</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">".1f"</span>)(hp)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> HP)</span></span>
+<span id="cb2-88"></span>
+<span id="cb2-89"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">**What can this power?**</span></span>
+<span id="cb2-90"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Motorized Carriage:** Needs ~15 HP. *One caster can power 3 carriages.*</span></span>
+<span id="cb2-91"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Steam Locomotive:** Needs ~150-300 HP. *Requires 3-6 casters.*</span></span>
+<span id="cb2-92"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~10 casters.*</span></span>
+<span id="cb2-93"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Village Power Grid:** 40 kW is enough to provide basic electric lighting for about 100 modest fantasy homes.</span></span>
+<span id="cb2-94"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span></span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-13" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-14" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="assumptions-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-limitations">Assumptions &amp; Limitations</h3>
+<ul>
+<li><strong>Magic as an Infinite Sink:</strong> This assumes the spell provides the energy required to maintain the temperature regardless of the <img src="https://latex.codecogs.com/png.latex?411%5Ctext%7B%20kW%7D"> being siphoned off. If the spell has a “wattage cap,” the industrial revolution might stall.</li>
+<li><strong>Material Stress:</strong> Copper at 800°C is significantly weakened. Engineers would likely need to alloy it or use magical reinforcement (<em>Mending</em> or <em>Permanency</em>) to prevent the pipe from bursting under steam pressure.</li>
+<li><strong>Concentration:</strong> This is the ultimate “work from home” job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7.</li>
+</ul>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Estimations</category>
+  <category>D&amp;D</category>
+  <category>Engineering</category>
+  <guid>https://conair94.github.io/Quarto/posts/DnD-heat-metal-steam-engine/</guid>
+  <pubDate>Sat, 18 Apr 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>The Slushee Phase-Change Optimization</title>
   <dc:creator>Connor Lockhart</dc:creator>

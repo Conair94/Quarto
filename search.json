@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Synaptic Static",
     "section": "",
-    "text": "The Slushee Phase-Change Optimization\n\n\n\nEstimations\n\nThermodynamics\n\n\n\n\n\n\n\n\n\nApr 17, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Parking Ticket Expected Value: A Poisson Process Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nDiscrete and Stochastic Structures in Hyperbolic Geometry\n\n\n\nAcademic Work\n\nMathematics\n\nHyperbolic Geometry\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\nNo matching items"
+    "text": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’\n\n\n\nEstimations\n\nD&D\n\nEngineering\n\n\n\n\n\n\n\n\n\nApr 18, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Slushee Phase-Change Optimization\n\n\n\nEstimations\n\nThermodynamics\n\n\n\n\n\n\n\n\n\nApr 17, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Parking Ticket Expected Value: A Poisson Process Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nDiscrete and Stochastic Structures in Hyperbolic Geometry\n\n\n\nAcademic Work\n\nMathematics\n\nHyperbolic Geometry\n\n\n\n\n\n\n\n\n\nApr 8, 2026\n\n\nConnor Lockhart\n\n\n\n\n\n\n\n\n\n\n\n\nThe Laundry Quarter Recurrence: A Birthday Problem Estimation\n\n\n\nMusings\n\nEstimations\n\n\n\n\n\n\n\n\n\nApr 1, 2026\n\n\nConnor Lockhart\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/academic-work/index.html",
@@ -61,6 +61,55 @@
     "title": "The Parking Ticket Expected Value: A Poisson Process Estimation",
     "section": "Interactive Estimation",
     "text": "Interactive Estimation\nUse the sliders below to adjust the parameters of your parking situation and see your “Expected Value” strategy.\n\n\n\nCode\nviewof t = Inputs.range([0.1, 12], {value: 3, step: 0.1, label: \"Hours past free parking (t)\"})\nviewof cTicket = Inputs.number({value: 60, label: \"Ticket Cost ($)\"})\nviewof cParking = Inputs.number({value: 25, label: \"All-day Parking Cost ($)\"})\nviewof alpha = Inputs.range([0.01, 2], {value: 0.1, step: 0.01, label: \"Checks per hour (α)\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nprobTicket = 1 - Math.exp(-alpha * t)\nexpectedCost = cTicket * probTicket\ncriticalAlpha = cParking &lt; cTicket ? -Math.log(1 - (cParking / cTicket)) / t : 0\n\nmd`\n### Results\n\nAt a check rate of **${alpha}** times per hour, your probability of getting ticketed over **${t}** hours is **${d3.format(\".1%\")(probTicket)}**.\n\n- **Expected cost of not paying:** \\$${d3.format(\".2f\")(expectedCost)}\n- **Cost of paying:** \\$${d3.format(\".2f\")(cParking)}\n\n${expectedCost &lt; cParking \n  ? \"### 🟢 Strategy: Don't Pay\" \n  : \"### 🔴 Strategy: Pay for Parking\"}\n\n${cParking &lt; cTicket \n  ? md`The **critical rate** for your stay is **${d3.format(\".3f\")(criticalAlpha)}** checks per hour. If you think the attendant rounds the lot more than once every **${d3.format(\".1f\")(1/criticalAlpha)}** hours, you should pay!`\n  : md`Since the parking permit costs as much as or more than the ticket itself, **you should never pay** for parking from a purely expected-value perspective!`}\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaveats\nThis model assumes the attendant’s rounds are truly random (Poisson). In reality, attendants might follow a schedule, which would change the distribution. Additionally, most people are “risk-averse” and would pay even if the expected value is slightly in favor of not paying, to avoid the high-variance outcome of a $60 fine! A second estimation could be done to determine how much money is profitable to invest in discovering the attendants checking schedule, which would allow one to not pay for parking with higher accuracy."
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "",
+    "text": "In Dungeons & Dragons 5e, the spell Heat Metal is a low-level staple for cooking enemies in their own armor. The spell description states: “you cause a metal object to glow red hot.” If we assume the magic maintains this “red hot” state regardless of external cooling (a necessity if it’s to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD .\nBy wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let’s estimate exactly how much power a single 3rd-level Druid can contribute to the fantasy industrial revolution."
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html#the-physical-constraints",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html#the-physical-constraints",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "The Physical Constraints",
+    "text": "The Physical Constraints\nTo find the upper bound of our heating element, we look to the heaviest common metal object a caster can target: Plate Armor.\n\nMass of the Heating Element: According to the Player’s Handbook, a suit of plate armor weighs 65 lbs (29.48 kg).\nMolar Equivalence: Plate is typically steel (mostly iron). Using the atomic mass of iron (\\(M_{Fe} \\approx 55.85\\) g/mol): \\[n_{Fe} = \\frac{29,480\\text{ g}}{55.85\\text{ g/mol}} \\approx 527.9\\text{ moles}\\]\nCopper Conversion: For maximum efficiency, our fantasy engineers would use copper for its superior thermal conductivity. We’ll assume the spell targets an equivalent molar amount of copper (\\(M_{Cu} \\approx 63.55\\) g/mol): \\[m_{Cu} = 527.9\\text{ mol} \\times 63.55\\text{ g/mol} \\approx 33,550\\text{ g} \\approx 33.55\\text{ kg}\\]"
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html#engineering-the-boiler",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html#engineering-the-boiler",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "Engineering the Boiler",
+    "text": "Engineering the Boiler\nUsing a density of \\(8,960\\text{ kg/m}^3\\), our copper mass occupies a volume of approximately 3.74 Liters. We can draw this out into a standard copper pipe (Type M, 1-inch nominal) to maximize the surface area \\(A_s\\) for heat transfer.\n\nPipe ID: 26.0 mm\nPipe OD: 28.6 mm\nCalculated Length: \\(\\approx 33.6\\text{ meters}\\)\nInternal Surface Area (\\(A_s\\)): \\(\\approx 2.74\\text{ m}^2\\)"
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html#estimating-heat-flux-q",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html#estimating-heat-flux-q",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "Estimating Heat Flux (\\(q''\\))",
+    "text": "Estimating Heat Flux (\\(q''\\))\n“Red hot” corresponds to a temperature of approximately 800°C (1073 K). When water is pushed through a pipe at this temperature, it immediately enters film boiling (the Leidenfrost effect), where a thin layer of steam insulates the liquid.\nUsing Bromley’s correlation for film boiling and accounting for radiative heat transfer (\\(\\epsilon \\approx 0.8\\) for oxidized copper), we can estimate a conservative heat flux \\(q''\\): - Convective \\(h\\): \\(\\approx 135\\text{ W/(m}^2\\text{·K)}\\) - Radiative \\(h\\): \\(\\approx 85\\text{ W/(m}^2\\text{·K)}\\) - Total \\(q''\\): \\(\\approx 150,000\\text{ W/m}^2\\)\n\\[P_{raw} = A_s \\times q'' = 2.74\\text{ m}^2 \\times 150\\text{ kW/m}^2 \\approx 411\\text{ kW}\\]"
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html#power-generation",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html#power-generation",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "Power Generation",
+    "text": "Power Generation\nTypical steam engine efficiency in a fantasy setting might be low, but even a modest 10% efficiency yields significant results:\n\\[P_{gen} = 411\\text{ kW} \\times 0.10 \\approx 41.1\\text{ kW} \\approx 55\\text{ HP}\\]"
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/index.html#interactive-power-grid",
+    "href": "posts/DnD-heat-metal-steam-engine/index.html#interactive-power-grid",
+    "title": "The Arcane Boiler: Powering Industrialization with ‘Heat Metal’",
+    "section": "Interactive Power Grid",
+    "text": "Interactive Power Grid\nAdjust the parameters below to see what your adventuring party can power.\n\n\n\nCode\nviewof numCasters = Inputs.range([1, 20], {value: 1, step: 1, label: \"Number of Casters\"})\nviewof efficiency = Inputs.range([0.01, 0.40], {value: 0.10, step: 0.01, label: \"Turbine Efficiency\"})\nviewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: \"Metal Temperature (°C)\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nsigma = 5.67e-8\nepsilon = 0.8\nareaPerCaster = 2.74 // m^2\nwaterTemp = 100 // °C\n\n// Flux calculation (simplified film boiling model)\nTs = tempCelsius + 273.15\nTw = waterTemp + 273.15\ndeltaT = Ts - Tw\nh_conv = 135 // conservative W/m^2K\nh_rad = epsilon * sigma * (Math.pow(Ts, 4) - Math.pow(Tw, 4)) / deltaT\nq_prime = (h_conv + 0.75 * h_rad) * deltaT\n\ntotalRawPower = numCasters * areaPerCaster * q_prime // Watts\ntotalGeneratedPower = totalRawPower * efficiency // Watts\nhp = totalGeneratedPower / 745.7\n\nmd`\n### Analysis\n\nA group of **${numCasters}** casters maintaining *Heat Metal* on this boiler system generates:\n\n# ${d3.format(\".2f\")(totalGeneratedPower / 1000)} kW (${d3.format(\".1f\")(hp)} HP)\n\n**What can this power?**\n- **Motorized Carriage:** Needs ~15 HP. *One caster can power 3 carriages.*\n- **Steam Locomotive:** Needs ~150-300 HP. *Requires 3-6 casters.*\n- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~10 casters.*\n- **Village Power Grid:** 40 kW is enough to provide basic electric lighting for about 100 modest fantasy homes.\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssumptions & Limitations\n\nMagic as an Infinite Sink: This assumes the spell provides the energy required to maintain the temperature regardless of the \\(411\\text{ kW}\\) being siphoned off. If the spell has a “wattage cap,” the industrial revolution might stall.\nMaterial Stress: Copper at 800°C is significantly weakened. Engineers would likely need to alloy it or use magical reinforcement (Mending or Permanency) to prevent the pipe from bursting under steam pressure.\nConcentration: This is the ultimate “work from home” job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7."
+  },
+  {
+    "objectID": "posts/DnD-heat-metal-steam-engine/Inspiration.html",
+    "href": "posts/DnD-heat-metal-steam-engine/Inspiration.html",
+    "title": "Synaptic Static",
+    "section": "",
+    "text": "The text of heat metal in DnD 5e says that “you cause a metal object to glow red hot”. If we assume that the metal stays red hot no matter what is done to it, ie the spell is still damaging if an individual was dunked in water, then we can estimate the heat power flux from using this spell on a metal pipe, and design a turbine using this pipe as a heating element to generate electricity. The computations to complete this estimation: 1. How heavy is a full plate mail armor set 2. convert this weight into moles to find a reasonable upper bound on the amount of metal heated 3. Convert this amount of moles into lbs of copper, which we will use since it has the highest thermal conductivity of common metals and is easily obtainable in a fantasy setting via copper pieces. 4. Find the dimensions of a corresponding piece of copper pipe of standard size for a heating element in a power plant. 5. Use this to estimate how much heat flux would if water was being pushed through a copper pipe of aforementioned calculated size that is maintained at a “red hot glow” 6. This gives us a raw wattage calculation for the spell, use typical power plant efficiency to convert this to generated wattage. 7. Estimate what could be done with this power generation in a fantasy setting, including running a train and or running an airship."
   },
   {
     "objectID": "posts/slushee-optimal-temperature/index.html",
