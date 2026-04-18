@@ -38,34 +38,34 @@ While copper is the "standard" for conductivity, different metals offer differen
 
 ## Scaling Up: Upcasting and Temperature
 
-*Heat Metal* deals an extra 1d8 damage for every slot above 2nd. We can model this increased "potency" as a higher maintained temperature. If 2d8 corresponds to a "Red Hot" 800°C, we can estimate higher temperatures for upcast slots:
+*Heat Metal* deals an extra 1d8 damage for every slot above 2nd. We can model this increased "potency" as an exponential increase in maintained temperature. While 2d8 corresponds to a "Red Hot" 800°C, a 9th-level cast represents a truly sun-like energy density:
 
 - **2nd Level (2d8):** 800°C (Dull Red)
-- **4th Level (4d8):** 900°C (Bright Red)
-- **6th Level (6d8):** 1000°C (Orange) - *Approaching Copper's limit.*
-- **9th Level (9d8):** 1150°C (Yellow-White) - *Safe for Tungsten or Steel.*
+- **4th Level (4d8):** 1150°C (Bright Red-Orange)
+- **6th Level (6d8):** 1500°C (Yellow-White) - *Requires Steel or Tungsten.*
+- **9th Level (9d8):** 2000°C (White Hot) - *Requires Tungsten.*
 
 ## The Spellcaster's Endurance: Total Energy
 
-A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots (assuming 1-minute concentration per slot), they can provide sustained power for a significant duration.
+A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots (assuming 1-minute concentration per slot), they can provide sustained power for a significant duration. Note how the power output explodes at higher levels due to the $T^4$ radiation scaling.
 
 | Slot Level | Duration | Temp (°C) | Raw Power | Energy (MJ) |
 | :--- | :--- | :--- | :--- | :--- |
 | **2nd (x3)** | 3 min | 800 | 411 kW | 74.0 MJ |
-| **3rd (x3)** | 3 min | 850 | 450 kW | 81.0 MJ |
-| **4th (x3)** | 3 min | 900 | 495 kW | 89.1 MJ |
-| **5th (x3)** | 3 min | 950 | 540 kW | 97.2 MJ |
-| **6th (x2)** | 2 min | 1000 | 590 kW | 70.8 MJ |
-| **7th (x2)** | 2 min | 1050 | 645 kW | 77.4 MJ |
-| **8th (x1)** | 1 min | 1100 | 705 kW | 42.3 MJ |
-| **9th (x1)** | 1 min | 1150 | 770 kW | 46.2 MJ |
-| **TOTAL** | **18 min** | **AVG 950** | **~540 kW** | **578.0 MJ** |
+| **3rd (x3)** | 3 min | 1000 | 700 kW | 126.0 MJ |
+| **4th (x3)** | 3 min | 1150 | 1,020 kW | 183.6 MJ |
+| **5th (x3)** | 3 min | 1300 | 1,410 kW | 253.8 MJ |
+| **6th (x2)** | 2 min | 1500 | 2,040 kW | 244.8 MJ |
+| **7th (x2)** | 2 min | 1650 | 2,620 kW | 314.4 MJ |
+| **8th (x1)** | 1 min | 1850 | 3,550 kW | 213.0 MJ |
+| **9th (x1)** | 1 min | 2000 | 4,380 kW | 262.8 MJ |
+| **TOTAL** | **18 min** | **AVG 1350** | **~1,550 kW** | **1,672.4 MJ** |
 
-*A single high-level Druid can dump over **half a Gigajoule** of energy into a grid in under 20 minutes.*
+*A single high-level Druid can dump over **1.6 Gigajoules** of energy into a grid in under 20 minutes—enough to power a small city.*
 
 ## Estimating Heat Flux ($q''$) and Bromley's Correlation
 
-When our copper pipe is maintained at "Red Hot" temperatures ($T_s \approx 800^\circ\text{C}$), water in contact with it enters **film boiling**. In this regime, the heat transfer is governed by **Bromley's Correlation** for a horizontal cylinder:
+When our boiler pipe is maintained at extreme temperatures ($T_s$), water in contact with it enters **film boiling**. In this regime, the heat transfer is governed by **Bromley's Correlation** for a horizontal cylinder:
 
 $$h_{conv} = 0.62 \left[ \frac{k_g^3 \rho_g (\rho_l - \rho_g) g (h_{fg} + 0.4 c_{pg} \Delta T)}{D \mu_g \Delta T} \right]^{1/4}$$
 
@@ -80,53 +80,34 @@ Total heat flux $q''$ also includes radiation, which becomes dominant at these t
 $$h_{total} = h_{conv} + \frac{3}{4} h_{rad}$$
 $$h_{rad} = \frac{\epsilon \sigma (T_s^4 - T_{sat}^4)}{T_s - T_{sat}}$$
 
-For our baseline 2.74 m$^2$ boiler, this results in a raw power output of approximately **411 kW**.
-
 ### The $T^4$ Shift: Convection vs. Radiation
 
 It is critical to note that $h_{conv}$ and $h_{rad}$ scale very differently. While convective film boiling ($h_{conv}$) stays relatively stable as temperature rises, radiative heat transfer ($h_{rad}$) is governed by the **Stefan-Boltzmann Law**, scaling with the **fourth power** of absolute temperature ($T^4$). This creates a massive non-linear spike in power at higher spell levels.
 
 **Copper Example (Oxidized $\epsilon \approx 0.8$):**
+- **At 800°C (1073 K):** $h_{conv} \approx 135\text{ W/m}^2\text{K}$, $h_{rad} \approx 85\text{ W/m}^2\text{K}$. Total flux $q'' \approx 150\text{ kW/m}^2$.
+- **At 1000°C (1273 K):** $h_{conv} \approx 138\text{ W/m}^2\text{K}$, $h_{rad} \approx 160\text{ W/m}^2\text{K}$. Total flux $q'' \approx 250\text{ kW/m}^2$.
 
-- **At 800°C (1073 K):** $h_{conv} \approx 135\text{ W/m}^2\text{K}$, $h_{rad} \approx 85\text{ W/m}^2\text{K}$. Total flux $q'' \approx 150\text{ kW/m}^2$. Radiation is responsible for **~35%** of the heat.
-
-- **At 1000°C (1273 K):** $h_{conv} \approx 138\text{ W/m}^2\text{K}$, $h_{rad} \approx 160\text{ W/m}^2\text{K}$. Total flux $q'' \approx 250\text{ kW/m}^2$. Radiation now provides **~53%** of the power.
-
-**Tungsten Example ($\epsilon \approx 0.3$ polished, $\epsilon \approx 0.7$ oxidized):**
-- **At 1150°C (1423 K):** Radiation begins to dwarf convection even with lower emissivity. $q'' \approx 360\text{ kW/m}^2$.
-
-- **At 2500°C (2773 K):** At these "Super-Upcast" temperatures only possible with Tungsten, $h_{rad}$ explodes to over $1,200\text{ W/m}^2\text{K}$, while $h_{conv}$ only crawls to ~200. Radiation accounts for over **85%** of the heat transfer.
-
-This non-linearity means that a 9th-level *Heat Metal* isn't just "more damage"—it is an exponential leap in thermodynamic energy density.
+**Tungsten Example ($\epsilon \approx 0.7$ oxidized):**
+- **At 2000°C (2273 K):** At the "White Hot" 9th-level cast, $h_{rad}$ explodes to over $600\text{ W/m}^2\text{K}$, while $h_{conv}$ only crawls to ~150. Radiation accounts for over **75%** of the heat transfer, resulting in a staggering **1.6 MW/m$^2$** of flux.
 
 ## The Universal Glow: Black Body Radiation
 
-A common misconception in fantasy engineering is that different metals might "glow" differently at the same temperature. However, the "red hot" or "yellow-white" state described in the spell is governed by the principles of **Black Body Radiation**.
+A common misconception in fantasy engineering is that different metals might "glow" differently at the same temperature. However, the "red hot" or "white hot" state described in the spell is governed by the principles of **Black Body Radiation**.
 
 According to **Planck's Law**, the spectral radiance of an object is a function of its temperature $T$, not its chemical composition. While the *intensity* of the light can be modified by the material's emissivity ($\epsilon$), the *peak wavelength* (color) is determined solely by the temperature.
 
 ### Wien's Displacement Law
-The mathematical justification for mapping "Red Hot" to $\approx 800^\circ\text{C}$ comes from **Wien's Displacement Law**:
+The mathematical justification for mapping "White Hot" to $2000^\circ\text{C}$ comes from **Wien's Displacement Law**:
 
 $$\lambda_{max} = \frac{b}{T}$$
 
 Where:
-
 - $\lambda_{max}$ is the peak wavelength of light.
-
 - $b \approx 2.897 \times 10^{-3}\text{ m}\cdot\text{K}$ is Wien's displacement constant.
-
 - $T$ is the absolute temperature in Kelvin.
 
-At $800^\circ\text{C}$ ($1073\text{ K}$), the peak wavelength $\lambda_{max} \approx 2.7\text{ }\mu\text{m}$. While this peak is in the infrared, the "tail" of the Planck distribution bleeds into the visible red spectrum (~700 nm). As $T$ increases, $\lambda_{max}$ shifts left toward the blue:
-
-- **Red Hot ($1073\text{ K}$):** Visible light is dominated by the long-wavelength red tail.
-
-- **Orange/Yellow ($1300\text{ K}$):** The distribution covers more of the visible spectrum.
-
-- **White Hot ($2500\text{ K}+$):** The peak moves toward the center of the visible spectrum, emitting all colors nearly equally.
-
-This is why our choice of metal changes the *melting point* and *conductivity*, but a Copper pipe and a Tungsten pipe at $900^\circ\text{C}$ will both emit the exact same "Bright Red" hue.
+At $2000^\circ\text{C}$ ($2273\text{ K}$), the peak wavelength $\lambda_{max} \approx 1.27\text{ }\mu\text{m}$. The distribution now covers the entire visible spectrum, emitting all colors nearly equally. To the human (or elven) eye, the object appears as a blinding, brilliant white.
 
 ## Power Generation: The Rankine Cycle
 
@@ -135,7 +116,7 @@ Real-world power plants don't just boil water at atmospheric pressure; they use 
 1.  **Efficiency Gains:** According to the Rankine cycle, increasing the boiler pressure allows for a higher temperature drop across the turbine, which significantly improves thermal efficiency. While a 1-atm "tea kettle" engine might struggle at 5-8%, a pressurized boiler (e.g., 20 bar) can easily push efficiency toward 15-20%.
 2.  **The Pump Tax:** Pressurizing the liquid water requires work ($W_{pump}$). Since liquid water is nearly incompressible, the work required is roughly:
     $$W_{pump} = \dot{V} \times (P_{boiler} - P_{condenser})$$
-    Where $\dot{V}$ is the volume flow rate. For our ~400 kW boiler, we'd need to pump roughly 0.15 Liters of water per second. At 20 bar (290 psi), this consumes about **0.3 kW**—a negligible "tax" for a massive gain in turbine efficiency.
+    Where $\dot{V}$ is the volume flow rate. For our ~4 MW boiler, we'd need to pump roughly 1.5 Liters of water per second. At 20 bar (290 psi), this consumes about **3 kW**—still negligible compared to the massive power output.
 
 ## Interactive Power Grid
 
@@ -156,8 +137,10 @@ epsilon = 0.8
 areaPerCaster = 2.74 // m^2
 waterTemp = 100 // °C
 
-// Map slot level to temperature - Using Map for OJS safety
-tempMap = new Map([[2, 800], [3, 850], [4, 900], [5, 950], [6, 1000], [7, 1050], [8, 1100], [9, 1150]])
+// Map slot level to temperature - Rescaled to 2000°C at 9th level
+tempMap = new Map([
+  [2, 800], [3, 1000], [4, 1150], [5, 1300], [6, 1500], [7, 1650], [8, 1850], [9, 2000]
+])
 tempCelsius = tempMap.get(slotLevel)
 
 // Simplified efficiency scaling
@@ -193,13 +176,13 @@ Using **Level ${slotLevel}** slots at **${pressureBar} Bar**, your group of **${
 - **Energy per Minute (Total):** ${d3.format(".2f")(totalRawPower * 60 / 1e6)} MJ
 
 **What can this power?**
-- **Motorized Carriage:** Needs ~15 HP. *One caster can power ~5 carriages.*
-- **Steam Locomotive:** Needs ~300 HP. *Requires 2-3 casters.*
-- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~5 casters at high slot levels.*
+- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~80 carriages!*
+- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 4 locomotives.*
+- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires only ~2 casters using 9th-level slots.*
 `
 ```
 
 ### Assumptions & Limitations
-- **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the $411\text{ kW}$ being siphoned off. If the spell has a "wattage cap," the industrial revolution might stall.
+- **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the $4\text{ MW}$ being siphoned off. If the spell has a "wattage cap," the industrial revolution might stall.
 - **Material Stress:** Copper at 800°C is significantly weakened. Engineers would likely need to alloy it or use magical reinforcement (*Mending* or *Permanency*) to prevent the pipe from bursting under steam pressure.
 - **Concentration:** This is the ultimate "work from home" job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7.
