@@ -92,7 +92,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 </tr>
 </tbody>
 </table>
-<p><em>Selection: For our baseline, we stick with <strong>Copper</strong> for its balance of cost-efficiency and high flux.</em></p>
+<p><em>Selection: For our baseline, we stick with <strong>Copper</strong> for 2nd-level slots, but transition to <strong>Tungsten</strong> for anything higher.</em></p>
 </section>
 <section id="scaling-up-upcasting-and-temperature" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-up-upcasting-and-temperature">Scaling Up: Upcasting and Temperature</h2>
@@ -100,26 +100,28 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <ul>
 <li><strong>2nd Level (2d8):</strong> 800°C (Dull Red)</li>
 <li><strong>4th Level (4d8):</strong> 1150°C (Bright Red-Orange)</li>
-<li><strong>6th Level (6d8):</strong> 1500°C (Yellow-White) - <em>Requires Steel or Tungsten.</em></li>
-<li><strong>9th Level (9d8):</strong> 2000°C (White Hot) - <em>Requires Tungsten.</em></li>
+<li><strong>6th Level (6d8):</strong> 1500°C (Yellow-White)</li>
+<li><strong>9th Level (9d8):</strong> 2000°C (White Hot)</li>
 </ul>
 </section>
 <section id="the-spellcasters-endurance-total-energy" class="level2">
 <h2 class="anchored" data-anchor-id="the-spellcasters-endurance-total-energy">The Spellcaster’s Endurance: Total Energy</h2>
-<p>A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots (assuming 1-minute concentration per slot), they can provide sustained power for a significant duration. Note how the power output explodes at higher levels due to the <img src="https://latex.codecogs.com/png.latex?T%5E4"> radiation scaling.</p>
+<p>A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. Note that for 3rd-level slots and above, our fantasy engineers swap the copper core for <strong>Tungsten</strong> to prevent melting. This slightly lowers the emissivity (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.7"> for oxidized tungsten vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.8"> for copper), but the massive temperature gains more than compensate.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Slot Level</th>
 <th style="text-align: left;">Duration</th>
 <th style="text-align: left;">Temp (°C)</th>
+<th style="text-align: left;">Core Metal</th>
 <th style="text-align: left;">Raw Power</th>
 <th style="text-align: left;">Energy (MJ)</th>
 </tr>
@@ -129,6 +131,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <td style="text-align: left;"><strong>2nd (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">800</td>
+<td style="text-align: left;">Copper</td>
 <td style="text-align: left;">411 kW</td>
 <td style="text-align: left;">74.0 MJ</td>
 </tr>
@@ -136,93 +139,99 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <td style="text-align: left;"><strong>3rd (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1000</td>
-<td style="text-align: left;">700 kW</td>
-<td style="text-align: left;">126.0 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">660 kW</td>
+<td style="text-align: left;">118.8 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>4th (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1150</td>
-<td style="text-align: left;">1,020 kW</td>
-<td style="text-align: left;">183.6 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">960 kW</td>
+<td style="text-align: left;">172.8 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>5th (x3)</strong></td>
 <td style="text-align: left;">3 min</td>
 <td style="text-align: left;">1300</td>
-<td style="text-align: left;">1,410 kW</td>
-<td style="text-align: left;">253.8 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">1,320 kW</td>
+<td style="text-align: left;">237.6 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>6th (x2)</strong></td>
 <td style="text-align: left;">2 min</td>
 <td style="text-align: left;">1500</td>
-<td style="text-align: left;">2,040 kW</td>
-<td style="text-align: left;">244.8 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">1,910 kW</td>
+<td style="text-align: left;">229.2 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>7th (x2)</strong></td>
 <td style="text-align: left;">2 min</td>
 <td style="text-align: left;">1650</td>
-<td style="text-align: left;">2,620 kW</td>
-<td style="text-align: left;">314.4 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">2,460 kW</td>
+<td style="text-align: left;">295.2 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>8th (x1)</strong></td>
 <td style="text-align: left;">1 min</td>
 <td style="text-align: left;">1850</td>
-<td style="text-align: left;">3,550 kW</td>
-<td style="text-align: left;">213.0 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">3,340 kW</td>
+<td style="text-align: left;">200.4 MJ</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>9th (x1)</strong></td>
 <td style="text-align: left;">1 min</td>
 <td style="text-align: left;">2000</td>
-<td style="text-align: left;">4,380 kW</td>
-<td style="text-align: left;">262.8 MJ</td>
+<td style="text-align: left;">Tungsten</td>
+<td style="text-align: left;">4,120 kW</td>
+<td style="text-align: left;">247.2 MJ</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>TOTAL</strong></td>
 <td style="text-align: left;"><strong>18 min</strong></td>
 <td style="text-align: left;"><strong>AVG 1350</strong></td>
-<td style="text-align: left;"><strong>~1,550 kW</strong></td>
-<td style="text-align: left;"><strong>1,672.4 MJ</strong></td>
+<td style="text-align: left;"><strong>-</strong></td>
+<td style="text-align: left;"><strong>~1,450 kW</strong></td>
+<td style="text-align: left;"><strong>1,575.2 MJ</strong></td>
 </tr>
 </tbody>
 </table>
-<p><em>A single high-level Druid can dump over <strong>1.6 Gigajoules</strong> of energy into a grid in under 20 minutes—enough to power a small city.</em></p>
+<p><em>A single high-level Druid can dump over <strong>1.5 Gigajoules</strong> of energy into a grid in under 20 minutes.</em></p>
 </section>
 <section id="estimating-heat-flux-q-and-bromleys-correlation" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-heat-flux-q-and-bromleys-correlation">Estimating Heat Flux (<img src="https://latex.codecogs.com/png.latex?q''">) and Bromley’s Correlation</h2>
 <p>When our boiler pipe is maintained at extreme temperatures (<img src="https://latex.codecogs.com/png.latex?T_s">), water in contact with it enters <strong>film boiling</strong>. In this regime, the heat transfer is governed by <strong>Bromley’s Correlation</strong> for a horizontal cylinder:</p>
 <p><img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D%20=%200.62%20%5Cleft%5B%20%5Cfrac%7Bk_g%5E3%20%5Crho_g%20(%5Crho_l%20-%20%5Crho_g)%20g%20(h_%7Bfg%7D%20+%200.4%20c_%7Bpg%7D%20%5CDelta%20T)%7D%7BD%20%5Cmu_g%20%5CDelta%20T%7D%20%5Cright%5D%5E%7B1/4%7D"></p>
-<p>Where: - <img src="https://latex.codecogs.com/png.latex?k_g,%20%5Crho_g,%20%5Cmu_g,%20c_%7Bpg%7D"> are the thermal conductivity, density, viscosity, and specific heat of the steam (vapor). - <img src="https://latex.codecogs.com/png.latex?%5Crho_l"> is the density of the liquid water. - <img src="https://latex.codecogs.com/png.latex?h_%7Bfg%7D"> is the latent heat of vaporization. - <img src="https://latex.codecogs.com/png.latex?D"> is the outside diameter of the pipe. - <img src="https://latex.codecogs.com/png.latex?%5CDelta%20T%20=%20T_s%20-%20T_%7Bsat%7D"> is the temperature difference.</p>
 <p>Total heat flux <img src="https://latex.codecogs.com/png.latex?q''"> also includes radiation, which becomes dominant at these temperatures: <img src="https://latex.codecogs.com/png.latex?h_%7Btotal%7D%20=%20h_%7Bconv%7D%20+%20%5Cfrac%7B3%7D%7B4%7D%20h_%7Brad%7D"> <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D%20=%20%5Cfrac%7B%5Cepsilon%20%5Csigma%20(T_s%5E4%20-%20T_%7Bsat%7D%5E4)%7D%7BT_s%20-%20T_%7Bsat%7D%7D"></p>
-<section id="the-t4-factor-convection-vs.-radiation" class="level3">
-<h3 class="anchored" data-anchor-id="the-t4-factor-convection-vs.-radiation">The <img src="https://latex.codecogs.com/png.latex?T%5E4"> Factor: Convection vs.&nbsp;Radiation</h3>
-<p>It is critical to note that <img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D"> and <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D"> scale very differently. While convective film boiling (<img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D">) stays relatively stable as temperature rises, radiative heat transfer (<img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D">) is governed by the <strong>Stefan-Boltzmann Law</strong>, scaling with the <strong>fourth power</strong> of absolute temperature (<img src="https://latex.codecogs.com/png.latex?T%5E4">). This creates a massive non-linear spike in power at higher spell levels.</p>
-<p><strong>Copper Example (Oxidized <img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.8">):</strong> - <strong>At 800°C (1073 K):</strong> <img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D%20%5Capprox%20135%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">, <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D%20%5Capprox%2085%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">. Total flux <img src="https://latex.codecogs.com/png.latex?q''%20%5Capprox%20150%5Ctext%7B%20kW/m%7D%5E2">. - <strong>At 1000°C (1273 K):</strong> <img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D%20%5Capprox%20138%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">, <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D%20%5Capprox%20160%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">. Total flux <img src="https://latex.codecogs.com/png.latex?q''%20%5Capprox%20250%5Ctext%7B%20kW/m%7D%5E2">.</p>
-<p><strong>Tungsten Example (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.7"> oxidized):</strong> - <strong>At 2000°C (2273 K):</strong> At the “White Hot” 9th-level cast, <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D"> explodes to over <img src="https://latex.codecogs.com/png.latex?600%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">, while <img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D"> only crawls to ~150. Radiation accounts for over <strong>75%</strong> of the heat transfer, resulting in a staggering <strong>1.6 MW/m<img src="https://latex.codecogs.com/png.latex?%5E2"></strong> of flux.</p>
+<section id="the-t4-shift-convection-vs.-radiation" class="level3">
+<h3 class="anchored" data-anchor-id="the-t4-shift-convection-vs.-radiation">The <img src="https://latex.codecogs.com/png.latex?T%5E4"> Shift: Convection vs.&nbsp;Radiation</h3>
+<p>It is critical to note that <img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D"> and <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D"> scale very differently. While convective film boiling (<img src="https://latex.codecogs.com/png.latex?h_%7Bconv%7D">) stays relatively stable as temperature rises, radiative heat transfer (<img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D">) is governed by the <strong>Stefan-Boltzmann Law</strong>, scaling with the <strong>fourth power</strong> of absolute temperature (<img src="https://latex.codecogs.com/png.latex?T%5E4">).</p>
+<ul>
+<li><strong>Copper Core (2nd Level):</strong> Oxidized <img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.8">. At 800°C, <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D"> provides ~35% of the heat.</li>
+<li><strong>Tungsten Core (9th Level):</strong> Oxidized <img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20%5Capprox%200.7">. At 2000°C, <img src="https://latex.codecogs.com/png.latex?h_%7Brad%7D"> explodes to over <img src="https://latex.codecogs.com/png.latex?600%5Ctext%7B%20W/m%7D%5E2%5Ctext%7BK%7D">. Radiation accounts for over <strong>75%</strong> of the heat transfer, resulting in a staggering <strong>1.5 MW/m<img src="https://latex.codecogs.com/png.latex?%5E2"></strong> of flux.</li>
+</ul>
 </section>
 </section>
 <section id="the-universal-glow-black-body-radiation" class="level2">
 <h2 class="anchored" data-anchor-id="the-universal-glow-black-body-radiation">The Universal Glow: Black Body Radiation</h2>
-<p>A common misconception in fantasy engineering is that different metals might “glow” differently at the same temperature. However, the “red hot” or “white hot” state described in the spell is governed by the principles of <strong>Black Body Radiation</strong>.</p>
-<p>According to <strong>Planck’s Law</strong>, the spectral radiance of an object is a function of its temperature <img src="https://latex.codecogs.com/png.latex?T">, not its chemical composition. While the <em>intensity</em> of the light can be modified by the material’s emissivity (<img src="https://latex.codecogs.com/png.latex?%5Cepsilon">), the <em>peak wavelength</em> (color) is determined solely by the temperature.</p>
+<p>The color of the “red hot” or “white hot” state is governed by <strong>Black Body Radiation</strong>. According to <strong>Planck’s Law</strong>, the peak wavelength (color) is determined solely by the temperature, not the material.</p>
 <section id="wiens-displacement-law" class="level3">
 <h3 class="anchored" data-anchor-id="wiens-displacement-law">Wien’s Displacement Law</h3>
-<p>The mathematical justification for mapping “White Hot” to <img src="https://latex.codecogs.com/png.latex?2000%5E%5Ccirc%5Ctext%7BC%7D"> comes from <strong>Wien’s Displacement Law</strong>:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20=%20%5Cfrac%7Bb%7D%7BT%7D"></p>
-<p>Where: - <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D"> is the peak wavelength of light. - <img src="https://latex.codecogs.com/png.latex?b%20%5Capprox%202.897%20%5Ctimes%2010%5E%7B-3%7D%5Ctext%7B%20m%7D%5Ccdot%5Ctext%7BK%7D"> is Wien’s displacement constant. - <img src="https://latex.codecogs.com/png.latex?T"> is the absolute temperature in Kelvin.</p>
-<p>At <img src="https://latex.codecogs.com/png.latex?2000%5E%5Ccirc%5Ctext%7BC%7D"> (<img src="https://latex.codecogs.com/png.latex?2273%5Ctext%7B%20K%7D">), the peak wavelength <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%201.27%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The distribution now covers the entire visible spectrum, emitting all colors nearly equally. To the human (or elven) eye, the object appears as a blinding, brilliant white.</p>
+<p>At <img src="https://latex.codecogs.com/png.latex?2000%5E%5Ccirc%5Ctext%7BC%7D"> (<img src="https://latex.codecogs.com/png.latex?2273%5Ctext%7B%20K%7D">), the peak wavelength <img src="https://latex.codecogs.com/png.latex?%5Clambda_%7Bmax%7D%20%5Capprox%201.27%5Ctext%7B%20%7D%5Cmu%5Ctext%7Bm%7D">. The distribution covers the entire visible spectrum, emitting all colors nearly equally. This is why a Copper pipe and a Tungsten pipe at <img src="https://latex.codecogs.com/png.latex?900%5E%5Ccirc%5Ctext%7BC%7D"> will both emit the exact same “Bright Red” hue.</p>
 </section>
 </section>
 <section id="power-generation-the-rankine-cycle" class="level2">
 <h2 class="anchored" data-anchor-id="power-generation-the-rankine-cycle">Power Generation: The Rankine Cycle</h2>
-<p>Real-world power plants don’t just boil water at atmospheric pressure; they use high-pressure boilers. Increasing the pressure (<img src="https://latex.codecogs.com/png.latex?P_%7Bboiler%7D">) has two primary effects on our arcane engine:</p>
+<p>Increasing the boiler pressure (<img src="https://latex.codecogs.com/png.latex?P_%7Bboiler%7D">) improves thermal efficiency by allowing a higher temperature drop across the turbine.</p>
 <ol type="1">
-<li><strong>Efficiency Gains:</strong> According to the Rankine cycle, increasing the boiler pressure allows for a higher temperature drop across the turbine, which significantly improves thermal efficiency. While a 1-atm “tea kettle” engine might struggle at 5-8%, a pressurized boiler (e.g., 20 bar) can easily push efficiency toward 15-20%.</li>
-<li><strong>The Pump Tax:</strong> Pressurizing the liquid water requires work (<img src="https://latex.codecogs.com/png.latex?W_%7Bpump%7D">). Since liquid water is nearly incompressible, the work required is roughly: <img src="https://latex.codecogs.com/png.latex?W_%7Bpump%7D%20=%20%5Cdot%7BV%7D%20%5Ctimes%20(P_%7Bboiler%7D%20-%20P_%7Bcondenser%7D)"> Where <img src="https://latex.codecogs.com/png.latex?%5Cdot%7BV%7D"> is the volume flow rate. For our ~4 MW boiler, we’d need to pump roughly 1.5 Liters of water per second. At 20 bar (290 psi), this consumes about <strong>3 kW</strong>—still negligible compared to the massive power output.</li>
+<li><strong>Efficiency Gains:</strong> A pressurized boiler (e.g., 20 bar) can push efficiency toward 15-20%.</li>
+<li><strong>The Pump Tax:</strong> For our ~4 MW boiler, we’d need to pump roughly 1.5 L/s. At 20 bar, this consumes about <strong>3 kW</strong>—negligible compared to the massive power output.</li>
 </ol>
 </section>
 <section id="interactive-power-grid" class="level2">
@@ -232,7 +241,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="127" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 126;"><span id="cb1-127">viewof numCasters <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="105" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 104;"><span id="cb1-105">viewof numCasters <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -269,7 +278,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Number of Casters"</span>})</span>
-<span id="cb1-128">viewof slotLevel <span class="op" style="color: #5E5E5E;
+<span id="cb1-106">viewof slotLevel <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -322,7 +331,7 @@ background-color: null;
 font-style: inherit;">:</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Spell Slot Level"</span>})</span>
-<span id="cb1-129">viewof pressureBar <span class="op" style="color: #5E5E5E;
+<span id="cb1-107">viewof pressureBar <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -387,35 +396,33 @@ font-style: inherit;">"Boiler Pressure (Bar)"</span>})</span></code></pre></div>
 <div class="cell panel-fill">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="135" data-source-offset="-13" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 134;"><span id="cb2-135">sigma <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="113" data-source-offset="-13" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb2-113">sigma <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5.67e-8</span></span>
-<span id="cb2-136">epsilon <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.8</span></span>
-<span id="cb2-137">areaPerCaster <span class="op" style="color: #5E5E5E;
+<span id="cb2-114">areaPerCaster <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2.74</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// m^2</span></span>
-<span id="cb2-138">waterTemp <span class="op" style="color: #5E5E5E;
+<span id="cb2-115">waterTemp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">100</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// °C</span></span>
-<span id="cb2-139"></span>
-<span id="cb2-140"><span class="co" style="color: #5E5E5E;
+<span id="cb2-116"></span>
+<span id="cb2-117"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Map slot level to temperature - Rescaled to 2000°C at 9th level</span></span>
-<span id="cb2-141">tempMap <span class="op" style="color: #5E5E5E;
+font-style: inherit;">// Dynamic Emissivity and Temperature mapping</span></span>
+<span id="cb2-118"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// 2nd level uses Copper (0.8), 3rd+ use Tungsten (0.7)</span></span>
+<span id="cb2-119">materialProps <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -423,82 +430,264 @@ font-weight: bold;
 font-style: inherit;">new</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">Map</span>([</span>
-<span id="cb2-142">  [<span class="dv" style="color: #AD0000;
+<span id="cb2-120">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">800</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">800</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Copper"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-121">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1000</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-122">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1150</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1150</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-123">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1300</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1300</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-124">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1500</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1500</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-125">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">7</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1650</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1650</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-126">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1850</span>]<span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> [<span class="dv" style="color: #AD0000;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1850</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-127">  [<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">,</span> { <span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2000</span>]</span>
-<span id="cb2-143">])</span>
-<span id="cb2-144">tempCelsius <span class="op" style="color: #5E5E5E;
+font-style: inherit;">temp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> tempMap<span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2000</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">eps</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.7</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Tungsten"</span> }]</span>
+<span id="cb2-128">])</span>
+<span id="cb2-129"></span>
+<span id="cb2-130">currentProp <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> materialProps<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">get</span>(slotLevel)</span>
-<span id="cb2-145"></span>
-<span id="cb2-146"><span class="co" style="color: #5E5E5E;
+<span id="cb2-131">tempCelsius <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> currentProp<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">temp</span></span>
+<span id="cb2-132">epsilon <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> currentProp<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">eps</span></span>
+<span id="cb2-133"></span>
+<span id="cb2-134"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Simplified efficiency scaling</span></span>
-<span id="cb2-147">efficiency <span class="op" style="color: #5E5E5E;
+<span id="cb2-135">efficiency <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
@@ -515,35 +704,35 @@ background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">log10</span>(pressureBar)</span>
-<span id="cb2-148"></span>
-<span id="cb2-149"><span class="co" style="color: #5E5E5E;
+<span id="cb2-136"></span>
+<span id="cb2-137"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Flux calculation</span></span>
-<span id="cb2-150">Ts <span class="op" style="color: #5E5E5E;
+<span id="cb2-138">Ts <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> tempCelsius <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">273.15</span></span>
-<span id="cb2-151">Tw <span class="op" style="color: #5E5E5E;
+<span id="cb2-139">Tw <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> waterTemp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">273.15</span></span>
-<span id="cb2-152">deltaT <span class="op" style="color: #5E5E5E;
+<span id="cb2-140">deltaT <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Ts <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> Tw</span>
-<span id="cb2-153">h_conv <span class="op" style="color: #5E5E5E;
+<span id="cb2-141">h_conv <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">135</span></span>
-<span id="cb2-154">h_rad <span class="op" style="color: #5E5E5E;
+<span id="cb2-142">h_rad <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> epsilon <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -574,7 +763,7 @@ background-color: null;
 font-style: inherit;">4</span>)) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> deltaT</span>
-<span id="cb2-155">q_prime <span class="op" style="color: #5E5E5E;
+<span id="cb2-143">q_prime <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (h_conv <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -585,8 +774,8 @@ background-color: null;
 font-style: inherit;">*</span> h_rad) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> deltaT</span>
-<span id="cb2-156"></span>
-<span id="cb2-157">totalRawPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-144"></span>
+<span id="cb2-145">totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> numCasters <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -595,8 +784,8 @@ background-color: null;
 font-style: inherit;">*</span> q_prime <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-158"></span>
-<span id="cb2-159">massFlow <span class="op" style="color: #5E5E5E;
+<span id="cb2-146"></span>
+<span id="cb2-147">massFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -605,7 +794,7 @@ background-color: null;
 font-style: inherit;">2257000</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// kg/s</span></span>
-<span id="cb2-160">volFlow <span class="op" style="color: #5E5E5E;
+<span id="cb2-148">volFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> massFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -614,7 +803,7 @@ background-color: null;
 font-style: inherit;">1000</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// m^3/s</span></span>
-<span id="cb2-161">pumpPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-149">pumpPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> volFlow <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -625,8 +814,8 @@ background-color: null;
 font-style: inherit;">100000</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-162"></span>
-<span id="cb2-163">totalGeneratedPower <span class="op" style="color: #5E5E5E;
+<span id="cb2-150"></span>
+<span id="cb2-151">totalGeneratedPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (totalRawPower <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -635,24 +824,24 @@ background-color: null;
 font-style: inherit;">-</span> pumpPower <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Watts</span></span>
-<span id="cb2-164">hp <span class="op" style="color: #5E5E5E;
+<span id="cb2-152">hp <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> totalGeneratedPower <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">745.7</span></span>
-<span id="cb2-165"></span>
-<span id="cb2-166"><span class="fu" style="color: #4758AB;
+<span id="cb2-153"></span>
+<span id="cb2-154"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">md</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span>
-<span id="cb2-167"><span class="vs" style="color: #20794D;
+<span id="cb2-155"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">### Analysis</span></span>
-<span id="cb2-168"></span>
-<span id="cb2-169"><span class="vs" style="color: #20794D;
+<span id="cb2-156"></span>
+<span id="cb2-157"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">Using **Level </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -660,21 +849,25 @@ font-style: inherit;">${</span>slotLevel<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">** slots at **</span><span class="sc" style="color: #5E5E5E;
+font-style: inherit;">** slots with a **</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>currentProp<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">name</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">** core at **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">${</span>pressureBar<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;"> Bar**, your group of **</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">${</span>numCasters<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="vs" style="color: #20794D;
-background-color: null;
-font-style: inherit;">** casters generates:</span></span>
-<span id="cb2-170"></span>
-<span id="cb2-171"><span class="vs" style="color: #20794D;
+font-style: inherit;"> Bar**:</span></span>
+<span id="cb2-158"></span>
+<span id="cb2-159"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"># </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -705,11 +898,11 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> HP)</span></span>
-<span id="cb2-172"></span>
-<span id="cb2-173"><span class="vs" style="color: #20794D;
+<span id="cb2-160"></span>
+<span id="cb2-161"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">**System Performance:**</span></span>
-<span id="cb2-174"><span class="vs" style="color: #20794D;
+<span id="cb2-162"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Boiler Temperature:** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -718,7 +911,26 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">°C</span></span>
-<span id="cb2-175"><span class="vs" style="color: #20794D;
+<span id="cb2-163"><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- **Core Material:** </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>currentProp<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">name</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> (ε = </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>epsilon<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb2-164"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Estimated Efficiency:** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -731,7 +943,7 @@ background-color: null;
 font-style: inherit;">".1%"</span>)(efficiency)<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span></span>
-<span id="cb2-176"><span class="vs" style="color: #20794D;
+<span id="cb2-165"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Energy per Minute (Total):** </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -754,20 +966,20 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> MJ</span></span>
-<span id="cb2-177"></span>
-<span id="cb2-178"><span class="vs" style="color: #20794D;
+<span id="cb2-166"></span>
+<span id="cb2-167"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">**What can this power?**</span></span>
-<span id="cb2-179"><span class="vs" style="color: #20794D;
+<span id="cb2-168"><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~80 carriages!*</span></span>
-<span id="cb2-180"><span class="vs" style="color: #20794D;
+font-style: inherit;">- **Motorized Carriage:** Needs ~15 HP. *One 9th-level caster can power ~75 carriages!*</span></span>
+<span id="cb2-169"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- **Steam Locomotive:** Needs ~300 HP. *A single 9th-level caster can power 4 locomotives.*</span></span>
-<span id="cb2-181"><span class="vs" style="color: #20794D;
+<span id="cb2-170"><span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires only ~2 casters using 9th-level slots.*</span></span>
-<span id="cb2-182"><span class="vs" style="color: #20794D;
+font-style: inherit;">- **Heavy Industrial Airship:** Needs ~2000 HP. *Requires ~2 casters using 9th-level slots.*</span></span>
+<span id="cb2-171"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span></code></pre></div></div>
 </details>
@@ -906,7 +1118,14 @@ font-style: inherit;">`</span></span></code></pre></div></div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-2-20" data-nodetype="expression">
+<div id="ojs-cell-2-20" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-21" data-nodetype="expression">
 
 </div>
 </div>
@@ -918,8 +1137,8 @@ font-style: inherit;">`</span></span></code></pre></div></div>
 <section id="assumptions-limitations" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions-limitations">Assumptions &amp; Limitations</h3>
 <ul>
-<li><strong>Magic as an Infinite Sink:</strong> This assumes the spell provides the energy required to maintain the temperature regardless of the <img src="https://latex.codecogs.com/png.latex?4%5Ctext%7B%20MW%7D"> being siphoned off. If the spell has a “wattage cap,” the industrial revolution might stall.</li>
-<li><strong>Material Stress:</strong> Copper at 800°C is significantly weakened. Engineers would likely need to alloy it or use magical reinforcement (<em>Mending</em> or <em>Permanency</em>) to prevent the pipe from bursting under steam pressure.</li>
+<li><strong>Magic as an Infinite Sink:</strong> This assumes the spell provides the energy required to maintain the temperature regardless of the power being siphoned off.</li>
+<li><strong>Material Stress:</strong> Copper at 800°C is significantly weakened. Engineers would likely need magical reinforcement (<em>Mending</em> or <em>Permanency</em>) to prevent bursting.</li>
 <li><strong>Concentration:</strong> This is the ultimate “work from home” job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7.</li>
 </ul>
 
