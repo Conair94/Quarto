@@ -22,8 +22,8 @@ While 7-11 cups are not perfect cylinders; they are **frustums** (tapered cones)
 The diagram below shows the relative 3D scale of the standard 7-11 lineup.
 
 ```{ojs}
-// Visual representation of cup sizes
-html`<div style="display: flex; align-items: flex-end; gap: 20px; justify-content: center; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+// Visual representation of cup sizes in 3D perspective
+html`<div style="display: flex; align-items: flex-end; gap: 30px; justify-content: center; padding: 40px; background: #f0f4f8; border-radius: 12px;">
   ${['small', 'medium', 'large', 'xlarge'].map(size => {
     const d = {
       small: { h: 4.5, r1: 1.1, r2: 1.6, label: "12oz" },
@@ -31,12 +31,41 @@ html`<div style="display: flex; align-items: flex-end; gap: 20px; justify-conten
       large: { h: 7.0, r1: 1.37, r2: 2.12, label: "30oz" },
       xlarge: { h: 8.5, r1: 1.5, r2: 2.37, label: "40oz" }
     }[size];
-    const scale = 20;
+    const scale = 25;
+    const h = d.h * scale;
+    const r1 = d.r1 * scale;
+    const r2 = d.r2 * scale;
+    const tilt = 0.25; // Perspective tilt factor
+    
     return html`<div style="text-align: center;">
-      <svg width="${d.r2*2*scale + 10}" height="${d.h*scale + 20}">
-        <polygon points="${(d.r2-d.r1)*scale},${d.h*scale} ${(d.r2+d.r1)*scale},${d.h*scale} ${d.r2*2*scale},0 0,0" fill="#ff6600" opacity="0.8" stroke="#333" />
-        <ellipse cx="${d.r2*scale}" cy="0" rx="${d.r2*scale}" ry="${d.r2*0.3*scale}" fill="#fff" stroke="#333" />
-        <text x="${d.r2*scale}" y="${d.h*scale + 15}" text-anchor="middle" font-size="12">${d.label}</text>
+      <svg width="${r2*2 + 20}" height="${h + r2*tilt*2 + 40}" style="overflow: visible;">
+        <defs>
+          <linearGradient id="grad-${size}" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#d35400;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:#e67e22;stop-opacity:1" />
+            <stop offset="60%" style="stop-color:#f39c12;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Background part of bottom ellipse (dashed or lighter) -->
+        <ellipse cx="${r2 + 10}" cy="${h + r2*tilt}" rx="${r1}" ry="${r1*tilt}" fill="none" stroke="#ccc" stroke-dasharray="2,2" />
+        
+        <!-- Body of the frustum -->
+        <path d="M ${10} ${r2*tilt} 
+                 L ${r2 - r1 + 10} ${h + r2*tilt} 
+                 A ${r1} ${r1*tilt} 0 0 0 ${r2 + r1 + 10} ${h + r2*tilt} 
+                 L ${2*r2 + 10} ${r2*tilt} 
+                 A ${r2} ${r2*tilt} 0 0 1 10 ${r2*tilt}" 
+              fill="url(#grad-${size})" stroke="#333" stroke-width="1.5" />
+        
+        <!-- Top face of the slushee -->
+        <ellipse cx="${r2 + 10}" cy="${r2*tilt}" rx="${r2}" ry="${r2*tilt}" fill="#fff" fill-opacity="0.8" stroke="#333" stroke-width="1.5" />
+        
+        <!-- Content/Ice texture on top -->
+        <ellipse cx="${r2 + 10}" cy="${r2*tilt}" rx="${r2*0.9}" ry="${r2*tilt*0.9}" fill="#fdfefe" fill-opacity="0.5" />
+        
+        <text x="${r2 + 10}" y="${h + r2*tilt*2 + 30}" text-anchor="middle" font-family="system-ui" font-weight="bold" font-size="14px" fill="#2c3e50">${d.label}</text>
       </svg>
     </div>`;
   })}
@@ -63,7 +92,7 @@ We model the slushee as a continuous system.
 ### Heat Transfer
 Heat flows from the ambient air ($T_{amb}$) through the cup walls:
 $$\frac{dQ}{dt} = h \cdot A \cdot (T_{amb} - 0^\circ C)$$
-This heat melts the ice at a rate of $\frac{dm}{t}_{melt} = \frac{1}{L_f} \frac{dQ}{dt}$.
+This heat melts the ice at a rate of $\frac{dm_{melt}}{t} = \frac{1}{L_f} \frac{dQ}{dt}$.
 
 ### Consumption
 We assume a constant volumetric consumption rate $C$ (oz/min). Because of the straw's liquid bias, the rate of ice removal $\frac{dm}{t}_{ice\_out}$ is lower than the rate of liquid removal.
