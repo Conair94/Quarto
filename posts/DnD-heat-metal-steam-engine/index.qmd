@@ -10,7 +10,7 @@ format:
 
 In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD.
 
-By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level Druid can contribute to the fantasy industrial revolution.
+By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level cleric can contribute to the fantasy industrial revolution.
 
 ## The Physical Constraints
 
@@ -47,7 +47,7 @@ While copper is the "standard" for conductivity, different metals offer differen
 
 ## The Spellcaster's Endurance: Total Energy
 
-A Level 20 Druid is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. Note that for 3rd-level slots and above, our fantasy engineers swap the copper core for **Tungsten** to prevent melting. This slightly lowers the emissivity ($\epsilon \approx 0.7$ for oxidized tungsten vs. $\epsilon \approx 0.8$ for copper), but the massive temperature gains more than compensate.
+A Level 20 cleric is a walking nuclear reactor. By cycling through their spell slots, they can provide sustained power. Note that for 3rd-level slots and above, our fantasy engineers swap the copper core for **Tungsten** to prevent melting. This slightly lowers the emissivity ($\epsilon \approx 0.7$ for oxidized tungsten vs. $\epsilon \approx 0.8$ for copper), but the massive temperature gains more than compensate.
 
 | Slot Level | Duration | Temp (°C) | Core Metal | Raw Power | Energy (MJ) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -61,7 +61,7 @@ A Level 20 Druid is a walking nuclear reactor. By cycling through their spell sl
 | **9th (x1)** | 1 min | 2000 | Tungsten | 4,120 kW | 247.2 MJ |
 | **TOTAL** | **18 min** | **AVG 1350** | **-** | **~1,450 kW** | **1,575.2 MJ** |
 
-*A single high-level Druid can dump over **1.5 Gigajoules** of energy into a grid in under 20 minutes.*
+*A single high-level cleric can dump over **1.5 Gigajoules** of energy into a grid in under 20 minutes.*
 
 ## Estimating Heat Flux ($q''$) and Bromley's Correlation
 
@@ -193,4 +193,4 @@ Using **Level ${slotLevel}** slots with a **${currentProp.name}** core at **${pr
 ### Assumptions & Limitations
 - **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the power being siphoned off.
 - **Material Stress:** Copper at 800°C is significantly weakened. Engineers would likely need magical reinforcement (*Mending* or *Permanency*) to prevent bursting.
-- **Concentration:** This is the ultimate "work from home" job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7.
+- **Concentration:** This is the ultimate "work from home" job. A cleric must concentrate for the full duration (1 minute), but a group of clerics working in shifts could keep the lights on 24/7.
