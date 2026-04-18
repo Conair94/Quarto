@@ -1,0 +1,100 @@
+---
+title: "The Arcane Boiler: Powering Industrialization with 'Heat Metal'"
+author: "Connor Lockhart"
+date: "2026-04-18"
+categories: ["Estimations", "D&D", "Engineering"]
+format:
+  html:
+    code-fold: true
+---
+
+In Dungeons & Dragons 5e, the spell *Heat Metal* is a low-level staple for cooking enemies in their own armor. The spell description states: *"you cause a metal object to glow red hot."* If we assume the magic maintains this "red hot" state regardless of external cooling (a necessity if it's to remain damaging while underwater or in high winds), we have discovered probably the highest energy output per level of any spell in DnD .
+
+By wrapping this enchanted metal into a heat exchanger, we can design a steam turbine capable of generating significant wattage. Let's estimate exactly how much power a single 3rd-level Druid can contribute to the fantasy industrial revolution.
+
+## The Physical Constraints
+
+To find the upper bound of our heating element, we look to the heaviest common metal object a caster can target: **Plate Armor**.
+
+1.  **Mass of the Heating Element:** According to the *Player's Handbook*, a suit of plate armor weighs **65 lbs** (29.48 kg).
+2.  **Molar Equivalence:** Plate is typically steel (mostly iron). Using the atomic mass of iron ($M_{Fe} \approx 55.85$ g/mol):
+    $$n_{Fe} = \frac{29,480\text{ g}}{55.85\text{ g/mol}} \approx 527.9\text{ moles}$$
+3.  **Copper Conversion:** For maximum efficiency, our fantasy engineers would use copper for its superior thermal conductivity. We'll assume the spell targets an equivalent molar amount of copper ($M_{Cu} \approx 63.55$ g/mol):
+    $$m_{Cu} = 527.9\text{ mol} \times 63.55\text{ g/mol} \approx 33,550\text{ g} \approx 33.55\text{ kg}$$
+
+## Engineering the Boiler
+
+Using a density of $8,960\text{ kg/m}^3$, our copper mass occupies a volume of approximately **3.74 Liters**. We can draw this out into a standard copper pipe (Type M, 1-inch nominal) to maximize the surface area $A_s$ for heat transfer.
+
+- **Pipe ID:** 26.0 mm
+- **Pipe OD:** 28.6 mm
+- **Calculated Length:** $\approx 33.6\text{ meters}$
+- **Internal Surface Area ($A_s$):** $\approx 2.74\text{ m}^2$
+
+## Estimating Heat Flux ($q''$)
+
+"Red hot" corresponds to a temperature of approximately **800°C (1073 K)**. When water is pushed through a pipe at this temperature, it immediately enters **film boiling** (the Leidenfrost effect), where a thin layer of steam insulates the liquid.
+
+Using Bromley's correlation for film boiling and accounting for radiative heat transfer ($\epsilon \approx 0.8$ for oxidized copper), we can estimate a conservative heat flux $q''$:
+- **Convective $h$:** $\approx 135\text{ W/(m}^2\text{·K)}$
+- **Radiative $h$:** $\approx 85\text{ W/(m}^2\text{·K)}$
+- **Total $q''$:** $\approx 150,000\text{ W/m}^2$
+
+$$P_{raw} = A_s \times q'' = 2.74\text{ m}^2 \times 150\text{ kW/m}^2 \approx 411\text{ kW}$$
+
+## Power Generation
+
+Typical steam engine efficiency in a fantasy setting might be low, but even a modest **10% efficiency** yields significant results:
+
+$$P_{gen} = 411\text{ kW} \times 0.10 \approx 41.1\text{ kW} \approx 55\text{ HP}$$
+
+## Interactive Power Grid
+
+Adjust the parameters below to see what your adventuring party can power.
+
+```{ojs}
+//| panel: sidebar
+viewof numCasters = Inputs.range([1, 20], {value: 1, step: 1, label: "Number of Casters"})
+viewof efficiency = Inputs.range([0.01, 0.40], {value: 0.10, step: 0.01, label: "Turbine Efficiency"})
+viewof tempCelsius = Inputs.range([500, 1000], {value: 800, step: 50, label: "Metal Temperature (°C)"})
+```
+
+```{ojs}
+//| panel: fill
+// Constants
+sigma = 5.67e-8
+epsilon = 0.8
+areaPerCaster = 2.74 // m^2
+waterTemp = 100 // °C
+
+// Flux calculation (simplified film boiling model)
+Ts = tempCelsius + 273.15
+Tw = waterTemp + 273.15
+deltaT = Ts - Tw
+h_conv = 135 // conservative W/m^2K
+h_rad = epsilon * sigma * (Math.pow(Ts, 4) - Math.pow(Tw, 4)) / deltaT
+q_prime = (h_conv + 0.75 * h_rad) * deltaT
+
+totalRawPower = numCasters * areaPerCaster * q_prime // Watts
+totalGeneratedPower = totalRawPower * efficiency // Watts
+hp = totalGeneratedPower / 745.7
+
+md`
+### Analysis
+
+A group of **${numCasters}** casters maintaining *Heat Metal* on this boiler system generates:
+
+# ${d3.format(".2f")(totalGeneratedPower / 1000)} kW (${d3.format(".1f")(hp)} HP)
+
+**What can this power?**
+- **Motorized Carriage:** Needs ~15 HP. *One caster can power 3 carriages.*
+- **Steam Locomotive:** Needs ~150-300 HP. *Requires 3-6 casters.*
+- **Small Fantasy Airship:** Needs ~500 HP. *Requires ~10 casters.*
+- **Village Power Grid:** 40 kW is enough to provide basic electric lighting for about 100 modest fantasy homes.
+`
+```
+
+### Assumptions & Limitations
+- **Magic as an Infinite Sink:** This assumes the spell provides the energy required to maintain the temperature regardless of the $411\text{ kW}$ being siphoned off. If the spell has a "wattage cap," the industrial revolution might stall.
+- **Material Stress:** Copper at 800°C is significantly weakened. Engineers would likely need to alloy it or use magical reinforcement (*Mending* or *Permanency*) to prevent the pipe from bursting under steam pressure.
+- **Concentration:** This is the ultimate "work from home" job. A druid must concentrate for the full duration (1 minute), but a circle of druids working in shifts could keep the lights on 24/7.
