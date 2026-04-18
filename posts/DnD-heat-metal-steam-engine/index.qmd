@@ -87,14 +87,46 @@ For our baseline 2.74 m$^2$ boiler, this results in a raw power output of approx
 It is critical to note that $h_{conv}$ and $h_{rad}$ scale very differently. While convective film boiling ($h_{conv}$) stays relatively stable as temperature rises, radiative heat transfer ($h_{rad}$) is governed by the **Stefan-Boltzmann Law**, scaling with the **fourth power** of absolute temperature ($T^4$). This creates a massive non-linear spike in power at higher spell levels.
 
 **Copper Example (Oxidized $\epsilon \approx 0.8$):**
+
 - **At 800°C (1073 K):** $h_{conv} \approx 135\text{ W/m}^2\text{K}$, $h_{rad} \approx 85\text{ W/m}^2\text{K}$. Total flux $q'' \approx 150\text{ kW/m}^2$. Radiation is responsible for **~35%** of the heat.
+
 - **At 1000°C (1273 K):** $h_{conv} \approx 138\text{ W/m}^2\text{K}$, $h_{rad} \approx 160\text{ W/m}^2\text{K}$. Total flux $q'' \approx 250\text{ kW/m}^2$. Radiation now provides **~53%** of the power.
 
 **Tungsten Example ($\epsilon \approx 0.3$ polished, $\epsilon \approx 0.7$ oxidized):**
 - **At 1150°C (1423 K):** Radiation begins to dwarf convection even with lower emissivity. $q'' \approx 360\text{ kW/m}^2$.
+
 - **At 2500°C (2773 K):** At these "Super-Upcast" temperatures only possible with Tungsten, $h_{rad}$ explodes to over $1,200\text{ W/m}^2\text{K}$, while $h_{conv}$ only crawls to ~200. Radiation accounts for over **85%** of the heat transfer.
 
 This non-linearity means that a 9th-level *Heat Metal* isn't just "more damage"—it is an exponential leap in thermodynamic energy density.
+
+## The Universal Glow: Black Body Radiation
+
+A common misconception in fantasy engineering is that different metals might "glow" differently at the same temperature. However, the "red hot" or "yellow-white" state described in the spell is governed by the principles of **Black Body Radiation**.
+
+According to **Planck's Law**, the spectral radiance of an object is a function of its temperature $T$, not its chemical composition. While the *intensity* of the light can be modified by the material's emissivity ($\epsilon$), the *peak wavelength* (color) is determined solely by the temperature.
+
+### Wien's Displacement Law
+The mathematical justification for mapping "Red Hot" to $\approx 800^\circ\text{C}$ comes from **Wien's Displacement Law**:
+
+$$\lambda_{max} = \frac{b}{T}$$
+
+Where:
+
+- $\lambda_{max}$ is the peak wavelength of light.
+
+- $b \approx 2.897 \times 10^{-3}\text{ m}\cdot\text{K}$ is Wien's displacement constant.
+
+- $T$ is the absolute temperature in Kelvin.
+
+At $800^\circ\text{C}$ ($1073\text{ K}$), the peak wavelength $\lambda_{max} \approx 2.7\text{ }\mu\text{m}$. While this peak is in the infrared, the "tail" of the Planck distribution bleeds into the visible red spectrum (~700 nm). As $T$ increases, $\lambda_{max}$ shifts left toward the blue:
+
+- **Red Hot ($1073\text{ K}$):** Visible light is dominated by the long-wavelength red tail.
+
+- **Orange/Yellow ($1300\text{ K}$):** The distribution covers more of the visible spectrum.
+
+- **White Hot ($2500\text{ K}+$):** The peak moves toward the center of the visible spectrum, emitting all colors nearly equally.
+
+This is why our choice of metal changes the *melting point* and *conductivity*, but a Copper pipe and a Tungsten pipe at $900^\circ\text{C}$ will both emit the exact same "Bright Red" hue.
 
 ## Power Generation: The Rankine Cycle
 
