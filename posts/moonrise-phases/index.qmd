@@ -4,6 +4,9 @@ description: "A rigorous exploration of moon phases, sunset times, and the orbit
 date: "2026-05-05"
 categories: [mathematics, astronomy, celestial-mechanics]
 math: true
+format:
+  html:
+    code-fold: true
 ---
 
 There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It feels perfectly full, yet the sky is fully dark, creating maximum contrast. 
