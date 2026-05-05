@@ -3,7 +3,6 @@ title: "The Mathematics of the Striking Moonrise"
 description: "A rigorous exploration of moon phases, sunset times, and the orbital mechanics that govern the perfect evening moonrise across seasons."
 date: "2026-05-05"
 categories: [mathematics, astronomy, celestial-mechanics]
-math: true
 format:
   html:
     code-fold: true
