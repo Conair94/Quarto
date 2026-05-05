@@ -100,44 +100,61 @@ div.sourceCode {
   background-color: rgba(244, 239, 230, 0.5);
 }
 
-/* Table of contents — match header palette */
-#TOC, nav#TOC, .sidebar.toc-active, #quarto-margin-sidebar, nav[role="doc-toc"] {
-  background-color: var(--clay);
-  color: var(--sand);
-  border-left: 4px solid var(--terracotta);
+/* Table of contents — sand body, forest-green trim */
+#quarto-margin-sidebar {
+  max-width: 240px;
+  width: 240px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+#TOC, nav#TOC, nav[role="doc-toc"] {
+  background-color: var(--sand);
+  color: var(--deep-clay);
+  border-left: 4px solid var(--forest-green);
+  border-top: 1px solid var(--forest-green);
+  border-right: 1px solid var(--forest-green);
+  border-bottom: 1px solid var(--forest-green);
   border-radius: 4px;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0.9rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 #TOC .toc-title, nav[role="doc-toc"] .toc-title, #toc-title {
-  color: var(--terracotta) !important;
+  color: var(--forest-green) !important;
   font-weight: 800;
-  border-bottom: 1px solid var(--forest-green);
+  border-bottom: 2px solid var(--forest-green);
   padding-bottom: 0.4rem;
   margin-bottom: 0.5rem;
 }
 
-#TOC ul, nav[role="doc-toc"] ul, #quarto-margin-sidebar ul {
+#TOC ul, nav[role="doc-toc"] ul {
   list-style: none;
   padding-left: 0.75rem;
 }
 
-#TOC a, nav[role="doc-toc"] a, #quarto-margin-sidebar a {
-  color: var(--sand) !important;
+#TOC a, nav[role="doc-toc"] a {
+  color: var(--deep-clay) !important;
   text-decoration: none;
   font-weight: 500;
   display: block;
   padding: 0.15rem 0.4rem;
   border-radius: 3px;
+  border-left: 2px solid transparent;
 }
 
-#TOC a:hover, nav[role="doc-toc"] a:hover, #quarto-margin-sidebar a:hover {
-  background-color: var(--forest-green);
-  color: #FFFFFF !important;
+#TOC a:hover, nav[role="doc-toc"] a:hover {
+  background-color: rgba(27, 46, 38, 0.08);
+  color: var(--forest-green) !important;
+  border-left-color: var(--forest-green);
 }
 
-#TOC a.active, nav[role="doc-toc"] a.active, #quarto-margin-sidebar a.active {
-  background-color: var(--terracotta);
-  color: var(--clay) !important;
+#TOC a.active, nav[role="doc-toc"] a.active {
+  background-color: rgba(27, 46, 38, 0.12);
+  color: var(--forest-green) !important;
+  border-left-color: var(--terracotta);
   font-weight: 700;
 }
