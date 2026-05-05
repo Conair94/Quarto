@@ -27,7 +27,16 @@ Astronomy is bookkeeping in three frames, each more local than the last:
 
 3. **Horizontal (topocentric) frame** — defined by the observer's local vertical. Coordinates: azimuth $A$ (from north, clockwise) and altitude $a$ (above horizon). A body's altitude depends on the observer's latitude $\varphi$, the body's $\delta$, and the **local hour angle** $H = \theta - \alpha$, where $\theta$ is local sidereal time.
 
-The transformations are clean rotations of unit vectors:
+A body **rises** when its altitude $a$ crosses a small negative threshold $h_0$ from below; the corresponding hour angle satisfies
+
+$$ \cos H_0 = \frac{\sin h_0 - \sin\varphi\sin\delta}{\cos\varphi\cos\delta} \tag{1.3} $$
+
+This is the central equation of the post. Everything else is figuring out $\delta$ and $\alpha$ for the Sun and the Moon at the time we care about.
+
+::: {.callout-note collapse="true"}
+## Derivation: rotation matrices and the rise equation
+
+The transformations between the three frames are rotations of unit vectors:
 
 $$
 \begin{pmatrix}\cos\delta\cos\alpha\\ \cos\delta\sin\alpha\\ \sin\delta\end{pmatrix}
@@ -41,34 +50,43 @@ $$
 \begin{pmatrix}\cos\delta\cos H\\ \cos\delta\sin H\\ \sin\delta\end{pmatrix}
 $$
 
-Expanding the second product gives the two equations we will reuse:
+Expanding the $z$-component of the second product gives the altitude:
 
 $$ \sin a = \sin\varphi\sin\delta + \cos\varphi\cos\delta\cos H \tag{1.1} $$
+
+and the $x,y$ components together give azimuth:
+
 $$ \tan A = \frac{-\sin H}{\tan\delta\cos\varphi - \sin\varphi\cos H} \tag{1.2} $$
 
-A body **rises** when it crosses $a = h_0$ from below, where $h_0$ is a small negative angle accounting for atmospheric refraction and the body's apparent radius (more in §4). Setting $a = h_0$ in (1.1) and solving for $\cos H$:
-
-$$ \cos H_0 = \frac{\sin h_0 - \sin\varphi\sin\delta}{\cos\varphi\cos\delta} \tag{1.3} $$
-
-This is the central equation of the post. Everything else is figuring out $\delta$ and $\alpha$ for the Sun and the Moon at the time we care about.
+Setting $a = h_0$ in (1.1) and solving for $\cos H$ produces (1.3) above. Two solutions $\pm H_0$ correspond to rise (eastern, $-H_0$) and set (western, $+H_0$).
+:::
 
 ---
 
 ## 2. The Sun's apparent motion — Kepler's equation
 
-Earth's orbit is a slight ellipse with eccentricity $e \approx 0.0167$. Earth moves faster at perihelion (early January) and slower at aphelion (early July), so the Sun's apparent ecliptic longitude does *not* advance uniformly in time. Kepler's equation links uniform mean anomaly $M$ to the geometric eccentric anomaly $E$:
+Earth's orbit is a slight ellipse with eccentricity $e \approx 0.0167$. Earth moves faster at perihelion (early January) and slower at aphelion (early July), so the Sun's apparent ecliptic longitude does *not* advance uniformly in time. The **equation of center** $C$ is the correction from uniform "mean longitude" $L_0$ to the actual ecliptic longitude:
+
+$$ \lambda_\odot = L_0 + C \approx L_0 + 2e\sin M + \tfrac{5}{4}e^2\sin 2M + \cdots $$
+
+with $M$ the mean anomaly. Adding aberration and the dominant nutation term gives a model accurate to $\sim 0.01°$ from 1900–2100 — well inside our $\pm 2$ min rise-time target.
+
+::: {.callout-note collapse="true"}
+## Derivation: from Kepler to the equation of center
+
+Kepler's equation links the uniformly-advancing mean anomaly $M$ to the geometric eccentric anomaly $E$:
 
 $$ M = E - e \sin E \tag{2.1} $$
 
-The true anomaly $\nu$ — the actual angle swept from perihelion — comes from $E$ via
+The true anomaly $\nu$ — the actual angle swept from perihelion — relates to $E$ via
 
 $$ \tan\tfrac{\nu}{2} = \sqrt{\tfrac{1+e}{1-e}}\,\tan\tfrac{E}{2}. \tag{2.2} $$
 
-Series-expanding for small $e$ yields the **equation of center**:
+Series-expanding for small $e$ yields
 
 $$ C \equiv \nu - M = 2e\sin M + \tfrac{5}{4}e^2\sin 2M + O(e^3). \tag{2.3} $$
 
-The Sun's apparent geocentric longitude is then $\lambda_\odot = L_0 + C$, where $L_0$ is the **mean longitude** (linear in time). Following Meeus's *Astronomical Algorithms* (ch. 25), with $T$ in Julian centuries from J2000.0 (= JD 2451545.0):
+Following Meeus *Astronomical Algorithms* ch. 25, with $T$ in Julian centuries from J2000.0 (JD 2451545.0):
 
 $$
 \begin{aligned}
@@ -80,11 +98,10 @@ C &= (1.914602° - 0.004817°\,T)\sin M + (0.019993° - 0.000101°\,T)\sin 2M + 
 \end{aligned}
 $$
 
-The last two corrections are aberration and the dominant nutation term; $\Omega = 125.04° - 1934.136°\,T$ is the longitude of the Moon's ascending node. The Sun's $\beta \equiv 0$, so converting to equatorial:
+The last two corrections are aberration and the dominant nutation term; $\Omega = 125.04° - 1934.136°\,T$ is the longitude of the Moon's ascending node. With $\beta_\odot \equiv 0$, the equatorial conversion is
 
 $$ \alpha_\odot = \arctan\!\big(\cos\varepsilon\sin\lambda_\odot,\;\cos\lambda_\odot\big), \qquad \sin\delta_\odot = \sin\varepsilon\sin\lambda_\odot. \tag{2.4} $$
-
-This gives the Sun's apparent position to better than $0.01°$ across 1900–2100 — well inside our $\pm 2$ min target on rise time.
+:::
 
 ### Why winter inverts the moonrise lag
 
@@ -106,7 +123,12 @@ The Moon's motion is harder because the Sun perturbs its orbit substantially. Ev
 
 Geometrically: $L'$ tracks the Moon along the ecliptic; $D$ measures the synodic phase ($D = 0$ is new moon, $D = 180°$ is full); $M'$ encodes orbital eccentricity; $F$ measures distance from the ascending node and so drives ecliptic latitude.
 
-The Moon's true ecliptic longitude and latitude are sums of trigonometric corrections in these arguments. The full ELP-2000 series has thousands of terms; we keep the leading ones (Meeus Table 47.A truncated). For longitude, in degrees:
+The Moon's true ecliptic longitude and latitude are trigonometric series in these arguments. Truncated to the dozen-or-so leading terms, the model is accurate to $\sim 0.1°$, translating to under $\pm 2$ min of rise-time error at $\varphi \approx 39°$.
+
+::: {.callout-note collapse="true"}
+## Derivation: truncated lunar series (longitude, latitude, distance)
+
+The full ELP-2000 series has thousands of terms; we keep Meeus Table 47.A truncated. For longitude (degrees):
 
 $$
 \begin{aligned}
@@ -117,15 +139,13 @@ $$
 \end{aligned}
 $$
 
-For latitude, the dominant inclination term is $5.128°$ — this is the Moon's orbital inclination $i$. Higher-order terms come from the perturbed motion of the node:
+For latitude, the dominant inclination term is $5.128°$ — the Moon's orbital inclination $i$. Higher-order terms come from the perturbed motion of the node:
 
 $$
 \beta_M \approx 5.128\sin F + 0.281\sin(M' + F) + 0.278\sin(M' - F) + 0.173\sin(2D - F) + \cdots
 $$
 
-The Earth–Moon distance is dominated by the elliptical term $-20905\cos M'$ km, oscillating between perigee ($\sim 363{,}000$ km) and apogee ($\sim 405{,}000$ km).
-
-Conversion to equatorial coordinates uses the full transform (with $\beta \neq 0$):
+The Earth–Moon distance is dominated by the elliptical term $-20905\cos M'$ km, oscillating between perigee ($\sim 363{,}000$ km) and apogee ($\sim 405{,}000$ km). Conversion to equatorial uses the full transform (with $\beta \neq 0$):
 
 $$
 \sin\delta_M = \sin\beta_M\cos\varepsilon + \cos\beta_M\sin\varepsilon\sin\lambda_M, \tag{3.1}
@@ -133,50 +153,46 @@ $$
 $$
 \alpha_M = \arctan\!\big(\sin\lambda_M\cos\varepsilon - \tan\beta_M\sin\varepsilon,\; \cos\lambda_M\big). \tag{3.2}
 $$
-
-The truncated series above gives lunar position to $\sim 0.1°$, which translates to under $\pm 2$ minutes of rise-time error at $\varphi \approx 39°$ — within spec.
+:::
 
 ---
 
 ## 4. Rise time — refraction, parallax, and sidereal iteration
 
-### Apparent horizon altitude
-
-A body's geometric center is *not* at altitude $0$ when its limb touches the horizon. Three corrections matter:
-
-- **Atmospheric refraction** at the horizon raises the apparent position by $\rho \approx 34'$.
-- **Semidiameter** of the Sun is $s_\odot \approx 16'$. We see the Sun "rise" when its upper limb appears, so the geometric center must be $-s_\odot$ below.
-- **Lunar parallax and semidiameter:** the Moon is close enough that the observer sees it shifted by horizontal parallax $\pi_M = \arcsin(R_\oplus/\Delta) \approx 57'$, *raising* its apparent altitude. Its semidiameter is $\sim 15'-17'$.
-
-Combining: the geometric altitude $h_0$ at which a body's apparent upper limb is on the horizon is
+A body's geometric center is *not* at altitude $0$ when its limb touches the horizon. Atmospheric refraction lifts the image by $\sim 34'$; the Sun's and Moon's apparent semidiameters add another $\sim 16'$; lunar horizontal parallax of $\sim 57'$ shifts the Moon further. Net effect:
 
 $$
-\boxed{h_0^{\odot} = -50'} \qquad
-\boxed{h_0^{M} = 0.7275\,\pi_M - 34'} \tag{4.1}
+h_0^{\odot} = -50' \qquad h_0^{M} = 0.7275\,\pi_M - 34' \approx +7'. \tag{4.1}
 $$
 
-where the $0.7275$ factor comes from the difference between geometric horizontal parallax and the contribution to the center's altitude (Meeus 15.1). For $\Delta = 385{,}000$ km this is $h_0^M \approx +7'$. **The current literature post ignored these and that alone introduced 5–10 min errors.**
+These are not optional — together they shift moonrise by $5{-}10$ min, comparable to the seasonal effect we are studying. The hour angle is then $H = \theta - \alpha$, with $\theta$ the local sidereal time. Because the Moon's RA drifts $\sim 0.5°/\text{hr}$, "rise time" is a fixed point and must be iterated.
 
-### Local sidereal time
+::: {.callout-note collapse="true"}
+## Derivation: refraction terms, GMST, and the rise iteration
 
-The local hour angle of a body is $H = \theta - \alpha$, where $\theta$ is local sidereal time. Greenwich Mean Sidereal Time at any instant (Meeus 12.4), in degrees:
+**Refraction and parallax.** Three corrections matter:
+
+- Atmospheric refraction at the horizon raises the apparent position by $\rho \approx 34'$.
+- The Sun's semidiameter $s_\odot \approx 16'$. We see the Sun "rise" when its upper limb appears, so the geometric center must be $-s_\odot$ below.
+- Lunar horizontal parallax $\pi_M = \arcsin(R_\oplus / \Delta) \approx 57'$ *raises* apparent altitude. Its semidiameter is $\sim 15'-17'$. The factor $0.7275$ in (4.1) comes from the difference between geometric horizontal parallax and the contribution to the center's altitude (Meeus 15.1).
+
+**Greenwich Mean Sidereal Time** (Meeus 12.4), in degrees:
 
 $$
 \theta_G = 280.46062 + 360.98564737\,(JD - 2451545) + 0.000388\,T^2 - T^3/38710000 \tag{4.2}
 $$
 
-Local sidereal time $\theta = \theta_G + L$ for east-positive observer longitude $L$.
+Local sidereal time $\theta = \theta_G + L$ for east-positive longitude $L$.
 
-### Iterative root-find
-
-Because the Moon's right ascension changes by $\sim 0.5°$ per hour, "rise time" is a fixed point: the time at which $H(t) = -H_0$, where both $H$ and $H_0$ depend on $t$. We iterate. Starting from noon UT of the desired calendar date,
+**Iteration.** Starting from noon UT of the desired calendar date,
 
 1. Compute $\alpha(t), \delta(t)$ from §3.
 2. Compute $H_0$ from (1.3) using (4.1) for $h_0$.
 3. Compute current $H = \theta(t) - \alpha(t)$, normalized to $(-\pi, \pi]$.
 4. Update $t \leftarrow t + (\Delta H)/(2\pi/0.9972696\,\text{days})$ where $\Delta H = -H_0 - H$, normalized.
 
-Two to four iterations converge to under a second. Setting and transit times use $+H_0$ and $0$ in step 3.
+Two to four iterations converge to under a second. Setting and transit use $+H_0$ and $0$.
+:::
 
 ---
 
@@ -184,13 +200,17 @@ Two to four iterations converge to under a second. Setting and transit times use
 
 The **daily lag in moonrise** — how much later the moon rises tonight than yesterday — is set by how fast the moon's right ascension grows (about $13°/\text{day}$) and by how that RA increase projects onto the *eastern horizon* at the observer's latitude.
 
-If the Moon's path on the sky met the eastern horizon perpendicularly, a $13°$ RA shift would translate directly into $13°/15° = 52\,\text{min}$ of delay. But near the autumnal equinox at northern mid-latitudes, the ecliptic crosses the eastern horizon at a *shallow* angle in the early evening: the Moon's daily march along the ecliptic projects mostly *along* the horizon, not down into it. The horizon-crossing point shifts north (along the horizon) more than the rise time slips. Result: the lag shrinks to as little as $20-25$ min for several consecutive nights — the **harvest moon effect**.
+If the Moon's path on the sky met the eastern horizon perpendicularly, a $13°$ RA shift would translate directly into $13°/15° = 52\,\text{min}$ of delay. But near the autumnal equinox at northern mid-latitudes, the ecliptic crosses the eastern horizon at a *shallow* angle in the early evening: the Moon's daily march along the ecliptic projects mostly *along* the horizon, not down into it. The lag shrinks to as little as $20-25$ min for several consecutive nights — the **harvest moon effect**.
 
-Quantitatively, if $\psi$ is the angle the ecliptic makes with the local horizon at the moment of moonrise, the daily lag is approximately
+::: {.callout-note collapse="true"}
+## Derivation: daily-lag formula
 
-$$ \Delta t_\text{daily} \approx \frac{13°/15°}{1 + (\dot\alpha/\dot\lambda - 1)} \cdot \sin\psi \approx \frac{52\,\text{min}}{1} \cdot \sin\psi, \tag{5.1} $$
+If $\psi$ is the angle the ecliptic makes with the local horizon at the moment of moonrise, the daily lag is approximately
 
-so a shallow $\psi \approx 25°$ gives $\sim 22$ min, while a steep $\psi \approx 70°$ (spring evenings) gives $\sim 49$ min. The orbital inclination of $5.14°$ adds a secondary modulation depending on where the ascending node sits — when the node is near the vernal equinox ("major standstill"), the Moon's declination range is the full $\pm 28.6°$ rather than $\pm 18.3°$, exaggerating both effects.
+$$ \Delta t_\text{daily} \approx \frac{13°/15°}{1 + (\dot\alpha/\dot\lambda - 1)} \cdot \sin\psi \approx \frac{52\,\text{min}}{1} \cdot \sin\psi. \tag{5.1} $$
+
+A shallow $\psi \approx 25°$ gives $\sim 22$ min, while a steep $\psi \approx 70°$ (spring evenings) gives $\sim 49$ min. The orbital inclination of $5.14°$ adds a secondary modulation depending on where the ascending node sits — when the node is near the vernal equinox ("major standstill"), the Moon's declination range is the full $\pm 28.6°$ rather than $\pm 18.3°$, exaggerating both effects.
+:::
 
 ---
 
@@ -407,36 +427,67 @@ fmtLocal = function(jd, tzHours) {
 
 ## 7. Interactive celestial visualizer (orbital geometry & 24-h timeline)
 
-Use the controls below to set a date, location, and (optionally) a phase offset. The first diagram shows the Earth–Moon–Sun geometry from above the ecliptic; the second is a 24-hour timeline of when the Sun and Moon are above the horizon at your latitude. Both diagrams now use the full lunar series from §3 — they no longer fake the Moon's longitude.
-
-```{ojs}
-//| panel: sidebar
-viewof loc = Inputs.form({
-  lat: Inputs.range([-89, 89], {value: 38.9, step: 0.1, label: "Latitude (°N)"}),
-  lon: Inputs.range([-180, 180], {value: -77.04, step: 0.1, label: "Longitude (°E)"}),
-  tz:  Inputs.range([-12, 14], {value: -5, step: 1, label: "Time-zone offset (h)"})
-});
-viewof picker = Inputs.form({
-  year:  Inputs.range([yearMin, yearMax], {value: yearToday, step: 1, label: "Year"}),
-  doy:   Inputs.range([1, 366], {value: doyToday, step: 1, label: "Day of year"}),
-  hour:  Inputs.range([0, 24], {value: 12, step: 0.25, label: "Local clock hour"})
-});
-```
+Set your location, date, and time of day. Type values directly into the number boxes, drag sliders, or hit **Animate day-of-year** to sweep through the calendar. The first diagram shows the Earth–Moon–Sun geometry from above the ecliptic; the second is a 24-hour timeline of when the Sun and Moon are above the horizon at your latitude.
 
 ```{ojs}
 //| code-fold: true
-// today's date / range bounds
+// today's date / range bounds — visible to all OJS cells
 todayObj = new Date()
 yearToday = todayObj.getUTCFullYear()
-yearMin = yearToday
-yearMax = yearToday + 2
-doyToday = (function(){
-  const start = Date.UTC(yearToday, 0, 1);
-  return Math.floor((todayObj - start)/86400000) + 1;
+todayDateStr = todayObj.toISOString().slice(0,10)
+maxDateStr = (() => {
+  const d = new Date(todayObj.getTime() + 2*365.25*86400000);
+  return d.toISOString().slice(0,10);
 })()
+```
 
-// derived JD at 0h UT of (year, doy), and at chosen local clock time
-jd0 = jdFromDate(picker.year, 1, picker.doy)
+::: {.column-page}
+```{ojs}
+viewof loc = Inputs.form({
+  lat: Inputs.number([-89.9, 89.9], {value: 38.9,  step: 0.001, label: "Latitude (°N)"}),
+  lon: Inputs.number([-180, 180],  {value: -77.04, step: 0.001, label: "Longitude (°E, west negative)"}),
+  tz:  Inputs.number([-12, 14],    {value: -5,    step: 1,     label: "Timezone offset (hours from UTC)"})
+})
+viewof picker = Inputs.form({
+  date: Inputs.date({value: todayDateStr, min: todayDateStr, max: maxDateStr, label: "Date"}),
+  hour: Inputs.range([0, 24], {value: 19, step: 0.05, label: "Local clock hour"})
+})
+viewof animState = Inputs.form({
+  animate: Inputs.toggle({value: false, label: "▶ Animate day-of-year"}),
+  speed:   Inputs.range([1, 60], {value: 10, step: 1, label: "Animation speed (days/sec)"})
+})
+```
+:::
+
+```{ojs}
+//| code-fold: true
+// Parse the date input (Inputs.date may give a Date or a string depending on version)
+pickerDateObj = (typeof picker.date === 'string')
+  ? new Date(picker.date + "T00:00:00Z")
+  : picker.date
+pickerYear = pickerDateObj.getUTCFullYear()
+pickerDoy = {
+  const start = Date.UTC(pickerYear, 0, 1);
+  return Math.floor((pickerDateObj.getTime() - start)/86400000) + 1;
+}
+
+// Reactive day-of-year: while animating, advance with a generator; otherwise pass through.
+doy = animState.animate
+  ? Generators.observe(notify => {
+      let d = pickerDoy;
+      notify(d);
+      const id = setInterval(() => {
+        const isLeap = (pickerYear % 4 === 0 && pickerYear % 100 !== 0) || pickerYear % 400 === 0;
+        const maxDoy = isLeap ? 366 : 365;
+        d = (d % maxDoy) + 1;
+        notify(d);
+      }, 1000 / Math.max(1, animState.speed));
+      return () => clearInterval(id);
+    })
+  : pickerDoy
+
+// Derived JD at 0h UT of (year, doy), and at chosen local clock time
+jd0 = jdFromDate(pickerYear, 1, doy)
 jdNow = jd0 + (picker.hour - loc.tz)/24
 sun = sunPosition(jdNow)
 moon = moonPosition(jdNow)
@@ -445,14 +496,20 @@ events = ({
   sun:  riseSet(sunPosition,  sunH0,  jd0, loc.lat*DEG, loc.lon),
   moon: riseSet(moonPosition, moonH0, jd0, loc.lat*DEG, loc.lon)
 })
+
+// Convenience: compute the human-readable date for the current animated doy
+currentDateLabel = {
+  const ms = Date.UTC(pickerYear, 0, 1) + (doy - 1)*86400000;
+  return new Date(ms).toISOString().slice(0,10);
+}
 ```
 
-::: {.panel-fill}
+::: {.column-page}
 ```{ojs}
 // ===== Visualizer A: overhead geometric diagram =====
 {
-  const W = 640, H = 420, cx = W/2, cy = H/2;
-  const Rsun = 170, Rmoon = 90;
+  const W = 960, H = 540, cx = W/2, cy = H/2;
+  const Rsun = 230, Rmoon = 120;
 
   const svg = d3.create("svg")
     .attr("viewBox", [0, 0, W, H])
@@ -529,13 +586,15 @@ events = ({
 ```{ojs}
 // ===== Visualizer B: 24-h horizon timeline =====
 {
-  const W = 640, H = 150, m = {top: 32, right: 20, bottom: 28, left: 30};
+  const W = 960, H = 200, m = {top: 36, right: 24, bottom: 36, left: 36};
   const x = d3.scaleLinear().domain([0, 24]).range([m.left, W - m.right]);
   const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
     .style("max-width","100%").style("height","auto");
 
+  const barTop = 80, barH = 36;
+
   // Background bar (night)
-  svg.append("rect").attr("x", m.left).attr("y", 50).attr("width", W-m.left-m.right).attr("height", 28)
+  svg.append("rect").attr("x", m.left).attr("y", barTop).attr("width", W-m.left-m.right).attr("height", barH)
     .attr("fill", "#10103a");
 
   function localHours(ev) {
@@ -551,19 +610,19 @@ events = ({
   // Daylight band
   if (sr != null && ss != null) {
     if (sr < ss) {
-      svg.append("rect").attr("x", x(sr)).attr("y", 50).attr("width", x(ss)-x(sr))
-        .attr("height", 28).attr("fill","#ffd866");
+      svg.append("rect").attr("x", x(sr)).attr("y", barTop).attr("width", x(ss)-x(sr))
+        .attr("height", barH).attr("fill","#ffd866");
     } else {
-      svg.append("rect").attr("x", x(0)).attr("y", 50).attr("width", x(ss)-x(0))
-        .attr("height", 28).attr("fill","#ffd866");
-      svg.append("rect").attr("x", x(sr)).attr("y", 50).attr("width", x(24)-x(sr))
-        .attr("height", 28).attr("fill","#ffd866");
+      svg.append("rect").attr("x", x(0)).attr("y", barTop).attr("width", x(ss)-x(0))
+        .attr("height", barH).attr("fill","#ffd866");
+      svg.append("rect").attr("x", x(sr)).attr("y", barTop).attr("width", x(24)-x(sr))
+        .attr("height", barH).attr("fill","#ffd866");
     }
   }
   // Moon band
   function drawMoonBand(a, b) {
-    svg.append("rect").attr("x", x(a)).attr("y", 56).attr("width", x(b)-x(a))
-      .attr("height", 16).attr("fill", "rgba(220,220,220,0.7)").attr("rx",3);
+    svg.append("rect").attr("x", x(a)).attr("y", barTop+8).attr("width", x(b)-x(a))
+      .attr("height", barH-16).attr("fill", "rgba(220,220,220,0.75)").attr("rx",3);
   }
   if (mr != null && ms != null) {
     if (mr < ms) drawMoonBand(mr, ms);
@@ -574,20 +633,20 @@ events = ({
   if (ss != null) {
     const target = (ss + 1) % 24;
     svg.append("line").attr("x1", x(target)).attr("x2", x(target))
-      .attr("y1", 44).attr("y2", 84).attr("stroke","#e44").attr("stroke-dasharray","3,3");
-    svg.append("text").attr("x", x(target)).attr("y", 42).attr("fill","#e44")
-      .attr("font-size","10px").attr("text-anchor","middle").text("sunset + 1 h");
+      .attr("y1", barTop-6).attr("y2", barTop+barH+6).attr("stroke","#e44").attr("stroke-dasharray","3,3");
+    svg.append("text").attr("x", x(target)).attr("y", barTop-10).attr("fill","#e44")
+      .attr("font-size","11px").attr("text-anchor","middle").text("sunset + 1 h");
   }
 
   // Axis
-  svg.append("g").attr("transform",`translate(0,78)`)
+  svg.append("g").attr("transform",`translate(0,${barTop+barH})`)
     .call(d3.axisBottom(x).ticks(12).tickFormat(d => d+"h"))
-    .attr("color","#666");
+    .attr("color","#666").attr("font-size","11px");
 
   // Title
-  svg.append("text").attr("x", W/2).attr("y", 20).attr("text-anchor","middle")
-    .attr("font-size","13px").attr("fill","#333").attr("font-weight","bold")
-    .text(`Sun & Moon above horizon — ${picker.year}, day ${picker.doy}`);
+  svg.append("text").attr("x", W/2).attr("y", 24).attr("text-anchor","middle")
+    .attr("font-size","16px").attr("fill","#333").attr("font-weight","bold")
+    .text(`Sun & Moon above horizon — ${currentDateLabel}`);
 
   // Inline readout
   const lag = (mr != null && ss != null)
@@ -614,12 +673,13 @@ The **stereographic plot** (left) is what you would see looking up: zenith at ce
 
 The **wireframe globe** (right) is the same instant viewed from outside Earth. The latitude/longitude wireframe rotates with the planet. The day/night terminator is drawn as the great circle 90° from the sub-solar point. The sub-solar point ☉, sub-lunar point ☾, and your location pin are marked. The inset reports whether each body is currently above your horizon.
 
+::: {.column-page}
 ```{ojs}
 //| layout-ncol: 2
 
 // ===== Visualizer C: stereographic celestial hemisphere =====
 {
-  const W = 360, H = 360, cx = W/2, cy = H/2, R = 160;
+  const W = 540, H = 540, cx = W/2, cy = H/2, R = 240;
   const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
     .style("background","radial-gradient(circle at center, #001 0%, #000 70%)")
     .style("border-radius","8px").style("max-width","100%").style("height","auto");
@@ -718,7 +778,7 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
   }
 
   svg.append("text").attr("x", 8).attr("y", 16).attr("fill","#bbb").attr("font-size","11px")
-    .text(`zenith view · ${picker.year}-doy${picker.doy} · ${picker.hour.toFixed(2)}h local`);
+    .text(`zenith view · ${currentDateLabel} · ${picker.hour.toFixed(2)}h local`);
   svg.append("text").attr("x", 8).attr("y", H-8).attr("fill","#5a8").attr("font-size","10px")
     .text("— equator");
   svg.append("text").attr("x", 90).attr("y", H-8).attr("fill","#a85").attr("font-size","10px")
@@ -728,7 +788,7 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
 
 // ===== Visualizer D: wireframe globe with terminator =====
 {
-  const W = 360, H = 360;
+  const W = 540, H = 540;
   const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
     .style("background","#001").style("border-radius","8px")
     .style("max-width","100%").style("height","auto");
@@ -784,6 +844,7 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
   return svg.node();
 }
 ```
+:::
 
 ---
 
@@ -906,7 +967,7 @@ solverResult = {
   const illumPct = (1 - Math.cos(phase))/2 * 100;
   const ageDaysFromFull = dD * 29.5306 / (2*Math.PI);
   return md`
-**For ${picker.year}, day ${picker.doy} at (${loc.lat.toFixed(2)}°, ${loc.lon.toFixed(2)}°):**
+**For ${currentDateLabel} at (${loc.lat.toFixed(2)}°, ${loc.lon.toFixed(2)}°):**
 - Sunset: \`${fmtLocal(events.sun.set.jd, loc.tz)}\`
 - Required elongation $D$: **${(phase*RAD).toFixed(2)}°** (full = 180°)
 - Equivalent age: **${ageDaysFromFull.toFixed(2)} days** ${ageDaysFromFull > 0 ? "past full" : "before full"}
@@ -917,7 +978,98 @@ solverResult = {
 
 ---
 
-## 11. Conclusion
+## 11. The seasonal pattern of the striking moonrise
+
+The "striking moonrise" — the moon rising one hour after sunset — sweeps through the lunar phases over the course of a year. Below is a single plot of the *required* lunar phase, computed for every day of the next two years at your selected location. The horizontal axis is calendar date; the vertical axis is the synodic phase angle $D = \lambda_M - \lambda_\odot$ (in degrees) needed for moonrise to land exactly at sunset $+1$ h.
+
+```{ojs}
+//| code-fold: true
+seasonalCurve = {
+  // For each day of the next ~2 years, find the elongation D such that
+  // moonrise occurs at sunset+1h. Reuse the bisection from §10.
+  const phi = loc.lat*DEG;
+  const startJd = jdFromDate(yearToday, todayObj.getUTCMonth()+1, todayObj.getUTCDate());
+  const rows = [];
+  for (let k = 0; k < 730; k += 3) {
+    const jd0_k = startJd + k;
+    const ev = riseSet(sunPosition, sunH0, jd0_k, phi, loc.lon);
+    if (ev.set.jd == null) continue;
+    const target = ev.set.jd + 1/24;
+    const sunAtTarget = sunPosition(target);
+    function residual(dD) {
+      const lam = sunAtTarget.lambda + Math.PI + dD;
+      const eps = obliquity(julianCenturies(target));
+      const beta = 0; // approximate: ignore moon's β for the seasonal sweep
+      const dec = Math.asin(Math.sin(eps)*Math.sin(lam));
+      const ra = normRad(Math.atan2(Math.cos(eps)*Math.sin(lam), Math.cos(lam)));
+      const cosH0 = (Math.sin(0.125*DEG) - Math.sin(phi)*Math.sin(dec))
+                   / (Math.cos(phi)*Math.cos(dec));
+      if (cosH0 > 1 || cosH0 < -1) return NaN;
+      const H0 = Math.acos(cosH0);
+      let H = lstFor(target, loc.lon) - ra;
+      while (H >  Math.PI) H -= 2*Math.PI;
+      while (H < -Math.PI) H += 2*Math.PI;
+      return H + H0;
+    }
+    // bisection on dD ∈ (-π/2, π/2)
+    let lo = -Math.PI*0.4, hi = Math.PI*0.4;
+    let fLo = residual(lo), fHi = residual(hi);
+    if (!(Number.isFinite(fLo) && Number.isFinite(fHi) && fLo*fHi < 0)) continue;
+    for (let i=0; i<50; i++) {
+      const mid = (lo+hi)/2, fm = residual(mid);
+      if (!Number.isFinite(fm)) break;
+      if (fm*fLo < 0) { hi = mid; fHi = fm; } else { lo = mid; fLo = fm; }
+    }
+    const dD = (lo+hi)/2;
+    const D_deg = (Math.PI + dD) * RAD;       // 0 = new, 180 = full
+    const illum = (1 - Math.cos(Math.PI + dD))/2 * 100;
+    rows.push({
+      date: new Date((jd0_k + 0.5 - 2440587.5)*86400000),
+      phaseDeg: D_deg,
+      illum
+    });
+  }
+  return rows;
+}
+
+Plot.plot({
+  width: 900, height: 320,
+  marginLeft: 60, marginRight: 60,
+  x: { type: "utc", label: "Date" },
+  y: { label: "Required phase angle D (°) — 180 = full", domain: [150, 210] },
+  marks: [
+    Plot.ruleY([180], { stroke: "#888", strokeDasharray: "3,3" }),
+    Plot.text([{date: seasonalCurve[0]?.date, label: "exact full"}],
+      {x: "date", y: () => 180.6, text: "label", fill: "#888", fontSize: 11, dx: 6}),
+    Plot.line(seasonalCurve, { x: "date", y: "phaseDeg", stroke: "#B35A44", strokeWidth: 2 }),
+    Plot.dot(seasonalCurve.filter((_,i)=>i%5===0), {
+      x: "date", y: "phaseDeg",
+      fill: d => d.phaseDeg > 180 ? "#B35A44" : "#1B2E26",
+      r: 2.5
+    })
+  ]
+})
+```
+
+**How to read the plot.** The horizontal line at $D = 180°$ is "exact full." The curve sits *above* the line when the striking moon must be **past full** (waning gibbous) — i.e., a full moon would have already risen earlier than sunset+1h, so we need to wait a day or two for the moon to drop into position. The curve sits *below* the line when the striking moon must be **just before full** (waxing gibbous) — a "true" full moon would not yet have cleared the horizon.
+
+For mid-northern observers (D.C., $\sim 39°\text{N}$), the pattern is:
+
+| Season (full-moon date roughly) | Curve relative to $180°$ | Phase you actually see at sunset+1h |
+|---|---|---|
+| Late spring / early summer | $D < 180°$ (a few °) | Near-full **waxing** gibbous; full moon rises *after* sunset, so at sunset+1h it has just cleared the horizon |
+| Midsummer | very close to $180°$ | Essentially full |
+| Late summer → autumnal equinox | $D$ rises above $180°$ | Slightly **waning** gibbous; the full moon rose before sunset (harvest-moon geometry) |
+| Late autumn / early winter | $D \approx 185°-195°$ — peak deviation | **Waning gibbous** $\sim 92$–$97\%$ — the full moon was already up well before sunset; you must wait $1$–$2$ days past full to catch a moonrise an hour after sunset |
+| Late winter / early spring | $D$ returns toward $180°$ | Back to near-full waxing gibbous |
+
+This corrects a common intuition: it is *late autumn / early winter* — not summer — when the striking moon visible 1 hour after sunset is a clearly waning gibbous, because that is when the geometry pushes the full moon's natural rise time *earliest* relative to sunset. The "harvest moon" of September is the gateway into this regime; by November the deviation peaks. Conversely, summer full moons rise *late* (south-of-equator declination, short time above horizon) so a sunset+1h viewing catches them essentially at full.
+
+In the southern hemisphere the pattern flips by six months. At the equator the curve is nearly flat at $D \approx 180°$ year-round.
+
+---
+
+## 12. Conclusion
 
 The visual power of a moonrise is not its phase alone — it is the geometry. Three quantities couple: the Sun's declination (via the season), the Moon's declination relative to the Sun's (via the orbital inclination $i = 5.14°$ and the position of the ascending node), and the angle the ecliptic makes with the eastern horizon at the observer's latitude (a slow function of the time of day). The first sets sunset; the second sets how far north or south the full Moon swings from the antisolar point; the third sets how steeply the Moon climbs once it reaches the horizon.
 

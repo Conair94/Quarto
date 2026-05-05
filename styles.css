@@ -99,3 +99,45 @@ div.sourceCode {
   border-left: 5px solid var(--forest-green);
   background-color: rgba(244, 239, 230, 0.5);
 }
+
+/* Table of contents — match header palette */
+#TOC, nav#TOC, .sidebar.toc-active, #quarto-margin-sidebar, nav[role="doc-toc"] {
+  background-color: var(--clay);
+  color: var(--sand);
+  border-left: 4px solid var(--terracotta);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+}
+
+#TOC .toc-title, nav[role="doc-toc"] .toc-title, #toc-title {
+  color: var(--terracotta) !important;
+  font-weight: 800;
+  border-bottom: 1px solid var(--forest-green);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+#TOC ul, nav[role="doc-toc"] ul, #quarto-margin-sidebar ul {
+  list-style: none;
+  padding-left: 0.75rem;
+}
+
+#TOC a, nav[role="doc-toc"] a, #quarto-margin-sidebar a {
+  color: var(--sand) !important;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+}
+
+#TOC a:hover, nav[role="doc-toc"] a:hover, #quarto-margin-sidebar a:hover {
+  background-color: var(--forest-green);
+  color: #FFFFFF !important;
+}
+
+#TOC a.active, nav[role="doc-toc"] a.active, #quarto-margin-sidebar a.active {
+  background-color: var(--terracotta);
+  color: var(--clay) !important;
+  font-weight: 700;
+}
