@@ -533,23 +533,27 @@ currentDateLabel = {
   const mx = cx + r_moon_eff*Math.cos(moon.lambda);
   const my = cy - r_moon_eff*Math.sin(moon.lambda);
 
-  // Earth (with a real day/night terminator: lit hemisphere faces sun)
+  // d3.arc angle to a screen vector (dx, dy): 0 = up, increases clockwise.
+  // For screen vector (dx, dy): arcAngle = atan2(dx, -dy).
+  function screenToArcAngle(dx, dy) { return Math.atan2(dx, -dy); }
+
+  // Earth (with a real day/night terminator: lit hemisphere faces the sun)
   const earth = svg.append("g").attr("transform", `translate(${cx},${cy})`);
   earth.append("circle").attr("r", 20).attr("fill", "#234").attr("stroke","#4b9cd3");
-  // lit half: arc on the side facing the sun
-  const sunDir = Math.atan2(-(sy-cy), sx-cx); // screen-space sun direction
-  const litArc = d3.arc()({innerRadius: 0, outerRadius: 20,
-    startAngle: sunDir - Math.PI/2 + Math.PI/2, // d3 arc convention: 0 = up
-    endAngle:   sunDir + Math.PI/2 + Math.PI/2});
-  earth.append("path").attr("d", litArc).attr("fill", "#4b9cd3").attr("opacity", 0.85);
-  // Observer pin
-  const obsAng = lstFor(jdNow, loc.lon); // local meridian direction in inertial frame
-  // The observer rotates with Earth; the meridian points toward direction (cos θ, sin θ) in equatorial frame
-  // We project a representative pin offset 20px outward from earth at angle (sun.lambda - sun-lit center)
-  // Simpler: pin at angle = loc.lon + (jdNow*360.985°/day) — the observer's celestial longitude.
+  const earthSunArc = screenToArcAngle(sx - cx, sy - cy);
+  const litEarth = d3.arc()({innerRadius: 0, outerRadius: 20,
+    startAngle: earthSunArc - Math.PI/2,
+    endAngle:   earthSunArc + Math.PI/2});
+  earth.append("path").attr("d", litEarth).attr("fill", "#4b9cd3").attr("opacity", 0.9);
+  // Observer pin: place on Earth's surface at the angle pointing to the observer's instantaneous
+  // local meridian — i.e. towards screen direction matching local sidereal time.
+  const obsArcAngle = screenToArcAngle(
+    Math.cos(lstFor(jdNow, loc.lon)),
+    -Math.sin(lstFor(jdNow, loc.lon))
+  );
   earth.append("circle")
-    .attr("cx", 22*Math.cos(obsAng - sun.lambda + sunDir))
-    .attr("cy", -22*Math.sin(obsAng - sun.lambda + sunDir))
+    .attr("cx", 22*Math.sin(obsArcAngle))
+    .attr("cy", -22*Math.cos(obsArcAngle))
     .attr("r", 2.5).attr("fill","#ff6").attr("stroke","#000").attr("stroke-width",0.5);
 
   // Sun
@@ -563,13 +567,12 @@ currentDateLabel = {
   // Moon
   const moonG = svg.append("g").attr("transform", `translate(${mx},${my})`);
   moonG.append("circle").attr("r", 8).attr("fill", "#ddd");
-  // Lit side: hemisphere facing the sun
-  const mSunDir = Math.atan2(-(sy - my), sx - mx);
-  // shaded (dark) side opposite sun
-  const dark = d3.arc()({innerRadius:0, outerRadius:8,
-    startAngle: mSunDir + Math.PI/2 + Math.PI/2,
-    endAngle:   mSunDir + 3*Math.PI/2 + Math.PI/2});
-  moonG.append("path").attr("d", dark).attr("fill","rgba(0,0,0,0.78)");
+  // Lit hemisphere faces the sun; dark hemisphere is opposite.
+  const moonSunArc = screenToArcAngle(sx - mx, sy - my);
+  const darkMoon = d3.arc()({innerRadius:0, outerRadius:8,
+    startAngle: moonSunArc + Math.PI/2,
+    endAngle:   moonSunArc + 3*Math.PI/2});
+  moonG.append("path").attr("d", darkMoon).attr("fill","rgba(0,0,0,0.82)");
 
   // Annotations
   svg.append("text").attr("x", 12).attr("y", 22).attr("fill","#ccc").attr("font-size","12px")
@@ -684,13 +687,20 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
     .style("background","radial-gradient(circle at center, #001 0%, #000 70%)")
     .style("border-radius","8px").style("max-width","100%").style("height","auto");
 
-  // Stereographic from nadir: r = R * tan((90° - alt)/2)
+  // Stereographic from nadir: r = R * tan((90° - alt)/2). Returns null when the
+  // point is below the horizon so callers can break their path there.
   function project(alt, az) {
     if (alt < -0.001) return null;
     const r = R * Math.tan((Math.PI/2 - alt)/2);
     // az measured from N clockwise; on screen, x = r sin(az), y = -r cos(az)
     return [cx + r*Math.sin(az), cy - r*Math.cos(az)];
   }
+
+  // Path generator that BREAKS at null entries instead of connecting across them.
+  // Also breaks when consecutive points are far apart on screen (azimuth wrap-around).
+  const lineGen = d3.line()
+    .defined(d => d != null)
+    .x(d => d[0]).y(d => d[1]);
 
   // Horizon ring + altitude circles
   for (const a of [30, 60]) {
@@ -709,13 +719,23 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
       .attr("text-anchor","middle").attr("fill","#88a").attr("font-size","12px").text(t);
   }
 
-  // Celestial equator + ecliptic, sampled
+  // Celestial equator + ecliptic + body trails, sampled.
+  // We post-process: any pair of consecutive non-null points that are unrealistically
+  // far apart on screen (a wrap-around chord) gets a null inserted between them so
+  // .defined() breaks the path there.
   function drawGreatCircle(samples, color) {
-    const pts = samples.filter(p => p);
-    if (pts.length < 2) return;
-    const path = d3.line()(pts);
-    svg.append("path").attr("d", path).attr("fill","none")
-      .attr("stroke",color).attr("stroke-width",0.6).attr("opacity",0.5);
+    const broken = [];
+    for (let i = 0; i < samples.length; i++) {
+      const p = samples[i];
+      const prev = broken[broken.length - 1];
+      if (p && prev) {
+        const dx = p[0] - prev[0], dy = p[1] - prev[1];
+        if (dx*dx + dy*dy > (R*0.5)*(R*0.5)) broken.push(null);
+      }
+      broken.push(p);
+    }
+    svg.append("path").attr("d", lineGen(broken)).attr("fill","none")
+      .attr("stroke",color).attr("stroke-width",0.6).attr("opacity",0.55);
   }
   // Equator: δ = 0, vary α
   const eqPts = [];
@@ -744,16 +764,17 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
   }
   drawGreatCircle(ecPts, "#a85");
 
-  // 24-hour trails for Sun & Moon
+  // 24-hour trails for Sun & Moon — keep nulls in-place so the path breaks
+  // when the body dips below the horizon.
   function trail(bodyFn, color) {
     const pts = [];
-    for (let dh=-24; dh<=0; dh+=0.5) {
+    for (let dh=-24; dh<=0; dh+=0.25) {
       const t = jdNow + dh/24;
       const b = bodyFn(t);
       const aa = altAz(loc.lat*DEG, b.delta, b.alpha, t, loc.lon);
       pts.push(project(aa.alt, aa.az));
     }
-    drawGreatCircle(pts.filter(p=>p), color);
+    drawGreatCircle(pts, color);
   }
   trail(sunPosition, "#ffcc33");
   trail(moonPosition, "#cce");
