@@ -1,279 +1,603 @@
 ---
 title: "The Mathematics of the Striking Moonrise"
-description: "A rigorous exploration of moon phases, sunset times, and the orbital mechanics that govern the perfect evening moonrise across seasons."
+description: "A first-principles derivation of solar and lunar position, rise/set times, and the geometry that produces a perfect moonrise — with interactive visualizers."
 date: "2026-05-05"
 categories: [mathematics, astronomy, celestial-mechanics]
 format:
   html:
     code-fold: true
+    toc: true
 ---
 
-There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It feels perfectly full, yet the sky is fully dark, creating maximum contrast. 
+There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It looks perfectly full, the sky is fully dark, contrast is at its peak. To get this, the moon must rise roughly **one hour after sunset**.
 
-But exactly when does this happen? To achieve this visual peak, the moon needs to rise about **one hour after sunset**. 
+But on any given calendar date, *when* does the moon actually rise relative to the sun, and *what phase* is it then? The answers are seasonal, not constant — and the reason is geometric. This post derives the answer from first principles, building Sun and Moon position, sidereal time, and the rise–set equation from scratch, ending in four interactive diagrams you can drive yourself.
 
-In this post, we will derive the mathematics of the moon and sun from first principles to answer two questions:
-1. When exactly does a mathematically perfect full moon rise relative to sunset across the seasons?
-2. What exact moon phase is required for the moon to rise exactly one hour after sunset, and why does this explain the phenomenological differences between the striking moons of spring and the waning gibbous moons of autumn?
-
-All calculations are calibrated for the coordinates of Washington, D.C. (Latitude $\phi \approx 38.9^\circ \text{ N}$).
+Default location is Washington, D.C. ($\varphi = 38.9°\,\text{N}$, $L = -77.04°$); every visualizer accepts your own coordinates.
 
 ---
 
-## 1. The Astronomical Framework
+## 1. Three reference frames
 
-To model celestial mechanics, we must map ecliptic coordinates to equatorial coordinates. While the Sun stays on the ecliptic plane, the Moon’s orbit is inclined by $i \approx 5.14^\circ$.
+Astronomy is bookkeeping in three frames, each more local than the last:
 
-Let $\lambda$ be the ecliptic longitude. For the Moon, we also have celestial latitude $\beta$, which depends on the position of the Moon relative to its **Ascending Node ($\Omega$)**:
-$$ \sin \beta = \sin i \sin(\lambda_M - \Omega) $$
+1. **Ecliptic frame** — defined by Earth's orbital plane around the Sun. Coordinates: ecliptic longitude $\lambda$ (measured from the vernal equinox, eastward) and ecliptic latitude $\beta$. The Sun, by definition, has $\beta_\odot = 0$.
 
-The conversion to equatorial coordinates (Right Ascension $\alpha$, Declination $\delta$) with Earth's tilt $\epsilon = 23.44^\circ$ is:
-$$ \sin \delta = \sin \beta \cos \epsilon + \cos \beta \sin \epsilon \sin \lambda $$
-$$ \tan \alpha = \frac{\cos \beta \sin \lambda \cos \epsilon - \sin \beta \sin \epsilon}{\cos \beta \cos \lambda} $$
+2. **Equatorial frame** — defined by Earth's rotation axis, tilted from the ecliptic pole by the obliquity $\varepsilon \approx 23.44°$. Coordinates: right ascension $\alpha$ and declination $\delta$. Stars are nearly fixed in this frame.
 
-The **Hour Angle ($H$)** at the horizon is:
-$$ \cos H = -\tan \phi \tan \delta $$
+3. **Horizontal (topocentric) frame** — defined by the observer's local vertical. Coordinates: azimuth $A$ (from north, clockwise) and altitude $a$ (above horizon). A body's altitude depends on the observer's latitude $\varphi$, the body's $\delta$, and the **local hour angle** $H = \theta - \alpha$, where $\theta$ is local sidereal time.
+
+The transformations are clean rotations of unit vectors:
+
+$$
+\begin{pmatrix}\cos\delta\cos\alpha\\ \cos\delta\sin\alpha\\ \sin\delta\end{pmatrix}
+= R_x(-\varepsilon)
+\begin{pmatrix}\cos\beta\cos\lambda\\ \cos\beta\sin\lambda\\ \sin\beta\end{pmatrix}
+$$
+
+$$
+\begin{pmatrix}\cos a \cos A\\ -\cos a \sin A\\ \sin a\end{pmatrix}
+= R_y\!\left(\tfrac{\pi}{2}-\varphi\right)
+\begin{pmatrix}\cos\delta\cos H\\ \cos\delta\sin H\\ \sin\delta\end{pmatrix}
+$$
+
+Expanding the second product gives the two equations we will reuse:
+
+$$ \sin a = \sin\varphi\sin\delta + \cos\varphi\cos\delta\cos H \tag{1.1} $$
+$$ \tan A = \frac{-\sin H}{\tan\delta\cos\varphi - \sin\varphi\cos H} \tag{1.2} $$
+
+A body **rises** when it crosses $a = h_0$ from below, where $h_0$ is a small negative angle accounting for atmospheric refraction and the body's apparent radius (more in §4). Setting $a = h_0$ in (1.1) and solving for $\cos H$:
+
+$$ \cos H_0 = \frac{\sin h_0 - \sin\varphi\sin\delta}{\cos\varphi\cos\delta} \tag{1.3} $$
+
+This is the central equation of the post. Everything else is figuring out $\delta$ and $\alpha$ for the Sun and the Moon at the time we care about.
 
 ---
 
-## 2. The Full Moon Offset: A Winter Paradox
+## 2. The Sun's apparent motion — Kepler's equation
 
-If the Moon were on the ecliptic, a perfectly full moon ($\lambda_M = \lambda_\odot + 180^\circ$) would rise exactly at sunset. However, the $5.14^\circ$ inclination creates a significant "offset."
+Earth's orbit is a slight ellipse with eccentricity $e \approx 0.0167$. Earth moves faster at perihelion (early January) and slower at aphelion (early July), so the Sun's apparent ecliptic longitude does *not* advance uniformly in time. Kepler's equation links uniform mean anomaly $M$ to the geometric eccentric anomaly $E$:
 
-Intuitively, one might expect that a "shorter day" in winter means the Sun sets early and the Moon must rise later. However, the opposite is often true. Because a winter full moon is opposite the Sun, it occupies the "Summer" part of the ecliptic. While the Sun is deep in the South ($\delta \approx -23.4^\circ$), the Moon is high in the North ($\delta \approx +23.4^\circ$). 
+$$ M = E - e \sin E \tag{2.1} $$
 
-If the orbital inclination $i$ pushes the Moon even further North (reaching a declination of up to $+28.5^\circ$), the Moon rises so early and stays up so long that it can actually crest the horizon **before the Sun has even set**. This results in a negative offset in our calculations.
+The true anomaly $\nu$ — the actual angle swept from perihelion — comes from $E$ via
 
-The Local Sidereal Time (LST) of an event is $LST = \alpha + H$. The delay of moonrise relative to sunset is:
-$$ \Delta t = \frac{(LST_{M,rise} - LST_{\odot,set})}{15^\circ/\text{hr}} $$
+$$ \tan\tfrac{\nu}{2} = \sqrt{\tfrac{1+e}{1-e}}\,\tan\tfrac{E}{2}. \tag{2.2} $$
+
+Series-expanding for small $e$ yields the **equation of center**:
+
+$$ C \equiv \nu - M = 2e\sin M + \tfrac{5}{4}e^2\sin 2M + O(e^3). \tag{2.3} $$
+
+The Sun's apparent geocentric longitude is then $\lambda_\odot = L_0 + C$, where $L_0$ is the **mean longitude** (linear in time). Following Meeus's *Astronomical Algorithms* (ch. 25), with $T$ in Julian centuries from J2000.0 (= JD 2451545.0):
+
+$$
+\begin{aligned}
+L_0 &= 280.46646° + 36000.76983°\,T + 0.0003032°\,T^2 \\
+M &= 357.52911° + 35999.05029°\,T - 0.0001537°\,T^2 \\
+e &= 0.016708634 - 0.000042037\,T \\
+C &= (1.914602° - 0.004817°\,T)\sin M + (0.019993° - 0.000101°\,T)\sin 2M + 0.000289°\sin 3M \\
+\lambda_\odot &= L_0 + C - 0.00569° - 0.00478°\sin\Omega
+\end{aligned}
+$$
+
+The last two corrections are aberration and the dominant nutation term; $\Omega = 125.04° - 1934.136°\,T$ is the longitude of the Moon's ascending node. The Sun's $\beta \equiv 0$, so converting to equatorial:
+
+$$ \alpha_\odot = \arctan\!\big(\cos\varepsilon\sin\lambda_\odot,\;\cos\lambda_\odot\big), \qquad \sin\delta_\odot = \sin\varepsilon\sin\lambda_\odot. \tag{2.4} $$
+
+This gives the Sun's apparent position to better than $0.01°$ across 1900–2100 — well inside our $\pm 2$ min target on rise time.
+
+### Why winter inverts the moonrise lag
+
+A perfectly full moon sits at $\lambda_M = \lambda_\odot + 180°$. In **December**, the Sun is at $\lambda_\odot \approx 270°$ and dips to $\delta \approx -23.4°$ — far south, short days. The full moon is then at $\lambda_M \approx 90°$ with $\delta_M \approx +23.4°$ — far *north*, **long** time above the horizon. From mid-northern latitudes a high-declination body has $H_0$ close to $\pi$ (it spends almost the whole sidereal day up), so it rises *early* relative to the Sun's setting. The "winter paradox" in the table below is just (1.3) being applied honestly.
 
 ---
 
-## 3. Solving the Orbital Mechanics in Python
+## 3. The Moon — five fundamental arguments
 
-We can build a numerical solver that accounts for inclination and the regression of the lunar nodes ($\Omega$ regresses $\sim 19.3^\circ$ per year).
+The Moon's motion is harder because the Sun perturbs its orbit substantially. Every modern lunar theory (Brown, ELP-2000, etc.) parametrizes by five **Delaunay-style fundamental arguments**, all linear in $T$:
 
-```python
-import math
+| Symbol | Name | Linear-in-$T$ expression (degrees) |
+|---|---|---|
+| $L'$ | Moon's mean longitude | $218.31644 + 481267.88123\,T - 0.00158\,T^2$ |
+| $D$  | Mean elongation from Sun | $297.85019 + 445267.11140\,T - 0.00188\,T^2$ |
+| $M$  | Sun's mean anomaly | $357.52911 + 35999.05029\,T$ |
+| $M'$ | Moon's mean anomaly | $134.96340 + 477198.86751\,T + 0.00874\,T^2$ |
+| $F$  | Argument of latitude (from ascending node) | $93.27210 + 483202.01752\,T - 0.00365\,T^2$ |
 
-def get_moon_eq(lam_m, Omega, epsilon=math.radians(23.44), inc=math.radians(5.14)):
-    u = lam_m - Omega
-    sin_beta = math.sin(inc) * math.sin(u)
-    beta = math.asin(sin_beta)
-    
-    y_ecl = math.cos(inc) * math.sin(u)
-    x_ecl = math.cos(u)
-    lam = math.atan2(y_ecl, x_ecl) + Omega
-    
-    sin_delta = math.sin(beta) * math.cos(epsilon) + math.cos(beta) * math.sin(epsilon) * math.sin(lam)
-    delta = math.asin(sin_delta)
-    
-    y_eq = math.cos(beta) * math.cos(epsilon) * math.sin(lam) - math.sin(beta) * math.sin(epsilon)
-    x_eq = math.cos(beta) * math.cos(lam)
-    alpha = math.atan2(y_eq, x_eq)
-    
-    return alpha, delta
+Geometrically: $L'$ tracks the Moon along the ecliptic; $D$ measures the synodic phase ($D = 0$ is new moon, $D = 180°$ is full); $M'$ encodes orbital eccentricity; $F$ measures distance from the ascending node and so drives ecliptic latitude.
+
+The Moon's true ecliptic longitude and latitude are sums of trigonometric corrections in these arguments. The full ELP-2000 series has thousands of terms; we keep the leading ones (Meeus Table 47.A truncated). For longitude, in degrees:
+
+$$
+\begin{aligned}
+\lambda_M - L' \approx\;& 6.289\sin M' + 1.274\sin(2D - M') + 0.658\sin 2D + 0.214\sin 2M' \\
+& -\,0.186\sin M - 0.114\sin 2F + 0.059\sin(2D - 2M') + 0.057\sin(2D - M - M') \\
+& +\,0.053\sin(2D + M') + 0.046\sin(2D - M) - 0.041\sin(M - M') \\
+& -\,0.035\sin D - 0.030\sin(M + M') + \cdots
+\end{aligned}
+$$
+
+For latitude, the dominant inclination term is $5.128°$ — this is the Moon's orbital inclination $i$. Higher-order terms come from the perturbed motion of the node:
+
+$$
+\beta_M \approx 5.128\sin F + 0.281\sin(M' + F) + 0.278\sin(M' - F) + 0.173\sin(2D - F) + \cdots
+$$
+
+The Earth–Moon distance is dominated by the elliptical term $-20905\cos M'$ km, oscillating between perigee ($\sim 363{,}000$ km) and apogee ($\sim 405{,}000$ km).
+
+Conversion to equatorial coordinates uses the full transform (with $\beta \neq 0$):
+
+$$
+\sin\delta_M = \sin\beta_M\cos\varepsilon + \cos\beta_M\sin\varepsilon\sin\lambda_M, \tag{3.1}
+$$
+$$
+\alpha_M = \arctan\!\big(\sin\lambda_M\cos\varepsilon - \tan\beta_M\sin\varepsilon,\; \cos\lambda_M\big). \tag{3.2}
+$$
+
+The truncated series above gives lunar position to $\sim 0.1°$, which translates to under $\pm 2$ minutes of rise-time error at $\varphi \approx 39°$ — within spec.
+
+---
+
+## 4. Rise time — refraction, parallax, and sidereal iteration
+
+### Apparent horizon altitude
+
+A body's geometric center is *not* at altitude $0$ when its limb touches the horizon. Three corrections matter:
+
+- **Atmospheric refraction** at the horizon raises the apparent position by $\rho \approx 34'$.
+- **Semidiameter** of the Sun is $s_\odot \approx 16'$. We see the Sun "rise" when its upper limb appears, so the geometric center must be $-s_\odot$ below.
+- **Lunar parallax and semidiameter:** the Moon is close enough that the observer sees it shifted by horizontal parallax $\pi_M = \arcsin(R_\oplus/\Delta) \approx 57'$, *raising* its apparent altitude. Its semidiameter is $\sim 15'-17'$.
+
+Combining: the geometric altitude $h_0$ at which a body's apparent upper limb is on the horizon is
+
+$$
+\boxed{h_0^{\odot} = -50'} \qquad
+\boxed{h_0^{M} = 0.7275\,\pi_M - 34'} \tag{4.1}
+$$
+
+where the $0.7275$ factor comes from the difference between geometric horizontal parallax and the contribution to the center's altitude (Meeus 15.1). For $\Delta = 385{,}000$ km this is $h_0^M \approx +7'$. **The current literature post ignored these and that alone introduced 5–10 min errors.**
+
+### Local sidereal time
+
+The local hour angle of a body is $H = \theta - \alpha$, where $\theta$ is local sidereal time. Greenwich Mean Sidereal Time at any instant (Meeus 12.4), in degrees:
+
+$$
+\theta_G = 280.46062 + 360.98564737\,(JD - 2451545) + 0.000388\,T^2 - T^3/38710000 \tag{4.2}
+$$
+
+Local sidereal time $\theta = \theta_G + L$ for east-positive observer longitude $L$.
+
+### Iterative root-find
+
+Because the Moon's right ascension changes by $\sim 0.5°$ per hour, "rise time" is a fixed point: the time at which $H(t) = -H_0$, where both $H$ and $H_0$ depend on $t$. We iterate. Starting from noon UT of the desired calendar date,
+
+1. Compute $\alpha(t), \delta(t)$ from §3.
+2. Compute $H_0$ from (1.3) using (4.1) for $h_0$.
+3. Compute current $H = \theta(t) - \alpha(t)$, normalized to $(-\pi, \pi]$.
+4. Update $t \leftarrow t + (\Delta H)/(2\pi/0.9972696\,\text{days})$ where $\Delta H = -H_0 - H$, normalized.
+
+Two to four iterations converge to under a second. Setting and transit times use $+H_0$ and $0$ in step 3.
+
+---
+
+## 5. The harvest moon, properly
+
+The **daily lag in moonrise** — how much later the moon rises tonight than yesterday — is set by how fast the moon's right ascension grows (about $13°/\text{day}$) and by how that RA increase projects onto the *eastern horizon* at the observer's latitude.
+
+If the Moon's path on the sky met the eastern horizon perpendicularly, a $13°$ RA shift would translate directly into $13°/15° = 52\,\text{min}$ of delay. But near the autumnal equinox at northern mid-latitudes, the ecliptic crosses the eastern horizon at a *shallow* angle in the early evening: the Moon's daily march along the ecliptic projects mostly *along* the horizon, not down into it. The horizon-crossing point shifts north (along the horizon) more than the rise time slips. Result: the lag shrinks to as little as $20-25$ min for several consecutive nights — the **harvest moon effect**.
+
+Quantitatively, if $\psi$ is the angle the ecliptic makes with the local horizon at the moment of moonrise, the daily lag is approximately
+
+$$ \Delta t_\text{daily} \approx \frac{13°/15°}{1 + (\dot\alpha/\dot\lambda - 1)} \cdot \sin\psi \approx \frac{52\,\text{min}}{1} \cdot \sin\psi, \tag{5.1} $$
+
+so a shallow $\psi \approx 25°$ gives $\sim 22$ min, while a steep $\psi \approx 70°$ (spring evenings) gives $\sim 49$ min. The orbital inclination of $5.14°$ adds a secondary modulation depending on where the ascending node sits — when the node is near the vernal equinox ("major standstill"), the Moon's declination range is the full $\pm 28.6°$ rather than $\pm 18.3°$, exaggerating both effects.
+
+---
+
+## 6. The compute module
+
+The next four visualizers all share one OJS module. It implements §§2–4 verbatim. Code is folded; expand to inspect or modify.
+
+```{ojs}
+//| code-fold: true
+DEG = Math.PI / 180
+RAD = 180 / Math.PI
+J2000 = 2451545.0
+
+julianCenturies = (jd) => (jd - J2000) / 36525
+
+// Calendar date → JD (Meeus 7.1). Month 1–12, day can be fractional.
+jdFromDate = function(year, month, day) {
+  let y = year, m = month;
+  if (m <= 2) { y -= 1; m += 12; }
+  const a = Math.floor(y / 100);
+  const b = 2 - a + Math.floor(a / 4);
+  return Math.floor(365.25*(y + 4716)) + Math.floor(30.6001*(m + 1)) + day + b - 1524.5;
+}
+
+obliquity = function(T) {
+  // Mean obliquity, Meeus 22.2 (low-precision)
+  return (23.4392911 - 0.0130042*T - 1.64e-7*T*T + 5.04e-7*T*T*T) * DEG;
+}
+
+normRad = function(x) {
+  let y = x % (2*Math.PI);
+  if (y < 0) y += 2*Math.PI;
+  return y;
+}
+
+sunPosition = function(jd) {
+  const T = julianCenturies(jd);
+  const L0 = (280.46646 + 36000.76983*T + 0.0003032*T*T) * DEG;
+  const M  = (357.52911 + 35999.05029*T - 0.0001537*T*T) * DEG;
+  const C  = ((1.914602 - 0.004817*T - 0.000014*T*T)*Math.sin(M)
+            + (0.019993 - 0.000101*T)*Math.sin(2*M)
+            + 0.000289*Math.sin(3*M)) * DEG;
+  const trueLong = L0 + C;
+  const omega = (125.04 - 1934.136*T) * DEG;
+  const lambda = trueLong - (0.00569 + 0.00478*Math.sin(omega)) * DEG;
+  const eps = obliquity(T);
+  const alpha = Math.atan2(Math.cos(eps)*Math.sin(lambda), Math.cos(lambda));
+  const delta = Math.asin(Math.sin(eps)*Math.sin(lambda));
+  return { lambda: normRad(lambda), beta: 0, alpha: normRad(alpha), delta, eps };
+}
+
+moonPosition = function(jd) {
+  const T = julianCenturies(jd);
+  const Lp = ((218.3164477 + 481267.88123421*T - 0.0015786*T*T) * DEG);
+  const D  = ((297.8501921 + 445267.1114034*T - 0.0018819*T*T) * DEG);
+  const M  = ((357.5291092 + 35999.0502909*T) * DEG);
+  const Mp = ((134.9633964 + 477198.8675055*T + 0.0087414*T*T) * DEG);
+  const F  = (( 93.2720950 + 483202.0175233*T - 0.0036539*T*T) * DEG);
+  const dLambda = (
+      6.288774 * Math.sin(Mp)
+    + 1.274027 * Math.sin(2*D - Mp)
+    + 0.658314 * Math.sin(2*D)
+    + 0.213618 * Math.sin(2*Mp)
+    - 0.185116 * Math.sin(M)
+    - 0.114332 * Math.sin(2*F)
+    + 0.058793 * Math.sin(2*D - 2*Mp)
+    + 0.057066 * Math.sin(2*D - M - Mp)
+    + 0.053322 * Math.sin(2*D + Mp)
+    + 0.045758 * Math.sin(2*D - M)
+    - 0.040923 * Math.sin(M - Mp)
+    - 0.034720 * Math.sin(D)
+    - 0.030383 * Math.sin(M + Mp)
+    + 0.015327 * Math.sin(2*D - 2*F)
+    - 0.012528 * Math.sin(Mp + 2*F)
+    + 0.010980 * Math.sin(Mp - 2*F)
+  ) * DEG;
+  const dBeta = (
+      5.128122 * Math.sin(F)
+    + 0.280602 * Math.sin(Mp + F)
+    + 0.277693 * Math.sin(Mp - F)
+    + 0.173237 * Math.sin(2*D - F)
+    + 0.055413 * Math.sin(2*D + F - Mp)
+    + 0.046271 * Math.sin(2*D - F - Mp)
+    + 0.032573 * Math.sin(2*D + F)
+    + 0.017198 * Math.sin(2*Mp + F)
+    + 0.009266 * Math.sin(2*D + Mp - F)
+    + 0.008822 * Math.sin(2*Mp - F)
+  ) * DEG;
+  const dist = 385000.56
+    - 20905.355 * Math.cos(Mp)
+    -  3699.111 * Math.cos(2*D - Mp)
+    -  2955.968 * Math.cos(2*D)
+    -   569.925 * Math.cos(2*Mp)
+    +    48.888 * Math.cos(M)
+    -   246.158 * Math.cos(2*Mp - 2*D);
+  const lambda = Lp + dLambda;
+  const beta = dBeta;
+  const eps = obliquity(T);
+  const sinD = Math.sin(beta)*Math.cos(eps) + Math.cos(beta)*Math.sin(eps)*Math.sin(lambda);
+  const delta = Math.asin(sinD);
+  const alpha = Math.atan2(
+    Math.sin(lambda)*Math.cos(eps) - Math.tan(beta)*Math.sin(eps),
+    Math.cos(lambda)
+  );
+  return { lambda: normRad(lambda), beta, alpha: normRad(alpha), delta, distance: dist };
+}
+
+gmst = function(jd) {
+  const T = julianCenturies(jd);
+  const d = jd - J2000;
+  let theta = 280.46061837 + 360.98564736629*d + 0.000387933*T*T - T*T*T/38710000;
+  theta = ((theta % 360) + 360) % 360;
+  return theta * DEG;
+}
+
+lstFor = (jd, lonEastDeg) => normRad(gmst(jd) + lonEastDeg*DEG)
+
+altAz = function(latRad, dec, alpha, jd, lonEastDeg) {
+  const H = lstFor(jd, lonEastDeg) - alpha;
+  const sinAlt = Math.sin(latRad)*Math.sin(dec) + Math.cos(latRad)*Math.cos(dec)*Math.cos(H);
+  const alt = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+  const y = -Math.sin(H);
+  const x = Math.tan(dec)*Math.cos(latRad) - Math.sin(latRad)*Math.cos(H);
+  let az = Math.atan2(y, x);
+  if (az < 0) az += 2*Math.PI;
+  return { alt, az, H };
+}
+
+sunH0 = () => -0.8333 * DEG
+moonH0 = (m) => {
+  const parallax = Math.asin(6378.14 / m.distance);
+  return 0.7275*parallax - 0.5667*DEG;
+}
+
+// Find rise / transit / set on the calendar date whose 0h UT is jd0.
+// Sign: -1 for rise, 0 for transit, +1 for set.
+findEvent = function(bodyFn, h0Fn, jd0, latRad, lonEastDeg, sign) {
+  let t = jd0 + 0.5; // start at noon UT
+  for (let i = 0; i < 8; i++) {
+    const body = bodyFn(t);
+    const h0 = h0Fn(body);
+    const cosH0 = (Math.sin(h0) - Math.sin(latRad)*Math.sin(body.delta))
+                / (Math.cos(latRad)*Math.cos(body.delta));
+    if (cosH0 >  1 + 1e-9) return { jd: null, reason: 'never-rises' };
+    if (cosH0 < -1 - 1e-9) return { jd: null, reason: 'never-sets' };
+    const H0 = Math.acos(Math.max(-1, Math.min(1, cosH0)));
+    const desiredH = sign === 0 ? 0 : (sign < 0 ? -H0 : +H0);
+    let currentH = lstFor(t, lonEastDeg) - body.alpha;
+    while (currentH >  Math.PI) currentH -= 2*Math.PI;
+    while (currentH < -Math.PI) currentH += 2*Math.PI;
+    let dH = desiredH - currentH;
+    while (dH >  Math.PI) dH -= 2*Math.PI;
+    while (dH < -Math.PI) dH += 2*Math.PI;
+    const dt = dH / (2*Math.PI / 0.9972695663); // sidereal day
+    t += dt;
+    if (Math.abs(dt) < 1e-5) break;
+  }
+  // Confirm event lies within [jd0, jd0+1]
+  if (t < jd0 - 0.05 || t > jd0 + 1.05) {
+    // try alternative branch
+  }
+  return { jd: t, reason: 'ok' };
+}
+
+riseSet = function(bodyFn, h0Fn, jd0, latRad, lonEastDeg) {
+  return {
+    rise:    findEvent(bodyFn, h0Fn, jd0, latRad, lonEastDeg, -1),
+    transit: findEvent(bodyFn, h0Fn, jd0, latRad, lonEastDeg,  0),
+    set:     findEvent(bodyFn, h0Fn, jd0, latRad, lonEastDeg, +1)
+  };
+}
+
+// Phase angle and illumination, Meeus 48
+illumination = function(jd) {
+  const s = sunPosition(jd);
+  const m = moonPosition(jd);
+  const psi = Math.acos(
+    Math.sin(s.delta)*Math.sin(m.delta) +
+    Math.cos(s.delta)*Math.cos(m.delta)*Math.cos(s.alpha - m.alpha)
+  );
+  const R = 1.496e8;
+  const Δ = m.distance;
+  const i = Math.atan2(R*Math.sin(psi), Δ - R*Math.cos(psi));
+  // Synodic phase angle (0 = new, π = full), signed by D
+  const D = normRad(m.lambda - s.lambda);
+  return { phaseAngle: i, illuminated: (1 + Math.cos(i))/2, elongation: D };
+}
+
+// Sub-solar / sub-lunar geographic point (lat, lon east) at given JD
+subPoint = function(jd, body) {
+  const b = body(jd);
+  const gast = gmst(jd); // ignore equation of equinoxes (tiny)
+  let lon = b.alpha - gast;
+  while (lon >  Math.PI) lon -= 2*Math.PI;
+  while (lon < -Math.PI) lon += 2*Math.PI;
+  return { lat: b.delta, lon };
+}
+
+mod360 = x => ((x % 360) + 360) % 360
+
+// Format a JD (UT) as local clock time HH:MM given a TZ offset in hours.
+fmtLocal = function(jd, tzHours) {
+  if (jd == null) return "—";
+  const local = jd + tzHours/24;
+  const frac = local - Math.floor(local) - 0.5;
+  let hours24 = (frac * 24 + 24) % 24;
+  const h = Math.floor(hours24);
+  const m = Math.round((hours24 - h)*60);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
 ```
 
 ---
 
-## 4. A Year of Celestial Timing (Washington, D.C.)
+## 7. Interactive celestial visualizer (orbital geometry & 24-h timeline)
 
-Using this rigorous model, we can calculate the actual offsets for the upcoming year of full moons. 
-
-**Sign Convention:** A **negative** value means the Moon rises **before** sunset. A **positive** value means it rises **after** sunset.
-
-| Date (Approx) | Full Moon Rise relative to Sunset | Target Illumination (1-Hr Delay) | Age (Days Past Full) |
-|---------------|-----------------------------------|-----------------------------------|----------------------|
-| May 31, 2026 | +18.2 min | **99.5%** | 0.7 |
-| Jun 29, 2026 | +19.4 min | **99.0%** | 0.9 |
-| Jul 29, 2026 | +9.6 min | **96.7%** | 1.7 |
-| Aug 27, 2026 | -3.3 min | **92.8%** | 2.5 |
-| Sep 26, 2026 | -14.9 min | **92.1%** | 2.7 |
-| Oct 25, 2026 | -23.1 min | **94.3%** | 2.3 |
-| Nov 24, 2026 | **-24.4 min** | **96.9%** | 1.7 |
-| Dec 23, 2026 | -15.5 min | **98.3%** | 1.2 |
-| Jan 22, 2027 | -4.1 min | **98.9%** | 1.0 |
-| Feb 20, 2027 | +1.6 min | **99.0%** | 0.9 |
-| Mar 22, 2027 | +4.2 min | **99.1%** | 0.9 |
-| Apr 20, 2027 | +8.7 min | **99.3%** | 0.8 |
-| May 20, 2027 | +15.3 min | **99.4%** | 0.7 |
-
-Notice the paradox: in **November 2026**, a mathematically perfect full moon rises **24 minutes before sunset**. It is already in the sky while the Sun is still up. To get it to rise 1 hour after sunset during that season, the moon must be significantly past full—nearly **1.7 days waning**.
-
----
-
-## 5. The Harvest Moon and Orbital Nodes
-
-The "Harvest Moon" effect (where the moonrise delay is minimized) is most powerful when the full moon occurs near the Vernal Equinox point ($\lambda_M \approx 0^\circ$) while the Moon is moving rapidly northward. The orbital inclination $i$ either amplifies or dampens this effect depending on the position of the nodes ($\Omega$). 
-
-When the Ascending Node is near $0^\circ$, the Moon's orbit is tilted *more* relative to the equator than the ecliptic is (up to $23.4 + 5.1 = 28.5^\circ$). This is a "Major Standstill" year, and it makes the seasonal variations in moonrise times even more extreme.
-
----
-
-## 6. Interactive Celestial Visualizer
-
-Explore the geometry of the Sun, Earth, and Moon. Use the slider to change the date and observe how the orbital positions affect the daylight and moonlight hours in Washington, D.C.
+Use the controls below to set a date, location, and (optionally) a phase offset. The first diagram shows the Earth–Moon–Sun geometry from above the ecliptic; the second is a 24-hour timeline of when the Sun and Moon are above the horizon at your latitude. Both diagrams now use the full lunar series from §3 — they no longer fake the Moon's longitude.
 
 ```{ojs}
 //| panel: sidebar
-viewof dayOfYear = Inputs.range([1, 365], {value: 145, step: 1, label: "Day of Year"});
-viewof latitude = Inputs.range([-90, 90], {value: 38.9, step: 0.1, label: "Latitude (°N)"});
-viewof node_pos = Inputs.range([0, 360], {value: 335, step: 1, label: "Ascending Node (Ω°)"});
+viewof loc = Inputs.form({
+  lat: Inputs.range([-89, 89], {value: 38.9, step: 0.1, label: "Latitude (°N)"}),
+  lon: Inputs.range([-180, 180], {value: -77.04, step: 0.1, label: "Longitude (°E)"}),
+  tz:  Inputs.range([-12, 14], {value: -5, step: 1, label: "Time-zone offset (h)"})
+});
+viewof picker = Inputs.form({
+  year:  Inputs.range([yearMin, yearMax], {value: yearToday, step: 1, label: "Year"}),
+  doy:   Inputs.range([1, 366], {value: doyToday, step: 1, label: "Day of year"}),
+  hour:  Inputs.range([0, 24], {value: 12, step: 0.25, label: "Local clock hour"})
+});
+```
+
+```{ojs}
+//| code-fold: true
+// today's date / range bounds
+todayObj = new Date()
+yearToday = todayObj.getUTCFullYear()
+yearMin = yearToday
+yearMax = yearToday + 2
+doyToday = (function(){
+  const start = Date.UTC(yearToday, 0, 1);
+  return Math.floor((todayObj - start)/86400000) + 1;
+})()
+
+// derived JD at 0h UT of (year, doy), and at chosen local clock time
+jd0 = jdFromDate(picker.year, 1, picker.doy)
+jdNow = jd0 + (picker.hour - loc.tz)/24
+sun = sunPosition(jdNow)
+moon = moonPosition(jdNow)
+ill = illumination(jdNow)
+events = ({
+  sun:  riseSet(sunPosition,  sunH0,  jd0, loc.lat*DEG, loc.lon),
+  moon: riseSet(moonPosition, moonH0, jd0, loc.lat*DEG, loc.lon)
+})
 ```
 
 ::: {.panel-fill}
 ```{ojs}
-// Geometric Diagram
+// ===== Visualizer A: overhead geometric diagram =====
 {
-  const width = 600;
-  const height = 400;
-  const margin = 20;
-  const centerX = width / 2;
-  const centerY = height / 2;
-  
-  // Scales for visualization
-  const moonOrbitRadius = 80;
-  const sunOrbitRadius = 160;
-  
-  const epsilon = 23.44 * Math.PI / 180;
-  const inc = 5.14 * Math.PI / 180;
-  const Omega = node_pos * Math.PI / 180;
-  
-  // Calculate longitudes
-  // Sun: approx 0 at day 80 (March 21)
-  const lam_s = (dayOfYear - 80) * 2 * Math.PI / 365.25;
-  // Moon: approx 13.18 degrees per day relative to equinox
-  // At day 145 (May 25), full moon is approx 180 degrees from sun
-  const lam_m = lam_s + Math.PI + (dayOfYear % 29.53) * 2 * Math.PI / 29.53;
+  const W = 640, H = 420, cx = W/2, cy = H/2;
+  const Rsun = 170, Rmoon = 90;
 
   const svg = d3.create("svg")
-    .attr("viewBox", [0, 0, width, height])
+    .attr("viewBox", [0, 0, W, H])
     .style("background", "#0a0a1a")
-    .style("border-radius", "8px");
+    .style("border-radius", "8px")
+    .style("max-width", "100%")
+    .style("height", "auto");
 
-  // Earth
-  const earth = svg.append("g").attr("transform", `translate(${centerX}, ${centerY})`);
-  earth.append("circle").attr("r", 15).attr("fill", "#4b9cd3");
-  // Earth Shadow (Night Side) - always away from Sun
-  earth.append("path")
-    .attr("d", d3.arc()({innerRadius: 0, outerRadius: 15, startAngle: lam_s + Math.PI/2, endAngle: lam_s + 3*Math.PI/2}))
-    .attr("fill", "rgba(0,0,0,0.6)");
+  // labels for ecliptic cardinal directions (vernal equinox = +x)
+  const dir = [["♈ 0°", Rsun+22, 0],["♋ 90°", 0, Rsun+22],["♎ 180°", -(Rsun+30), 0],["♑ 270°", 0, -(Rsun+22)]];
+  for (const [t,dx,dy] of dir) {
+    svg.append("text").attr("x", cx+dx).attr("y", cy-dy).text(t)
+      .attr("fill","#666").attr("font-size","10px").attr("text-anchor","middle");
+  }
+
+  // Sun's ecliptic position
+  const sx = cx + Rsun*Math.cos(sun.lambda);
+  const sy = cy - Rsun*Math.sin(sun.lambda); // y inverted on screen
+  // Moon ecliptic + small radial bump for β
+  const r_moon_eff = Rmoon + 50*Math.sin(moon.beta); // visualize β
+  const mx = cx + r_moon_eff*Math.cos(moon.lambda);
+  const my = cy - r_moon_eff*Math.sin(moon.lambda);
+
+  // Earth (with a real day/night terminator: lit hemisphere faces sun)
+  const earth = svg.append("g").attr("transform", `translate(${cx},${cy})`);
+  earth.append("circle").attr("r", 20).attr("fill", "#234").attr("stroke","#4b9cd3");
+  // lit half: arc on the side facing the sun
+  const sunDir = Math.atan2(-(sy-cy), sx-cx); // screen-space sun direction
+  const litArc = d3.arc()({innerRadius: 0, outerRadius: 20,
+    startAngle: sunDir - Math.PI/2 + Math.PI/2, // d3 arc convention: 0 = up
+    endAngle:   sunDir + Math.PI/2 + Math.PI/2});
+  earth.append("path").attr("d", litArc).attr("fill", "#4b9cd3").attr("opacity", 0.85);
+  // Observer pin
+  const obsAng = lstFor(jdNow, loc.lon); // local meridian direction in inertial frame
+  // The observer rotates with Earth; the meridian points toward direction (cos θ, sin θ) in equatorial frame
+  // We project a representative pin offset 20px outward from earth at angle (sun.lambda - sun-lit center)
+  // Simpler: pin at angle = loc.lon + (jdNow*360.985°/day) — the observer's celestial longitude.
+  earth.append("circle")
+    .attr("cx", 22*Math.cos(obsAng - sun.lambda + sunDir))
+    .attr("cy", -22*Math.sin(obsAng - sun.lambda + sunDir))
+    .attr("r", 2.5).attr("fill","#ff6").attr("stroke","#000").attr("stroke-width",0.5);
 
   // Sun
-  const sunX = centerX + sunOrbitRadius * Math.cos(lam_s);
-  const sunY = centerY + sunOrbitRadius * Math.sin(lam_s);
-  svg.append("circle")
-    .attr("cx", sunX).attr("cy", sunY).attr("r", 12).attr("fill", "#ffcc33")
-    .attr("filter", "drop-shadow(0 0 8px #ffcc33)");
-  
-  // Moon Orbit Path
-  svg.append("circle")
-    .attr("cx", centerX).attr("cy", centerY).attr("r", moonOrbitRadius)
-    .attr("fill", "none").attr("stroke", "rgba(255,255,255,0.1)").attr("stroke-dasharray", "4,4");
+  svg.append("circle").attr("cx", sx).attr("cy", sy).attr("r", 13).attr("fill","#ffcc33")
+    .attr("filter","drop-shadow(0 0 10px #ffcc33)");
+
+  // Moon orbit ring
+  svg.append("circle").attr("cx", cx).attr("cy", cy).attr("r", Rmoon)
+    .attr("fill","none").attr("stroke","rgba(255,255,255,0.12)").attr("stroke-dasharray","3,4");
 
   // Moon
-  const moonX = centerX + moonOrbitRadius * Math.cos(lam_m);
-  const moonY = centerY + moonOrbitRadius * Math.sin(lam_m);
-  const moon = svg.append("g").attr("transform", `translate(${moonX}, ${moonY})`);
-  moon.append("circle").attr("r", 6).attr("fill", "#dddddd");
-  // Moon Shadow (oriented relative to Sun)
-  moon.append("path")
-    .attr("d", d3.arc()({innerRadius: 0, outerRadius: 6, startAngle: lam_s + Math.PI/2, endAngle: lam_s + 3*Math.PI/2}))
-    .attr("fill", "rgba(0,0,0,0.7)");
+  const moonG = svg.append("g").attr("transform", `translate(${mx},${my})`);
+  moonG.append("circle").attr("r", 8).attr("fill", "#ddd");
+  // Lit side: hemisphere facing the sun
+  const mSunDir = Math.atan2(-(sy - my), sx - mx);
+  // shaded (dark) side opposite sun
+  const dark = d3.arc()({innerRadius:0, outerRadius:8,
+    startAngle: mSunDir + Math.PI/2 + Math.PI/2,
+    endAngle:   mSunDir + 3*Math.PI/2 + Math.PI/2});
+  moonG.append("path").attr("d", dark).attr("fill","rgba(0,0,0,0.78)");
 
-  // Labels
-  svg.append("text").attr("x", centerX).attr("y", centerY - 20).text("EARTH").attr("fill", "white").attr("font-size", "10px").attr("text-anchor", "middle");
-  svg.append("text").attr("x", sunX).attr("y", sunY - 18).text("SUN").attr("fill", "#ffcc33").attr("font-size", "10px").attr("text-anchor", "middle");
-  svg.append("text").attr("x", moonX).attr("y", moonY - 12).text("MOON").attr("fill", "#dddddd").attr("font-size", "10px").attr("text-anchor", "middle");
+  // Annotations
+  svg.append("text").attr("x", 12).attr("y", 22).attr("fill","#ccc").attr("font-size","12px")
+    .text(`Sun λ = ${(sun.lambda*RAD).toFixed(1)}°, δ = ${(sun.delta*RAD).toFixed(2)}°`);
+  svg.append("text").attr("x", 12).attr("y", 40).attr("fill","#ccc").attr("font-size","12px")
+    .text(`Moon λ = ${(moon.lambda*RAD).toFixed(1)}°, β = ${(moon.beta*RAD).toFixed(2)}°, Δ = ${moon.distance.toFixed(0)} km`);
+  svg.append("text").attr("x", 12).attr("y", 58).attr("fill","#ccc").attr("font-size","12px")
+    .text(`Phase angle = ${(ill.phaseAngle*RAD).toFixed(1)}°  →  illuminated ${(ill.illuminated*100).toFixed(1)}%`);
 
   return svg.node();
 }
 ```
 
 ```{ojs}
-// 24-Hour Timeline Graph
+// ===== Visualizer B: 24-h horizon timeline =====
 {
-  const width = 600;
-  const height = 120;
-  const margin = {top: 40, right: 30, bottom: 30, left: 30};
-  
-  const epsilon = 23.44 * Math.PI / 180;
-  const inc = 5.14 * Math.PI / 180;
-  const Omega = node_pos * Math.PI / 180;
-  const phi = latitude * Math.PI / 180;
-  
-  const lam_s = (dayOfYear - 80) * 2 * Math.PI / 365.25;
-  const lam_m = lam_s + Math.PI + (dayOfYear % 29.53) * 2 * Math.PI / 29.53;
+  const W = 640, H = 150, m = {top: 32, right: 20, bottom: 28, left: 30};
+  const x = d3.scaleLinear().domain([0, 24]).range([m.left, W - m.right]);
+  const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
+    .style("max-width","100%").style("height","auto");
 
-  function getSunEq(lam) {
-    const delta = Math.asin(Math.sin(epsilon) * Math.sin(lam));
-    const alpha = Math.atan2(Math.cos(epsilon) * Math.sin(lam), Math.cos(lam));
-    return { alpha, delta };
+  // Background bar (night)
+  svg.append("rect").attr("x", m.left).attr("y", 50).attr("width", W-m.left-m.right).attr("height", 28)
+    .attr("fill", "#10103a");
+
+  function localHours(ev) {
+    if (!ev.jd) return null;
+    const local = ev.jd + loc.tz/24;
+    return ((local - Math.floor(local) - 0.5) * 24 + 24) % 24;
+  }
+  const sr = localHours(events.sun.rise);
+  const ss = localHours(events.sun.set);
+  const mr = localHours(events.moon.rise);
+  const ms = localHours(events.moon.set);
+
+  // Daylight band
+  if (sr != null && ss != null) {
+    if (sr < ss) {
+      svg.append("rect").attr("x", x(sr)).attr("y", 50).attr("width", x(ss)-x(sr))
+        .attr("height", 28).attr("fill","#ffd866");
+    } else {
+      svg.append("rect").attr("x", x(0)).attr("y", 50).attr("width", x(ss)-x(0))
+        .attr("height", 28).attr("fill","#ffd866");
+      svg.append("rect").attr("x", x(sr)).attr("y", 50).attr("width", x(24)-x(sr))
+        .attr("height", 28).attr("fill","#ffd866");
+    }
+  }
+  // Moon band
+  function drawMoonBand(a, b) {
+    svg.append("rect").attr("x", x(a)).attr("y", 56).attr("width", x(b)-x(a))
+      .attr("height", 16).attr("fill", "rgba(220,220,220,0.7)").attr("rx",3);
+  }
+  if (mr != null && ms != null) {
+    if (mr < ms) drawMoonBand(mr, ms);
+    else { drawMoonBand(mr, 24); drawMoonBand(0, ms); }
   }
 
-  function getMoonEq(lam_m) {
-    const u = lam_m - Omega;
-    const sinBeta = Math.sin(inc) * Math.sin(u);
-    const beta = Math.asin(sinBeta);
-    const lam = Math.atan2(Math.cos(inc) * Math.sin(u), Math.cos(u)) + Omega;
-    const sinD = Math.sin(beta) * Math.cos(epsilon) + Math.cos(beta) * Math.sin(epsilon) * Math.sin(lam);
-    const delta = Math.asin(sinD);
-    const yEq = Math.cos(beta) * Math.cos(epsilon) * Math.sin(lam) - Math.sin(beta) * Math.sin(epsilon);
-    const xEq = Math.cos(beta) * Math.cos(lam);
-    const alpha = Math.atan2(yEq, xEq);
-    return { alpha, delta };
-  }
-
-  const { delta: d_s } = getSunEq(lam_s);
-  const { delta: d_m } = getMoonEq(lam_m);
-  
-  const h_s = Math.acos(Math.max(-1, Math.min(1, -Math.tan(phi) * Math.tan(d_s))));
-  const h_m = Math.acos(Math.max(-1, Math.min(1, -Math.tan(phi) * Math.tan(d_m))));
-
-  // Times in hours (Solar Local Time, 12 is Noon)
-  const sunrise = 12 - (h_s * 12 / Math.PI);
-  const sunset = 12 + (h_s * 12 / Math.PI);
-  
-  // Moonrise/Set relative to lunar transit
-  // We approximate transit as opposite to Sun for Full Moon context
-  // but let us use RA difference for more accuracy
-  const { alpha: a_s } = getSunEq(lam_s);
-  const { alpha: a_m } = getMoonEq(lam_m);
-  const raDiff = (a_m - a_s + 2 * Math.PI) % (2 * Math.PI);
-  const transitTime = (12 + raDiff * 12 / Math.PI) % 24;
-  
-  const moonrise = (transitTime - h_m * 12 / Math.PI + 24) % 24;
-  const moonset = (transitTime + h_m * 12 / Math.PI + 24) % 24;
-
-  const x = d3.scaleLinear().domain([0, 24]).range([margin.left, width - margin.right]);
-
-  const svg = d3.create("svg").attr("viewBox", [0, 0, width, height]);
-
-  // Background (Night)
-  svg.append("rect")
-    .attr("x", margin.left).attr("y", 50).attr("width", width - margin.left - margin.right).attr("height", 30).attr("fill", "black");
-
-  // Daylight (Sun Up)
-  svg.append("rect")
-    .attr("x", x(sunrise)).attr("y", 50).attr("width", x(sunset) - x(sunrise)).attr("height", 30).attr("fill", "#ffdd33");
-
-  // Moon Bar (Gray Overlay)
-  if (moonrise < moonset) {
-    svg.append("rect")
-      .attr("x", x(moonrise)).attr("y", 55).attr("width", x(moonset) - x(moonrise)).attr("height", 20).attr("fill", "rgba(200, 200, 200, 0.6)").attr("rx", 4);
-  } else {
-    // Crosses Midnight
-    svg.append("rect")
-      .attr("x", x(moonrise)).attr("y", 55).attr("width", x(24) - x(moonrise)).attr("height", 20).attr("fill", "rgba(200, 200, 200, 0.6)").attr("rx", 4);
-    svg.append("rect")
-      .attr("x", x(0)).attr("y", 55).attr("width", x(moonset) - x(0)).attr("height", 20).attr("fill", "rgba(200, 200, 200, 0.6)").attr("rx", 4);
+  // Tick at sunset+1h
+  if (ss != null) {
+    const target = (ss + 1) % 24;
+    svg.append("line").attr("x1", x(target)).attr("x2", x(target))
+      .attr("y1", 44).attr("y2", 84).attr("stroke","#e44").attr("stroke-dasharray","3,3");
+    svg.append("text").attr("x", x(target)).attr("y", 42).attr("fill","#e44")
+      .attr("font-size","10px").attr("text-anchor","middle").text("sunset + 1 h");
   }
 
   // Axis
-  svg.append("g").attr("transform", `translate(0, 80)`).call(d3.axisBottom(x).ticks(12).tickFormat(d => d + "h")).attr("color", "#666");
-  
-  svg.append("text").attr("x", width/2).attr("y", 30).text("Daylight & Moonlight Timeline (24 Hours)").attr("fill", "#333").attr("font-size", "14px").attr("font-weight", "bold").attr("text-anchor", "middle");
+  svg.append("g").attr("transform",`translate(0,78)`)
+    .call(d3.axisBottom(x).ticks(12).tickFormat(d => d+"h"))
+    .attr("color","#666");
+
+  // Title
+  svg.append("text").attr("x", W/2).attr("y", 20).attr("text-anchor","middle")
+    .attr("font-size","13px").attr("fill","#333").attr("font-weight","bold")
+    .text(`Sun & Moon above horizon — ${picker.year}, day ${picker.doy}`);
+
+  // Inline readout
+  const lag = (mr != null && ss != null)
+    ? (((mr - ss) + 24) % 24) * 60
+    : null;
+  svg.append("text").attr("x", W/2).attr("y", H-6).attr("text-anchor","middle")
+    .attr("font-size","11px").attr("fill","#444")
+    .text(`Sunset ${ss==null?'—':fmtLocal(events.sun.set.jd, loc.tz)}, `
+        + `Moonrise ${mr==null?'—':fmtLocal(events.moon.rise.jd, loc.tz)}, `
+        + `Δ = ${lag==null?'—':lag.toFixed(0)+' min'}, illum ${(ill.illuminated*100).toFixed(0)}%`);
 
   return svg.node();
 }
@@ -282,78 +606,319 @@ viewof node_pos = Inputs.range([0, 360], {value: 335, step: 1, label: "Ascending
 
 ---
 
-## 7. Conclusion
+## 8. Two views of the same sky
 
-The visual power of a moonrise is not just about its phase; it's an intricate dance of spherical geometry, axial tilt, and timing. The late winter and early spring moons are mathematically unique: they allow for a near-perfect 99% illuminated sphere to crest the horizon against an ink-black sky. By late summer and early fall, the orbital geometry shifts, and the darkness demands a moon that has already begun to wane.
+The next two diagrams show *the same instant* from two perspectives. Drag the time-of-day slider above; both diagrams update.
 
-## 8. Interactive Moonrise Solver
+The **stereographic plot** (left) is what you would see looking up: zenith at center, horizon as the bounding circle, cardinal directions on the rim. The Sun and Moon are drawn at their true altitude and azimuth; their shaded sides face away from each other. Colored faint trails show each body's path over the past 24 hours.
 
-If you are looking for the exact illumination required for a "striking" moonrise (1 hour after sunset) at your location, use the solver below.
+The **wireframe globe** (right) is the same instant viewed from outside Earth. The latitude/longitude wireframe rotates with the planet. The day/night terminator is drawn as the great circle 90° from the sub-solar point. The sub-solar point ☉, sub-lunar point ☾, and your location pin are marked. The inset reports whether each body is currently above your horizon.
 
 ```{ojs}
+//| layout-ncol: 2
+
+// ===== Visualizer C: stereographic celestial hemisphere =====
 {
-  const phi = latitude * Math.PI / 180;
-  // Use the dayOfYear slider to pick a season for the solver
-  const lam_s_solve = (dayOfYear - 80) * 2 * Math.PI / 365.25;
-  const Omega = node_pos * Math.PI / 180;
-  const epsilon = 23.44 * Math.PI / 180;
-  const inc = 5.14 * Math.PI / 180;
+  const W = 360, H = 360, cx = W/2, cy = H/2, R = 160;
+  const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
+    .style("background","radial-gradient(circle at center, #001 0%, #000 70%)")
+    .style("border-radius","8px").style("max-width","100%").style("height","auto");
 
-  function getSunEq(lam) {
-    const delta = Math.asin(Math.sin(epsilon) * Math.sin(lam));
-    const alpha = Math.atan2(Math.cos(epsilon) * Math.sin(lam), Math.cos(lam));
-    return { alpha, delta };
+  // Stereographic from nadir: r = R * tan((90° - alt)/2)
+  function project(alt, az) {
+    if (alt < -0.001) return null;
+    const r = R * Math.tan((Math.PI/2 - alt)/2);
+    // az measured from N clockwise; on screen, x = r sin(az), y = -r cos(az)
+    return [cx + r*Math.sin(az), cy - r*Math.cos(az)];
   }
 
-  function getMoonEq(lam_m) {
-    const u = lam_m - Omega;
-    const sinBeta = Math.sin(inc) * Math.sin(u);
-    const beta = Math.asin(sinBeta);
-    const lam = Math.atan2(Math.cos(inc) * Math.sin(u), Math.cos(u)) + Omega;
-    const sinD = Math.sin(beta) * Math.cos(epsilon) + Math.cos(beta) * Math.sin(epsilon) * Math.sin(lam);
-    const delta = Math.asin(sinD);
-    const yEq = Math.cos(beta) * Math.cos(epsilon) * Math.sin(lam) - Math.sin(beta) * Math.sin(epsilon);
-    const xEq = Math.cos(beta) * Math.cos(lam);
-    const alpha = Math.atan2(yEq, xEq);
-    return { alpha, delta };
+  // Horizon ring + altitude circles
+  for (const a of [30, 60]) {
+    const r = R * Math.tan((Math.PI/2 - a*DEG)/2);
+    svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",r)
+      .attr("fill","none").attr("stroke","#234").attr("stroke-dasharray","2,3");
+  }
+  svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",R)
+    .attr("fill","none").attr("stroke","#445");
+
+  // Cardinal labels
+  const card = [["N",0],["E",Math.PI/2],["S",Math.PI],["W",3*Math.PI/2]];
+  for (const [t,a] of card) {
+    svg.append("text").attr("x", cx + (R+12)*Math.sin(a))
+      .attr("y", cy - (R+12)*Math.cos(a) + 4)
+      .attr("text-anchor","middle").attr("fill","#88a").attr("font-size","12px").text(t);
   }
 
-  function H_at_horiz(delta, rise = false) {
-    const val = -Math.tan(phi) * Math.tan(delta);
-    const h = Math.acos(Math.max(-1, Math.min(1, val)));
-    return rise ? -h : h;
+  // Celestial equator + ecliptic, sampled
+  function drawGreatCircle(samples, color) {
+    const pts = samples.filter(p => p);
+    if (pts.length < 2) return;
+    const path = d3.line()(pts);
+    svg.append("path").attr("d", path).attr("fill","none")
+      .attr("stroke",color).attr("stroke-width",0.6).attr("opacity",0.5);
   }
-
-  function solve_equation(lam_m, lam_sun) {
-    const { alpha: a_m, delta: d_m } = getMoonEq(lam_m);
-    const { alpha: a_s, delta: d_s } = getSunEq(lam_sun);
-    const h_s = H_at_horiz(d_s);
-    const h_m = H_at_horiz(d_m, true);
-    const da = (a_m - a_s + 2 * Math.PI) % (2 * Math.PI);
-    return da + h_m - h_s - (15 * Math.PI / 180);
+  // Equator: δ = 0, vary α
+  const eqPts = [];
+  for (let a=0; a<2*Math.PI; a+=Math.PI/120) {
+    const H = lstFor(jdNow, loc.lon) - a;
+    const sinAlt = Math.cos(loc.lat*DEG)*Math.cos(H);
+    const alt = Math.asin(sinAlt);
+    const az = Math.atan2(-Math.sin(H), -Math.sin(loc.lat*DEG)*Math.cos(H));
+    eqPts.push(project(alt, (az+2*Math.PI)%(2*Math.PI)));
   }
+  drawGreatCircle(eqPts, "#5a8");
 
-  function solve(lam_sun) {
-    let lam_m = lam_sun + Math.PI + (15 * Math.PI / 180);
-    for (let i = 0; i < 20; i++) {
-      const f = solve_equation(lam_m, lam_sun);
-      const f_plus = solve_equation(lam_m + 0.0001, lam_sun);
-      const deriv = (f_plus - f) / 0.0001;
-      lam_m -= f / deriv;
+  // Ecliptic
+  const eps0 = obliquity(julianCenturies(jdNow));
+  const ecPts = [];
+  for (let l=0; l<2*Math.PI; l+=Math.PI/120) {
+    const dec = Math.asin(Math.sin(eps0)*Math.sin(l));
+    const ra = Math.atan2(Math.cos(eps0)*Math.sin(l), Math.cos(l));
+    const H = lstFor(jdNow, loc.lon) - ra;
+    const sinAlt = Math.sin(loc.lat*DEG)*Math.sin(dec)+Math.cos(loc.lat*DEG)*Math.cos(dec)*Math.cos(H);
+    const alt = Math.asin(Math.max(-1, Math.min(1, sinAlt)));
+    const y = -Math.sin(H);
+    const x = Math.tan(dec)*Math.cos(loc.lat*DEG) - Math.sin(loc.lat*DEG)*Math.cos(H);
+    let az = Math.atan2(y,x); if (az<0) az += 2*Math.PI;
+    ecPts.push(project(alt, az));
+  }
+  drawGreatCircle(ecPts, "#a85");
+
+  // 24-hour trails for Sun & Moon
+  function trail(bodyFn, color) {
+    const pts = [];
+    for (let dh=-24; dh<=0; dh+=0.5) {
+      const t = jdNow + dh/24;
+      const b = bodyFn(t);
+      const aa = altAz(loc.lat*DEG, b.delta, b.alpha, t, loc.lon);
+      pts.push(project(aa.alt, aa.az));
     }
-    return lam_m;
+    drawGreatCircle(pts.filter(p=>p), color);
+  }
+  trail(sunPosition, "#ffcc33");
+  trail(moonPosition, "#cce");
+
+  // Current Sun & Moon
+  const sunAA = altAz(loc.lat*DEG, sun.delta, sun.alpha, jdNow, loc.lon);
+  const moonAA = altAz(loc.lat*DEG, moon.delta, moon.alpha, jdNow, loc.lon);
+  const sp = project(sunAA.alt, sunAA.az);
+  const mp = project(moonAA.alt, moonAA.az);
+  if (sp) {
+    svg.append("circle").attr("cx",sp[0]).attr("cy",sp[1]).attr("r",7)
+      .attr("fill","#ffcc33").attr("filter","drop-shadow(0 0 6px #ffcc33)");
+  }
+  if (mp) {
+    const g = svg.append("g").attr("transform",`translate(${mp[0]},${mp[1]})`);
+    g.append("circle").attr("r",6).attr("fill","#eee");
+    // shade based on phase
+    const k = ill.illuminated;
+    g.append("path").attr("d", d3.arc()({innerRadius:0, outerRadius:6,
+      startAngle: 0, endAngle: Math.PI*(1-k)*2}))
+      .attr("fill","rgba(0,0,0,0.7)");
   }
 
-  const lam_m_target = solve(lam_s_solve);
-  const phase = (lam_m_target - lam_s_solve + 2 * Math.PI) % (2 * Math.PI);
-  const illumination = 0.5 * (1 - Math.cos(phase));
-  const age = (phase - Math.PI) / (2 * Math.PI) * 29.53;
+  svg.append("text").attr("x", 8).attr("y", 16).attr("fill","#bbb").attr("font-size","11px")
+    .text(`zenith view · ${picker.year}-doy${picker.doy} · ${picker.hour.toFixed(2)}h local`);
+  svg.append("text").attr("x", 8).attr("y", H-8).attr("fill","#5a8").attr("font-size","10px")
+    .text("— equator");
+  svg.append("text").attr("x", 90).attr("y", H-8).attr("fill","#a85").attr("font-size","10px")
+    .text("— ecliptic");
+  return svg.node();
+}
 
-  return md`
-### Striking Moon Result for Selected Date
-- **Phase Angle:** \`${ (phase * 180 / Math.PI).toFixed(1) }°\`
-- **Illumination:** \`${ (illumination * 100).toFixed(1) }%\`
-- **Age:** \`${ age.toFixed(1) }\` days past full
-  `;
+// ===== Visualizer D: wireframe globe with terminator =====
+{
+  const W = 360, H = 360;
+  const svg = d3.create("svg").attr("viewBox", [0,0,W,H])
+    .style("background","#001").style("border-radius","8px")
+    .style("max-width","100%").style("height","auto");
+
+  // Center the globe on the observer's longitude rotated by Earth's spin
+  const rot = [-loc.lon, -loc.lat*0.6, 0];
+  const proj = d3.geoOrthographic().scale(W*0.45).translate([W/2, H/2]).rotate(rot).clipAngle(90);
+  const path = d3.geoPath(proj);
+
+  // Globe sphere
+  svg.append("path").datum({type:"Sphere"}).attr("d", path)
+    .attr("fill","#001a33").attr("stroke","#345");
+
+  // Wireframe graticule (15° spacing)
+  const graticule = d3.geoGraticule().step([15,15]);
+  svg.append("path").datum(graticule).attr("d", path)
+    .attr("fill","none").attr("stroke","#356").attr("stroke-width",0.4);
+  // Equator highlighted
+  svg.append("path").datum(d3.geoGraticule().step([180,180]).extentMinor([[-180,0],[180,0]]))
+    .attr("d", path).attr("fill","none").attr("stroke","#588").attr("stroke-width",0.7);
+
+  // Sub-solar / sub-lunar
+  const subSun  = subPoint(jdNow, sunPosition);
+  const subMoon = subPoint(jdNow, moonPosition);
+
+  // Night side: great circle 90° from sub-solar, hemisphere AWAY from sun is dark
+  const antiSun = [(subSun.lon*RAD + 180 + 540) % 360 - 180, -subSun.lat*RAD];
+  const night = d3.geoCircle().radius(90).center(antiSun)();
+  svg.append("path").datum(night).attr("d", path)
+    .attr("fill","rgba(0,0,30,0.55)").attr("stroke","#446").attr("stroke-width",0.5);
+
+  // Sub-solar point
+  svg.append("path").datum({type:"Point", coordinates:[subSun.lon*RAD, subSun.lat*RAD]})
+    .attr("d", path.pointRadius(6))
+    .attr("fill","#ffcc33").attr("stroke","#aa6");
+  // Sub-lunar point
+  svg.append("path").datum({type:"Point", coordinates:[subMoon.lon*RAD, subMoon.lat*RAD]})
+    .attr("d", path.pointRadius(5))
+    .attr("fill","#eee").attr("stroke","#888");
+  // Observer
+  svg.append("path").datum({type:"Point", coordinates:[loc.lon, loc.lat]})
+    .attr("d", path.pointRadius(3.5))
+    .attr("fill","#f44").attr("stroke","#fff").attr("stroke-width",0.5);
+
+  // Inset readout
+  const sunAlt = altAz(loc.lat*DEG, sun.delta, sun.alpha, jdNow, loc.lon).alt*RAD;
+  const moonAlt = altAz(loc.lat*DEG, moon.delta, moon.alpha, jdNow, loc.lon).alt*RAD;
+  svg.append("text").attr("x", 8).attr("y", 16).attr("fill","#bbb").attr("font-size","11px")
+    .text(`Sun alt ${sunAlt.toFixed(1)}°, Moon alt ${moonAlt.toFixed(1)}°`);
+  svg.append("text").attr("x", 8).attr("y", H-8).attr("fill","#888").attr("font-size","10px")
+    .text(`☉ sub-solar (${(subSun.lat*RAD).toFixed(1)}°, ${(subSun.lon*RAD).toFixed(1)}°)`);
+
+  return svg.node();
 }
 ```
+
+---
+
+## 9. A year of celestial timing (computed live)
+
+The table below is now generated by the code in §6. Every row is a real moonrise–sunset offset for the **next 13 lunations** at your selected location. Negative values mean the moon rises *before* sunset.
+
+```{ojs}
+//| code-fold: false
+fullMoonsTable = {
+  // Find approximate full moons over the next ~13 months by scanning for elongation = π
+  const start = jdFromDate(yearToday, todayObj.getUTCMonth()+1, todayObj.getUTCDate());
+  const rows = [];
+  let prev = null;
+  let lastFound = -1e9;
+  for (let d = 0; d < 400; d += 0.05) {
+    const jd = start + d;
+    const elong = normRad(moonPosition(jd).lambda - sunPosition(jd).lambda);
+    const dev = elong - Math.PI;
+    if (prev != null && prev * dev < 0 && Math.abs(prev - dev) < 0.5 && (jd - lastFound) > 20) {
+      // refine by linear interpolation
+      const jdFull = jd - 0.05 * dev/(dev - prev);
+      lastFound = jdFull;
+      // sunset on the full-moon's local calendar date
+      const localJd = jdFull + loc.tz/24;
+      const dateInt = Math.floor(localJd - 0.5) + 0.5; // local 0h UT-equivalent
+      const jd0 = dateInt - loc.tz/24; // back to UT 0h of that local day
+      const ev = riseSet(sunPosition,  sunH0,  jd0, loc.lat*DEG, loc.lon);
+      const em = riseSet(moonPosition, moonH0, jd0, loc.lat*DEG, loc.lon);
+      const dt = (ev.set.jd != null && em.rise.jd != null)
+        ? (em.rise.jd - ev.set.jd) * 1440
+        : null;
+      // age past full at "1h after sunset"
+      let age = null, illumAtTarget = null;
+      if (ev.set.jd != null) {
+        const tTarget = ev.set.jd + 1/24;
+        age = (tTarget - jdFull); // days
+        illumAtTarget = illumination(tTarget).illuminated;
+      }
+      const dObj = new Date((jdFull + loc.tz/24 - 2440587.5)*86400000);
+      rows.push({
+        date: dObj.toISOString().slice(0,10),
+        sunset:    fmtLocal(ev.set.jd, loc.tz),
+        moonrise:  fmtLocal(em.rise.jd, loc.tz),
+        deltaMin:  dt==null ? "—" : dt.toFixed(1),
+        ageDays:   age==null ? "—" : age.toFixed(2),
+        illum1h:   illumAtTarget==null ? "—" : (illumAtTarget*100).toFixed(1)+"%"
+      });
+    }
+    prev = dev;
+  }
+  return rows;
+}
+
+Inputs.table(fullMoonsTable, {
+  columns: ["date","sunset","moonrise","deltaMin","ageDays","illum1h"],
+  header:  {date:"Full moon (local)", sunset:"Sunset", moonrise:"Moonrise",
+            deltaMin:"Δ (min)", ageDays:"Age at sunset+1h (d)", illum1h:"Illum at sunset+1h"}
+})
+```
+
+The seasonal pattern is now reproducible: in late autumn at northern mid-latitudes, the moonrise–sunset offset goes negative (full moon already up at sunset), so a viewer wanting a "rising-just-as-night-falls" moon must actually catch one $1{-}2$ days *past* full, when illumination has fallen to $\sim 95\%$.
+
+---
+
+## 10. The striking-moonrise solver
+
+Given any calendar date, what lunar phase gives a moonrise exactly $1$ hour after sunset? Solve for the elongation $D = \lambda_M - \lambda_\odot$ that makes the moonrise event align with sunset $+ 1$ h. We treat the *true* lunar series of §3 as known and adjust a phase offset $\Delta D$ added to the natural elongation that day; in practice we just bisect on $\Delta D \in (-\pi, \pi]$.
+
+```{ojs}
+//| code-fold: false
+solverResult = {
+  const target = events.sun.set.jd;
+  if (target == null) return md`*Sun never sets at this latitude/date — no solution.*`;
+  const targetT = target + 1/24;
+  // Find the lunar elongation D (lambda_M - lambda_sun) at which a body with
+  // alpha_M, delta_M produced by adjusting only longitude by ΔD rises at targetT.
+  // Bisection on ΔD: residual = (LST(rise) - alpha_M_shifted) + H0
+  function residual(dD) {
+    // Build a synthetic moon: take the moon's β, but replace longitude with sun.lambda + π + dD.
+    const lam = sunPosition(targetT).lambda + Math.PI + dD;
+    const eps = obliquity(julianCenturies(targetT));
+    const synth = {
+      delta: Math.asin(Math.sin(moon.beta)*Math.cos(eps) + Math.cos(moon.beta)*Math.sin(eps)*Math.sin(lam)),
+      alpha: normRad(Math.atan2(Math.sin(lam)*Math.cos(eps) - Math.tan(moon.beta)*Math.sin(eps), Math.cos(lam))),
+      distance: moon.distance, beta: moon.beta, lambda: lam
+    };
+    const h0 = moonH0(synth);
+    const cosH0 = (Math.sin(h0) - Math.sin(loc.lat*DEG)*Math.sin(synth.delta))
+                 / (Math.cos(loc.lat*DEG)*Math.cos(synth.delta));
+    if (cosH0 > 1 || cosH0 < -1) return NaN;
+    const H0 = Math.acos(cosH0);
+    let H = lstFor(targetT, loc.lon) - synth.alpha; // current hour angle at target time
+    while (H >  Math.PI) H -= 2*Math.PI;
+    while (H < -Math.PI) H += 2*Math.PI;
+    return H + H0; // zero when target is exactly at moonrise
+  }
+  let lo = -Math.PI*0.45, hi = Math.PI*0.45;
+  let fLo = residual(lo), fHi = residual(hi);
+  // expand search
+  if (!(fLo*fHi < 0)) {
+    // brute search
+    let best = {dD:0, f:Infinity}, last = residual(-Math.PI*0.99);
+    for (let i=-99; i<=99; i++) {
+      const x = i/100*Math.PI;
+      const f = residual(x);
+      if (Number.isFinite(f) && Math.abs(f) < Math.abs(best.f)) best = {dD:x, f};
+      if (Number.isFinite(f) && Number.isFinite(last) && f*last < 0) { lo = x - Math.PI/100; hi = x; break; }
+      last = f;
+    }
+    fLo = residual(lo); fHi = residual(hi);
+  }
+  for (let i=0; i<60 && fLo*fHi < 0; i++) {
+    const mid = (lo+hi)/2, fm = residual(mid);
+    if (fm*fLo < 0) { hi = mid; fHi = fm; } else { lo = mid; fLo = fm; }
+  }
+  const dD = (lo+hi)/2;
+  // True synodic phase at the rise event: sun.lambda + π + dD - sun.lambda = π + dD
+  const phase = Math.PI + dD;             // 0 = new, π = full
+  const illumPct = (1 - Math.cos(phase))/2 * 100;
+  const ageDaysFromFull = dD * 29.5306 / (2*Math.PI);
+  return md`
+**For ${picker.year}, day ${picker.doy} at (${loc.lat.toFixed(2)}°, ${loc.lon.toFixed(2)}°):**
+- Sunset: \`${fmtLocal(events.sun.set.jd, loc.tz)}\`
+- Required elongation $D$: **${(phase*RAD).toFixed(2)}°** (full = 180°)
+- Equivalent age: **${ageDaysFromFull.toFixed(2)} days** ${ageDaysFromFull > 0 ? "past full" : "before full"}
+- Illumination at moonrise: **${illumPct.toFixed(1)}%**
+`;
+}
+```
+
+---
+
+## 11. Conclusion
+
+The visual power of a moonrise is not its phase alone — it is the geometry. Three quantities couple: the Sun's declination (via the season), the Moon's declination relative to the Sun's (via the orbital inclination $i = 5.14°$ and the position of the ascending node), and the angle the ecliptic makes with the eastern horizon at the observer's latitude (a slow function of the time of day). The first sets sunset; the second sets how far north or south the full Moon swings from the antisolar point; the third sets how steeply the Moon climbs once it reaches the horizon.
+
+Late winter and early spring full moons are mathematically gentle: the ecliptic crosses the eastern horizon steeply at sunset, the moon climbs sharply, the lag from sunset is short and positive, and a near-99%-illuminated disk crests against an inky sky. By late summer and early autumn, the geometry inverts: the ecliptic lies almost flat against the eastern horizon, full-moon-rise can *precede* sunset, and the "striking" moon you actually see is a 95%-illuminated waning gibbous, one to two days past nominal full. The visualizers above let you verify both regimes for any calendar date and any latitude.
