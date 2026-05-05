@@ -29,37 +29,23 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <hr>
 <section id="the-astronomical-framework" class="level2">
 <h2 class="anchored" data-anchor-id="the-astronomical-framework">1. The Astronomical Framework</h2>
-<p>To model celestial mechanics, we must map ecliptic coordinates (the plane of the solar system) to equatorial coordinates (the plane of Earth’s rotation).</p>
-<p>Earth has an axial tilt of <img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20=%2023.44%5E%5Ccirc">. If we know a celestial body’s ecliptic longitude <img src="https://latex.codecogs.com/png.latex?%5Clambda"> (its angle along the ecliptic plane, with <img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc"> at the Vernal Equinox), we can find its Right Ascension (<img src="https://latex.codecogs.com/png.latex?%5Calpha">) and Declination (<img src="https://latex.codecogs.com/png.latex?%5Cdelta">) using spherical trigonometry:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%20%5Csin%5Cdelta%20=%20%5Csin%5Cepsilon%20%5Csin%5Clambda%20"> <img src="https://latex.codecogs.com/png.latex?%20%5Ctan%5Calpha%20=%20%5Ccos%5Cepsilon%20%5Ctan%5Clambda%20"></p>
-<p>The <strong>Hour Angle (<img src="https://latex.codecogs.com/png.latex?H">)</strong> is the angle between a celestial body and the local meridian. When a body sets or rises, its altitude is <img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc">. By spherical trigonometry, the hour angle at the horizon is:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%20%5Ccos%20H%20=%20-%5Ctan%5Cphi%20%5Ctan%5Cdelta%20"></p>
-<p>For the Sun, sunset occurs at <img src="https://latex.codecogs.com/png.latex?H_%5Codot">, and the time of sunset (in hours from solar noon) is <img src="https://latex.codecogs.com/png.latex?t_%7BSS%7D%20=%20%5Cfrac%7BH_%5Codot%7D%7B15%5E%5Ccirc%7D">.</p>
+<p>To model celestial mechanics, we must map ecliptic coordinates to equatorial coordinates. While the Sun stays on the ecliptic plane, the Moon’s orbit is inclined by <img src="https://latex.codecogs.com/png.latex?i%20%5Capprox%205.14%5E%5Ccirc">.</p>
+<p>Let <img src="https://latex.codecogs.com/png.latex?%5Clambda"> be the ecliptic longitude. For the Moon, we also have celestial latitude <img src="https://latex.codecogs.com/png.latex?%5Cbeta">, which depends on the position of the Moon relative to its <strong>Ascending Node (<img src="https://latex.codecogs.com/png.latex?%5COmega">)</strong>: <img src="https://latex.codecogs.com/png.latex?%20%5Csin%20%5Cbeta%20=%20%5Csin%20i%20%5Csin(%5Clambda_M%20-%20%5COmega)%20"></p>
+<p>The conversion to equatorial coordinates (Right Ascension <img src="https://latex.codecogs.com/png.latex?%5Calpha">, Declination <img src="https://latex.codecogs.com/png.latex?%5Cdelta">) with Earth’s tilt <img src="https://latex.codecogs.com/png.latex?%5Cepsilon%20=%2023.44%5E%5Ccirc"> is: <img src="https://latex.codecogs.com/png.latex?%20%5Csin%20%5Cdelta%20=%20%5Csin%20%5Cbeta%20%5Ccos%20%5Cepsilon%20+%20%5Ccos%20%5Cbeta%20%5Csin%20%5Cepsilon%20%5Csin%20%5Clambda%20"> <img src="https://latex.codecogs.com/png.latex?%20%5Ctan%20%5Calpha%20=%20%5Cfrac%7B%5Ccos%20%5Cbeta%20%5Csin%20%5Clambda%20%5Ccos%20%5Cepsilon%20-%20%5Csin%20%5Cbeta%20%5Csin%20%5Cepsilon%7D%7B%5Ccos%20%5Cbeta%20%5Ccos%20%5Clambda%7D%20"></p>
+<p>The <strong>Hour Angle (<img src="https://latex.codecogs.com/png.latex?H">)</strong> at the horizon is: <img src="https://latex.codecogs.com/png.latex?%20%5Ccos%20H%20=%20-%5Ctan%20%5Cphi%20%5Ctan%20%5Cdelta%20"></p>
 <hr>
 </section>
-<section id="the-perfectly-full-moon" class="level2">
-<h2 class="anchored" data-anchor-id="the-perfectly-full-moon">2. The Perfectly Full Moon</h2>
-<p>A perfectly full moon occurs when the moon is directly opposite the sun on the ecliptic: <img src="https://latex.codecogs.com/png.latex?%20%5Clambda_M%20=%20%5Clambda_%5Codot%20+%20180%5E%5Ccirc%20"></p>
-<p>Because <img src="https://latex.codecogs.com/png.latex?%5Csin(%5Clambda%20+%20180%5E%5Ccirc)%20=%20-%5Csin(%5Clambda)">, the declination of the full moon is exactly inverted relative to the sun (assuming the moon’s orbit perfectly aligns with the ecliptic): <img src="https://latex.codecogs.com/png.latex?%20%5Cdelta_M%20%5Capprox%20-%5Cdelta_%5Codot%20"></p>
-<p>When does the full moon rise? The hour angle of moonrise is negative (it happens before meridian transit): <img src="https://latex.codecogs.com/png.latex?%20H_%7BM,rise%7D%20=%20-%5Carccos(-%5Ctan%5Cphi%20%5Ctan%5Cdelta_M)%20"></p>
-<p>Substituting <img src="https://latex.codecogs.com/png.latex?%5Cdelta_M%20=%20-%5Cdelta_%5Codot">: <img src="https://latex.codecogs.com/png.latex?%20H_%7BM,rise%7D%20=%20-%5Carccos(%5Ctan%5Cphi%20%5Ctan%5Cdelta_%5Codot)%20=%20-(180%5E%5Ccirc%20-%20H_%5Codot)%20=%20H_%5Codot%20-%20180%5E%5Ccirc%20"></p>
-<p>Because the full moon is <img src="https://latex.codecogs.com/png.latex?180%5E%5Ccirc"> away from the sun in Right Ascension (<img src="https://latex.codecogs.com/png.latex?%5Calpha_M%20%5Capprox%20%5Calpha_%5Codot%20+%20180%5E%5Ccirc">), the Local Sidereal Time (LST) of moonrise is: <img src="https://latex.codecogs.com/png.latex?%20LST_%7Bmoonrise%7D%20=%20%5Calpha_M%20+%20H_%7BM,rise%7D%20%5Capprox%20(%5Calpha_%5Codot%20+%20180%5E%5Ccirc)%20+%20(H_%5Codot%20-%20180%5E%5Ccirc)%20=%20%5Calpha_%5Codot%20+%20H_%5Codot%20"></p>
-<p>Notice that <img src="https://latex.codecogs.com/png.latex?%5Calpha_%5Codot%20+%20H_%5Codot"> is exactly the LST of sunset! Therefore, a <strong>perfectly full moon rises exactly at sunset</strong>, mathematically speaking.</p>
-<p>When a perfectly full moon rises, the sky is still bathed in the bright light of dusk. For the most “striking” moonrise against a dark sky, we must wait for the moon to rise later—meaning the moon must be slightly past full.</p>
-<hr>
-</section>
-<section id="the-condition-for-a-1-hour-delay" class="level2">
-<h2 class="anchored" data-anchor-id="the-condition-for-a-1-hour-delay">3. The Condition for a 1-Hour Delay</h2>
-<p>We want to find the exact orbital position where the moon rises exactly one hour after sunset.</p>
-<p>Earth rotates at <img src="https://latex.codecogs.com/png.latex?15%5E%5Ccirc"> per hour. Therefore, if moonrise is one hour after sunset, the LST must be exactly <img src="https://latex.codecogs.com/png.latex?15%5E%5Ccirc"> greater: <img src="https://latex.codecogs.com/png.latex?%20LST_%7Bmoonrise%7D%20=%20LST_%7Bsunset%7D%20+%2015%5E%5Ccirc%20"></p>
-<p>Substituting the coordinate variables: <img src="https://latex.codecogs.com/png.latex?%20%5Calpha_M%20+%20H_%7BM,rise%7D%20=%20%5Calpha_%5Codot%20+%20H_%5Codot%20+%2015%5E%5Ccirc%20"></p>
-<p>This gives us the necessary difference in Right Ascension: <img src="https://latex.codecogs.com/png.latex?%20%5CDelta%5Calpha%20=%20%5Calpha_M%20-%20%5Calpha_%5Codot%20=%20H_%5Codot%20-%20H_%7BM,rise%7D%20+%2015%5E%5Ccirc%20"></p>
-<p>Because both <img src="https://latex.codecogs.com/png.latex?%5Calpha_M"> and <img src="https://latex.codecogs.com/png.latex?H_%7BM,rise%7D"> are non-linear functions of the moon’s ecliptic longitude <img src="https://latex.codecogs.com/png.latex?%5Clambda_M">, this equation cannot be isolated algebraically. We must solve it numerically.</p>
+<section id="the-full-moon-offset-a-winter-paradox" class="level2">
+<h2 class="anchored" data-anchor-id="the-full-moon-offset-a-winter-paradox">2. The Full Moon Offset: A Winter Paradox</h2>
+<p>If the Moon were on the ecliptic, a perfectly full moon (<img src="https://latex.codecogs.com/png.latex?%5Clambda_M%20=%20%5Clambda_%5Codot%20+%20180%5E%5Ccirc">) would rise exactly at sunset. However, the <img src="https://latex.codecogs.com/png.latex?5.14%5E%5Ccirc"> inclination creates a significant “offset.”</p>
+<p>Intuitively, one might expect that a “shorter day” in winter means the Sun sets early and the Moon must rise later. However, the opposite is often true. Because a winter full moon is opposite the Sun, it occupies the “Summer” part of the ecliptic. While the Sun is deep in the South (<img src="https://latex.codecogs.com/png.latex?%5Cdelta%20%5Capprox%20-23.4%5E%5Ccirc">), the Moon is high in the North (<img src="https://latex.codecogs.com/png.latex?%5Cdelta%20%5Capprox%20+23.4%5E%5Ccirc">).</p>
+<p>If the orbital inclination <img src="https://latex.codecogs.com/png.latex?i"> pushes the Moon even further North (reaching a declination of up to <img src="https://latex.codecogs.com/png.latex?+28.5%5E%5Ccirc">), the Moon rises so early and stays up so long that it can actually crest the horizon <strong>before the Sun has even set</strong>. This results in a negative offset in our calculations.</p>
+<p>The Local Sidereal Time (LST) of an event is <img src="https://latex.codecogs.com/png.latex?LST%20=%20%5Calpha%20+%20H">. The delay of moonrise relative to sunset is: <img src="https://latex.codecogs.com/png.latex?%20%5CDelta%20t%20=%20%5Cfrac%7B(LST_%7BM,rise%7D%20-%20LST_%7B%5Codot,set%7D)%7D%7B15%5E%5Ccirc/%5Ctext%7Bhr%7D%7D%20"></p>
 <hr>
 </section>
 <section id="solving-the-orbital-mechanics-in-python" class="level2">
-<h2 class="anchored" data-anchor-id="solving-the-orbital-mechanics-in-python">4. Solving the Orbital Mechanics in Python</h2>
-<p>We can build a numerical solver in Python using the Newton-Raphson method to find the exact phase angle (<img src="https://latex.codecogs.com/png.latex?%5Clambda_M%20-%20%5Clambda_%5Codot">) required for this 1-hour delay across the four cardinal points of the solar year.</p>
+<h2 class="anchored" data-anchor-id="solving-the-orbital-mechanics-in-python">3. Solving the Orbital Mechanics in Python</h2>
+<p>We can build a numerical solver that accounts for inclination and the regression of the lunar nodes (<img src="https://latex.codecogs.com/png.latex?%5COmega"> regresses <img src="https://latex.codecogs.com/png.latex?%5Csim%2019.3%5E%5Ccirc"> per year).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> math</span>
@@ -67,211 +53,392 @@ font-style: inherit;">import</span> math</span>
 <span id="cb1-3"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">def</span> get_eq(lam, epsilon<span class="op" style="color: #5E5E5E;
+font-style: inherit;">def</span> get_moon_eq(lam_m, Omega, epsilon<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>math.radians(<span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">23.44</span>)):</span>
-<span id="cb1-4">    <span class="co" style="color: #5E5E5E;
+font-style: inherit;">23.44</span>), inc<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"""Convert Ecliptic Longitude to Right Ascension and Declination"""</span></span>
-<span id="cb1-5">    sin_d <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span>math.radians(<span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">=</span> math.sin(epsilon) <span class="op" style="color: #5E5E5E;
+font-style: inherit;">5.14</span>)):</span>
+<span id="cb1-4">    u <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> lam_m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> Omega</span>
+<span id="cb1-5">    sin_beta <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.sin(inc) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> math.sin(u)</span>
+<span id="cb1-6">    beta <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.asin(sin_beta)</span>
+<span id="cb1-7">    </span>
+<span id="cb1-8">    y_ecl <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.cos(inc) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> math.sin(u)</span>
+<span id="cb1-9">    x_ecl <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.cos(u)</span>
+<span id="cb1-10">    lam <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.atan2(y_ecl, x_ecl) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> Omega</span>
+<span id="cb1-11">    </span>
+<span id="cb1-12">    sin_delta <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.sin(beta) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> math.cos(epsilon) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> math.cos(beta) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> math.sin(epsilon) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> math.sin(lam)</span>
-<span id="cb1-6">    delta <span class="op" style="color: #5E5E5E;
+<span id="cb1-13">    delta <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> math.asin(sin_d)</span>
-<span id="cb1-7">    y <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> math.asin(sin_delta)</span>
+<span id="cb1-14">    </span>
+<span id="cb1-15">    y_eq <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> math.cos(epsilon) <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> math.cos(beta) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">*</span> math.sin(lam)</span>
-<span id="cb1-8">    x <span class="op" style="color: #5E5E5E;
+font-style: inherit;">*</span> math.cos(epsilon) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> math.cos(lam)</span>
-<span id="cb1-9">    alpha <span class="op" style="color: #5E5E5E;
+font-style: inherit;">*</span> math.sin(lam) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> math.atan2(y, x)</span>
-<span id="cb1-10">    <span class="cf" style="color: #003B4F;
+font-style: inherit;">-</span> math.sin(beta) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> alpha, delta</span>
-<span id="cb1-11"></span>
-<span id="cb1-12"><span class="kw" style="color: #003B4F;
+font-style: inherit;">*</span> math.sin(epsilon)</span>
+<span id="cb1-16">    x_eq <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> H_sun(lam_sun, phi<span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> math.cos(beta) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>math.radians(<span class="fl" style="color: #AD0000;
+font-style: inherit;">*</span> math.cos(lam)</span>
+<span id="cb1-17">    alpha <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">38.9</span>)): <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Latitude of Washington DC</span></span>
-<span id="cb1-13">    _, d_sun <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> get_eq(lam_sun)</span>
-<span id="cb1-14">    val <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">max</span>(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>, <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">min</span>(<span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>, <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span>math.tan(phi) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> math.tan(d_sun)))</span>
-<span id="cb1-15">    <span class="cf" style="color: #003B4F;
+font-style: inherit;">=</span> math.atan2(y_eq, x_eq)</span>
+<span id="cb1-18">    </span>
+<span id="cb1-19">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">return</span> math.acos(val)</span>
-<span id="cb1-16"></span>
-<span id="cb1-17"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> H_moon_rise(lam_moon, phi<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>math.radians(<span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">38.9</span>)):</span>
-<span id="cb1-18">    _, d_moon <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> get_eq(lam_moon)</span>
-<span id="cb1-19">    val <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">max</span>(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>, <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">min</span>(<span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1.0</span>, <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span>math.tan(phi) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> math.tan(d_moon)))</span>
-<span id="cb1-20">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span>math.acos(val)</span>
-<span id="cb1-21"></span>
-<span id="cb1-22"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> equation(lam_moon, lam_sun):</span>
-<span id="cb1-23">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">"""The root-finding equation for 1 hour past sunset"""</span></span>
-<span id="cb1-24">    a_m, _ <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> get_eq(lam_moon)</span>
-<span id="cb1-25">    a_s, _ <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> get_eq(lam_sun)</span>
-<span id="cb1-26">    h_s <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> H_sun(lam_sun)</span>
-<span id="cb1-27">    h_m <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> H_moon_rise(lam_moon)</span>
-<span id="cb1-28">    </span>
-<span id="cb1-29">    da <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> (a_m <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> a_s) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%</span> (<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span>math.pi)</span>
-<span id="cb1-30">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> da <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> h_m <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> h_s <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> math.radians(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">15</span>)</span></code></pre></div></div>
-<p>Running this solver for Washington D.C., we get the following results:</p>
+font-style: inherit;">return</span> alpha, delta</span></code></pre></div></div>
+<hr>
+</section>
+<section id="a-year-of-celestial-timing-washington-d.c." class="level2">
+<h2 class="anchored" data-anchor-id="a-year-of-celestial-timing-washington-d.c.">4. A Year of Celestial Timing (Washington, D.C.)</h2>
+<p>Using this rigorous model, we can calculate the actual offsets for the upcoming year of full moons.</p>
+<p><strong>Sign Convention:</strong> A <strong>negative</strong> value means the Moon rises <strong>before</strong> sunset. A <strong>positive</strong> value means it rises <strong>after</strong> sunset.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 25%">
-<col style="width: 19%">
-<col style="width: 22%">
+<col style="width: 14%">
+<col style="width: 32%">
+<col style="width: 32%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Season (Sun Longitude)</th>
-<th>Moon Phase Angle</th>
-<th>Illumination</th>
-<th>Days Past Full</th>
+<th>Date (Approx)</th>
+<th>Full Moon Rise relative to Sunset</th>
+<th>Target Illumination (1-Hr Delay)</th>
+<th>Age (Days Past Full)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Spring Equinox</strong> (<img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc">)</td>
-<td><img src="https://latex.codecogs.com/png.latex?192.1%5E%5Ccirc"></td>
-<td><strong><img src="https://latex.codecogs.com/png.latex?98.9%5C%25"></strong></td>
-<td>1.0 days</td>
+<td>May 31, 2026</td>
+<td>+18.2 min</td>
+<td><strong>99.5%</strong></td>
+<td>0.7</td>
 </tr>
 <tr class="even">
-<td><strong>Summer Solstice</strong> (<img src="https://latex.codecogs.com/png.latex?90%5E%5Ccirc">)</td>
-<td><img src="https://latex.codecogs.com/png.latex?194.6%5E%5Ccirc"></td>
-<td><strong><img src="https://latex.codecogs.com/png.latex?98.4%5C%25"></strong></td>
-<td>1.2 days</td>
+<td>Jun 29, 2026</td>
+<td>+19.4 min</td>
+<td><strong>99.0%</strong></td>
+<td>0.9</td>
 </tr>
 <tr class="odd">
-<td><strong>Winter Solstice</strong> (<img src="https://latex.codecogs.com/png.latex?270%5E%5Ccirc">)</td>
-<td><img src="https://latex.codecogs.com/png.latex?193.2%5E%5Ccirc"></td>
-<td><strong><img src="https://latex.codecogs.com/png.latex?98.7%5C%25"></strong></td>
-<td>1.1 days</td>
+<td>Jul 29, 2026</td>
+<td>+9.6 min</td>
+<td><strong>96.7%</strong></td>
+<td>1.7</td>
 </tr>
 <tr class="even">
-<td><strong>Fall Equinox</strong> (<img src="https://latex.codecogs.com/png.latex?180%5E%5Ccirc">)</td>
-<td><img src="https://latex.codecogs.com/png.latex?204.6%5E%5Ccirc"></td>
-<td><strong><img src="https://latex.codecogs.com/png.latex?95.5%5C%25"></strong></td>
-<td><strong>2.0 days</strong></td>
+<td>Aug 27, 2026</td>
+<td>-3.3 min</td>
+<td><strong>92.8%</strong></td>
+<td>2.5</td>
+</tr>
+<tr class="odd">
+<td>Sep 26, 2026</td>
+<td>-14.9 min</td>
+<td><strong>92.1%</strong></td>
+<td>2.7</td>
+</tr>
+<tr class="even">
+<td>Oct 25, 2026</td>
+<td>-23.1 min</td>
+<td><strong>94.3%</strong></td>
+<td>2.3</td>
+</tr>
+<tr class="odd">
+<td>Nov 24, 2026</td>
+<td><strong>-24.4 min</strong></td>
+<td><strong>96.9%</strong></td>
+<td>1.7</td>
+</tr>
+<tr class="even">
+<td>Dec 23, 2026</td>
+<td>-15.5 min</td>
+<td><strong>98.3%</strong></td>
+<td>1.2</td>
+</tr>
+<tr class="odd">
+<td>Jan 22, 2027</td>
+<td>-4.1 min</td>
+<td><strong>98.9%</strong></td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>Feb 20, 2027</td>
+<td>+1.6 min</td>
+<td><strong>99.0%</strong></td>
+<td>0.9</td>
+</tr>
+<tr class="odd">
+<td>Mar 22, 2027</td>
+<td>+4.2 min</td>
+<td><strong>99.1%</strong></td>
+<td>0.9</td>
+</tr>
+<tr class="even">
+<td>Apr 20, 2027</td>
+<td>+8.7 min</td>
+<td><strong>99.3%</strong></td>
+<td>0.8</td>
+</tr>
+<tr class="odd">
+<td>May 20, 2027</td>
+<td>+15.3 min</td>
+<td><strong>99.4%</strong></td>
+<td>0.7</td>
 </tr>
 </tbody>
 </table>
+<p>Notice the paradox: in <strong>November 2026</strong>, a mathematically perfect full moon rises <strong>24 minutes before sunset</strong>. It is already in the sky while the Sun is still up. To get it to rise 1 hour after sunset during that season, the moon must be significantly past full—nearly <strong>1.7 days waning</strong>.</p>
 <hr>
 </section>
-<section id="the-harvest-moon-anomaly" class="level2">
-<h2 class="anchored" data-anchor-id="the-harvest-moon-anomaly">5. The Harvest Moon Anomaly</h2>
-<p>Look closely at the data: to achieve a striking 1-hour delay after sunset, the moon in late fall must be <strong>2.0 days past full</strong> and only 95.5% illuminated. In early spring, the delay is achieved just <strong>1.0 day past full</strong> with a dazzling 98.9% illumination.</p>
-<p><strong>Why the massive discrepancy?</strong></p>
-<p>The moon orbits Earth, moving eastward by roughly <img src="https://latex.codecogs.com/png.latex?13%5E%5Ccirc"> per day. Normally, this means the Earth has to rotate an extra <img src="https://latex.codecogs.com/png.latex?%5Csim%2050"> minutes each day to catch up to the moon, causing the moon to rise later every night.</p>
-<p>However, near the <strong>Fall Equinox</strong>, the sun is at <img src="https://latex.codecogs.com/png.latex?180%5E%5Ccirc"> longitude. The full moon is therefore near <img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc"> (the Vernal Equinox point). At this point in its orbit, the moon is moving rapidly <em>northward</em> in declination. For an observer in the Northern Hemisphere (like Washington D.C.), a rapidly increasing northern declination causes an object to rise <em>earlier</em> in the day.</p>
-<p>This earlier rise perfectly counteracts the eastward orbital delay. This phenomenon is known as the <strong>Harvest Moon</strong>. Because the moon rises so unusually early during this season, you have to wait much longer—a full two days past the peak full moon—for the orbital delay to outpace the declination shift and push the moonrise a full hour past sunset. By the time it finally rises in the dark, it is a distinctly waning gibbous moon.</p>
-<p>Conversely, in <strong>early Spring</strong>, the full moon is at <img src="https://latex.codecogs.com/png.latex?180%5E%5Ccirc"> (the Autumnal Equinox point) and plunging rapidly <em>southward</em>. This southward dive severely delays the moonrise, compounding with the orbital motion. Just a single day past full moon is enough to push the rise time deep into the evening dark.</p>
+<section id="the-harvest-moon-and-orbital-nodes" class="level2">
+<h2 class="anchored" data-anchor-id="the-harvest-moon-and-orbital-nodes">5. The Harvest Moon and Orbital Nodes</h2>
+<p>The “Harvest Moon” effect (where the moonrise delay is minimized) is most powerful when the full moon occurs near the Vernal Equinox point (<img src="https://latex.codecogs.com/png.latex?%5Clambda_M%20%5Capprox%200%5E%5Ccirc">) while the Moon is moving rapidly northward. The orbital inclination <img src="https://latex.codecogs.com/png.latex?i"> either amplifies or dampens this effect depending on the position of the nodes (<img src="https://latex.codecogs.com/png.latex?%5COmega">).</p>
+<p>When the Ascending Node is near <img src="https://latex.codecogs.com/png.latex?0%5E%5Ccirc">, the Moon’s orbit is tilted <em>more</em> relative to the equator than the ecliptic is (up to <img src="https://latex.codecogs.com/png.latex?23.4%20+%205.1%20=%2028.5%5E%5Ccirc">). This is a “Major Standstill” year, and it makes the seasonal variations in moonrise times even more extreme.</p>
+<hr>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The visual power of a moonrise is not just about its phase; it’s an intricate dance of spherical geometry, axial tilt, and timing. The late winter and early spring moons are mathematically unique: they allow for a near-perfect 99% illuminated sphere to crest the horizon against an ink-black sky. By late summer and early fall, the orbital geometry shifts, and the darkness demands a moon that has already begun to wane.</p>
+<section id="interactive-moonrise-calculator" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-moonrise-calculator">6. Interactive Moonrise Calculator</h2>
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-right">
+<div class="panel-fill g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<p>This calculator accounts for the <img src="https://latex.codecogs.com/png.latex?5.14%5E%5Ccirc"> orbital inclination. Adjust the “Node Position” to see how the tilt affects the timing.</p>
+</div>
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="118" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 117;"><span id="cb2-118">viewof latitude <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">90</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">90</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">38.9</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Latitude (°N)"</span>})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-119">viewof season <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">select</span>(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">new</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Map</span>([</span>
+<span id="cb2-120">  [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Spring Equinox"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-121">  [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Summer Solstice"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">90</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-122">  [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Fall Equinox"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">180</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb2-123">  [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Winter Solstice"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">270</span>]</span>
+<span id="cb2-124">])<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Season"</span>})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-125">viewof node_pos <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">360</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">335</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Ascending Node (Ω°)"</span>})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span></code></pre></div></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>{ const phi = latitude * Math.PI / 180; const lam_s = season * Math.PI / 180; const Omega = node_pos * Math.PI / 180; const epsilon = 23.44 * Math.PI / 180; const inc = 5.14 * Math.PI / 180;</p>
+<p>function getSunEq(lam) { const delta = Math.asin(Math.sin(epsilon) * Math.sin(lam)); const alpha = Math.atan2(Math.cos(epsilon) * Math.sin(lam), Math.cos(lam)); return { alpha, delta }; }</p>
+<p>function getMoonEq(lam_m) { const u = lam_m - Omega; const sinBeta = Math.sin(inc) * Math.sin(u); const beta = Math.asin(sinBeta); const lam = Math.atan2(Math.cos(inc) * Math.sin(u), Math.cos(u)) + Omega;</p>
+<pre><code>const sinD = Math.sin(beta) * Math.cos(epsilon) + Math.cos(beta) * Math.sin(epsilon) * Math.sin(lam);
+const delta = Math.asin(sinD);
+const yEq = Math.cos(beta) * Math.cos(epsilon) * Math.sin(lam) - Math.sin(beta) * Math.sin(epsilon);
+const xEq = Math.cos(beta) * Math.cos(lam);
+const alpha = Math.atan2(yEq, xEq);
+return { alpha, delta };</code></pre>
+<p>}</p>
+<p>function H_at_horiz(delta, rise = false) { const val = -Math.tan(phi) * Math.tan(delta); const h = Math.acos(Math.max(-1, Math.min(1, val))); return rise ? -h : h; }</p>
+<p>function equation(lam_m, lam_sun) { const { alpha: a_m, delta: d_m } = getMoonEq(lam_m); const { alpha: a_s, delta: d_s } = getSunEq(lam_sun); const h_s = H_at_horiz(d_s); const h_m = H_at_horiz(d_m, true); const da = (a_m - a_s + 2 * Math.PI) % (2 * Math.PI); return da + h_m - h_s - (15 * Math.PI / 180); }</p>
+<p>function solve(lam_sun) { let lam_m = lam_sun + Math.PI + (15 * Math.PI / 180); for (let i = 0; i &lt; 20; i++) { const f = equation(lam_m, lam_sun); const f_plus = equation(lam_m + 0.0001, lam_sun); const deriv = (f_plus - f) / 0.0001; lam_m -= f / deriv; } return lam_m; }</p>
+<p>const lam_m_target = solve(lam_s); const phase = (lam_m_target - lam_s + 2 * Math.PI) % (2 * Math.PI); const illumination = 0.5 * (1 - Math.cos(phase)); const age = (phase - Math.PI) / (2 * Math.PI) * 29.53;</p>
+<p>// Full moon offset const fm_lam = lam_s + Math.PI; const { alpha: fa_m, delta: fd_m } = getMoonEq(fm_lam); const { alpha: fa_s, delta: fd_s } = getSunEq(lam_s); const fh_s = H_at_horiz(fd_s); const fh_m = H_at_horiz(fd_m, true); const f_offset_rad = (fa_m + fh_m - (fa_s + fh_s) + Math.PI) % (2 * Math.PI) - Math.PI; const f_offset_min = f_offset_rad * (12 * 60 / Math.PI);</p>
+<p>return md<code>### Rigorous Results for ${latitude}° N - **Perfect Full Moon Rise:** \</code><img src="https://latex.codecogs.com/png.latex?%7Bf_offset_min.toFixed(1)%7D%20min%5C%60%20relative%20to%20sunset%20(**negative**%20means%20before%20sunset).%0A-%20**Striking%20Moon%20(1-Hr%20Delay)%20Illumination:**%20%5C%60">{(illumination * 100).toFixed(1)}%` - <strong>Age:</strong> <span>`<span id="ojs-element-id-1"></span>`</span> days past full `; } ```,file_path:</p>
 
 
 
+<div class="ojs-auto-generated hidden">
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6WyAgeyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiaW5saW5lIjoidHJ1ZSIsInNvdXJjZSI6Imh0bC5odG1sYDxzcGFuPiR7YWdlLnRvRml4ZWQoMSl9PC9zcGFuPmAiLCAiY2VsbE5hbWUiOiJvanMtZWxlbWVudC1pZC0xIn1dfQ==
+</script>
+</div>
 </section>
 
  ]]></description>
