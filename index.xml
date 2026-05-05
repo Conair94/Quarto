@@ -4710,8 +4710,38 @@ font-style: inherit;">;</span></span>
 <span id="cb5-534"></span>
 <span id="cb5-535">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Earth (with a real day/night terminator: lit hemisphere faces sun)</span></span>
-<span id="cb5-536">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// d3.arc angle to a screen vector (dx, dy): 0 = up, increases clockwise.</span></span>
+<span id="cb5-536">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// For screen vector (dx, dy): arcAngle = atan2(dx, -dy).</span></span>
+<span id="cb5-537">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">screenToArcAngle</span>(dx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> dy) { <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">atan2</span>(dx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>dy)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> }</span>
+<span id="cb5-538"></span>
+<span id="cb5-539">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Earth (with a real day/night terminator: lit hemisphere faces the sun)</span></span>
+<span id="cb5-540">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> earth <span class="op" style="color: #5E5E5E;
@@ -4747,7 +4777,7 @@ background-color: null;
 font-style: inherit;">)`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-537">  earth<span class="op" style="color: #5E5E5E;
+<span id="cb5-541">  earth<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4786,37 +4816,26 @@ background-color: null;
 font-style: inherit;">"#4b9cd3"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-538">  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// lit half: arc on the side facing the sun</span></span>
-<span id="cb5-539">  <span class="kw" style="color: #003B4F;
+<span id="cb5-542">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> sunDir <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> earthSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">screenToArcAngle</span>(sx <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+font-style: inherit;">-</span> cx<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">atan2</span>(<span class="op" style="color: #5E5E5E;
+font-style: inherit;">,</span> sy <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span>(sy<span class="op" style="color: #5E5E5E;
+font-style: inherit;">-</span> cy)<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span>cy)<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span> sx<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span>cx)<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// screen-space sun direction</span></span>
-<span id="cb5-540">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">;</span></span>
+<span id="cb5-543">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> litArc <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> litEarth <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> d3<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4839,11 +4858,11 @@ background-color: null;
 font-style: inherit;">20</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb5-541">    <span class="dt" style="color: #AD0000;
+<span id="cb5-544">    <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">startAngle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">:</span> sunDir <span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span> earthSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="bu" style="color: null;
 background-color: null;
@@ -4855,40 +4874,14 @@ font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
-background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// d3 arc convention: 0 = up</span></span>
-<span id="cb5-542">    <span class="dt" style="color: #AD0000;
+font-style: inherit;">,</span></span>
+<span id="cb5-545">    <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">endAngle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">:</span>   sunDir <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span>   earthSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="bu" style="color: null;
 background-color: null;
@@ -4903,7 +4896,7 @@ background-color: null;
 font-style: inherit;">2</span>})<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-543">  earth<span class="op" style="color: #5E5E5E;
+<span id="cb5-546">  earth<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4917,7 +4910,7 @@ font-style: inherit;">attr</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> litArc)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">,</span> litEarth)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4937,18 +4930,30 @@ font-style: inherit;">"opacity"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> <span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.85</span>)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">0.9</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-544">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-547">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Observer pin</span></span>
-<span id="cb5-545">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// Observer pin: place on Earth's surface at the angle pointing to the observer's instantaneous</span></span>
+<span id="cb5-548">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// local meridian — i.e. towards screen direction matching local sidereal time.</span></span>
+<span id="cb5-549">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> obsAng <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> obsArcAngle <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">screenToArcAngle</span>(</span>
+<span id="cb5-550">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">cos</span>(<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">lstFor</span>(jdNow<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4956,28 +4961,37 @@ font-style: inherit;">,</span> loc<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">lon</span>))<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
+font-style: inherit;">,</span></span>
+<span id="cb5-551">    <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// local meridian direction in inertial frame</span></span>
-<span id="cb5-546">  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">-</span><span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">// The observer rotates with Earth; the meridian points toward direction (cos θ, sin θ) in equatorial frame</span></span>
-<span id="cb5-547">  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// We project a representative pin offset 20px outward from earth at angle (sun.lambda - sun-lit center)</span></span>
-<span id="cb5-548">  <span class="co" style="color: #5E5E5E;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">// Simpler: pin at angle = loc.lon + (jdNow*360.985°/day) — the observer's celestial longitude.</span></span>
-<span id="cb5-549">  earth<span class="op" style="color: #5E5E5E;
+font-style: inherit;">sin</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lstFor</span>(jdNow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> loc<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">lon</span>))</span>
+<span id="cb5-552">  )<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb5-553">  earth<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">append</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"circle"</span>)</span>
-<span id="cb5-550">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-554">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -4995,16 +5009,8 @@ font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">cos</span>(obsAng <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> sun<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">lambda</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> sunDir))</span>
-<span id="cb5-551">    <span class="op" style="color: #5E5E5E;
+font-style: inherit;">sin</span>(obsArcAngle))</span>
+<span id="cb5-555">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5024,16 +5030,8 @@ font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">sin</span>(obsAng <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> sun<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">lambda</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> sunDir))</span>
-<span id="cb5-552">    <span class="op" style="color: #5E5E5E;
+font-style: inherit;">cos</span>(obsArcAngle))</span>
+<span id="cb5-556">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5076,11 +5074,11 @@ background-color: null;
 font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-553"></span>
-<span id="cb5-554">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-557"></span>
+<span id="cb5-558">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Sun</span></span>
-<span id="cb5-555">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb5-559">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5123,7 +5121,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"#ffcc33"</span>)</span>
-<span id="cb5-556">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-560">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5136,11 +5134,11 @@ background-color: null;
 font-style: inherit;">"drop-shadow(0 0 10px #ffcc33)"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-557"></span>
-<span id="cb5-558">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-561"></span>
+<span id="cb5-562">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Moon orbit ring</span></span>
-<span id="cb5-559">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb5-563">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5171,7 +5169,7 @@ background-color: null;
 font-style: inherit;">"r"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> Rmoon)</span>
-<span id="cb5-560">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-564">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5204,11 +5202,11 @@ background-color: null;
 font-style: inherit;">"3,4"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-561"></span>
-<span id="cb5-562">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-565"></span>
+<span id="cb5-566">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Moon</span></span>
-<span id="cb5-563">  <span class="kw" style="color: #003B4F;
+<span id="cb5-567">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> moonG <span class="op" style="color: #5E5E5E;
@@ -5244,7 +5242,7 @@ background-color: null;
 font-style: inherit;">)`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-564">  moonG<span class="op" style="color: #5E5E5E;
+<span id="cb5-568">  moonG<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5273,38 +5271,29 @@ background-color: null;
 font-style: inherit;">"#ddd"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-565">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-569">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Lit side: hemisphere facing the sun</span></span>
-<span id="cb5-566">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// Lit hemisphere faces the sun; dark hemisphere is opposite.</span></span>
+<span id="cb5-570">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> mSunDir <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> moonSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">screenToArcAngle</span>(sx <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+font-style: inherit;">-</span> mx<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">atan2</span>(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span>(sy <span class="op" style="color: #5E5E5E;
+font-style: inherit;">,</span> sy <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> my)<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> sx <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> mx)<span class="op" style="color: #5E5E5E;
-background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-567">  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">// shaded (dark) side opposite sun</span></span>
-<span id="cb5-568">  <span class="kw" style="color: #003B4F;
+<span id="cb5-571">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> dark <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> darkMoon <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> d3<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -5327,23 +5316,11 @@ background-color: null;
 font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb5-569">    <span class="dt" style="color: #AD0000;
+<span id="cb5-572">    <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">startAngle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">:</span> mSunDir <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span> moonSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="bu" style="color: null;
 background-color: null;
@@ -5358,11 +5335,11 @@ background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb5-570">    <span class="dt" style="color: #AD0000;
+<span id="cb5-573">    <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">endAngle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">:</span>   mSunDir <span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span>   moonSunArc <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
@@ -5378,22 +5355,10 @@ font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
-background-color: null;
 font-style: inherit;">2</span>})<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-571">  moonG<span class="op" style="color: #5E5E5E;
+<span id="cb5-574">  moonG<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5407,7 +5372,7 @@ font-style: inherit;">attr</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> dark)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">,</span> darkMoon)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5417,14 +5382,14 @@ font-style: inherit;">"fill"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"rgba(0,0,0,0.78)"</span>)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">"rgba(0,0,0,0.82)"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-572"></span>
-<span id="cb5-573">  <span class="co" style="color: #5E5E5E;
+<span id="cb5-575"></span>
+<span id="cb5-576">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Annotations</span></span>
-<span id="cb5-574">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb5-577">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5471,7 +5436,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"12px"</span>)</span>
-<span id="cb5-575">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-578">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5516,7 +5481,7 @@ background-color: null;
 font-style: inherit;">°`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-576">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb5-579">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5563,7 +5528,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"12px"</span>)</span>
-<span id="cb5-577">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-580">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5624,7 +5589,7 @@ background-color: null;
 font-style: inherit;"> km`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-578">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb5-581">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5671,7 +5636,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"12px"</span>)</span>
-<span id="cb5-579">    <span class="op" style="color: #5E5E5E;
+<span id="cb5-582">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5718,8 +5683,8 @@ background-color: null;
 font-style: inherit;">%`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-580"></span>
-<span id="cb5-581">  <span class="cf" style="color: #003B4F;
+<span id="cb5-583"></span>
+<span id="cb5-584">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> svg<span class="op" style="color: #5E5E5E;
@@ -5729,7 +5694,7 @@ background-color: null;
 font-style: inherit;">node</span>()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb5-582">}</span></code></pre></div></div>
+<span id="cb5-585">}</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
@@ -5740,11 +5705,11 @@ font-style: inherit;">;</span></span>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-startfrom="586" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 585;"><span id="cb6-586"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-startfrom="589" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 588;"><span id="cb6-589"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// ===== Visualizer B: 24-h horizon timeline =====</span></span>
-<span id="cb6-587">{</span>
-<span id="cb6-588">  <span class="kw" style="color: #003B4F;
+<span id="cb6-590">{</span>
+<span id="cb6-591">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> W <span class="op" style="color: #5E5E5E;
@@ -5794,7 +5759,7 @@ background-color: null;
 font-style: inherit;">36</span>}<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-589">  <span class="kw" style="color: #003B4F;
+<span id="cb6-592">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> x <span class="op" style="color: #5E5E5E;
@@ -5832,7 +5797,7 @@ background-color: null;
 font-style: inherit;">right</span>])<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-590">  <span class="kw" style="color: #003B4F;
+<span id="cb6-593">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> svg <span class="op" style="color: #5E5E5E;
@@ -5862,7 +5827,7 @@ background-color: null;
 font-style: inherit;">,</span>W<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span>H])</span>
-<span id="cb6-591">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-594">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5885,8 +5850,8 @@ background-color: null;
 font-style: inherit;">"auto"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-592"></span>
-<span id="cb6-593">  <span class="kw" style="color: #003B4F;
+<span id="cb6-595"></span>
+<span id="cb6-596">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> barTop <span class="op" style="color: #5E5E5E;
@@ -5902,11 +5867,11 @@ background-color: null;
 font-style: inherit;">36</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-594"></span>
-<span id="cb6-595">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-597"></span>
+<span id="cb6-598">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Background bar (night)</span></span>
-<span id="cb6-596">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-599">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5961,7 +5926,7 @@ background-color: null;
 font-style: inherit;">"height"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> barH)</span>
-<span id="cb6-597">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-600">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -5974,14 +5939,14 @@ background-color: null;
 font-style: inherit;">"#10103a"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-598"></span>
-<span id="cb6-599">  <span class="kw" style="color: #003B4F;
+<span id="cb6-601"></span>
+<span id="cb6-602">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">localHours</span>(ev) {</span>
-<span id="cb6-600">    <span class="cf" style="color: #003B4F;
+<span id="cb6-603">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="op" style="color: #5E5E5E;
@@ -5999,7 +5964,7 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-601">    <span class="kw" style="color: #003B4F;
+<span id="cb6-604">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> local <span class="op" style="color: #5E5E5E;
@@ -6021,7 +5986,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-602">    <span class="cf" style="color: #003B4F;
+<span id="cb6-605">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> ((local <span class="op" style="color: #5E5E5E;
@@ -6051,8 +6016,8 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-603">  }</span>
-<span id="cb6-604">  <span class="kw" style="color: #003B4F;
+<span id="cb6-606">  }</span>
+<span id="cb6-607">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sr <span class="op" style="color: #5E5E5E;
@@ -6070,7 +6035,7 @@ background-color: null;
 font-style: inherit;">rise</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-605">  <span class="kw" style="color: #003B4F;
+<span id="cb6-608">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ss <span class="op" style="color: #5E5E5E;
@@ -6088,7 +6053,7 @@ background-color: null;
 font-style: inherit;">set</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-606">  <span class="kw" style="color: #003B4F;
+<span id="cb6-609">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> mr <span class="op" style="color: #5E5E5E;
@@ -6106,7 +6071,7 @@ background-color: null;
 font-style: inherit;">rise</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-607">  <span class="kw" style="color: #003B4F;
+<span id="cb6-610">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ms <span class="op" style="color: #5E5E5E;
@@ -6124,11 +6089,11 @@ background-color: null;
 font-style: inherit;">set</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-608"></span>
-<span id="cb6-609">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-611"></span>
+<span id="cb6-612">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Daylight band</span></span>
-<span id="cb6-610">  <span class="cf" style="color: #003B4F;
+<span id="cb6-613">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (sr <span class="op" style="color: #5E5E5E;
@@ -6144,13 +6109,13 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>) {</span>
-<span id="cb6-611">    <span class="cf" style="color: #003B4F;
+<span id="cb6-614">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (sr <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> ss) {</span>
-<span id="cb6-612">      svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-615">      svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6189,7 +6154,7 @@ background-color: null;
 font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">x</span>(sr))</span>
-<span id="cb6-613">        <span class="op" style="color: #5E5E5E;
+<span id="cb6-616">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6210,11 +6175,11 @@ background-color: null;
 font-style: inherit;">"#ffd866"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-614">    } <span class="cf" style="color: #003B4F;
+<span id="cb6-617">    } <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">else</span> {</span>
-<span id="cb6-615">      svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-618">      svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6257,7 +6222,7 @@ background-color: null;
 font-style: inherit;">x</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>))</span>
-<span id="cb6-616">        <span class="op" style="color: #5E5E5E;
+<span id="cb6-619">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6278,7 +6243,7 @@ background-color: null;
 font-style: inherit;">"#ffd866"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-617">      svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-620">      svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6319,7 +6284,7 @@ background-color: null;
 font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">x</span>(sr))</span>
-<span id="cb6-618">        <span class="op" style="color: #5E5E5E;
+<span id="cb6-621">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6340,12 +6305,12 @@ background-color: null;
 font-style: inherit;">"#ffd866"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-619">    }</span>
-<span id="cb6-620">  }</span>
-<span id="cb6-621">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-622">    }</span>
+<span id="cb6-623">  }</span>
+<span id="cb6-624">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Moon band</span></span>
-<span id="cb6-622">  <span class="kw" style="color: #003B4F;
+<span id="cb6-625">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
@@ -6353,7 +6318,7 @@ background-color: null;
 font-style: inherit;">drawMoonBand</span>(a<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> b) {</span>
-<span id="cb6-623">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-626">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6396,7 +6361,7 @@ background-color: null;
 font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">x</span>(a))</span>
-<span id="cb6-624">      <span class="op" style="color: #5E5E5E;
+<span id="cb6-627">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6431,8 +6396,8 @@ background-color: null;
 font-style: inherit;">3</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-625">  }</span>
-<span id="cb6-626">  <span class="cf" style="color: #003B4F;
+<span id="cb6-628">  }</span>
+<span id="cb6-629">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (mr <span class="op" style="color: #5E5E5E;
@@ -6448,7 +6413,7 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>) {</span>
-<span id="cb6-627">    <span class="cf" style="color: #003B4F;
+<span id="cb6-630">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (mr <span class="op" style="color: #5E5E5E;
@@ -6460,7 +6425,7 @@ background-color: null;
 font-style: inherit;">,</span> ms)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-628">    <span class="cf" style="color: #003B4F;
+<span id="cb6-631">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">else</span> { <span class="fu" style="color: #4758AB;
@@ -6480,12 +6445,12 @@ background-color: null;
 font-style: inherit;">,</span> ms)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> }</span>
-<span id="cb6-629">  }</span>
-<span id="cb6-630"></span>
-<span id="cb6-631">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-632">  }</span>
+<span id="cb6-633"></span>
+<span id="cb6-634">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Tick at sunset+1h</span></span>
-<span id="cb6-632">  <span class="cf" style="color: #003B4F;
+<span id="cb6-635">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (ss <span class="op" style="color: #5E5E5E;
@@ -6494,7 +6459,7 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>) {</span>
-<span id="cb6-633">    <span class="kw" style="color: #003B4F;
+<span id="cb6-636">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> target <span class="op" style="color: #5E5E5E;
@@ -6510,7 +6475,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-634">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-637">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6537,7 +6502,7 @@ background-color: null;
 font-style: inherit;">,</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">x</span>(target))</span>
-<span id="cb6-635">      <span class="op" style="color: #5E5E5E;
+<span id="cb6-638">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6586,7 +6551,7 @@ background-color: null;
 font-style: inherit;">"3,3"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-636">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-639">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6625,7 +6590,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"#e44"</span>)</span>
-<span id="cb6-637">      <span class="op" style="color: #5E5E5E;
+<span id="cb6-640">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6654,12 +6619,12 @@ background-color: null;
 font-style: inherit;">"sunset + 1 h"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-638">  }</span>
-<span id="cb6-639"></span>
-<span id="cb6-640">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-641">  }</span>
+<span id="cb6-642"></span>
+<span id="cb6-643">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Axis</span></span>
-<span id="cb6-641">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-644">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6684,7 +6649,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">)`</span>)</span>
-<span id="cb6-642">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-645">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6710,7 +6675,7 @@ background-color: null;
 font-style: inherit;">+</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"h"</span>))</span>
-<span id="cb6-643">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-646">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6733,11 +6698,11 @@ background-color: null;
 font-style: inherit;">"11px"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-644"></span>
-<span id="cb6-645">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-647"></span>
+<span id="cb6-648">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Title</span></span>
-<span id="cb6-646">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-649">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6776,7 +6741,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"middle"</span>)</span>
-<span id="cb6-647">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-650">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6807,7 +6772,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"bold"</span>)</span>
-<span id="cb6-648">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-651">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6822,11 +6787,11 @@ background-color: null;
 font-style: inherit;">`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-649"></span>
-<span id="cb6-650">  <span class="co" style="color: #5E5E5E;
+<span id="cb6-652"></span>
+<span id="cb6-653">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Inline readout</span></span>
-<span id="cb6-651">  <span class="kw" style="color: #003B4F;
+<span id="cb6-654">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> lag <span class="op" style="color: #5E5E5E;
@@ -6844,7 +6809,7 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>)</span>
-<span id="cb6-652">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-655">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">?</span> (((mr <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -6861,7 +6826,7 @@ background-color: null;
 font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">60</span></span>
-<span id="cb6-653">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-656">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -6869,7 +6834,7 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-654">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb6-657">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6910,7 +6875,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"middle"</span>)</span>
-<span id="cb6-655">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-658">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6931,7 +6896,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"#444"</span>)</span>
-<span id="cb6-656">    <span class="op" style="color: #5E5E5E;
+<span id="cb6-659">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -6975,7 +6940,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">, `</span></span>
-<span id="cb6-657">        <span class="op" style="color: #5E5E5E;
+<span id="cb6-660">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="vs" style="color: #20794D;
 background-color: null;
@@ -7017,7 +6982,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">, `</span></span>
-<span id="cb6-658">        <span class="op" style="color: #5E5E5E;
+<span id="cb6-661">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="vs" style="color: #20794D;
 background-color: null;
@@ -7071,8 +7036,8 @@ background-color: null;
 font-style: inherit;">%`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-659"></span>
-<span id="cb6-660">  <span class="cf" style="color: #003B4F;
+<span id="cb6-662"></span>
+<span id="cb6-663">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> svg<span class="op" style="color: #5E5E5E;
@@ -7082,7 +7047,7 @@ background-color: null;
 font-style: inherit;">node</span>()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb6-661">}</span></code></pre></div></div>
+<span id="cb6-664">}</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="expression">
@@ -7101,8 +7066,8 @@ font-style: inherit;">;</span></span>
 <div class="column-page">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="681" data-source-offset="-65" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 680;"><span id="cb7-681">{</span>
-<span id="cb7-682">  <span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="684" data-source-offset="-65" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 683;"><span id="cb7-684">{</span>
+<span id="cb7-685">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> W <span class="op" style="color: #5E5E5E;
@@ -7140,7 +7105,7 @@ background-color: null;
 font-style: inherit;">240</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-683">  <span class="kw" style="color: #003B4F;
+<span id="cb7-686">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> svg <span class="op" style="color: #5E5E5E;
@@ -7170,7 +7135,7 @@ background-color: null;
 font-style: inherit;">,</span>W<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span>H])</span>
-<span id="cb7-684">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-687">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7181,7 +7146,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"radial-gradient(circle at center, #001 0%, #000 70%)"</span>)</span>
-<span id="cb7-685">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-688">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7214,11 +7179,14 @@ background-color: null;
 font-style: inherit;">"auto"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-686"></span>
-<span id="cb7-687">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-689"></span>
+<span id="cb7-690">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Stereographic from nadir: r = R * tan((90° - alt)/2)</span></span>
-<span id="cb7-688">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// Stereographic from nadir: r = R * tan((90° - alt)/2). Returns null when the</span></span>
+<span id="cb7-691">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// point is below the horizon so callers can break their path there.</span></span>
+<span id="cb7-692">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
@@ -7226,7 +7194,7 @@ background-color: null;
 font-style: inherit;">project</span>(alt<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> az) {</span>
-<span id="cb7-689">    <span class="cf" style="color: #003B4F;
+<span id="cb7-693">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (alt <span class="op" style="color: #5E5E5E;
@@ -7244,7 +7212,7 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-690">    <span class="kw" style="color: #003B4F;
+<span id="cb7-694">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> r <span class="op" style="color: #5E5E5E;
@@ -7276,10 +7244,10 @@ background-color: null;
 font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-691">    <span class="co" style="color: #5E5E5E;
+<span id="cb7-695">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// az measured from N clockwise; on screen, x = r sin(az), y = -r cos(az)</span></span>
-<span id="cb7-692">    <span class="cf" style="color: #003B4F;
+<span id="cb7-696">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> [cx <span class="op" style="color: #5E5E5E;
@@ -7307,12 +7275,63 @@ background-color: null;
 font-style: inherit;">cos</span>(az)]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-693">  }</span>
-<span id="cb7-694"></span>
-<span id="cb7-695">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-697">  }</span>
+<span id="cb7-698"></span>
+<span id="cb7-699">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Path generator that BREAKS at null entries instead of connecting across them.</span></span>
+<span id="cb7-700">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// Also breaks when consecutive points are far apart on screen (azimuth wrap-around).</span></span>
+<span id="cb7-701">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">const</span> lineGen <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">line</span>()</span>
+<span id="cb7-702">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">defined</span>(d <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">=&gt;</span> d <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">null</span>)</span>
+<span id="cb7-703">    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">x</span>(d <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">=&gt;</span> d[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">y</span>(d <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">=&gt;</span> d[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-704"></span>
+<span id="cb7-705">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Horizon ring + altitude circles</span></span>
-<span id="cb7-696">  <span class="cf" style="color: #003B4F;
+<span id="cb7-706">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -7328,7 +7347,7 @@ background-color: null;
 font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">60</span>]) {</span>
-<span id="cb7-697">    <span class="kw" style="color: #003B4F;
+<span id="cb7-707">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> r <span class="op" style="color: #5E5E5E;
@@ -7362,7 +7381,7 @@ background-color: null;
 font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-698">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-708">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7393,7 +7412,7 @@ background-color: null;
 font-style: inherit;">"r"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span>r)</span>
-<span id="cb7-699">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-709">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7426,8 +7445,8 @@ background-color: null;
 font-style: inherit;">"2,3"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-700">  }</span>
-<span id="cb7-701">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-710">  }</span>
+<span id="cb7-711">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7458,7 +7477,7 @@ background-color: null;
 font-style: inherit;">"r"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span>R)</span>
-<span id="cb7-702">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-712">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7481,11 +7500,11 @@ background-color: null;
 font-style: inherit;">"#445"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-703"></span>
-<span id="cb7-704">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-713"></span>
+<span id="cb7-714">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Cardinal labels</span></span>
-<span id="cb7-705">  <span class="kw" style="color: #003B4F;
+<span id="cb7-715">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> card <span class="op" style="color: #5E5E5E;
@@ -7547,7 +7566,7 @@ background-color: null;
 font-style: inherit;">2</span>]]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-706">  <span class="cf" style="color: #003B4F;
+<span id="cb7-716">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -7559,7 +7578,7 @@ font-style: inherit;">,</span>a] <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">of</span> card) {</span>
-<span id="cb7-707">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-717">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7588,7 +7607,7 @@ background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">sin</span>(a))</span>
-<span id="cb7-708">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-718">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7615,7 +7634,7 @@ background-color: null;
 font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span>)</span>
-<span id="cb7-709">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-719">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7652,12 +7671,21 @@ background-color: null;
 font-style: inherit;">text</span>(t)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-710">  }</span>
-<span id="cb7-711"></span>
-<span id="cb7-712">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-720">  }</span>
+<span id="cb7-721"></span>
+<span id="cb7-722">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// Celestial equator + ecliptic, sampled</span></span>
-<span id="cb7-713">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// Celestial equator + ecliptic + body trails, sampled.</span></span>
+<span id="cb7-723">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// We post-process: any pair of consecutive non-null points that are unrealistically</span></span>
+<span id="cb7-724">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// far apart on screen (a wrap-around chord) gets a null inserted between them so</span></span>
+<span id="cb7-725">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// .defined() breaks the path there.</span></span>
+<span id="cb7-726">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
@@ -7665,51 +7693,132 @@ background-color: null;
 font-style: inherit;">drawGreatCircle</span>(samples<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> color) {</span>
-<span id="cb7-714">    <span class="kw" style="color: #003B4F;
+<span id="cb7-727">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> pts <span class="op" style="color: #5E5E5E;
+font-style: inherit;">const</span> broken <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> samples<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">filter</span>(p <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">=&gt;</span> p)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-715">    <span class="cf" style="color: #003B4F;
+<span id="cb7-728">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">if</span> (pts<span class="op" style="color: #5E5E5E;
+font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">let</span> i <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> i <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span> samples<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">length</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> i<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">++</span>) {</span>
+<span id="cb7-729">      <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">const</span> p <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> samples[i]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-730">      <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">const</span> prev <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> broken[broken<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">length</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>) <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">1</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-716">    <span class="kw" style="color: #003B4F;
+<span id="cb7-731">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">const</span> path <span class="op" style="color: #5E5E5E;
+font-style: inherit;">if</span> (p <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> d3<span class="op" style="color: #5E5E5E;
+font-style: inherit;">&amp;&amp;</span> prev) {</span>
+<span id="cb7-732">        <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">const</span> dx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> prev[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> dy <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> p[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> prev[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-733">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> (dx<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>dx <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> dy<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>dy <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> (R<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>(R<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)) broken<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">line</span>()(pts)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">push</span>(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">null</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-717">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-734">      }</span>
+<span id="cb7-735">      broken<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">push</span>(p)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb7-736">    }</span>
+<span id="cb7-737">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7723,7 +7832,9 @@ font-style: inherit;">attr</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">,</span> path)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">,</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lineGen</span>(broken))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7734,7 +7845,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"none"</span>)</span>
-<span id="cb7-718">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-738">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7762,14 +7873,14 @@ font-style: inherit;">"opacity"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
+font-style: inherit;">0.55</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-719">  }</span>
-<span id="cb7-720">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-739">  }</span>
+<span id="cb7-740">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Equator: δ = 0, vary α</span></span>
-<span id="cb7-721">  <span class="kw" style="color: #003B4F;
+<span id="cb7-741">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> eqPts <span class="op" style="color: #5E5E5E;
@@ -7777,7 +7888,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-722">  <span class="cf" style="color: #003B4F;
+<span id="cb7-742">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -7816,7 +7927,7 @@ background-color: null;
 font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">120</span>) {</span>
-<span id="cb7-723">    <span class="kw" style="color: #003B4F;
+<span id="cb7-743">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> H <span class="op" style="color: #5E5E5E;
@@ -7834,7 +7945,7 @@ background-color: null;
 font-style: inherit;">-</span> a<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-724">    <span class="kw" style="color: #003B4F;
+<span id="cb7-744">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sinAlt <span class="op" style="color: #5E5E5E;
@@ -7862,7 +7973,7 @@ background-color: null;
 font-style: inherit;">cos</span>(H)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-725">    <span class="kw" style="color: #003B4F;
+<span id="cb7-745">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> alt <span class="op" style="color: #5E5E5E;
@@ -7876,7 +7987,7 @@ background-color: null;
 font-style: inherit;">asin</span>(sinAlt)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-726">    <span class="kw" style="color: #003B4F;
+<span id="cb7-746">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> az <span class="op" style="color: #5E5E5E;
@@ -7922,7 +8033,7 @@ background-color: null;
 font-style: inherit;">cos</span>(H))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-727">    eqPts<span class="op" style="color: #5E5E5E;
+<span id="cb7-747">    eqPts<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -7957,8 +8068,8 @@ background-color: null;
 font-style: inherit;">PI</span>)))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-728">  }</span>
-<span id="cb7-729">  <span class="fu" style="color: #4758AB;
+<span id="cb7-748">  }</span>
+<span id="cb7-749">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">drawGreatCircle</span>(eqPts<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -7967,11 +8078,11 @@ background-color: null;
 font-style: inherit;">"#5a8"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-730"></span>
-<span id="cb7-731">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-750"></span>
+<span id="cb7-751">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Ecliptic</span></span>
-<span id="cb7-732">  <span class="kw" style="color: #003B4F;
+<span id="cb7-752">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> eps0 <span class="op" style="color: #5E5E5E;
@@ -7983,7 +8094,7 @@ background-color: null;
 font-style: inherit;">julianCenturies</span>(jdNow))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-733">  <span class="kw" style="color: #003B4F;
+<span id="cb7-753">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ecPts <span class="op" style="color: #5E5E5E;
@@ -7991,7 +8102,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-734">  <span class="cf" style="color: #003B4F;
+<span id="cb7-754">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -8030,7 +8141,7 @@ background-color: null;
 font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">120</span>) {</span>
-<span id="cb7-735">    <span class="kw" style="color: #003B4F;
+<span id="cb7-755">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dec <span class="op" style="color: #5E5E5E;
@@ -8058,7 +8169,7 @@ background-color: null;
 font-style: inherit;">sin</span>(l))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-736">    <span class="kw" style="color: #003B4F;
+<span id="cb7-756">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ra <span class="op" style="color: #5E5E5E;
@@ -8094,7 +8205,7 @@ background-color: null;
 font-style: inherit;">cos</span>(l))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-737">    <span class="kw" style="color: #003B4F;
+<span id="cb7-757">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> H <span class="op" style="color: #5E5E5E;
@@ -8112,7 +8223,7 @@ background-color: null;
 font-style: inherit;">-</span> ra<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-738">    <span class="kw" style="color: #003B4F;
+<span id="cb7-758">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sinAlt <span class="op" style="color: #5E5E5E;
@@ -8170,7 +8281,7 @@ background-color: null;
 font-style: inherit;">cos</span>(H)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-739">    <span class="kw" style="color: #003B4F;
+<span id="cb7-759">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> alt <span class="op" style="color: #5E5E5E;
@@ -8206,7 +8317,7 @@ background-color: null;
 font-style: inherit;">,</span> sinAlt)))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-740">    <span class="kw" style="color: #003B4F;
+<span id="cb7-760">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> y <span class="op" style="color: #5E5E5E;
@@ -8222,7 +8333,7 @@ background-color: null;
 font-style: inherit;">sin</span>(H)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-741">    <span class="kw" style="color: #003B4F;
+<span id="cb7-761">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> x <span class="op" style="color: #5E5E5E;
@@ -8272,7 +8383,7 @@ background-color: null;
 font-style: inherit;">cos</span>(H)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-742">    <span class="kw" style="color: #003B4F;
+<span id="cb7-762">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> az <span class="op" style="color: #5E5E5E;
@@ -8309,7 +8420,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-743">    ecPts<span class="op" style="color: #5E5E5E;
+<span id="cb7-763">    ecPts<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8320,8 +8431,8 @@ background-color: null;
 font-style: inherit;">,</span> az))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-744">  }</span>
-<span id="cb7-745">  <span class="fu" style="color: #4758AB;
+<span id="cb7-764">  }</span>
+<span id="cb7-765">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">drawGreatCircle</span>(ecPts<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -8330,11 +8441,14 @@ background-color: null;
 font-style: inherit;">"#a85"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-746"></span>
-<span id="cb7-747">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-766"></span>
+<span id="cb7-767">  <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">// 24-hour trails for Sun &amp; Moon</span></span>
-<span id="cb7-748">  <span class="kw" style="color: #003B4F;
+font-style: inherit;">// 24-hour trails for Sun &amp; Moon — keep nulls in-place so the path breaks</span></span>
+<span id="cb7-768">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">// when the body dips below the horizon.</span></span>
+<span id="cb7-769">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
@@ -8342,7 +8456,7 @@ background-color: null;
 font-style: inherit;">trail</span>(bodyFn<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> color) {</span>
-<span id="cb7-749">    <span class="kw" style="color: #003B4F;
+<span id="cb7-770">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> pts <span class="op" style="color: #5E5E5E;
@@ -8350,7 +8464,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-750">    <span class="cf" style="color: #003B4F;
+<span id="cb7-771">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -8372,8 +8486,8 @@ font-style: inherit;">;</span> dh<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+=</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0.5</span>) {</span>
-<span id="cb7-751">      <span class="kw" style="color: #003B4F;
+font-style: inherit;">0.25</span>) {</span>
+<span id="cb7-772">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> t <span class="op" style="color: #5E5E5E;
@@ -8387,7 +8501,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-752">      <span class="kw" style="color: #003B4F;
+<span id="cb7-773">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> b <span class="op" style="color: #5E5E5E;
@@ -8397,7 +8511,7 @@ background-color: null;
 font-style: inherit;">bodyFn</span>(t)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-753">      <span class="kw" style="color: #003B4F;
+<span id="cb7-774">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> aa <span class="op" style="color: #5E5E5E;
@@ -8433,7 +8547,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-754">      pts<span class="op" style="color: #5E5E5E;
+<span id="cb7-775">      pts<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8452,23 +8566,16 @@ background-color: null;
 font-style: inherit;">az</span>))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-755">    }</span>
-<span id="cb7-756">    <span class="fu" style="color: #4758AB;
+<span id="cb7-776">    }</span>
+<span id="cb7-777">    <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">drawGreatCircle</span>(pts<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">filter</span>(p<span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">=&gt;</span>p)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> color)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-757">  }</span>
-<span id="cb7-758">  <span class="fu" style="color: #4758AB;
+<span id="cb7-778">  }</span>
+<span id="cb7-779">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">trail</span>(sunPosition<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -8477,7 +8584,7 @@ background-color: null;
 font-style: inherit;">"#ffcc33"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-759">  <span class="fu" style="color: #4758AB;
+<span id="cb7-780">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">trail</span>(moonPosition<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -8486,11 +8593,11 @@ background-color: null;
 font-style: inherit;">"#cce"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-760"></span>
-<span id="cb7-761">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-781"></span>
+<span id="cb7-782">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Current Sun &amp; Moon</span></span>
-<span id="cb7-762">  <span class="kw" style="color: #003B4F;
+<span id="cb7-783">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sunAA <span class="op" style="color: #5E5E5E;
@@ -8526,7 +8633,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-763">  <span class="kw" style="color: #003B4F;
+<span id="cb7-784">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> moonAA <span class="op" style="color: #5E5E5E;
@@ -8562,7 +8669,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-764">  <span class="kw" style="color: #003B4F;
+<span id="cb7-785">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sp <span class="op" style="color: #5E5E5E;
@@ -8582,7 +8689,7 @@ background-color: null;
 font-style: inherit;">az</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-765">  <span class="kw" style="color: #003B4F;
+<span id="cb7-786">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> mp <span class="op" style="color: #5E5E5E;
@@ -8602,11 +8709,11 @@ background-color: null;
 font-style: inherit;">az</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-766">  <span class="cf" style="color: #003B4F;
+<span id="cb7-787">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (sp) {</span>
-<span id="cb7-767">    svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-788">    svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8643,7 +8750,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">7</span>)</span>
-<span id="cb7-768">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-789">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8666,12 +8773,12 @@ background-color: null;
 font-style: inherit;">"drop-shadow(0 0 6px #ffcc33)"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-769">  }</span>
-<span id="cb7-770">  <span class="cf" style="color: #003B4F;
+<span id="cb7-790">  }</span>
+<span id="cb7-791">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (mp) {</span>
-<span id="cb7-771">    <span class="kw" style="color: #003B4F;
+<span id="cb7-792">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> g <span class="op" style="color: #5E5E5E;
@@ -8711,7 +8818,7 @@ background-color: null;
 font-style: inherit;">)`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-772">    g<span class="op" style="color: #5E5E5E;
+<span id="cb7-793">    g<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8740,10 +8847,10 @@ background-color: null;
 font-style: inherit;">"#eee"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-773">    <span class="co" style="color: #5E5E5E;
+<span id="cb7-794">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// shade based on phase</span></span>
-<span id="cb7-774">    <span class="kw" style="color: #003B4F;
+<span id="cb7-795">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> k <span class="op" style="color: #5E5E5E;
@@ -8755,7 +8862,7 @@ background-color: null;
 font-style: inherit;">illuminated</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-775">    g<span class="op" style="color: #5E5E5E;
+<span id="cb7-796">    g<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8790,7 +8897,7 @@ background-color: null;
 font-style: inherit;">6</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb7-776">      <span class="dt" style="color: #AD0000;
+<span id="cb7-797">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">startAngle</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -8819,7 +8926,7 @@ background-color: null;
 font-style: inherit;">*</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2</span>}))</span>
-<span id="cb7-777">      <span class="op" style="color: #5E5E5E;
+<span id="cb7-798">      <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8832,9 +8939,9 @@ background-color: null;
 font-style: inherit;">"rgba(0,0,0,0.7)"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-778">  }</span>
-<span id="cb7-779"></span>
-<span id="cb7-780">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-799">  }</span>
+<span id="cb7-800"></span>
+<span id="cb7-801">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8881,7 +8988,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"11px"</span>)</span>
-<span id="cb7-781">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-802">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8912,7 +9019,7 @@ background-color: null;
 font-style: inherit;">h local`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-782">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-803">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8961,7 +9068,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"10px"</span>)</span>
-<span id="cb7-783">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-804">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -8970,7 +9077,7 @@ background-color: null;
 font-style: inherit;">"— equator"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-784">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-805">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9019,7 +9126,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"10px"</span>)</span>
-<span id="cb7-785">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-806">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9028,7 +9135,7 @@ background-color: null;
 font-style: inherit;">"— ecliptic"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-786">  <span class="cf" style="color: #003B4F;
+<span id="cb7-807">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> svg<span class="op" style="color: #5E5E5E;
@@ -9038,9 +9145,9 @@ background-color: null;
 font-style: inherit;">node</span>()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-787">}</span>
-<span id="cb7-788">{</span>
-<span id="cb7-789">  <span class="kw" style="color: #003B4F;
+<span id="cb7-808">}</span>
+<span id="cb7-809">{</span>
+<span id="cb7-810">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> W <span class="op" style="color: #5E5E5E;
@@ -9056,7 +9163,7 @@ background-color: null;
 font-style: inherit;">540</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-790">  <span class="kw" style="color: #003B4F;
+<span id="cb7-811">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> svg <span class="op" style="color: #5E5E5E;
@@ -9086,7 +9193,7 @@ background-color: null;
 font-style: inherit;">,</span>W<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span>H])</span>
-<span id="cb7-791">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-812">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9107,7 +9214,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"8px"</span>)</span>
-<span id="cb7-792">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-813">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9130,11 +9237,11 @@ background-color: null;
 font-style: inherit;">"auto"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-793"></span>
-<span id="cb7-794">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-814"></span>
+<span id="cb7-815">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Center the globe on the observer's longitude rotated by Earth's spin</span></span>
-<span id="cb7-795">  <span class="kw" style="color: #003B4F;
+<span id="cb7-816">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> rot <span class="op" style="color: #5E5E5E;
@@ -9164,7 +9271,7 @@ background-color: null;
 font-style: inherit;">0</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-796">  <span class="kw" style="color: #003B4F;
+<span id="cb7-817">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> proj <span class="op" style="color: #5E5E5E;
@@ -9208,7 +9315,7 @@ background-color: null;
 font-style: inherit;">90</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-797">  <span class="kw" style="color: #003B4F;
+<span id="cb7-818">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> path <span class="op" style="color: #5E5E5E;
@@ -9220,11 +9327,11 @@ background-color: null;
 font-style: inherit;">geoPath</span>(proj)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-798"></span>
-<span id="cb7-799">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-819"></span>
+<span id="cb7-820">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Globe sphere</span></span>
-<span id="cb7-800">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-821">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9249,7 +9356,7 @@ background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> path)</span>
-<span id="cb7-801">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-822">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9272,11 +9379,11 @@ background-color: null;
 font-style: inherit;">"#345"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-802"></span>
-<span id="cb7-803">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-823"></span>
+<span id="cb7-824">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Wireframe graticule (15° spacing)</span></span>
-<span id="cb7-804">  <span class="kw" style="color: #003B4F;
+<span id="cb7-825">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> graticule <span class="op" style="color: #5E5E5E;
@@ -9298,7 +9405,7 @@ background-color: null;
 font-style: inherit;">15</span>])<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-805">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-826">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9317,7 +9424,7 @@ background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> path)</span>
-<span id="cb7-806">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-827">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9350,10 +9457,10 @@ background-color: null;
 font-style: inherit;">0.4</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-807">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-828">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Equator highlighted</span></span>
-<span id="cb7-808">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-829">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9398,7 +9505,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>]]))</span>
-<span id="cb7-809">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-830">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9439,11 +9546,11 @@ background-color: null;
 font-style: inherit;">0.7</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-810"></span>
-<span id="cb7-811">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-831"></span>
+<span id="cb7-832">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Sub-solar / sub-lunar</span></span>
-<span id="cb7-812">  <span class="kw" style="color: #003B4F;
+<span id="cb7-833">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> subSun  <span class="op" style="color: #5E5E5E;
@@ -9455,7 +9562,7 @@ background-color: null;
 font-style: inherit;">,</span> sunPosition)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-813">  <span class="kw" style="color: #003B4F;
+<span id="cb7-834">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> subMoon <span class="op" style="color: #5E5E5E;
@@ -9467,11 +9574,11 @@ background-color: null;
 font-style: inherit;">,</span> moonPosition)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-814"></span>
-<span id="cb7-815">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-835"></span>
+<span id="cb7-836">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Night side: great circle 90° from sub-solar, hemisphere AWAY from sun is dark</span></span>
-<span id="cb7-816">  <span class="kw" style="color: #003B4F;
+<span id="cb7-837">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> antiSun <span class="op" style="color: #5E5E5E;
@@ -9511,7 +9618,7 @@ background-color: null;
 font-style: inherit;">*</span>RAD]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-817">  <span class="kw" style="color: #003B4F;
+<span id="cb7-838">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> night <span class="op" style="color: #5E5E5E;
@@ -9533,7 +9640,7 @@ background-color: null;
 font-style: inherit;">center</span>(antiSun)()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-818">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-839">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9552,7 +9659,7 @@ background-color: null;
 font-style: inherit;">"d"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> path)</span>
-<span id="cb7-819">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-840">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9585,11 +9692,11 @@ background-color: null;
 font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-820"></span>
-<span id="cb7-821">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-841"></span>
+<span id="cb7-842">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Sub-solar point</span></span>
-<span id="cb7-822">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-843">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9626,7 +9733,7 @@ background-color: null;
 font-style: inherit;">lat</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>RAD]})</span>
-<span id="cb7-823">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-844">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9641,7 +9748,7 @@ background-color: null;
 font-style: inherit;">pointRadius</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">6</span>))</span>
-<span id="cb7-824">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-845">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9664,10 +9771,10 @@ background-color: null;
 font-style: inherit;">"#aa6"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-825">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-846">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Sub-lunar point</span></span>
-<span id="cb7-826">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-847">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9704,7 +9811,7 @@ background-color: null;
 font-style: inherit;">lat</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>RAD]})</span>
-<span id="cb7-827">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-848">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9719,7 +9826,7 @@ background-color: null;
 font-style: inherit;">pointRadius</span>(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5</span>))</span>
-<span id="cb7-828">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-849">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9742,10 +9849,10 @@ background-color: null;
 font-style: inherit;">"#888"</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-829">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-850">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Observer</span></span>
-<span id="cb7-830">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-851">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9778,7 +9885,7 @@ background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">lat</span>]})</span>
-<span id="cb7-831">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-852">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9793,7 +9900,7 @@ background-color: null;
 font-style: inherit;">pointRadius</span>(<span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3.5</span>))</span>
-<span id="cb7-832">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-853">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9826,11 +9933,11 @@ background-color: null;
 font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-833"></span>
-<span id="cb7-834">  <span class="co" style="color: #5E5E5E;
+<span id="cb7-854"></span>
+<span id="cb7-855">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Inset readout</span></span>
-<span id="cb7-835">  <span class="kw" style="color: #003B4F;
+<span id="cb7-856">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sunAlt <span class="op" style="color: #5E5E5E;
@@ -9872,7 +9979,7 @@ background-color: null;
 font-style: inherit;">*</span>RAD<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-836">  <span class="kw" style="color: #003B4F;
+<span id="cb7-857">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> moonAlt <span class="op" style="color: #5E5E5E;
@@ -9914,7 +10021,7 @@ background-color: null;
 font-style: inherit;">*</span>RAD<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-837">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-858">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9961,7 +10068,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"11px"</span>)</span>
-<span id="cb7-838">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-859">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -9994,7 +10101,7 @@ background-color: null;
 font-style: inherit;">°`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-839">  svg<span class="op" style="color: #5E5E5E;
+<span id="cb7-860">  svg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -10043,7 +10150,7 @@ background-color: null;
 font-style: inherit;">,</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"10px"</span>)</span>
-<span id="cb7-840">    <span class="op" style="color: #5E5E5E;
+<span id="cb7-861">    <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -10088,8 +10195,8 @@ background-color: null;
 font-style: inherit;">°)`</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-841"></span>
-<span id="cb7-842">  <span class="cf" style="color: #003B4F;
+<span id="cb7-862"></span>
+<span id="cb7-863">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> svg<span class="op" style="color: #5E5E5E;
@@ -10099,7 +10206,7 @@ background-color: null;
 font-style: inherit;">node</span>()<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb7-843">}</span></code></pre></div></div>
+<span id="cb7-864">}</span></code></pre></div></div>
 </details>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
@@ -10122,13 +10229,13 @@ font-style: inherit;">;</span></span>
 <h2 class="anchored" data-anchor-id="a-year-of-celestial-timing-computed-live">9. A year of celestial timing (computed live)</h2>
 <p>The table below is now generated by the code in §6. Every row is a real moonrise–sunset offset for the <strong>next 13 lunations</strong> at your selected location. Negative values mean the moon rises <em>before</em> sunset.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-startfrom="857" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 856;"><span id="cb8-857">fullMoonsTable <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-startfrom="878" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 877;"><span id="cb8-878">fullMoonsTable <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb8-858">  <span class="co" style="color: #5E5E5E;
+<span id="cb8-879">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Find approximate full moons over the next ~13 months by scanning for elongation = π</span></span>
-<span id="cb8-859">  <span class="kw" style="color: #003B4F;
+<span id="cb8-880">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> start <span class="op" style="color: #5E5E5E;
@@ -10154,7 +10261,7 @@ background-color: null;
 font-style: inherit;">getUTCDate</span>())<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-860">  <span class="kw" style="color: #003B4F;
+<span id="cb8-881">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> rows <span class="op" style="color: #5E5E5E;
@@ -10162,7 +10269,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-861">  <span class="kw" style="color: #003B4F;
+<span id="cb8-882">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> prev <span class="op" style="color: #5E5E5E;
@@ -10173,7 +10280,7 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-862">  <span class="kw" style="color: #003B4F;
+<span id="cb8-883">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> lastFound <span class="op" style="color: #5E5E5E;
@@ -10185,7 +10292,7 @@ background-color: null;
 font-style: inherit;">1e9</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-863">  <span class="cf" style="color: #003B4F;
+<span id="cb8-884">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -10208,7 +10315,7 @@ background-color: null;
 font-style: inherit;">+=</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.05</span>) {</span>
-<span id="cb8-864">    <span class="kw" style="color: #003B4F;
+<span id="cb8-885">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> jd <span class="op" style="color: #5E5E5E;
@@ -10218,7 +10325,7 @@ background-color: null;
 font-style: inherit;">+</span> d<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-865">    <span class="kw" style="color: #003B4F;
+<span id="cb8-886">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> elong <span class="op" style="color: #5E5E5E;
@@ -10242,7 +10349,7 @@ background-color: null;
 font-style: inherit;">lambda</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-866">    <span class="kw" style="color: #003B4F;
+<span id="cb8-887">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dev <span class="op" style="color: #5E5E5E;
@@ -10258,7 +10365,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-867">    <span class="cf" style="color: #003B4F;
+<span id="cb8-888">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (prev <span class="op" style="color: #5E5E5E;
@@ -10297,10 +10404,10 @@ background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">20</span>) {</span>
-<span id="cb8-868">      <span class="co" style="color: #5E5E5E;
+<span id="cb8-889">      <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// refine by linear interpolation</span></span>
-<span id="cb8-869">      <span class="kw" style="color: #003B4F;
+<span id="cb8-890">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> jdFull <span class="op" style="color: #5E5E5E;
@@ -10318,15 +10425,15 @@ background-color: null;
 font-style: inherit;">-</span> prev)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-870">      lastFound <span class="op" style="color: #5E5E5E;
+<span id="cb8-891">      lastFound <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> jdFull<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-871">      <span class="co" style="color: #5E5E5E;
+<span id="cb8-892">      <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// sunset on the full-moon's local calendar date</span></span>
-<span id="cb8-872">      <span class="kw" style="color: #003B4F;
+<span id="cb8-893">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> localJd <span class="op" style="color: #5E5E5E;
@@ -10344,7 +10451,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-873">      <span class="kw" style="color: #003B4F;
+<span id="cb8-894">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dateInt <span class="op" style="color: #5E5E5E;
@@ -10368,7 +10475,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// local 0h UT-equivalent</span></span>
-<span id="cb8-874">      <span class="kw" style="color: #003B4F;
+<span id="cb8-895">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> jd0 <span class="op" style="color: #5E5E5E;
@@ -10388,7 +10495,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// back to UT 0h of that local day</span></span>
-<span id="cb8-875">      <span class="kw" style="color: #003B4F;
+<span id="cb8-896">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ev <span class="op" style="color: #5E5E5E;
@@ -10416,7 +10523,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-876">      <span class="kw" style="color: #003B4F;
+<span id="cb8-897">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> em <span class="op" style="color: #5E5E5E;
@@ -10444,7 +10551,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-877">      <span class="kw" style="color: #003B4F;
+<span id="cb8-898">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dt <span class="op" style="color: #5E5E5E;
@@ -10478,7 +10585,7 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>)</span>
-<span id="cb8-878">        <span class="op" style="color: #5E5E5E;
+<span id="cb8-899">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">?</span> (em<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10503,7 +10610,7 @@ background-color: null;
 font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1440</span></span>
-<span id="cb8-879">        <span class="op" style="color: #5E5E5E;
+<span id="cb8-900">        <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -10511,10 +10618,10 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-880">      <span class="co" style="color: #5E5E5E;
+<span id="cb8-901">      <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// age past full at "1h after sunset"</span></span>
-<span id="cb8-881">      <span class="kw" style="color: #003B4F;
+<span id="cb8-902">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> age <span class="op" style="color: #5E5E5E;
@@ -10532,7 +10639,7 @@ font-weight: bold;
 font-style: inherit;">null</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-882">      <span class="cf" style="color: #003B4F;
+<span id="cb8-903">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (ev<span class="op" style="color: #5E5E5E;
@@ -10549,7 +10656,7 @@ font-style: inherit;">!=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">null</span>) {</span>
-<span id="cb8-883">        <span class="kw" style="color: #003B4F;
+<span id="cb8-904">        <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> tTarget <span class="op" style="color: #5E5E5E;
@@ -10573,7 +10680,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-884">        age <span class="op" style="color: #5E5E5E;
+<span id="cb8-905">        age <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> (tTarget <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10582,7 +10689,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// days</span></span>
-<span id="cb8-885">        illumAtTarget <span class="op" style="color: #5E5E5E;
+<span id="cb8-906">        illumAtTarget <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -10593,8 +10700,8 @@ background-color: null;
 font-style: inherit;">illuminated</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-886">      }</span>
-<span id="cb8-887">      <span class="kw" style="color: #003B4F;
+<span id="cb8-907">      }</span>
+<span id="cb8-908">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dObj <span class="op" style="color: #5E5E5E;
@@ -10625,12 +10732,12 @@ background-color: null;
 font-style: inherit;">86400000</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-888">      rows<span class="op" style="color: #5E5E5E;
+<span id="cb8-909">      rows<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">push</span>({</span>
-<span id="cb8-889">        <span class="dt" style="color: #AD0000;
+<span id="cb8-910">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">date</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10651,7 +10758,7 @@ background-color: null;
 font-style: inherit;">10</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-890">        <span class="dt" style="color: #AD0000;
+<span id="cb8-911">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">sunset</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10674,7 +10781,7 @@ background-color: null;
 font-style: inherit;">tz</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-891">        <span class="dt" style="color: #AD0000;
+<span id="cb8-912">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">moonrise</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10697,7 +10804,7 @@ background-color: null;
 font-style: inherit;">tz</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-892">        <span class="dt" style="color: #AD0000;
+<span id="cb8-913">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">deltaMin</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10721,7 +10828,7 @@ background-color: null;
 font-style: inherit;">1</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-893">        <span class="dt" style="color: #AD0000;
+<span id="cb8-914">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">ageDays</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10745,7 +10852,7 @@ background-color: null;
 font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-894">        <span class="dt" style="color: #AD0000;
+<span id="cb8-915">        <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">illum1h</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10775,32 +10882,32 @@ background-color: null;
 font-style: inherit;">+</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"%"</span></span>
-<span id="cb8-895">      })<span class="op" style="color: #5E5E5E;
+<span id="cb8-916">      })<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-896">    }</span>
-<span id="cb8-897">    prev <span class="op" style="color: #5E5E5E;
+<span id="cb8-917">    }</span>
+<span id="cb8-918">    prev <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> dev<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-898">  }</span>
-<span id="cb8-899">  <span class="cf" style="color: #003B4F;
+<span id="cb8-919">  }</span>
+<span id="cb8-920">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> rows<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb8-900">}</span>
-<span id="cb8-901"></span>
-<span id="cb8-902">Inputs<span class="op" style="color: #5E5E5E;
+<span id="cb8-921">}</span>
+<span id="cb8-922"></span>
+<span id="cb8-923">Inputs<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">table</span>(fullMoonsTable<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> {</span>
-<span id="cb8-903">  <span class="dt" style="color: #AD0000;
+<span id="cb8-924">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">columns</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10829,7 +10936,7 @@ background-color: null;
 font-style: inherit;">"illum1h"</span>]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-904">  <span class="dt" style="color: #AD0000;
+<span id="cb8-925">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">header</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10858,7 +10965,7 @@ background-color: null;
 font-style: inherit;">"Moonrise"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb8-905">            <span class="dt" style="color: #AD0000;
+<span id="cb8-926">            <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">deltaMin</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -10881,7 +10988,7 @@ background-color: null;
 font-style: inherit;">:</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Illum at sunset+1h"</span>}</span>
-<span id="cb8-906">})</span></code></pre></div></div>
+<span id="cb8-927">})</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-8-1" data-nodetype="declaration">
@@ -10904,10 +11011,10 @@ font-style: inherit;">"Illum at sunset+1h"</span>}</span>
 <h2 class="anchored" data-anchor-id="the-striking-moonrise-solver">10. The striking-moonrise solver</h2>
 <p>Given any calendar date, what lunar phase gives a moonrise exactly <img src="https://latex.codecogs.com/png.latex?1"> hour after sunset? Solve for the elongation <img src="https://latex.codecogs.com/png.latex?D%20=%20%5Clambda_M%20-%20%5Clambda_%5Codot"> that makes the moonrise event align with sunset <img src="https://latex.codecogs.com/png.latex?+%201"> h. We treat the <em>true</em> lunar series of §3 as known and adjust a phase offset <img src="https://latex.codecogs.com/png.latex?%5CDelta%20D"> added to the natural elongation that day; in practice we just bisect on <img src="https://latex.codecogs.com/png.latex?%5CDelta%20D%20%5Cin%20(-%5Cpi,%20%5Cpi%5D">.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-startfrom="918" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 917;"><span id="cb9-918">solverResult <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-startfrom="939" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 938;"><span id="cb9-939">solverResult <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb9-919">  <span class="kw" style="color: #003B4F;
+<span id="cb9-940">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> target <span class="op" style="color: #5E5E5E;
@@ -10927,7 +11034,7 @@ background-color: null;
 font-style: inherit;">jd</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-920">  <span class="cf" style="color: #003B4F;
+<span id="cb9-941">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (target <span class="op" style="color: #5E5E5E;
@@ -10945,7 +11052,7 @@ background-color: null;
 font-style: inherit;">`*Sun never sets at this latitude/date — no solution.*`</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-921">  <span class="kw" style="color: #003B4F;
+<span id="cb9-942">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> targetT <span class="op" style="color: #5E5E5E;
@@ -10961,25 +11068,25 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-922">  <span class="co" style="color: #5E5E5E;
+<span id="cb9-943">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Find the lunar elongation D (lambda_M - lambda_sun) at which a body with</span></span>
-<span id="cb9-923">  <span class="co" style="color: #5E5E5E;
+<span id="cb9-944">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// alpha_M, delta_M produced by adjusting only longitude by ΔD rises at targetT.</span></span>
-<span id="cb9-924">  <span class="co" style="color: #5E5E5E;
+<span id="cb9-945">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Bisection on ΔD: residual = (LST(rise) - alpha_M_shifted) + H0</span></span>
-<span id="cb9-925">  <span class="kw" style="color: #003B4F;
+<span id="cb9-946">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">residual</span>(dD) {</span>
-<span id="cb9-926">    <span class="co" style="color: #5E5E5E;
+<span id="cb9-947">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// Build a synthetic moon: take the moon's β, but replace longitude with sun.lambda + π + dD.</span></span>
-<span id="cb9-927">    <span class="kw" style="color: #003B4F;
+<span id="cb9-948">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> lam <span class="op" style="color: #5E5E5E;
@@ -11003,7 +11110,7 @@ background-color: null;
 font-style: inherit;">+</span> dD<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-928">    <span class="kw" style="color: #003B4F;
+<span id="cb9-949">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> eps <span class="op" style="color: #5E5E5E;
@@ -11015,13 +11122,13 @@ background-color: null;
 font-style: inherit;">julianCenturies</span>(targetT))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-929">    <span class="kw" style="color: #003B4F;
+<span id="cb9-950">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> synth <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb9-930">      <span class="dt" style="color: #AD0000;
+<span id="cb9-951">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">delta</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -11080,7 +11187,7 @@ background-color: null;
 font-style: inherit;">sin</span>(lam))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb9-931">      <span class="dt" style="color: #AD0000;
+<span id="cb9-952">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">alpha</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -11137,7 +11244,7 @@ background-color: null;
 font-style: inherit;">cos</span>(lam)))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb9-932">      <span class="dt" style="color: #AD0000;
+<span id="cb9-953">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">distance</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -11162,10 +11269,10 @@ background-color: null;
 font-style: inherit;">lambda</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> lam</span>
-<span id="cb9-933">    }<span class="op" style="color: #5E5E5E;
+<span id="cb9-954">    }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-934">    <span class="kw" style="color: #003B4F;
+<span id="cb9-955">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> h0 <span class="op" style="color: #5E5E5E;
@@ -11175,7 +11282,7 @@ background-color: null;
 font-style: inherit;">moonH0</span>(synth)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-935">    <span class="kw" style="color: #003B4F;
+<span id="cb9-956">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> cosH0 <span class="op" style="color: #5E5E5E;
@@ -11213,7 +11320,7 @@ background-color: null;
 font-style: inherit;">.</span><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">delta</span>))</span>
-<span id="cb9-936">                 <span class="op" style="color: #5E5E5E;
+<span id="cb9-957">                 <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> (<span class="bu" style="color: null;
 background-color: null;
@@ -11242,7 +11349,7 @@ background-color: null;
 font-style: inherit;">delta</span>))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-937">    <span class="cf" style="color: #003B4F;
+<span id="cb9-958">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (cosH0 <span class="op" style="color: #5E5E5E;
@@ -11266,7 +11373,7 @@ font-weight: bold;
 font-style: inherit;">NaN</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-938">    <span class="kw" style="color: #003B4F;
+<span id="cb9-959">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> H0 <span class="op" style="color: #5E5E5E;
@@ -11280,7 +11387,7 @@ background-color: null;
 font-style: inherit;">acos</span>(cosH0)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-939">    <span class="kw" style="color: #003B4F;
+<span id="cb9-960">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> H <span class="op" style="color: #5E5E5E;
@@ -11304,7 +11411,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// current hour angle at target time</span></span>
-<span id="cb9-940">    <span class="cf" style="color: #003B4F;
+<span id="cb9-961">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">while</span> (H <span class="op" style="color: #5E5E5E;
@@ -11330,7 +11437,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-941">    <span class="cf" style="color: #003B4F;
+<span id="cb9-962">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">while</span> (H <span class="op" style="color: #5E5E5E;
@@ -11358,7 +11465,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-942">    <span class="cf" style="color: #003B4F;
+<span id="cb9-963">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> H <span class="op" style="color: #5E5E5E;
@@ -11368,8 +11475,8 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// zero when target is exactly at moonrise</span></span>
-<span id="cb9-943">  }</span>
-<span id="cb9-944">  <span class="kw" style="color: #003B4F;
+<span id="cb9-964">  }</span>
+<span id="cb9-965">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> lo <span class="op" style="color: #5E5E5E;
@@ -11403,7 +11510,7 @@ background-color: null;
 font-style: inherit;">0.45</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-945">  <span class="kw" style="color: #003B4F;
+<span id="cb9-966">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> fLo <span class="op" style="color: #5E5E5E;
@@ -11419,10 +11526,10 @@ background-color: null;
 font-style: inherit;">residual</span>(hi)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-946">  <span class="co" style="color: #5E5E5E;
+<span id="cb9-967">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// expand search</span></span>
-<span id="cb9-947">  <span class="cf" style="color: #003B4F;
+<span id="cb9-968">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="op" style="color: #5E5E5E;
@@ -11434,10 +11541,10 @@ background-color: null;
 font-style: inherit;">&lt;</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>)) {</span>
-<span id="cb9-948">    <span class="co" style="color: #5E5E5E;
+<span id="cb9-969">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// brute search</span></span>
-<span id="cb9-949">    <span class="kw" style="color: #003B4F;
+<span id="cb9-970">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> best <span class="op" style="color: #5E5E5E;
@@ -11478,7 +11585,7 @@ background-color: null;
 font-style: inherit;">0.99</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-950">    <span class="cf" style="color: #003B4F;
+<span id="cb9-971">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -11499,7 +11606,7 @@ background-color: null;
 font-style: inherit;">;</span> i<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">++</span>) {</span>
-<span id="cb9-951">      <span class="kw" style="color: #003B4F;
+<span id="cb9-972">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> x <span class="op" style="color: #5E5E5E;
@@ -11519,7 +11626,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-952">      <span class="kw" style="color: #003B4F;
+<span id="cb9-973">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> f <span class="op" style="color: #5E5E5E;
@@ -11529,7 +11636,7 @@ background-color: null;
 font-style: inherit;">residual</span>(x)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-953">      <span class="cf" style="color: #003B4F;
+<span id="cb9-974">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="bu" style="color: null;
@@ -11569,7 +11676,7 @@ background-color: null;
 font-style: inherit;">,</span> f}<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-954">      <span class="cf" style="color: #003B4F;
+<span id="cb9-975">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="bu" style="color: null;
@@ -11620,13 +11727,13 @@ font-weight: bold;
 font-style: inherit;">break</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> }</span>
-<span id="cb9-955">      last <span class="op" style="color: #5E5E5E;
+<span id="cb9-976">      last <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> f<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-956">    }</span>
-<span id="cb9-957">    fLo <span class="op" style="color: #5E5E5E;
+<span id="cb9-977">    }</span>
+<span id="cb9-978">    fLo <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -11639,8 +11746,8 @@ background-color: null;
 font-style: inherit;">residual</span>(hi)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-958">  }</span>
-<span id="cb9-959">  <span class="cf" style="color: #003B4F;
+<span id="cb9-979">  }</span>
+<span id="cb9-980">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -11669,7 +11776,7 @@ background-color: null;
 font-style: inherit;">;</span> i<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">++</span>) {</span>
-<span id="cb9-960">    <span class="kw" style="color: #003B4F;
+<span id="cb9-981">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> mid <span class="op" style="color: #5E5E5E;
@@ -11689,7 +11796,7 @@ background-color: null;
 font-style: inherit;">residual</span>(mid)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-961">    <span class="cf" style="color: #003B4F;
+<span id="cb9-982">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (fm<span class="op" style="color: #5E5E5E;
@@ -11718,8 +11825,8 @@ background-color: null;
 font-style: inherit;">=</span> fm<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> }</span>
-<span id="cb9-962">  }</span>
-<span id="cb9-963">  <span class="kw" style="color: #003B4F;
+<span id="cb9-983">  }</span>
+<span id="cb9-984">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dD <span class="op" style="color: #5E5E5E;
@@ -11733,10 +11840,10 @@ background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-964">  <span class="co" style="color: #5E5E5E;
+<span id="cb9-985">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// True synodic phase at the rise event: sun.lambda + π + dD - sun.lambda = π + dD</span></span>
-<span id="cb9-965">  <span class="kw" style="color: #003B4F;
+<span id="cb9-986">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> phase <span class="op" style="color: #5E5E5E;
@@ -11754,7 +11861,7 @@ background-color: null;
 font-style: inherit;">;</span>             <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// 0 = new, π = full</span></span>
-<span id="cb9-966">  <span class="kw" style="color: #003B4F;
+<span id="cb9-987">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> illumPct <span class="op" style="color: #5E5E5E;
@@ -11780,7 +11887,7 @@ background-color: null;
 font-style: inherit;">100</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-967">  <span class="kw" style="color: #003B4F;
+<span id="cb9-988">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ageDaysFromFull <span class="op" style="color: #5E5E5E;
@@ -11804,7 +11911,7 @@ background-color: null;
 font-style: inherit;">PI</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-968">  <span class="cf" style="color: #003B4F;
+<span id="cb9-989">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> <span class="fu" style="color: #4758AB;
@@ -11812,7 +11919,7 @@ background-color: null;
 font-style: inherit;">md</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span></span>
-<span id="cb9-969"><span class="vs" style="color: #20794D;
+<span id="cb9-990"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">**For </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -11853,7 +11960,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">°):**</span></span>
-<span id="cb9-970"><span class="vs" style="color: #20794D;
+<span id="cb9-991"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- Sunset: </span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -11880,7 +11987,7 @@ background-color: null;
 font-style: inherit;">tz</span>)<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}\`</span></span>
-<span id="cb9-971"><span class="vs" style="color: #20794D;
+<span id="cb9-992"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- Required elongation $D$: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -11897,7 +12004,7 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">°** (full = 180°)</span></span>
-<span id="cb9-972"><span class="vs" style="color: #20794D;
+<span id="cb9-993"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- Equivalent age: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -11928,7 +12035,7 @@ background-color: null;
 font-style: inherit;">"before full"</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span></span>
-<span id="cb9-973"><span class="vs" style="color: #20794D;
+<span id="cb9-994"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">- Illumination at moonrise: **</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -11943,12 +12050,12 @@ background-color: null;
 font-style: inherit;">}</span><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">%**</span></span>
-<span id="cb9-974"><span class="vs" style="color: #20794D;
+<span id="cb9-995"><span class="vs" style="color: #20794D;
 background-color: null;
 font-style: inherit;">`</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb9-975">}</span></code></pre></div></div>
+<span id="cb9-996">}</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-9" data-nodetype="declaration">
 
@@ -11963,16 +12070,16 @@ font-style: inherit;">;</span></span>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-startfrom="987" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 986;"><span id="cb10-987">seasonalCurve <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-startfrom="1008" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1007;"><span id="cb10-1008">seasonalCurve <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
-<span id="cb10-988">  <span class="co" style="color: #5E5E5E;
+<span id="cb10-1009">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// For each day of the next ~2 years, find the elongation D such that</span></span>
-<span id="cb10-989">  <span class="co" style="color: #5E5E5E;
+<span id="cb10-1010">  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// moonrise occurs at sunset+1h. Reuse the bisection from §10.</span></span>
-<span id="cb10-990">  <span class="kw" style="color: #003B4F;
+<span id="cb10-1011">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> phi <span class="op" style="color: #5E5E5E;
@@ -11986,7 +12093,7 @@ background-color: null;
 font-style: inherit;">*</span>DEG<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-991">  <span class="kw" style="color: #003B4F;
+<span id="cb10-1012">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> startJd <span class="op" style="color: #5E5E5E;
@@ -12012,7 +12119,7 @@ background-color: null;
 font-style: inherit;">getUTCDate</span>())<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-992">  <span class="kw" style="color: #003B4F;
+<span id="cb10-1013">  <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> rows <span class="op" style="color: #5E5E5E;
@@ -12020,7 +12127,7 @@ background-color: null;
 font-style: inherit;">=</span> []<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-993">  <span class="cf" style="color: #003B4F;
+<span id="cb10-1014">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -12043,7 +12150,7 @@ background-color: null;
 font-style: inherit;">+=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>) {</span>
-<span id="cb10-994">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1015">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> jd0_k <span class="op" style="color: #5E5E5E;
@@ -12053,7 +12160,7 @@ background-color: null;
 font-style: inherit;">+</span> k<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-995">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1016">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ev <span class="op" style="color: #5E5E5E;
@@ -12075,7 +12182,7 @@ background-color: null;
 font-style: inherit;">lon</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-996">    <span class="cf" style="color: #003B4F;
+<span id="cb10-1017">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (ev<span class="op" style="color: #5E5E5E;
@@ -12097,7 +12204,7 @@ font-weight: bold;
 font-style: inherit;">continue</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-997">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1018">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> target <span class="op" style="color: #5E5E5E;
@@ -12121,7 +12228,7 @@ background-color: null;
 font-style: inherit;">24</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-998">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1019">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> sunAtTarget <span class="op" style="color: #5E5E5E;
@@ -12131,13 +12238,13 @@ background-color: null;
 font-style: inherit;">sunPosition</span>(target)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-999">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1020">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">function</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">residual</span>(dD) {</span>
-<span id="cb10-1000">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1021">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> lam <span class="op" style="color: #5E5E5E;
@@ -12159,7 +12266,7 @@ background-color: null;
 font-style: inherit;">+</span> dD<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1001">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1022">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> eps <span class="op" style="color: #5E5E5E;
@@ -12171,7 +12278,7 @@ background-color: null;
 font-style: inherit;">julianCenturies</span>(target))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1002">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1023">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> beta <span class="op" style="color: #5E5E5E;
@@ -12183,7 +12290,7 @@ background-color: null;
 font-style: inherit;">;</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// approximate: ignore moon's β for the seasonal sweep</span></span>
-<span id="cb10-1003">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1024">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dec <span class="op" style="color: #5E5E5E;
@@ -12211,7 +12318,7 @@ background-color: null;
 font-style: inherit;">sin</span>(lam))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1004">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1025">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> ra <span class="op" style="color: #5E5E5E;
@@ -12249,7 +12356,7 @@ background-color: null;
 font-style: inherit;">cos</span>(lam)))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1005">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1026">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> cosH0 <span class="op" style="color: #5E5E5E;
@@ -12281,7 +12388,7 @@ background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">sin</span>(dec))</span>
-<span id="cb10-1006">                   <span class="op" style="color: #5E5E5E;
+<span id="cb10-1027">                   <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> (<span class="bu" style="color: null;
 background-color: null;
@@ -12300,7 +12407,7 @@ background-color: null;
 font-style: inherit;">cos</span>(dec))<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1007">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1028">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (cosH0 <span class="op" style="color: #5E5E5E;
@@ -12324,7 +12431,7 @@ font-weight: bold;
 font-style: inherit;">NaN</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1008">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1029">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> H0 <span class="op" style="color: #5E5E5E;
@@ -12338,7 +12445,7 @@ background-color: null;
 font-style: inherit;">acos</span>(cosH0)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1009">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1030">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> H <span class="op" style="color: #5E5E5E;
@@ -12356,7 +12463,7 @@ background-color: null;
 font-style: inherit;">-</span> ra<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1010">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1031">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">while</span> (H <span class="op" style="color: #5E5E5E;
@@ -12382,7 +12489,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1011">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1032">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">while</span> (H <span class="op" style="color: #5E5E5E;
@@ -12410,7 +12517,7 @@ background-color: null;
 font-style: inherit;">PI</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1012">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1033">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> H <span class="op" style="color: #5E5E5E;
@@ -12418,11 +12525,11 @@ background-color: null;
 font-style: inherit;">+</span> H0<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1013">    }</span>
-<span id="cb10-1014">    <span class="co" style="color: #5E5E5E;
+<span id="cb10-1034">    }</span>
+<span id="cb10-1035">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// bisection on dD ∈ (-π/2, π/2)</span></span>
-<span id="cb10-1015">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1036">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> lo <span class="op" style="color: #5E5E5E;
@@ -12456,7 +12563,7 @@ background-color: null;
 font-style: inherit;">0.4</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1016">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1037">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">let</span> fLo <span class="op" style="color: #5E5E5E;
@@ -12472,7 +12579,7 @@ background-color: null;
 font-style: inherit;">residual</span>(hi)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1017">    <span class="cf" style="color: #003B4F;
+<span id="cb10-1038">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="op" style="color: #5E5E5E;
@@ -12505,7 +12612,7 @@ font-weight: bold;
 font-style: inherit;">continue</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1018">    <span class="cf" style="color: #003B4F;
+<span id="cb10-1039">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> (<span class="kw" style="color: #003B4F;
@@ -12526,7 +12633,7 @@ background-color: null;
 font-style: inherit;">;</span> i<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">++</span>) {</span>
-<span id="cb10-1019">      <span class="kw" style="color: #003B4F;
+<span id="cb10-1040">      <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> mid <span class="op" style="color: #5E5E5E;
@@ -12546,7 +12653,7 @@ background-color: null;
 font-style: inherit;">residual</span>(mid)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1020">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1041">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (<span class="op" style="color: #5E5E5E;
@@ -12563,7 +12670,7 @@ font-weight: bold;
 font-style: inherit;">break</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1021">      <span class="cf" style="color: #003B4F;
+<span id="cb10-1042">      <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">if</span> (fm<span class="op" style="color: #5E5E5E;
@@ -12592,8 +12699,8 @@ background-color: null;
 font-style: inherit;">=</span> fm<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span> }</span>
-<span id="cb10-1022">    }</span>
-<span id="cb10-1023">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1043">    }</span>
+<span id="cb10-1044">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> dD <span class="op" style="color: #5E5E5E;
@@ -12607,7 +12714,7 @@ background-color: null;
 font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1024">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1045">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> D_deg <span class="op" style="color: #5E5E5E;
@@ -12627,7 +12734,7 @@ background-color: null;
 font-style: inherit;">;</span>       <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">// 0 = new, 180 = full</span></span>
-<span id="cb10-1025">    <span class="kw" style="color: #003B4F;
+<span id="cb10-1046">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">const</span> illum <span class="op" style="color: #5E5E5E;
@@ -12661,12 +12768,12 @@ background-color: null;
 font-style: inherit;">100</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1026">    rows<span class="op" style="color: #5E5E5E;
+<span id="cb10-1047">    rows<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">push</span>({</span>
-<span id="cb10-1027">      <span class="dt" style="color: #AD0000;
+<span id="cb10-1048">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">date</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12690,32 +12797,32 @@ background-color: null;
 font-style: inherit;">86400000</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1028">      <span class="dt" style="color: #AD0000;
+<span id="cb10-1049">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">phaseDeg</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> D_deg<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1029">      illum</span>
-<span id="cb10-1030">    })<span class="op" style="color: #5E5E5E;
+<span id="cb10-1050">      illum</span>
+<span id="cb10-1051">    })<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1031">  }</span>
-<span id="cb10-1032">  <span class="cf" style="color: #003B4F;
+<span id="cb10-1052">  }</span>
+<span id="cb10-1053">  <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> rows<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">;</span></span>
-<span id="cb10-1033">}</span>
-<span id="cb10-1034"></span>
-<span id="cb10-1035">Plot<span class="op" style="color: #5E5E5E;
+<span id="cb10-1054">}</span>
+<span id="cb10-1055"></span>
+<span id="cb10-1056">Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">plot</span>({</span>
-<span id="cb10-1036">  <span class="dt" style="color: #AD0000;
+<span id="cb10-1057">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">width</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12732,7 +12839,7 @@ background-color: null;
 font-style: inherit;">320</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1037">  <span class="dt" style="color: #AD0000;
+<span id="cb10-1058">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">marginLeft</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12749,7 +12856,7 @@ background-color: null;
 font-style: inherit;">60</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1038">  <span class="dt" style="color: #AD0000;
+<span id="cb10-1059">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12770,7 +12877,7 @@ background-color: null;
 font-style: inherit;">"Date"</span> }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1039">  <span class="dt" style="color: #AD0000;
+<span id="cb10-1060">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12795,12 +12902,12 @@ background-color: null;
 font-style: inherit;">210</span>] }<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1040">  <span class="dt" style="color: #AD0000;
+<span id="cb10-1061">  <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">marks</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> [</span>
-<span id="cb10-1041">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb10-1062">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -12825,7 +12932,7 @@ background-color: null;
 font-style: inherit;">"3,3"</span> })<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1042">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb10-1063">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -12848,7 +12955,7 @@ background-color: null;
 font-style: inherit;">"exact full"</span>}]<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1043">      {<span class="dt" style="color: #AD0000;
+<span id="cb10-1064">      {<span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12900,7 +13007,7 @@ background-color: null;
 font-style: inherit;">6</span>})<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1044">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb10-1065">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -12939,7 +13046,7 @@ background-color: null;
 font-style: inherit;">2</span> })<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1045">    Plot<span class="op" style="color: #5E5E5E;
+<span id="cb10-1066">    Plot<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -12963,7 +13070,7 @@ background-color: null;
 font-style: inherit;">0</span>)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> {</span>
-<span id="cb10-1046">      <span class="dt" style="color: #AD0000;
+<span id="cb10-1067">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -12980,7 +13087,7 @@ background-color: null;
 font-style: inherit;">"phaseDeg"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1047">      <span class="dt" style="color: #AD0000;
+<span id="cb10-1068">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">fill</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -13006,16 +13113,16 @@ background-color: null;
 font-style: inherit;">"#1B2E26"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span></span>
-<span id="cb10-1048">      <span class="dt" style="color: #AD0000;
+<span id="cb10-1069">      <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">r</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">2.5</span></span>
-<span id="cb10-1049">    })</span>
-<span id="cb10-1050">  ]</span>
-<span id="cb10-1051">})</span></code></pre></div></div>
+<span id="cb10-1070">    })</span>
+<span id="cb10-1071">  ]</span>
+<span id="cb10-1072">})</span></code></pre></div></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
