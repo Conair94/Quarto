@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Welcome to my blog! I am Connor Martinez Lockhart, and this is where I share my academic work, and other thoughts.Visit my main website at conair94.github.io.">
+<meta name="dcterms.date" content="2026-05-05">
+<meta name="description" content="A rigorous exploration of moon phases, sunset times, and the orbital mechanics that govern the perfect evening moonrise across seasons.">
 
-<title>Synaptic Static</title>
+<title>The Mathematics of the Striking Moonrise – Synaptic Static</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,28 +25,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,38 +107,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  </head><body class="nav-fixed fullcontent quarto-light">true
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -133,17 +138,17 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Synaptic Static" href="index.xml" data-external="1"></head>
+<link rel="stylesheet" href="../../styles.css">
 
-<body class="nav-fixed quarto-light">
+
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Synaptic Static</span>
     </a>
   </div>
@@ -172,244 +177,178 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Synaptic Static</h1>
-            <p class="subtitle lead">Connor Lockhart’s Personal and Academic Blog</p>
+    <div class="quarto-title column-body">
+      <h1 class="title">The Mathematics of the Striking Moonrise</h1>
                   <div>
         <div class="description">
-          <p>Welcome to my blog! I am Connor Martinez Lockhart, and this is where I share my academic work, and other thoughts.</p>
-          <p>Visit my main website at <a href="https://conair94.github.io">conair94.github.io</a>.</p>
+          A rigorous exploration of moon phases, sunset times, and the orbital mechanics that govern the perfect evening moonrise across seasons.
         </div>
       </div>
-                </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">mathematics</div>
+                <div class="quarto-category">astronomy</div>
+                <div class="quarto-category">celestial-mechanics</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 5, 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="QWNhZGVtaWMlMjBXb3Jr">Academic Work <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YXN0cm9ub215">astronomy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2VsZXN0aWFsLW1lY2hhbmljcw==">celestial-mechanics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RCUyNkQ=">D&amp;D <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RW5naW5lZXJpbmc=">Engineering <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RXN0aW1hdGlvbnM=">Estimations <span class="quarto-category-count">(4)</span></div><div class="category" data-category="SHlwZXJib2xpYyUyMEdlb21ldHJ5">Hyperbolic Geometry <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWF0aGVtYXRpY3M=">mathematics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWF0aGVtYXRpY3M=">Mathematics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TXVzaW5ncw==">Musings <span class="quarto-category-count">(2)</span></div><div class="category" data-category="VGhlcm1vZHluYW1pY3M=">Thermodynamics <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p>There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It feels perfectly full, yet the sky is fully dark, creating maximum contrast.</p>
+<p>But exactly when does this happen? To achieve this visual peak, the moon needs to rise about <strong>one hour after sunset</strong>.</p>
+<p>In this post, we will derive the mathematics of the moon and sun from first principles to answer two questions: 1. When exactly does a mathematically perfect full moon rise relative to sunset across the seasons? 2. What exact moon phase is required for the moon to rise exactly one hour after sunset, and why does this explain the phenomenological differences between the striking moons of spring and the waning gibbous moons of autumn?</p>
+<p>All calculations are calibrated for the coordinates of Washington, D.C. (Latitude <span class="math inline">\(\phi \approx 38.9^\circ \text{ N}\)</span>).</p>
+<hr>
+<section id="the-astronomical-framework" class="level2">
+<h2 class="anchored" data-anchor-id="the-astronomical-framework">1. The Astronomical Framework</h2>
+<p>To model celestial mechanics, we must map ecliptic coordinates (the plane of the solar system) to equatorial coordinates (the plane of Earth’s rotation).</p>
+<p>Earth has an axial tilt of <span class="math inline">\(\epsilon = 23.44^\circ\)</span>. If we know a celestial body’s ecliptic longitude <span class="math inline">\(\lambda\)</span> (its angle along the ecliptic plane, with <span class="math inline">\(0^\circ\)</span> at the Vernal Equinox), we can find its Right Ascension (<span class="math inline">\(\alpha\)</span>) and Declination (<span class="math inline">\(\delta\)</span>) using spherical trigonometry:</p>
+<p><span class="math display">\[ \sin\delta = \sin\epsilon \sin\lambda \]</span> <span class="math display">\[ \tan\alpha = \cos\epsilon \tan\lambda \]</span></p>
+<p>The <strong>Hour Angle (<span class="math inline">\(H\)</span>)</strong> is the angle between a celestial body and the local meridian. When a body sets or rises, its altitude is <span class="math inline">\(0^\circ\)</span>. By spherical trigonometry, the hour angle at the horizon is:</p>
+<p><span class="math display">\[ \cos H = -\tan\phi \tan\delta \]</span></p>
+<p>For the Sun, sunset occurs at <span class="math inline">\(H_\odot\)</span>, and the time of sunset (in hours from solar noon) is <span class="math inline">\(t_{SS} = \frac{H_\odot}{15^\circ}\)</span>.</p>
+<hr>
+</section>
+<section id="the-perfectly-full-moon" class="level2">
+<h2 class="anchored" data-anchor-id="the-perfectly-full-moon">2. The Perfectly Full Moon</h2>
+<p>A perfectly full moon occurs when the moon is directly opposite the sun on the ecliptic: <span class="math display">\[ \lambda_M = \lambda_\odot + 180^\circ \]</span></p>
+<p>Because <span class="math inline">\(\sin(\lambda + 180^\circ) = -\sin(\lambda)\)</span>, the declination of the full moon is exactly inverted relative to the sun (assuming the moon’s orbit perfectly aligns with the ecliptic): <span class="math display">\[ \delta_M \approx -\delta_\odot \]</span></p>
+<p>When does the full moon rise? The hour angle of moonrise is negative (it happens before meridian transit): <span class="math display">\[ H_{M,rise} = -\arccos(-\tan\phi \tan\delta_M) \]</span></p>
+<p>Substituting <span class="math inline">\(\delta_M = -\delta_\odot\)</span>: <span class="math display">\[ H_{M,rise} = -\arccos(\tan\phi \tan\delta_\odot) = -(180^\circ - H_\odot) = H_\odot - 180^\circ \]</span></p>
+<p>Because the full moon is <span class="math inline">\(180^\circ\)</span> away from the sun in Right Ascension (<span class="math inline">\(\alpha_M \approx \alpha_\odot + 180^\circ\)</span>), the Local Sidereal Time (LST) of moonrise is: <span class="math display">\[ LST_{moonrise} = \alpha_M + H_{M,rise} \approx (\alpha_\odot + 180^\circ) + (H_\odot - 180^\circ) = \alpha_\odot + H_\odot \]</span></p>
+<p>Notice that <span class="math inline">\(\alpha_\odot + H_\odot\)</span> is exactly the LST of sunset! Therefore, a <strong>perfectly full moon rises exactly at sunset</strong>, mathematically speaking.</p>
+<p>When a perfectly full moon rises, the sky is still bathed in the bright light of dusk. For the most “striking” moonrise against a dark sky, we must wait for the moon to rise later—meaning the moon must be slightly past full.</p>
+<hr>
+</section>
+<section id="the-condition-for-a-1-hour-delay" class="level2">
+<h2 class="anchored" data-anchor-id="the-condition-for-a-1-hour-delay">3. The Condition for a 1-Hour Delay</h2>
+<p>We want to find the exact orbital position where the moon rises exactly one hour after sunset.</p>
+<p>Earth rotates at <span class="math inline">\(15^\circ\)</span> per hour. Therefore, if moonrise is one hour after sunset, the LST must be exactly <span class="math inline">\(15^\circ\)</span> greater: <span class="math display">\[ LST_{moonrise} = LST_{sunset} + 15^\circ \]</span></p>
+<p>Substituting the coordinate variables: <span class="math display">\[ \alpha_M + H_{M,rise} = \alpha_\odot + H_\odot + 15^\circ \]</span></p>
+<p>This gives us the necessary difference in Right Ascension: <span class="math display">\[ \Delta\alpha = \alpha_M - \alpha_\odot = H_\odot - H_{M,rise} + 15^\circ \]</span></p>
+<p>Because both <span class="math inline">\(\alpha_M\)</span> and <span class="math inline">\(H_{M,rise}\)</span> are non-linear functions of the moon’s ecliptic longitude <span class="math inline">\(\lambda_M\)</span>, this equation cannot be isolated algebraically. We must solve it numerically.</p>
+<hr>
+</section>
+<section id="solving-the-orbital-mechanics-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="solving-the-orbital-mechanics-in-python">4. Solving the Orbital Mechanics in Python</h2>
+<p>We can build a numerical solver in Python using the Newton-Raphson method to find the exact phase angle (<span class="math inline">\(\lambda_M - \lambda_\odot\)</span>) required for this 1-hour delay across the four cardinal points of the solar year.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_eq(lam, epsilon<span class="op">=</span>math.radians(<span class="fl">23.44</span>)):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Convert Ecliptic Longitude to Right Ascension and Declination"""</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    sin_d <span class="op">=</span> math.sin(epsilon) <span class="op">*</span> math.sin(lam)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> math.asin(sin_d)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> math.cos(epsilon) <span class="op">*</span> math.sin(lam)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> math.cos(lam)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> math.atan2(y, x)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> alpha, delta</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> H_sun(lam_sun, phi<span class="op">=</span>math.radians(<span class="fl">38.9</span>)): <span class="co"># Latitude of Washington DC</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    _, d_sun <span class="op">=</span> get_eq(lam_sun)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> <span class="bu">max</span>(<span class="op">-</span><span class="fl">1.0</span>, <span class="bu">min</span>(<span class="fl">1.0</span>, <span class="op">-</span>math.tan(phi) <span class="op">*</span> math.tan(d_sun)))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> math.acos(val)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> H_moon_rise(lam_moon, phi<span class="op">=</span>math.radians(<span class="fl">38.9</span>)):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    _, d_moon <span class="op">=</span> get_eq(lam_moon)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> <span class="bu">max</span>(<span class="op">-</span><span class="fl">1.0</span>, <span class="bu">min</span>(<span class="fl">1.0</span>, <span class="op">-</span>math.tan(phi) <span class="op">*</span> math.tan(d_moon)))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>math.acos(val)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> equation(lam_moon, lam_sun):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""The root-finding equation for 1 hour past sunset"""</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    a_m, _ <span class="op">=</span> get_eq(lam_moon)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    a_s, _ <span class="op">=</span> get_eq(lam_sun)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    h_s <span class="op">=</span> H_sun(lam_sun)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    h_m <span class="op">=</span> H_moon_rise(lam_moon)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    da <span class="op">=</span> (a_m <span class="op">-</span> a_s) <span class="op">%</span> (<span class="dv">2</span><span class="op">*</span>math.pi)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> da <span class="op">+</span> h_m <span class="op">-</span> h_s <span class="op">-</span> math.radians(<span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Running this solver for Washington D.C., we get the following results:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 19%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Season (Sun Longitude)</th>
+<th>Moon Phase Angle</th>
+<th>Illumination</th>
+<th>Days Past Full</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Spring Equinox</strong> (<span class="math inline">\(0^\circ\)</span>)</td>
+<td><span class="math inline">\(192.1^\circ\)</span></td>
+<td><strong><span class="math inline">\(98.9\%\)</span></strong></td>
+<td>1.0 days</td>
+</tr>
+<tr class="even">
+<td><strong>Summer Solstice</strong> (<span class="math inline">\(90^\circ\)</span>)</td>
+<td><span class="math inline">\(194.6^\circ\)</span></td>
+<td><strong><span class="math inline">\(98.4\%\)</span></strong></td>
+<td>1.2 days</td>
+</tr>
+<tr class="odd">
+<td><strong>Winter Solstice</strong> (<span class="math inline">\(270^\circ\)</span>)</td>
+<td><span class="math inline">\(193.2^\circ\)</span></td>
+<td><strong><span class="math inline">\(98.7\%\)</span></strong></td>
+<td>1.1 days</td>
+</tr>
+<tr class="even">
+<td><strong>Fall Equinox</strong> (<span class="math inline">\(180^\circ\)</span>)</td>
+<td><span class="math inline">\(204.6^\circ\)</span></td>
+<td><strong><span class="math inline">\(95.5\%\)</span></strong></td>
+<td><strong>2.0 days</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="the-harvest-moon-anomaly" class="level2">
+<h2 class="anchored" data-anchor-id="the-harvest-moon-anomaly">5. The Harvest Moon Anomaly</h2>
+<p>Look closely at the data: to achieve a striking 1-hour delay after sunset, the moon in late fall must be <strong>2.0 days past full</strong> and only 95.5% illuminated. In early spring, the delay is achieved just <strong>1.0 day past full</strong> with a dazzling 98.9% illumination.</p>
+<p><strong>Why the massive discrepancy?</strong></p>
+<p>The moon orbits Earth, moving eastward by roughly <span class="math inline">\(13^\circ\)</span> per day. Normally, this means the Earth has to rotate an extra <span class="math inline">\(\sim 50\)</span> minutes each day to catch up to the moon, causing the moon to rise later every night.</p>
+<p>However, near the <strong>Fall Equinox</strong>, the sun is at <span class="math inline">\(180^\circ\)</span> longitude. The full moon is therefore near <span class="math inline">\(0^\circ\)</span> (the Vernal Equinox point). At this point in its orbit, the moon is moving rapidly <em>northward</em> in declination. For an observer in the Northern Hemisphere (like Washington D.C.), a rapidly increasing northern declination causes an object to rise <em>earlier</em> in the day.</p>
+<p>This earlier rise perfectly counteracts the eastward orbital delay. This phenomenon is known as the <strong>Harvest Moon</strong>. Because the moon rises so unusually early during this season, you have to wait much longer—a full two days past the peak full moon—for the orbital delay to outpace the declination shift and push the moonrise a full hour past sunset. By the time it finally rises in the dark, it is a distinctly waning gibbous moon.</p>
+<p>Conversely, in <strong>early Spring</strong>, the full moon is at <span class="math inline">\(180^\circ\)</span> (the Autumnal Equinox point) and plunging rapidly <em>southward</em>. This southward dive severely delays the moonrise, compounding with the orbital motion. Just a single day past full moon is enough to push the rise time deep into the evening dark.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The visual power of a moonrise is not just about its phase; it’s an intricate dance of spherical geometry, axial tilt, and timing. The late winter and early spring moons are mathematically unique: they allow for a near-perfect 99% illuminated sphere to crest the horizon against an ink-black sky. By late summer and early fall, the orbital geometry shifts, and the darkness demands a moon that has already begun to wane.</p>
 
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="bWF0aGVtYXRpY3MlMkNhc3Ryb25vbXklMkNjZWxlc3RpYWwtbWVjaGFuaWNz" data-listing-date-sort="1777939200000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1211">
-<div class="thumbnail"><a href="./posts/moonrise-phases/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/moonrise-phases/index.html" class="no-external">The Mathematics of the Striking Moonrise</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWF0aGVtYXRpY3M='); return false;">mathematics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YXN0cm9ub215'); return false;">astronomy</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2VsZXN0aWFsLW1lY2hhbmljcw=='); return false;">celestial-mechanics</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/moonrise-phases/index.html" class="no-external">
-<p>A rigorous exploration of moon phases, sunset times, and the orbital mechanics that govern the perfect evening moonrise across seasons.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/moonrise-phases/index.html" class="no-external">
-<div class="listing-date">
-May 5, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="RXN0aW1hdGlvbnMlMkNEJTI2RCUyQ0VuZ2luZWVyaW5n" data-listing-date-sort="1776470400000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1937">
-<div class="thumbnail"><a href="./posts/DnD-heat-metal-steam-engine/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/DnD-heat-metal-steam-engine/index.html" class="no-external">The Arcane Boiler: Powering Industrialization with ‘Heat Metal’</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0aW1hdGlvbnM='); return false;">Estimations</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RCUyNkQ='); return false;">D&amp;D</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RW5naW5lZXJpbmc='); return false;">Engineering</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/DnD-heat-metal-steam-engine/index.html" class="no-external">
-In Dungeons &amp; Dragons 5e, the spell <em>Heat Metal</em> is a low-level staple for cooking enemies in their own armor. The spell description states: <em>“you cause a metal object to glow…</em>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/DnD-heat-metal-steam-engine/index.html" class="no-external">
-<div class="listing-date">
-Apr 18, 2026
-</div>
-<div class="listing-author">
-Connor Lockhart
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="RXN0aW1hdGlvbnMlMkNUaGVybW9keW5hbWljcw==" data-listing-date-sort="1776384000000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2162">
-<div class="thumbnail"><a href="./posts/slushee-optimal-temperature/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/slushee-optimal-temperature/index.html" class="no-external">The Slushee Phase-Change Optimization</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0aW1hdGlvbnM='); return false;">Estimations</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VGhlcm1vZHluYW1pY3M='); return false;">Thermodynamics</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/slushee-optimal-temperature/index.html" class="no-external">
-Have you ever reached the end of an Icee or Slurpee only to find a desolate, dry block of white ice? This is the “Slushee Dead Zone”—a state where the liquid-to-solid ratio…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/slushee-optimal-temperature/index.html" class="no-external">
-<div class="listing-date">
-Apr 17, 2026
-</div>
-<div class="listing-author">
-Connor Lockhart
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TXVzaW5ncyUyQ0VzdGltYXRpb25z" data-listing-date-sort="1775606400000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="677">
-<div class="thumbnail"><a href="./posts/parking-ticket-estimation/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/parking-ticket-estimation/index.html" class="no-external">The Parking Ticket Expected Value: A Poisson Process Estimation</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TXVzaW5ncw=='); return false;">Musings</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0aW1hdGlvbnM='); return false;">Estimations</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/parking-ticket-estimation/index.html" class="no-external">
-I was parking my car today and while I was enroute to proctor an exam for my probability class, I had a curious idea. I was wondering what an expected value argument would…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/parking-ticket-estimation/index.html" class="no-external">
-<div class="listing-date">
-Apr 8, 2026
-</div>
-<div class="listing-author">
-Connor Lockhart
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="QWNhZGVtaWMlMjBXb3JrJTJDTWF0aGVtYXRpY3MlMkNIeXBlcmJvbGljJTIwR2VvbWV0cnk=" data-listing-date-sort="1775606400000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="493">
-<div class="thumbnail"><a href="./posts/academic-work/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/academic-work/index.html" class="no-external">Discrete and Stochastic Structures in Hyperbolic Geometry</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('QWNhZGVtaWMlMjBXb3Jr'); return false;">Academic Work</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWF0aGVtYXRpY3M='); return false;">Mathematics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('SHlwZXJib2xpYyUyMEdlb21ldHJ5'); return false;">Hyperbolic Geometry</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/academic-work/index.html" class="no-external">
-My research focuses on the intersection of model theory, topology, and stochastic geometry, specifically through the lens of structures embedded in hyperbolic space. Two…<strong></strong><strong></strong>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/academic-work/index.html" class="no-external">
-<div class="listing-date">
-Apr 8, 2026
-</div>
-<div class="listing-author">
-Connor Lockhart
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="TXVzaW5ncyUyQ0VzdGltYXRpb25z" data-listing-date-sort="1775001600000" data-listing-file-modified-sort="1778006354646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="612">
-<div class="thumbnail"><a href="./posts/laundry-quarter-estimation/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/laundry-quarter-estimation/index.html" class="no-external">The Laundry Quarter Recurrence: A Birthday Problem Estimation</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TXVzaW5ncw=='); return false;">Musings</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0aW1hdGlvbnM='); return false;">Estimations</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/laundry-quarter-estimation/index.html" class="no-external">
-Have you ever wondered if the quarter you just dropped into the laundry machine is one you’ve held before? A friend recently asked me this very question. A solution can be…<strong></strong>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/laundry-quarter-estimation/index.html" class="no-external">
-<div class="listing-date">
-Apr 1, 2026
-</div>
-<div class="listing-author">
-Connor Lockhart
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
