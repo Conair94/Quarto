@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(quarto render *)"
+      "Bash(quarto render *)",
+      "Bash(grep -n \"^## \\\\|^---$\" /Users/connorlockhart/Documents/GitHub/Quarto/posts/moonrise-phases/index.qmd)"
     ]
   }
 }

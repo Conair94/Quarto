@@ -17,7 +17,9 @@ Default location is Washington, D.C. ($\varphi = 38.9°\,\text{N}$, $L = -77.04�
 
 ---
 
-## 1. Three reference frames
+## 1. Celestial mechanics from first principles
+
+### Reference frames and the rise equation
 
 Astronomy is bookkeeping in three frames, each more local than the last:
 
@@ -61,9 +63,7 @@ $$ \tan A = \frac{-\sin H}{\tan\delta\cos\varphi - \sin\varphi\cos H} \tag{1.2} 
 Setting $a = h_0$ in (1.1) and solving for $\cos H$ produces (1.3) above. Two solutions $\pm H_0$ correspond to rise (eastern, $-H_0$) and set (western, $+H_0$).
 :::
 
----
-
-## 2. The Sun's apparent motion — Kepler's equation
+### The Sun's apparent motion — Kepler's equation
 
 Earth's orbit is a slight ellipse with eccentricity $e \approx 0.0167$. Earth moves faster at perihelion (early January) and slower at aphelion (early July), so the Sun's apparent ecliptic longitude does *not* advance uniformly in time. The **equation of center** $C$ is the correction from uniform "mean longitude" $L_0$ to the actual ecliptic longitude:
 
@@ -107,9 +107,7 @@ $$ \alpha_\odot = \arctan\!\big(\cos\varepsilon\sin\lambda_\odot,\;\cos\lambda_\
 
 A perfectly full moon sits at $\lambda_M = \lambda_\odot + 180°$. In **December**, the Sun is at $\lambda_\odot \approx 270°$ and dips to $\delta \approx -23.4°$ — far south, short days. The full moon is then at $\lambda_M \approx 90°$ with $\delta_M \approx +23.4°$ — far *north*, **long** time above the horizon. From mid-northern latitudes a high-declination body has $H_0$ close to $\pi$ (it spends almost the whole sidereal day up), so it rises *early* relative to the Sun's setting. The "winter paradox" in the table below is just (1.3) being applied honestly.
 
----
-
-## 3. The Moon — five fundamental arguments
+### The Moon — five fundamental arguments
 
 The Moon's motion is harder because the Sun perturbs its orbit substantially. Every modern lunar theory (Brown, ELP-2000, etc.) parametrizes by five **Delaunay-style fundamental arguments**, all linear in $T$:
 
@@ -155,9 +153,7 @@ $$
 $$
 :::
 
----
-
-## 4. Rise time — refraction, parallax, and sidereal iteration
+### Rise time — refraction, parallax, and sidereal iteration
 
 A body's geometric center is *not* at altitude $0$ when its limb touches the horizon. Atmospheric refraction lifts the image by $\sim 34'$; the Sun's and Moon's apparent semidiameters add another $\sim 16'$; lunar horizontal parallax of $\sim 57'$ shifts the Moon further. Net effect:
 
@@ -186,7 +182,7 @@ Local sidereal time $\theta = \theta_G + L$ for east-positive longitude $L$.
 
 **Iteration.** Starting from noon UT of the desired calendar date,
 
-1. Compute $\alpha(t), \delta(t)$ from §3.
+1. Compute $\alpha(t), \delta(t)$ from the lunar series above.
 2. Compute $H_0$ from (1.3) using (4.1) for $h_0$.
 3. Compute current $H = \theta(t) - \alpha(t)$, normalized to $(-\pi, \pi]$.
 4. Update $t \leftarrow t + (\Delta H)/(2\pi/0.9972696\,\text{days})$ where $\Delta H = -H_0 - H$, normalized.
@@ -194,9 +190,7 @@ Local sidereal time $\theta = \theta_G + L$ for east-positive longitude $L$.
 Two to four iterations converge to under a second. Setting and transit use $+H_0$ and $0$.
 :::
 
----
-
-## 5. The harvest moon, properly
+### The harvest moon effect
 
 The **daily lag in moonrise** — how much later the moon rises tonight than yesterday — is set by how fast the moon's right ascension grows (about $13°/\text{day}$) and by how that RA increase projects onto the *eastern horizon* at the observer's latitude.
 
@@ -214,9 +208,9 @@ A shallow $\psi \approx 25°$ gives $\sim 22$ min, while a steep $\psi \approx 7
 
 ---
 
-## 6. The compute module
+## 2. The compute engine
 
-The next four visualizers all share one OJS module. It implements §§2–4 verbatim. Code is folded; expand to inspect or modify.
+The next four visualizers all share one OJS module implementing the Sun position, Moon position, and rise/set iteration from §1. Code is folded; expand to inspect or modify.
 
 ```{ojs}
 //| code-fold: true
@@ -425,7 +419,7 @@ fmtLocal = function(jd, tzHours) {
 
 ---
 
-## 7. Interactive celestial visualizer (orbital geometry & 24-h timeline)
+## 3. Orbital geometry & horizon timeline
 
 Set your location, date, and time of day. Type values directly into the number boxes, drag sliders, or hit **Animate day-of-year** to sweep through the calendar. The first diagram shows the Earth–Moon–Sun geometry from above the ecliptic; the second is a 24-hour timeline of when the Sun and Moon are above the horizon at your latitude.
 
@@ -668,7 +662,7 @@ currentDateLabel = {
 
 ---
 
-## 8. Two views of the same sky
+## 4. Two views of the same sky
 
 The next two diagrams show *the same instant* from two perspectives. Drag the time-of-day slider above; both diagrams update.
 
@@ -869,9 +863,11 @@ The **wireframe globe** (right) is the same instant viewed from outside Earth. T
 
 ---
 
-## 9. A year of celestial timing (computed live)
+## 5. Full moon calendar & seasonal pattern
 
-The table below is now generated by the code in §6. Every row is a real moonrise–sunset offset for the **next 13 lunations** at your selected location. Negative values mean the moon rises *before* sunset.
+### A year of full moon timings
+
+Every row below is a real moonrise–sunset offset for the **next 13 lunations** at your selected location. Negative values mean the moon rises *before* sunset.
 
 ```{ojs}
 //| code-fold: false
@@ -929,11 +925,9 @@ Inputs.table(fullMoonsTable, {
 
 The seasonal pattern is now reproducible: in late autumn at northern mid-latitudes, the moonrise–sunset offset goes negative (full moon already up at sunset), so a viewer wanting a "rising-just-as-night-falls" moon must actually catch one $1{-}2$ days *past* full, when illumination has fallen to $\sim 95\%$.
 
----
+### The striking-moonrise solver
 
-## 10. The striking-moonrise solver
-
-Given any calendar date, what lunar phase gives a moonrise exactly $1$ hour after sunset? Solve for the elongation $D = \lambda_M - \lambda_\odot$ that makes the moonrise event align with sunset $+ 1$ h. We treat the *true* lunar series of §3 as known and adjust a phase offset $\Delta D$ added to the natural elongation that day; in practice we just bisect on $\Delta D \in (-\pi, \pi]$.
+Given any calendar date, what lunar phase gives a moonrise exactly $1$ hour after sunset? Solve for the elongation $D = \lambda_M - \lambda_\odot$ that makes the moonrise event align with sunset $+ 1$ h. We treat the *true* lunar series of §1 as known and adjust a phase offset $\Delta D$ added to the natural elongation that day; in practice we just bisect on $\Delta D \in (-\pi, \pi]$.
 
 ```{ojs}
 //| code-fold: false
@@ -997,9 +991,7 @@ solverResult = {
 }
 ```
 
----
-
-## 11. The seasonal pattern of the striking moonrise
+### Seasonal phase pattern
 
 The "striking moonrise" — the moon rising one hour after sunset — sweeps through the lunar phases over the course of a year. Below is a single plot of the *required* lunar phase, computed for every day of the next two years at your selected location. The horizontal axis is calendar date; the vertical axis is the synodic phase angle $D = \lambda_M - \lambda_\odot$ (in degrees) needed for moonrise to land exactly at sunset $+1$ h.
 
@@ -1090,7 +1082,7 @@ In the southern hemisphere the pattern flips by six months. At the equator the c
 
 ---
 
-## 12. Conclusion
+## 6. Conclusion
 
 The visual power of a moonrise is not its phase alone — it is the geometry. Three quantities couple: the Sun's declination (via the season), the Moon's declination relative to the Sun's (via the orbital inclination $i = 5.14°$ and the position of the ascending node), and the angle the ecliptic makes with the eastern horizon at the observer's latitude (a slow function of the time of day). The first sets sunset; the second sets how far north or south the full Moon swings from the antisolar point; the third sets how steeply the Moon climbs once it reaches the horizon.
 
