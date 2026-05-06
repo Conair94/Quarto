@@ -1,5 +1,5 @@
 ---
-title: "The Mathematics of the Striking Moonrise"
+title: "The Mathematics of a Striking Moonrise"
 description: "A first-principles derivation of solar and lunar position, rise/set times, and the geometry that produces a perfect moonrise — with interactive visualizers."
 date: "2026-05-05"
 categories: [mathematics, astronomy, celestial-mechanics]
