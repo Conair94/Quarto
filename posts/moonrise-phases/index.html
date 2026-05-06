@@ -232,7 +232,7 @@ window.Quarto = {
   <li><a href="#full-moon-calendar-seasonal-pattern" id="toc-full-moon-calendar-seasonal-pattern" class="nav-link" data-scroll-target="#full-moon-calendar-seasonal-pattern">5. Full moon calendar &amp; seasonal pattern</a>
   <ul class="collapse">
   <li><a href="#a-year-of-full-moon-timings" id="toc-a-year-of-full-moon-timings" class="nav-link" data-scroll-target="#a-year-of-full-moon-timings">A year of full moon timings</a></li>
-  <li><a href="#the-striking-moonrise-solver" id="toc-the-striking-moonrise-solver" class="nav-link" data-scroll-target="#the-striking-moonrise-solver">The striking-moonrise solver</a></li>
+  <li><a href="#moonrise-solver" id="toc-moonrise-solver" class="nav-link" data-scroll-target="#moonrise-solver">Moonrise solver</a></li>
   <li><a href="#seasonal-phase-pattern" id="toc-seasonal-phase-pattern" class="nav-link" data-scroll-target="#seasonal-phase-pattern">Seasonal phase pattern</a></li>
   </ul></li>
   </ul>
@@ -254,7 +254,7 @@ window.Quarto = {
 <p>Every full moon is a gift which commands a certain immediate attention and yet even amongst full moons, individual differences make themselves apparent. The full moon always marks the start of night, but does so unequally throughout the year.</p>
 <p>There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It looks perfectly full, the sky is fully dark, contrast is at its peak. To get this, the moon must rise roughly <strong>one hour after sunset</strong>.</p>
 <p>But on any given calendar date, <em>when</em> does the moon actually rise relative to the sun, and <em>what phase</em> is it then? The answers are seasonal, not constant — and the reason is geometric. This post derives the answer from first principles, building Sun and Moon position, sidereal time, and the rise–set equation from scratch, ending in four interactive diagrams you can drive yourself.</p>
-<p>This post was inspired by the striking late spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous.</p>
+<p>This post was inspired by the spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous.</p>
 <p>The default location for this post is Washington, D.C. (<span class="math inline">\(\varphi = 38.9°\,\text{N}\)</span>, <span class="math inline">\(L = -77.04°\)</span>) but every visualizer accepts your own coordinates.</p>
 <hr>
 <section id="celestial-mechanics-from-first-principles" class="level2">
@@ -1514,8 +1514,8 @@ h_0^{\odot} = -50' \qquad h_0^{M} = 0.7275\,\pi_M - 34' \approx +7'. \tag{4.1}
 </div>
 <p>The seasonal pattern is now reproducible: in late autumn at northern mid-latitudes, the moonrise–sunset offset goes negative (full moon already up at sunset), so a viewer wanting a “rising-just-as-night-falls” moon must actually catch one <span class="math inline">\(1{-}2\)</span> days <em>past</em> full, when illumination has fallen to <span class="math inline">\(\sim 95\%\)</span>.</p>
 </section>
-<section id="the-striking-moonrise-solver" class="level3">
-<h3 class="anchored" data-anchor-id="the-striking-moonrise-solver">The striking-moonrise solver</h3>
+<section id="moonrise-solver" class="level3">
+<h3 class="anchored" data-anchor-id="moonrise-solver">Moonrise solver</h3>
 <p>Given any calendar date, what lunar phase gives a moonrise exactly <span class="math inline">\(1\)</span> hour after sunset? Solve for the elongation <span class="math inline">\(D = \lambda_M - \lambda_\odot\)</span> that makes the moonrise event align with sunset <span class="math inline">\(+ 1\)</span> h. We treat the <em>true</em> lunar series of §1 as known and adjust a phase offset <span class="math inline">\(\Delta D\)</span> added to the natural elongation that day; in practice we just bisect on <span class="math inline">\(\Delta D \in (-\pi, \pi]\)</span>.</p>
 <div class="cell">
 <details class="code-fold">

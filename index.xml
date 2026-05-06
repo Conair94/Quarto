@@ -31,7 +31,7 @@ Visit my main website at [conair94.github.io](https://conair94.github.io).
 <p>Every full moon is a gift which commands a certain immediate attention and yet even amongst full moons, individual differences make themselves apparent. The full moon always marks the start of night, but does so unequally throughout the year.</p>
 <p>There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It looks perfectly full, the sky is fully dark, contrast is at its peak. To get this, the moon must rise roughly <strong>one hour after sunset</strong>.</p>
 <p>But on any given calendar date, <em>when</em> does the moon actually rise relative to the sun, and <em>what phase</em> is it then? The answers are seasonal, not constant — and the reason is geometric. This post derives the answer from first principles, building Sun and Moon position, sidereal time, and the rise–set equation from scratch, ending in four interactive diagrams you can drive yourself.</p>
-<p>This post was inspired by the striking late spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous.</p>
+<p>This post was inspired by the spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous.</p>
 <p>The default location for this post is Washington, D.C. (<img src="https://latex.codecogs.com/png.latex?%5Cvarphi%20=%2038.9%C2%B0%5C,%5Ctext%7BN%7D">, <img src="https://latex.codecogs.com/png.latex?L%20=%20-77.04%C2%B0">) but every visualizer accepts your own coordinates.</p>
 <hr>
 <section id="celestial-mechanics-from-first-principles" class="level2">
@@ -11021,8 +11021,8 @@ font-style: inherit;">"Illum at sunset+1h"</span>}</span>
 </div>
 <p>The seasonal pattern is now reproducible: in late autumn at northern mid-latitudes, the moonrise–sunset offset goes negative (full moon already up at sunset), so a viewer wanting a “rising-just-as-night-falls” moon must actually catch one <img src="https://latex.codecogs.com/png.latex?1%7B-%7D2"> days <em>past</em> full, when illumination has fallen to <img src="https://latex.codecogs.com/png.latex?%5Csim%2095%5C%25">.</p>
 </section>
-<section id="the-striking-moonrise-solver" class="level3">
-<h3 class="anchored" data-anchor-id="the-striking-moonrise-solver">The striking-moonrise solver</h3>
+<section id="moonrise-solver" class="level3">
+<h3 class="anchored" data-anchor-id="moonrise-solver">Moonrise solver</h3>
 <p>Given any calendar date, what lunar phase gives a moonrise exactly <img src="https://latex.codecogs.com/png.latex?1"> hour after sunset? Solve for the elongation <img src="https://latex.codecogs.com/png.latex?D%20=%20%5Clambda_M%20-%20%5Clambda_%5Codot"> that makes the moonrise event align with sunset <img src="https://latex.codecogs.com/png.latex?+%201"> h. We treat the <em>true</em> lunar series of §1 as known and adjust a phase offset <img src="https://latex.codecogs.com/png.latex?%5CDelta%20D"> added to the natural elongation that day; in practice we just bisect on <img src="https://latex.codecogs.com/png.latex?%5CDelta%20D%20%5Cin%20(-%5Cpi,%20%5Cpi%5D">.</p>
 <div class="cell">
 <details class="code-fold">
