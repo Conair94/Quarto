@@ -28,7 +28,7 @@ There is a particular kind of moonrise that commands attention: an enormous, bri
 
 But on any given calendar date, *when* does the moon actually rise relative to the sun, and *what phase* is it then? The answers are seasonal, not constant — and the reason is geometric. This post derives the answer from first principles, building Sun and Moon position, sidereal time, and the rise–set equation from scratch, ending in four interactive diagrams you can drive yourself. 
 
-This post was inspired by the striking late spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous. 
+This post was inspired by the spring full moon on May 1st 2026, the Flower moon. My hope is the reader leaves with an enhanced appreciation of the difference between the waxing and waning gibbous. 
 
 The default location for this post is Washington, D.C. ($\varphi = 38.9°\,\text{N}$, $L = -77.04°$) but every visualizer accepts your own coordinates.
 
@@ -948,7 +948,7 @@ Inputs.table(fullMoonsTable, {
 
 The seasonal pattern is now reproducible: in late autumn at northern mid-latitudes, the moonrise–sunset offset goes negative (full moon already up at sunset), so a viewer wanting a "rising-just-as-night-falls" moon must actually catch one $1{-}2$ days *past* full, when illumination has fallen to $\sim 95\%$.
 
-### The striking-moonrise solver
+### Moonrise solver
 
 Given any calendar date, what lunar phase gives a moonrise exactly $1$ hour after sunset? Solve for the elongation $D = \lambda_M - \lambda_\odot$ that makes the moonrise event align with sunset $+ 1$ h. We treat the *true* lunar series of §1 as known and adjust a phase offset $\Delta D$ added to the natural elongation that day; in practice we just bisect on $\Delta D \in (-\pi, \pi]$.
 
