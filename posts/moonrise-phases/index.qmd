@@ -1097,11 +1097,3 @@ For mid-northern observers (D.C., $\sim 39°\text{N}$), the pattern is:
 This corrects a common intuition: it is *late autumn / early winter* — not summer — when the striking moon visible 1 hour after sunset is a clearly waning gibbous, because that is when the geometry pushes the full moon's natural rise time *earliest* relative to sunset. The "harvest moon" of September is the gateway into this regime; by November the deviation peaks. Conversely, summer full moons rise *late* (south-of-equator declination, short time above horizon) so a sunset+1h viewing catches them essentially at full.
 
 In the southern hemisphere the pattern flips by six months. At the equator the curve is nearly flat at $D \approx 180°$ year-round.
-
----
-
-## 6. Conclusion
-
-The visual power of a moonrise is not its phase alone — it is the geometry. Three quantities couple: the Sun's declination (via the season), the Moon's declination relative to the Sun's (via the orbital inclination $i = 5.14°$ and the position of the ascending node), and the angle the ecliptic makes with the eastern horizon at the observer's latitude (a slow function of the time of day). The first sets sunset; the second sets how far north or south the full Moon swings from the antisolar point; the third sets how steeply the Moon climbs once it reaches the horizon.
-
-Late winter and early spring full moons are mathematically gentle: the ecliptic crosses the eastern horizon steeply at sunset, the moon climbs sharply, the lag from sunset is short and positive, and a near-99%-illuminated disk crests against an inky sky. By late summer and early autumn, the geometry inverts: the ecliptic lies almost flat against the eastern horizon, full-moon-rise can *precede* sunset, and the "striking" moon you actually see is a 95%-illuminated waning gibbous, one to two days past nominal full. The visualizers above let you verify both regimes for any calendar date and any latitude.
