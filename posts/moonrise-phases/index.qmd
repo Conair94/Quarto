@@ -9,9 +9,23 @@ format:
     toc: true
 ---
 
+雪と雪今宵師走の名月か
+
+Yuki to yuki koyoi shiwasu no meigetsu ka
+
+
+It snows and snows.
+
+Tonight’s the full moon of December,
+
+One wonders
+-Matsuo Basho, Winter 1684
+
 There is a particular kind of moonrise that commands attention: an enormous, brilliant disk cresting the horizon just as twilight fades into true night. It looks perfectly full, the sky is fully dark, contrast is at its peak. To get this, the moon must rise roughly **one hour after sunset**.
 
 But on any given calendar date, *when* does the moon actually rise relative to the sun, and *what phase* is it then? The answers are seasonal, not constant — and the reason is geometric. This post derives the answer from first principles, building Sun and Moon position, sidereal time, and the rise–set equation from scratch, ending in four interactive diagrams you can drive yourself.
+
+This post was inspired by the striking late spring full moon on May 1st 2026, the Flower moon. 
 
 Default location is Washington, D.C. ($\varphi = 38.9°\,\text{N}$, $L = -77.04°$); every visualizer accepts your own coordinates.
 
@@ -106,6 +120,8 @@ $$ \alpha_\odot = \arctan\!\big(\cos\varepsilon\sin\lambda_\odot,\;\cos\lambda_\
 ### Why winter inverts the moonrise lag
 
 A perfectly full moon sits at $\lambda_M = \lambda_\odot + 180°$. In **December**, the Sun is at $\lambda_\odot \approx 270°$ and dips to $\delta \approx -23.4°$ — far south, short days. The full moon is then at $\lambda_M \approx 90°$ with $\delta_M \approx +23.4°$ — far *north*, **long** time above the horizon. From mid-northern latitudes a high-declination body has $H_0$ close to $\pi$ (it spends almost the whole sidereal day up), so it rises *early* relative to the Sun's setting. The "winter paradox" in the table below is just (1.3) being applied honestly.
+
+This can be visualized by imaging a sphere, say a naval orange, and dividing it in half with a mark, one half will be the hemisphere that is visible to a person on the ground. Then place a ribbon around the orange along this mark and spin it so the center of the ribbon is no longer following the center of the mark. From here, the edges of the ribbon represent the angle of the sun during the solstices, and the center of the ribbon will represent the equinox. One edge of the ribbon will intersect the hemisphere more, that is the summer solstice, the one that is less is the winter solstice. The movement of the moon will be the opposite edge of the ribbon relative to whatever edge is representing the sun. This is why the lunar day is long when the solar day is short and vice versa.  
 
 ### The Moon — five fundamental arguments
 
