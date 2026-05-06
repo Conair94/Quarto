@@ -125,6 +125,8 @@ A perfectly full moon sits at $\lambda_M = \lambda_\odot + 180°$. In **December
 
 This can be visualized by imaging a sphere, say a naval orange, and dividing it in half with a mark, one half will be the hemisphere that is visible to a person on the ground. Then place a ribbon around the orange along this mark and spin it so the center of the ribbon is no longer following the center of the mark. From here, the edges of the ribbon represent the angle of the sun during the solstices, and the center of the ribbon will represent the equinox. One edge of the ribbon will intersect the hemisphere more, that is the summer solstice, the one that is less is the winter solstice. The movement of the moon will be the opposite edge of the ribbon relative to whatever edge is representing the sun. This is why the lunar day is long when the solar day is short and vice versa.  
 
+For an excellent visual aid, consult this link and imagine the yellow band as the ribbon on the orange in the above analogy. https://andrewmarsh.com/apps/staging/sunpath3d.html
+
 ### The Moon — five fundamental arguments
 
 The Moon's motion is harder because the Sun perturbs its orbit substantially. Every modern lunar theory (Brown, ELP-2000, etc.) parametrizes by five **Delaunay-style fundamental arguments**, all linear in $T$:
